@@ -19,12 +19,11 @@
 // ---- Methods ----
 
 class DMXESPSerial {
-public:
-  void init();
-  uint8_t read(int Channel);
-  void write(int channel, uint8_t value);
-  void update();
-  void end();
+    public:
+        void init();
+        uint8_t read(int Channel);
+        void write(int channel, uint8_t value);void update();
+        void end();
 };
 
 #endif
