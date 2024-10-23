@@ -1,10 +1,8 @@
-// Art-Net DMX Interface Demo
-// 2024-10-17 Patrick Schwarz
-
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
 
 #include "ESPDMX.h"
+#include <ESPAsyncWebServer.h>
 
 // WiFi stuff
 const char *ssid = "artnet";
@@ -12,6 +10,8 @@ const char *pwd = "mbgmbgmbg";
 const IPAddress ip(192, 168, 1, 201);
 const IPAddress gateway(192, 168, 1, 1);
 const IPAddress subnet(255, 255, 255, 0);
+
+AsyncWebServer server(80);
 
 // Art-Net stuff
 ArtnetWiFi artnet;
@@ -28,7 +28,7 @@ void setup()
 {
 
     // Serial console
-    // Serial.begin(115200);
+    Serial.begin(9600);
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -89,6 +89,15 @@ void setup()
         Serial.print(", size = ");
         Serial.print(size);
         Serial.println(")");*/ });
+
+    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
+              { 
+            Serial.println("ESP32 Web Server: New request received:");  // for debugging 
+            Serial.println("GET /");        // for debugging 
+            request->send(200, "text/html", "<html><body><h1>Hello, I'm a DMX-INTERFACE!</h1></body></html>"); });
+
+    server.begin();
+    Serial.println("Server started!");
 }
 
 void loop()
