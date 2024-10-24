@@ -3,6 +3,7 @@
 
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
+#include <SPIFFS.h>
 
 // WiFi stuff
 const char *ssid = "artnet";
@@ -90,11 +91,17 @@ void setup()
         Serial.print(size);
         Serial.println(")");*/ });
 
+    if (!SPIFFS.begin(true))
+    {
+        Serial.println("An Error has occurred while mounting SPIFFS");
+        return;
+    }
+
     server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
               { 
             Serial.println("ESP32 Web Server: New request received:");  // for debugging 
             Serial.println("GET /");        // for debugging 
-            request->send(200, "text/html", "<html><body><h1>Hello, I'm a DMX-INTERFACE!</h1></body></html>"); });
+            request->send(SPIFFS, "/index.html"); });
 
     server.begin();
     Serial.println("Server started!");
