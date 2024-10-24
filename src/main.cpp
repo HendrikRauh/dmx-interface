@@ -1,6 +1,7 @@
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
 
+#include <ArduinoJson.h>
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
@@ -73,6 +74,19 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
+    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
+              {
+                DynamicJsonDocument doc(1024);
+
+                doc["ssid"] = ssid;
+                doc["pwd"] = pwd;
+                doc["ip"] = defaultIp;
+                doc["universe"] = universe;
+
+                String jsonString;
+                serializeJson(doc, jsonString);
+
+                request->send(200, "application/json", jsonString); });
     delay(1000);
     server.begin();
     Serial.println("Server started!");
