@@ -1,0 +1,54 @@
+:root {
+    --color-primary: #087e8b;
+    --color-on-primary: white;
+}
+
+body {
+    background-color: #222;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+form > * {
+    margin-bottom: 16px;
+}
+
+fieldset {
+    border-radius: 8px;
+}
+
+input,
+select {
+    display: block;
+    width: 300px;
+    background-color: #222;
+    color: white;
+    border: 1px solid white;
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+}
+
+button {
+    border: none;
+    inset: none;
+    border-radius: 8px;
+    background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    padding: 8px 16px;
+}
+
+:is(div:has(:is(input, select)), input, select)
+    + :is(div:has(:is(input, select)), input, select) {
+    margin-top: 8px;
+}
+
+.hidden {
+    display: none;
+}
