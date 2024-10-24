@@ -4,32 +4,35 @@
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
+#include <Preferences.h>
 
-// WiFi stuff
-const char *ssid = "artnet";
-const char *pwd = "mbgmbgmbg";
-const IPAddress ip(192, 168, 1, 201);
-const IPAddress gateway(192, 168, 1, 1);
-const IPAddress subnet(255, 255, 255, 0);
+Preferences config;
+DMXESPSerial dmx;
 
 AsyncWebServer server(80);
 
-// Art-Net stuff
 ArtnetWiFi artnet;
-// const String target_ip = "192.168.1.200";
-uint8_t universe = 1; // 0 - 15
 const uint16_t size = 512;
 uint8_t data[size];
-uint8_t value = 0;
-
-// DMX stuff
-DMXESPSerial dmx;
 
 void setup()
 {
-
-    // Serial console
     Serial.begin(9600);
+
+    config.begin("dmx", false);
+
+    uint8_t universe = config.getUChar("universe", 1);
+
+    String ssid = config.getString("ssid", "artnet");
+    String pwd = config.getString("pwd", "mbgmbgmbg");
+    IPAddress defaultIp(192, 168, 1, 201);
+    IPAddress ip = config.getUInt("ip", defaultIp);
+
+    IPAddress cidr = config.getUChar("cidr", 24);
+
+    // TODO: \/ Herleiten \/ @psxde
+    const IPAddress gateway(192, 168, 1, 1);
+    const IPAddress subnet(255, 255, 255, 0);
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -70,6 +73,7 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
+    delay(1000);
     server.begin();
     Serial.println("Server started!");
 }
