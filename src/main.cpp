@@ -97,11 +97,7 @@ void setup()
         return;
     }
 
-    server.on("/", HTTP_GET, [](AsyncWebServerRequest *request)
-              { 
-            Serial.println("ESP32 Web Server: New request received:");  // for debugging 
-            Serial.println("GET /");        // for debugging 
-            request->send(SPIFFS, "/index.html"); });
+    server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
     server.begin();
     Serial.println("Server started!");
