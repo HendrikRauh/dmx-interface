@@ -52,44 +52,15 @@ void setup()
     // if Artnet packet comes to this universe, this function is called
     artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
-                                       /*Serial.print("lambda : artnet data from ");
-                                       Serial.print(remote.ip);
-                                       Serial.print(":");
-                                       Serial.print(remote.port);
-                                       Serial.print(", universe = ");
-                                       Serial.print(universe);
-                                       Serial.print(", size = ");
-                                       Serial.print(size);
-                                       Serial.print(") :");*/
+                                    for (size_t i = 0; i < size; ++i)
+                                    {
+                                        dmx.write((i + 1), data[i]);
+                                    }
 
-                                       for (size_t i = 0; i < size; ++i)
-                                       {
-                                           dmx.write((i + 1), data[i]);
-                                           //    Serial.print(data[i]);
-                                           //    Serial.print(",");
-                                       }
-                                       // Serial.println();
-
-                                       dmx.update(); });
+                                    dmx.update(); });
 
     // if Artnet packet comes, this function is called to every universe
-    artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
-                           {
-        /*Serial.print("received ArtNet data from ");
-        Serial.print(remote.ip);
-        Serial.print(":");
-        Serial.print(remote.port);
-        Serial.print(", net = ");
-        Serial.print(metadata.net);
-        Serial.print(", subnet = ");
-        Serial.print(metadata.subnet);
-        Serial.print(", universe = ");
-        Serial.print(metadata.universe);
-        Serial.print(", sequence = ");
-        Serial.print(metadata.sequence);
-        Serial.print(", size = ");
-        Serial.print(size);
-        Serial.println(")");*/ });
+    artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
 
     if (!SPIFFS.begin(true))
     {
@@ -106,11 +77,4 @@ void setup()
 void loop()
 {
     artnet.parse(); // check if artnet packet has come and execute callback
-
-    /*value = (millis() / 4) % 256;
-    memset(data, value, size);
-
-    artnet.setArtDmxData(data, size);
-    artnet.streamArtDmxTo(target_ip, universe);  // automatically send set data in 40fps
-    // artnet.streamArtDmxTo(target_ip, net, subnet, univ);  // or you can set net, subnet, and universe */
 }
