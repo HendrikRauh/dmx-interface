@@ -5,12 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Konfiguration</title>
         <link rel="stylesheet" href="/style.css" />
-        <script src="/input-visibility.js" defer></script>
+        <script type="module" src="/input-visibility.js" defer></script>
+        <script type="module" src="/submit.js" defer></script>
     </head>
     <body>
         <h1>Konfiguration</h1>
 
-        <form action="" method="post">
+        <form>
             <fieldset>
                 <legend>Verbindung</legend>
 
@@ -80,6 +81,8 @@
                         type="checkbox"
                         name="input-or-output-1"
                         id="input-input-or-output-1"
+                        data-value-not-checked="output"
+                        data-value-checked="input"
                     />
                     <span class="slider"></span>
                     <span>Input</span>
@@ -104,6 +107,8 @@
                         type="checkbox"
                         name="input-or-output-2"
                         id="input-input-or-output-2"
+                        data-value-not-checked="output"
+                        data-value-checked="input"
                     />
                     <span class="slider"></span>
                     <span>Input</span>
