@@ -5,12 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Konfiguration</title>
         <link rel="stylesheet" href="/style.css" />
-        <script src="/script.js" defer></script>
+        <script type="module" src="/input-visibility.js" defer></script>
+        <script type="module" src="/submit.js" defer></script>
     </head>
     <body>
         <h1>Konfiguration</h1>
 
-        <form action="" method="post">
+        <form>
             <fieldset>
                 <legend>Verbindung</legend>
 
@@ -73,13 +74,53 @@
             </fieldset>
 
             <fieldset>
-                <legend>Art-Net</legend>
+                <legend>Input/Output 1</legend>
+                <label class="switch">
+                    <span>Output</span>
+                    <input
+                        type="checkbox"
+                        name="input-or-output-1"
+                        id="input-input-or-output-1"
+                        data-value-not-checked="output"
+                        data-value-checked="input"
+                    />
+                    <span class="slider"></span>
+                    <span>Input</span>
+                </label>
 
                 <input
                     type="number"
-                    name="universe"
-                    id="universe"
+                    name="universe-1"
+                    id="universe-1"
                     placeholder="Universe"
+                    min="0"
+                    max="15"
+                />
+            </fieldset>
+
+            <fieldset>
+                <legend>Input/Output 2</legend>
+
+                <label class="switch">
+                    <span>Output</span>
+                    <input
+                        type="checkbox"
+                        name="input-or-output-2"
+                        id="input-input-or-output-2"
+                        data-value-not-checked="output"
+                        data-value-checked="input"
+                    />
+                    <span class="slider"></span>
+                    <span>Input</span>
+                </label>
+
+                <input
+                    type="number"
+                    name="universe-2"
+                    id="universe-2"
+                    placeholder="Universe"
+                    min="0"
+                    max="15"
                 />
             </fieldset>
 
