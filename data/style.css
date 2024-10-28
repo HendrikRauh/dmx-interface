@@ -4,9 +4,25 @@
 }
 
 body {
-    background-color: #222;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to left, #065760, black, black, #065760);
     color: white;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+main {
+    background-color: #222;
+    max-width: 700px;
+    padding: 8px max(5%, 8px);
+    margin: 0 auto;
+    height: 100vh;
+    overflow: scroll;
+}
+
+h1 {
+    text-align: center;
 }
 
 form > * {
@@ -17,10 +33,17 @@ fieldset {
     border-radius: 8px;
 }
 
+label {
+    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 input,
 select {
-    display: block;
-    width: 300px;
+    width: clamp(200px, 100%, 400px);
     background-color: #222;
     color: white;
     border: 1px solid white;
@@ -36,12 +59,14 @@ select:focus {
 }
 
 button {
+    display: block;
     border: none;
     inset: none;
     border-radius: 8px;
     background-color: var(--color-primary);
     color: var(--color-on-primary);
     padding: 8px 16px;
+    margin: 0 auto;
 }
 
 :is(div:has(:is(input, select)), input, select, label)
