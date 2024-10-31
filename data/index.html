@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Konfiguration</title>
+        <link rel="stylesheet" href="/style.css" />
+        <script type="module" src="/input-visibility.js" defer></script>
+        <script type="module" src="/load-data.js" defer></script>
+        <script type="module" src="/submit.js" defer></script>
+    </head>
+    <body>
+        <main>
+            <h1>Konfiguration</h1>
+            <form>
+                <fieldset>
+                    <legend>Verbindung</legend>
+                    <label for="ip-method"
+                        >IP-Zuweisung:
+                        <select
+                            name="ip-method"
+                            id="input-ip-method"
+                            title="IP-"
+                        >
+                            <option value="static">Statisch</option>
+                            <option value="dhcp">DHCP</option>
+                        </select>
+                    </label>
+                    <div data-field="input-ip-method" data-values="static">
+                        <label>
+                            IP-Adresse/CIDR:
+                            <input
+                                type="text"
+                                name="ip"
+                                id="input-ip"
+                                placeholder="IP-Adresse/CIDR"
+                            />
+                        </label>
+                    </div>
+                    <label>
+                        Verbindungsmethode:
+                        <select
+                            name="connection"
+                            id="input-connection"
+                            title="Verbindung"
+                        >
+                            <option value="wifi-sta">WiFi-Station</option>
+                            <option value="wifi-ap">WiFi-AccessPoint</option>
+                            <option value="ethernet">Ethernet</option>
+                        </select>
+                    </label>
+                    <div data-field="input-connection" data-values="wifi-sta">
+                        <label>
+                            SSID:
+                            <input
+                                type="text"
+                                name="ssid"
+                                id="input-ssid"
+                                placeholder="SSID"
+                            />
+                        </label>
+                    </div>
+                    <div data-field="input-connection" data-values="wifi-ap">
+                        <label>
+                            Netzwerk:
+                            <select
+                                name="network"
+                                id="input-network"
+                                title="Netzwerk"
+                            ></select>
+                        </label>
+                    </div>
+                    <div
+                        data-field="input-connection"
+                        data-values="wifi-sta|wifi-ap"
+                    >
+                        <label>
+                            Password:
+                            <input
+                                type="password"
+                                name="password"
+                                id="input-password"
+                                placeholder="Passwort"
+                            />
+                        </label>
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Input/Output 1</legend>
+                    <label class="switch">
+                        <span>Output</span>
+                        <input
+                            type="checkbox"
+                            name="input-or-output-1"
+                            id="input-input-or-output-1"
+                            data-value-not-checked="output"
+                            data-value-checked="input"
+                        />
+                        <span class="slider"></span>
+                        <span>Input</span>
+                    </label>
+                    <label>
+                        ArtNet-Universe:
+                        <input
+                            type="number"
+                            name="universe-1"
+                            id="universe-1"
+                            placeholder="Universe"
+                            min="0"
+                            max="15"
+                        />
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Input/Output 2</legend>
+                    <label class="switch">
+                        <span>Output</span>
+                        <input
+                            type="checkbox"
+                            name="input-or-output-2"
+                            id="input-input-or-output-2"
+                            data-value-not-checked="output"
+                            data-value-checked="input"
+                        />
+                        <span class="slider"></span>
+                        <span>Input</span>
+                    </label>
+                    <label>
+                        ArtNet-Universe:
+                        <input
+                            type="number"
+                            name="universe-2"
+                            id="universe-2"
+                            placeholder="Universe"
+                            min="0"
+                            max="15"
+                        />
+                    </label>
+                </fieldset>
+                <button type="submit">Speichern</button>
+            </form>
+        </main>
+    </body>
+</html>

@@ -1,34 +1,39 @@
-// Art-Net DMX Interface Demo
-// 2024-10-17 Patrick Schwarz
-
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
 
+#include <ArduinoJson.h>
 #include "ESPDMX.h"
+#include <ESPAsyncWebServer.h>
+#include <SPIFFS.h>
+#include <Preferences.h>
 
-// WiFi stuff
-const char *ssid = "artnet";
-const char *pwd = "mbgmbgmbg";
-const IPAddress ip(192, 168, 1, 201);
-const IPAddress gateway(192, 168, 1, 1);
-const IPAddress subnet(255, 255, 255, 0);
+Preferences config;
+DMXESPSerial dmx;
 
-// Art-Net stuff
+AsyncWebServer server(80);
+
 ArtnetWiFi artnet;
-// const String target_ip = "192.168.1.200";
-uint8_t universe = 1; // 0 - 15
 const uint16_t size = 512;
 uint8_t data[size];
-uint8_t value = 0;
-
-// DMX stuff
-DMXESPSerial dmx;
 
 void setup()
 {
+    Serial.begin(9600);
 
-    // Serial console
-    // Serial.begin(115200);
+    config.begin("dmx", false);
+
+    uint8_t universe = config.getUChar("universe", 1);
+
+    String ssid = config.getString("ssid", "artnet");
+    String pwd = config.getString("pwd", "mbgmbgmbg");
+    IPAddress defaultIp(192, 168, 1, 201);
+    IPAddress ip = config.getUInt("ip", defaultIp);
+
+    IPAddress cidr = config.getUChar("cidr", 24);
+
+    // TODO: \/ Herleiten \/ @psxde
+    const IPAddress gateway(192, 168, 1, 1);
+    const IPAddress subnet(255, 255, 255, 0);
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -51,54 +56,43 @@ void setup()
     // if Artnet packet comes to this universe, this function is called
     artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
-                                       /*Serial.print("lambda : artnet data from ");
-                                       Serial.print(remote.ip);
-                                       Serial.print(":");
-                                       Serial.print(remote.port);
-                                       Serial.print(", universe = ");
-                                       Serial.print(universe);
-                                       Serial.print(", size = ");
-                                       Serial.print(size);
-                                       Serial.print(") :");*/
+                                    for (size_t i = 0; i < size; ++i)
+                                    {
+                                        dmx.write((i + 1), data[i]);
+                                    }
 
-                                       for (size_t i = 0; i < size; ++i)
-                                       {
-                                           dmx.write((i + 1), data[i]);
-                                           //    Serial.print(data[i]);
-                                           //    Serial.print(",");
-                                       }
-                                       // Serial.println();
-
-                                       dmx.update(); });
+                                    dmx.update(); });
 
     // if Artnet packet comes, this function is called to every universe
-    artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
-                           {
-        /*Serial.print("received ArtNet data from ");
-        Serial.print(remote.ip);
-        Serial.print(":");
-        Serial.print(remote.port);
-        Serial.print(", net = ");
-        Serial.print(metadata.net);
-        Serial.print(", subnet = ");
-        Serial.print(metadata.subnet);
-        Serial.print(", universe = ");
-        Serial.print(metadata.universe);
-        Serial.print(", sequence = ");
-        Serial.print(metadata.sequence);
-        Serial.print(", size = ");
-        Serial.print(size);
-        Serial.println(")");*/ });
+    artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
+
+    if (!SPIFFS.begin(true))
+    {
+        Serial.println("An Error has occurred while mounting SPIFFS");
+        return;
+    }
+
+    server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+
+    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
+              {
+                DynamicJsonDocument doc(1024);
+
+                doc["ssid"] = ssid;
+                doc["pwd"] = pwd;
+                doc["ip"] = defaultIp;
+                doc["universe"] = universe;
+
+                String jsonString;
+                serializeJson(doc, jsonString);
+
+                request->send(200, "application/json", jsonString); });
+    delay(1000);
+    server.begin();
+    Serial.println("Server started!");
 }
 
 void loop()
 {
     artnet.parse(); // check if artnet packet has come and execute callback
-
-    /*value = (millis() / 4) % 256;
-    memset(data, value, size);
-
-    artnet.setArtDmxData(data, size);
-    artnet.streamArtDmxTo(target_ip, universe);  // automatically send set data in 40fps
-    // artnet.streamArtDmxTo(target_ip, net, subnet, univ);  // or you can set net, subnet, and universe */
 }
