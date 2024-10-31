@@ -87,6 +87,17 @@ void setup()
                 serializeJson(doc, jsonString);
 
                 request->send(200, "application/json", jsonString); });
+
+    server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
+                         {
+                            if (request->url() == "/config" && request->method() == HTTP_PUT) {
+                                Serial.printf("[REQUEST]\t%s\r\n", (const char *)data);
+
+                                StaticJsonDocument<256> doc;
+                                deserializeJson(doc, data);
+                                request->send(200);
+                            } });
+
     delay(1000);
     server.begin();
     Serial.println("Server started!");
