@@ -76,7 +76,7 @@ void setup()
 
     server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
               {
-                DynamicJsonDocument doc(1024);
+                JsonDocument doc;
 
                 doc["ssid"] = ssid;
                 doc["pwd"] = pwd;
