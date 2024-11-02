@@ -50,8 +50,7 @@ IpMethod parseIpMethod(String ipMethod)
         return DHCP;
     }
 
-    // FIXME: concat strings
-    throw ::std::invalid_argument("Invalid IP method value" + ipMethod);
+    throw ::std::invalid_argument("Invalid IP method value");
 }
 
 Connection parseConnection(String connection)
@@ -69,8 +68,7 @@ Connection parseConnection(String connection)
         return Ethernet;
     }
 
-    // FIXME: concat strings
-    throw ::std::invalid_argument("Invalid connection value: " + connection);
+    throw ::std::invalid_argument("Invalid connection value");
 }
 
 Direction parseDirection(uint8_t direction)
