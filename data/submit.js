@@ -13,7 +13,7 @@ function parseValue(input) {
 
     if (input.type === "number") {
         const number = Number(input.value);
-        return isNaN(number) ? null : number;
+        return Number.isNaN(number) ? null : number;
     }
 
     return input.value;

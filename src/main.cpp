@@ -1,13 +1,9 @@
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
-
-#include <ArduinoJson.h>
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-#include <Preferences.h>
-
-Preferences config;
+#include "routes/config.h"
 
 DMXESPSerial dmx1;
 DMXESPSerial dmx2;
@@ -15,6 +11,8 @@ DMXESPSerial dmx2;
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
+DMXESPSerial dmx;
+
 const uint16_t size = 512;
 uint8_t data[size];
 
@@ -24,10 +22,14 @@ void setup()
 
     config.begin("dmx", false);
 
-    uint8_t universe = config.getUChar("universe", 1);
+    uint8_t universe1 = config.getUChar("universe-1", 1);
+    uint8_t universe2 = config.getUChar("universe-2", 1);
+
+    Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
+    Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
 
     String ssid = config.getString("ssid", "artnet");
-    String pwd = config.getString("pwd", "mbgmbgmbg");
+    String pwd = config.getString("password", "mbgmbgmbg");
     IPAddress defaultIp(192, 168, 1, 201);
     IPAddress ip = config.getUInt("ip", defaultIp);
 
@@ -56,7 +58,7 @@ void setup()
     dmx1.init(19, -1);
 
     // if Artnet packet comes to this universe, this function is called
-    artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
+    artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
                                     for (size_t i = 0; i < size; ++i)
                                     {
@@ -76,19 +78,15 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
-              {
-                JsonDocument doc;
+    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
+              { onGetConfig(ssid, pwd, defaultIp, universe1, direction1, universe2, direction2, request); });
 
-                doc["ssid"] = ssid;
-                doc["pwd"] = pwd;
-                doc["ip"] = defaultIp;
-                doc["universe"] = universe;
+    server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
+                         {
+                            if (request->url() == "/config" && request->method() == HTTP_PUT) {
+                                onPutConfig(request, data, len, index, total);
+                            } });
 
-                String jsonString;
-                serializeJson(doc, jsonString);
-
-                request->send(200, "application/json", jsonString); });
     delay(1000);
     server.begin();
     Serial.println("Server started!");

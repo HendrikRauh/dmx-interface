@@ -28,28 +28,35 @@ void DMXESPSerial::init(int pinSend, int pinRecv)
 }
 
 // Function to read DMX data
-uint8_t DMXESPSerial::read(int Channel)
+uint8_t DMXESPSerial::read(int channel)
 {
-    if (Channel < 1)
-        Channel = 1;
-    if (Channel > DMXCHANNELS)
-        Channel = DMXCHANNELS;
-    return (dmxDataStore[Channel]);
+    if (dmxStarted == false)
+        init();
+
+    if (channel < 1)
+        channel = 1;
+    if (channel > DMXCHANNELS)
+        channel = DMXCHANNELS;
+    return (dmxDataStore[channel]);
 }
 
 // Function to send DMX data
-void DMXESPSerial::write(int Channel, uint8_t value)
+void DMXESPSerial::write(int channel, uint8_t value)
 {
-    if (Channel < 1)
-        Channel = 1;
-    if (Channel > DMXCHANNELS)
-        Channel = DMXCHANNELS;
+
+    if (dmxStarted == false)
+        init();
+
+    if (channel < 1)
+        channel = 1;
+    if (channel > DMXCHANNELS)
+        channel = DMXCHANNELS;
     if (value < 0)
         value = 0;
     if (value > 255)
         value = 255;
 
-    dmxDataStore[Channel] = value;
+    dmxDataStore[channel] = value;
 }
 
 void DMXESPSerial::end()
