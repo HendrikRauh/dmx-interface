@@ -8,13 +8,17 @@
 #include <Preferences.h>
 
 Preferences config;
-DMXESPSerial dmx;
+
+DMXESPSerial dmx1;
+DMXESPSerial dmx2;
 
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
 const uint16_t size = 512;
 uint8_t data[size];
+
+int selectedId = 0;
 
 void setup()
 {
@@ -51,17 +55,17 @@ void setup()
     artnet.begin();
 
     // Initialize DMX ports
-    dmx.init();
+    dmx.init(0, 19, -1);
 
     // if Artnet packet comes to this universe, this function is called
     artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
                                     for (size_t i = 0; i < size; ++i)
                                     {
-                                        dmx.write((i + 1), data[i]);
+                                        dmx.write(selectedId, (i + 1), data[i]);
                                     }
 
-                                    dmx.update(); });
+                                    dmx.update(selectedId); });
 
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
