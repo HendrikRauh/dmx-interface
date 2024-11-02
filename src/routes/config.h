@@ -28,7 +28,7 @@ enum Direction
     Output
 };
 
-void onGetConfig(String ssid, String pwd, uint32_t ip, uint8_t universe, AsyncWebServerRequest *request);
+void onGetConfig(String ssid, String pwd, uint32_t ip, uint8_t universe1, Direction direction1, uint8_t universe2, Direction direction2, AsyncWebServerRequest *request);
 
 void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total);
 

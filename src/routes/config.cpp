@@ -87,14 +87,20 @@ Direction parseDirection(uint8_t direction)
 
 #pragma endregion
 
-void onGetConfig(String ssid, String pwd, uint32_t ip, uint8_t universe, AsyncWebServerRequest *request)
+void onGetConfig(String ssid, String pwd, uint32_t ip, uint8_t universe1, Direction direction1, uint8_t universe2, Direction direction2, AsyncWebServerRequest *request)
 {
     JsonDocument doc;
 
+    IPAddress ipAddr = ip;
+    String ipString = ipAddr.toString();
+
     doc["ssid"] = ssid;
     doc["password"] = pwd;
-    doc["ip"] = ip;
-    doc["universe"] = universe;
+    doc["ip"] = ipString;
+    doc["universe-1"] = universe1;
+    doc["direction-1"] = direction1;
+    doc["universe-2"] = universe2;
+    doc["direction-2"] = direction2;
 
     String jsonString;
     serializeJson(doc, jsonString);
