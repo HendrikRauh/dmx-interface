@@ -1,18 +1,15 @@
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
-
-#include <ArduinoJson.h>
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-#include <Preferences.h>
-
-Preferences config;
-DMXESPSerial dmx;
+#include "routes/config.h"
 
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
+DMXESPSerial dmx;
+
 const uint16_t size = 512;
 uint8_t data[size];
 
@@ -25,7 +22,7 @@ void setup()
     uint8_t universe = config.getUChar("universe", 1);
 
     String ssid = config.getString("ssid", "artnet");
-    String pwd = config.getString("pwd", "mbgmbgmbg");
+    String pwd = config.getString("password", "mbgmbgmbg");
     IPAddress defaultIp(192, 168, 1, 201);
     IPAddress ip = config.getUInt("ip", defaultIp);
 
@@ -75,18 +72,14 @@ void setup()
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
     server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
-              {
-                DynamicJsonDocument doc(1024);
+              { onGetConfig(ssid, pwd, defaultIp, universe, request); });
 
-                doc["ssid"] = ssid;
-                doc["pwd"] = pwd;
-                doc["ip"] = defaultIp;
-                doc["universe"] = universe;
+    server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
+                         {
+                            if (request->url() == "/config" && request->method() == HTTP_PUT) {
+                                onPutConfig(request, data, len, index, total);
+                            } });
 
-                String jsonString;
-                serializeJson(doc, jsonString);
-
-                request->send(200, "application/json", jsonString); });
     delay(1000);
     server.begin();
     Serial.println("Server started!");
