@@ -79,7 +79,7 @@ void setup()
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
                                 onPutConfig(request, data, len, index, total);
                             } });
-
+  
     delay(1000);
     server.begin();
     Serial.println("Server started!");
