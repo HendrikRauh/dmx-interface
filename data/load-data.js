@@ -22,8 +22,13 @@ function writeDataToInput(data) {
     console.log("write data", typeof data);
     for (const [key, value] of Object.entries(data)) {
         const element = document.querySelector(`[name=${key}]`);
-        console.log(element);
-        element.value = value;
+        console.log(key, element);
+
+        if (element.type === "checkbox") {
+            element.checked = value;
+        } else {
+            element.value = value;
+        }
     }
     // send "change" event
     form.dispatchEvent(new Event("change", { bubbles: true }));
