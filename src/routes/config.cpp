@@ -70,7 +70,7 @@ Direction parseDirection(uint8_t direction)
 
 #pragma endregion
 
-void onGetConfig(Preferences config, AsyncWebServerRequest *request)
+void onGetConfig(AsyncWebServerRequest *request)
 {
     config.begin("dmx", true);
 

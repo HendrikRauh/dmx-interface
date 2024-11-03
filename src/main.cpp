@@ -82,7 +82,7 @@ void setup()
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
-              { onGetConfig(config, request); });
+              { onGetConfig(request); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {

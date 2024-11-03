@@ -31,7 +31,7 @@ enum Direction
 };
 const uint8_t DIRECTION_SIZE = 2;
 
-void onGetConfig(Preferences config, AsyncWebServerRequest *request);
+void onGetConfig(AsyncWebServerRequest *request);
 
 void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total);
 
