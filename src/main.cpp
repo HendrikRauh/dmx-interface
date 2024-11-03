@@ -28,6 +28,9 @@ void setup()
     Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
     Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
 
+    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiSta));
+    IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), Static);
+
     String ssid = config.getString("ssid", "artnet");
     String pwd = config.getString("password", "mbgmbgmbg");
     IPAddress defaultIp(192, 168, 1, 201);
@@ -76,8 +79,8 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, defaultIp, subnet, gateway, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
-              { onGetConfig(ssid, pwd, defaultIp, subnet, gateway, universe1, direction1, universe2, direction2, request); });
+    server.on("/config", HTTP_GET, [&, ipMethod, defaultIp, subnet, connection, gateway, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
+              { onGetConfig(connection, ssid, pwd, ipMethod, defaultIp, subnet, gateway, universe1, direction1, universe2, direction2, request); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {

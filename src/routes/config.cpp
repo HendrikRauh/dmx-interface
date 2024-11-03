@@ -38,48 +38,31 @@ uint32_t parseIp(String str)
     return atoi(ip.c_str());
 }
 
-IpMethod parseIpMethod(String ipMethod)
+IpMethod parseIpMethod(uint8_t ipMethod)
 {
-    if (ipMethod == "static")
+    if (ipMethod > 0 || ipMethod < IP_METHOD_SIZE)
     {
-        return Static;
+        return static_cast<IpMethod>(ipMethod);
     }
 
-    if (ipMethod == "dhcp")
-    {
-        return DHCP;
-    }
-
-    throw ::std::invalid_argument("Invalid IP method value");
+    throw ::std::invalid_argument("Invalid IP method value" + ipMethod);
 }
 
-Connection parseConnection(String connection)
+Connection parseConnection(uint8_t connection)
 {
-    if (connection == "wifi-sta")
+    if (connection > 0 || connection < CONNECTION_SIZE)
     {
-        return WiFiSta;
-    }
-    if (connection == "wifi-ap")
-    {
-        return WiFiAP;
-    }
-    if (connection == "ethernet")
-    {
-        return Ethernet;
+        return static_cast<Connection>(connection);
     }
 
-    throw ::std::invalid_argument("Invalid connection value");
+    throw ::std::invalid_argument("Invalid connection value: " + connection);
 }
 
 Direction parseDirection(uint8_t direction)
 {
-    if (direction == 0)
+    if (direction > 0 || direction < DIRECTION_SIZE)
     {
-        return Output;
-    }
-    if (direction == 1)
-    {
-        return Input;
+        return static_cast<Direction>(direction);
     }
 
     throw ::std::invalid_argument("Invalid direction value: " + direction);
@@ -88,8 +71,10 @@ Direction parseDirection(uint8_t direction)
 #pragma endregion
 
 void onGetConfig(
+    Connection connection,
     String ssid,
     String pwd,
+    IpMethod ipMethod,
     uint32_t ip,
     uint32_t subnet,
     uint32_t gateway,
@@ -110,8 +95,10 @@ void onGetConfig(
     ipAddr = gateway;
     String gatewayString = ipAddr.toString();
 
+    doc["connection"] = connection;
     doc["ssid"] = ssid;
     doc["password"] = pwd;
+    doc["ip-method"] = ipMethod;
     doc["ip"] = ipString;
     doc["subnet"] = subnetString;
     doc["gateway"] = gatewayString;
@@ -135,7 +122,7 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
 
     try
     {
-        IpMethod ipMethod = parseIpMethod(doc["ip-method"].as<String>());
+        IpMethod ipMethod = parseIpMethod(doc["ip-method"].as<uint8_t>());
         config.putUInt("ip-method", ipMethod);
 
         if (ipMethod == Static)
@@ -153,8 +140,9 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
             config.putUInt("gateway", gateway);
         }
 
-        Connection connection = parseConnection(doc["connection"].as<String>());
+        Connection connection = parseConnection(doc["connection"].as<uint8_t>());
         config.putUInt("connection", connection);
+
         if (connection == WiFiSta || connection == WiFiAP)
         {
             config.putString("ssid", doc["ssid"].as<String>());

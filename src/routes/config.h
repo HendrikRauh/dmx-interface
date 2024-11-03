@@ -14,6 +14,7 @@ enum IpMethod
     Static,
     DHCP
 };
+const uint8_t IP_METHOD_SIZE = 2;
 
 enum Connection
 {
@@ -21,16 +22,20 @@ enum Connection
     WiFiAP,
     Ethernet
 };
+const uint8_t CONNECTION_SIZE = 3;
 
 enum Direction
 {
-    Input,
-    Output
+    Output,
+    Input
 };
+const uint8_t DIRECTION_SIZE = 2;
 
 void onGetConfig(
+    Connection connection,
     String ssid,
     String pwd,
+    IpMethod ipMethod,
     uint32_t ip,
     uint32_t subnet,
     uint32_t gateway,

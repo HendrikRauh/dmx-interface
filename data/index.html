@@ -22,11 +22,11 @@
                             id="input-ip-method"
                             title="IP-"
                         >
-                            <option value="static">Statisch</option>
-                            <option value="dhcp">DHCP</option>
+                            <option value="0">Statisch</option>
+                            <option value="1">DHCP</option>
                         </select>
                     </label>
-                    <div data-field="input-ip-method" data-values="static">
+                    <div data-field="input-ip-method" data-values="0">
                         <label>
                             IP-Adresse:
                             <input
@@ -62,12 +62,12 @@
                             id="input-connection"
                             title="Verbindung"
                         >
-                            <option value="wifi-sta">WiFi-Station</option>
-                            <option value="wifi-ap">WiFi-AccessPoint</option>
-                            <option value="ethernet">Ethernet</option>
+                            <option value="0">WiFi-Station</option>
+                            <option value="1">WiFi-AccessPoint</option>
+                            <option value="2">Ethernet</option>
                         </select>
                     </label>
-                    <div data-field="input-connection" data-values="wifi-sta">
+                    <div data-field="input-connection" data-values="0">
                         <label>
                             SSID:
                             <input
@@ -78,7 +78,7 @@
                             />
                         </label>
                     </div>
-                    <div data-field="input-connection" data-values="wifi-ap">
+                    <div data-field="input-connection" data-values="1">
                         <label>
                             Netzwerk:
                             <select
@@ -88,10 +88,7 @@
                             ></select>
                         </label>
                     </div>
-                    <div
-                        data-field="input-connection"
-                        data-values="wifi-sta|wifi-ap"
-                    >
+                    <div data-field="input-connection" data-values="0|1">
                         <label>
                             Password:
                             <input
