@@ -19,12 +19,13 @@
 // uint8_t dmxDataStores[MAX_IDS][DMXCHANNELS + 1];
 
 // Set up the DMX-Protocol
-void DMXESPSerial::init(int pinSend, int pinRecv)
+void DMXESPSerial::init(int pinSend = 19, int pinRecv = -1)
 {
     sendPin = pinSend;
     recvPin = pinRecv;
     SERIALPORT.begin(DMXSPEED, DMXFORMAT, recvPin, sendPin);
     pinMode(sendPin, OUTPUT);
+    dmxStarted = true;
 }
 
 // Function to read DMX data

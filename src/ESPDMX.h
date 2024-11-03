@@ -27,7 +27,7 @@ class DMXESPSerial
 public:
     int sendPin;
     int recvPin;
-    bool started;
+    bool dmxStarted;
     uint8_t dmxDataStore[DMXCHANNELS + 1];
 
     void init(int pinSend, int pinRecv);
