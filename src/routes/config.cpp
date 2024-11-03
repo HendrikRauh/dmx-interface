@@ -70,42 +70,33 @@ Direction parseDirection(uint8_t direction)
 
 #pragma endregion
 
-void onGetConfig(
-    Connection connection,
-    String ssid,
-    String pwd,
-    IpMethod ipMethod,
-    uint32_t ip,
-    uint32_t subnet,
-    uint32_t gateway,
-    uint8_t universe1,
-    Direction direction1,
-    uint8_t universe2,
-    Direction direction2,
-    AsyncWebServerRequest *request)
+void onGetConfig(Preferences config, AsyncWebServerRequest *request)
 {
+    config.begin("dmx", true);
+
+    IPAddress defaultIp(192, 168, 1, 201);
+    IPAddress ip = config.getUInt("ip", defaultIp);
+
+    IPAddress defaultSubnet(255, 255, 255, 0);
+    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
+
+    IPAddress defaultGateway(192, 168, 1, 1);
+    IPAddress gateway = config.getUInt("gateway", defaultGateway);
+
     JsonDocument doc;
+    doc["connection"] = config.getUInt("connection", WiFiSta);
+    doc["ssid"] = config.getString("ssid", "artnet");
+    doc["password"] = config.getString("password", "mbgmbgmbg");
+    doc["ip-method"] = config.getUInt("ip-method"), Static;
+    doc["ip"] = ip.toString();
+    doc["subnet"] = subnet.toString();
+    doc["gateway"] = gateway.toString();
+    doc["universe-1"] = config.getUChar("universe-1", 1);
+    doc["direction-1"] = config.getUInt("direction-1", Output);
+    doc["universe-2"] = config.getUChar("universe-2", 1);
+    doc["direction-2"] = config.getUInt("direction-2", Input);
 
-    IPAddress ipAddr = ip;
-    String ipString = ipAddr.toString();
-
-    ipAddr = subnet;
-    String subnetString = ipAddr.toString();
-
-    ipAddr = gateway;
-    String gatewayString = ipAddr.toString();
-
-    doc["connection"] = connection;
-    doc["ssid"] = ssid;
-    doc["password"] = pwd;
-    doc["ip-method"] = ipMethod;
-    doc["ip"] = ipString;
-    doc["subnet"] = subnetString;
-    doc["gateway"] = gatewayString;
-    doc["universe-1"] = universe1;
-    doc["direction-1"] = direction1;
-    doc["universe-2"] = universe2;
-    doc["direction-2"] = direction2;
+    config.end();
 
     String jsonString;
     serializeJson(doc, jsonString);
@@ -122,6 +113,8 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
 
     try
     {
+        config.begin("dmx", false);
+
         IpMethod ipMethod = parseIpMethod(doc["ip-method"].as<uint8_t>());
         config.putUInt("ip-method", ipMethod);
 
@@ -155,10 +148,13 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
         Direction direction2 = parseDirection(doc["direction-2"].as<uint8_t>());
         config.putInt("direction-2", direction2);
 
+        config.end();
+
         request->send(200);
     }
     catch (::std::invalid_argument &e)
     {
+        config.end();
         request->send(400, "text/plain", e.what());
     }
 }

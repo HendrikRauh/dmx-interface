@@ -20,7 +20,7 @@ void setup()
 {
     Serial.begin(9600);
 
-    config.begin("dmx", false);
+    config.begin("dmx", true);
 
     uint8_t universe1 = config.getUChar("universe-1", 1);
     uint8_t universe2 = config.getUChar("universe-2", 1);
@@ -39,6 +39,8 @@ void setup()
     IPAddress subnet = config.getUInt("subnet", defaultSubnet);
     IPAddress defaultGateway(192, 168, 1, 1);
     IPAddress gateway = config.getUInt("gateway", defaultGateway);
+
+    config.end();
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -79,8 +81,8 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, ipMethod, defaultIp, subnet, connection, gateway, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
-              { onGetConfig(connection, ssid, pwd, ipMethod, defaultIp, subnet, gateway, universe1, direction1, universe2, direction2, request); });
+    server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetConfig(config, request); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
