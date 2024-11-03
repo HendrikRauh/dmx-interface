@@ -29,12 +29,10 @@ void setup()
     String pwd = config.getString("password", "mbgmbgmbg");
     IPAddress defaultIp(192, 168, 1, 201);
     IPAddress ip = config.getUInt("ip", defaultIp);
-
-    IPAddress cidr = config.getUChar("cidr", 24);
-
-    // TODO: \/ Herleiten \/ @psxde
-    const IPAddress gateway(192, 168, 1, 1);
-    const IPAddress subnet(255, 255, 255, 0);
+    IPAddress defaultSubnet(255, 255, 255, 0);
+    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
+    IPAddress defaultGateway(192, 168, 1, 1);
+    IPAddress gateway = config.getUInt("gateway", defaultGateway);
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -75,8 +73,8 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
-              { onGetConfig(ssid, pwd, defaultIp, universe1, direction1, universe2, direction2, request); });
+    server.on("/config", HTTP_GET, [&, defaultIp, subnet, gateway, ssid, pwd, direction1, universe1, direction2, universe2](AsyncWebServerRequest *request)
+              { onGetConfig(ssid, pwd, defaultIp, subnet, gateway, universe1, direction1, universe2, direction2, request); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {

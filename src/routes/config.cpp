@@ -87,16 +87,34 @@ Direction parseDirection(uint8_t direction)
 
 #pragma endregion
 
-void onGetConfig(String ssid, String pwd, uint32_t ip, uint8_t universe1, Direction direction1, uint8_t universe2, Direction direction2, AsyncWebServerRequest *request)
+void onGetConfig(
+    String ssid,
+    String pwd,
+    uint32_t ip,
+    uint32_t subnet,
+    uint32_t gateway,
+    uint8_t universe1,
+    Direction direction1,
+    uint8_t universe2,
+    Direction direction2,
+    AsyncWebServerRequest *request)
 {
     JsonDocument doc;
 
     IPAddress ipAddr = ip;
     String ipString = ipAddr.toString();
 
+    ipAddr = subnet;
+    String subnetString = ipAddr.toString();
+
+    ipAddr = gateway;
+    String gatewayString = ipAddr.toString();
+
     doc["ssid"] = ssid;
     doc["password"] = pwd;
     doc["ip"] = ipString;
+    doc["subnet"] = subnetString;
+    doc["gateway"] = gatewayString;
     doc["universe-1"] = universe1;
     doc["direction-1"] = direction1;
     doc["universe-2"] = universe2;
@@ -122,10 +140,17 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
 
         if (ipMethod == Static)
         {
-            String ipString = doc["ip"].as<String>();
             IPAddress ipAddress;
-            ipAddress.fromString(ipString);
+            ipAddress.fromString(doc["ip"].as<String>());
             config.putUInt("ip", ipAddress);
+
+            IPAddress subnet;
+            subnet.fromString(doc["subnet"].as<String>());
+            config.putUInt("subnet", subnet);
+
+            IPAddress gateway;
+            gateway.fromString(doc["gateway"].as<String>());
+            config.putUInt("gateway", gateway);
         }
 
         Connection connection = parseConnection(doc["connection"].as<String>());
