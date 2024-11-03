@@ -5,6 +5,9 @@
 #include <SPIFFS.h>
 #include "routes/config.h"
 
+DMXESPSerial dmx1;
+DMXESPSerial dmx2;
+
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
@@ -50,17 +53,17 @@ void setup()
     artnet.begin();
 
     // Initialize DMX ports
-    dmx.init();
+    dmx1.init(19, -1);
 
     // if Artnet packet comes to this universe, this function is called
     artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
                                     for (size_t i = 0; i < size; ++i)
                                     {
-                                        dmx.write((i + 1), data[i]);
+                                        dmx1.write((i + 1), data[i]);
                                     }
 
-                                    dmx.update(); });
+                                    dmx1.update(); });
 
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
