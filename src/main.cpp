@@ -84,6 +84,14 @@ void setup()
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetConfig(config, request); });
 
+    server.on("/reset", HTTP_POST, [](AsyncWebServerRequest *request)
+              {
+                config.begin("dmx", false);
+                config.clear();
+                config.end();
+                // respond with default config
+                onGetConfig(config, request); });
+
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
