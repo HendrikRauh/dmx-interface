@@ -84,7 +84,7 @@ void setup()
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetConfig(config, request); });
 
-    server.on("/reset", HTTP_POST, [](AsyncWebServerRequest *request)
+    server.on("/config", HTTP_DELETE, [](AsyncWebServerRequest *request)
               {
                 config.begin("dmx", false);
                 config.clear();

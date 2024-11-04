@@ -15,8 +15,8 @@ form.addEventListener("reset", async (event) => {
 
 async function reset() {
     try {
-        const res = await fetch("/reset", {
-            method: "POST",
+        const res = await fetch("/config", {
+            method: "DELETE",
         });
         if (!res.ok) {
             throw new Error(`Response status: ${res.status}`);
