@@ -90,7 +90,7 @@ void setup()
                 config.clear();
                 config.end();
                 // respond with default config
-                onGetConfig(config, request);
+                onGetConfig(request);
 
                 ESP.restart(); });
 
