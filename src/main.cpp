@@ -84,10 +84,21 @@ void setup()
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetConfig(request); });
 
+    server.on("/config", HTTP_DELETE, [](AsyncWebServerRequest *request)
+              {
+                config.begin("dmx", false);
+                config.clear();
+                config.end();
+                // respond with default config
+                onGetConfig(config, request);
+
+                ESP.restart(); });
+
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
                                 onPutConfig(request, data, len, index, total);
+                                ESP.restart();
                             } });
 
     delay(1000);

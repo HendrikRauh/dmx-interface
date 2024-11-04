@@ -1,6 +1,7 @@
 :root {
     --color-primary: #087e8b;
     --color-on-primary: white;
+    --color-danger: #fa2b58;
 }
 
 body {
@@ -59,14 +60,16 @@ select:focus {
 }
 
 button {
-    display: block;
     border: none;
     inset: none;
     border-radius: 8px;
     background-color: var(--color-primary);
     color: var(--color-on-primary);
     padding: 8px 16px;
-    margin: 0 auto;
+}
+
+button[type="reset"] {
+    background-color: var(--color-danger);
 }
 
 :is(div:has(:is(input, select)), input, select, label)
@@ -125,4 +128,11 @@ label.switch input:not(:checked) + .slider::before {
 label.switch input:checked + .slider::before {
     left: 100%;
     translate: -100% -50%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
 }

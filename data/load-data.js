@@ -18,7 +18,7 @@ async function loadData() {
     }
 }
 
-function writeDataToInput(data) {
+export function writeDataToInput(data) {
     console.log("write data", typeof data);
     for (const [key, value] of Object.entries(data)) {
         const element = document.querySelector(`[name=${key}]`);
