@@ -28,7 +28,7 @@ void setup()
     Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
     Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
 
-    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiSta));
+    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiAP));
     IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), Static);
 
     String ssid = config.getString("ssid", "artnet");
@@ -42,17 +42,42 @@ void setup()
 
     config.end();
 
-    // WiFi stuff
-    // WiFi.begin(ssid, pwd);
-    WiFi.softAP(ssid, pwd);
-    WiFi.softAPConfig(ip, gateway, subnet);
-    // WiFi.config(ip, gateway, subnet);
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     Serial.print(".");
+    // wait for serial monitor
+    delay(5000);
+
+    switch (connection)
+    {
+    case WiFiSta:
+        Serial.println("Initialize as WiFi-Station");
+        WiFi.begin(ssid, pwd);
+        if (ipMethod == Static)
+        {
+            WiFi.config(ip, gateway, subnet);
+        }
+        while (WiFi.status() != WL_CONNECTED)
+        {
+            Serial.print(".");
+            delay(500);
+        }
+        Serial.println("");
+        Serial.print("WiFi connected, IP = ");
+        Serial.println(WiFi.localIP());
+        break;
+
+    case WiFiAP:
+        Serial.println("Initialize as WiFi-Access-Point");
+        WiFi.softAP(ssid, pwd);
+        WiFi.softAPConfig(ip, gateway, subnet);
+        Serial.print("WiFi AP enabled, IP = ");
+        Serial.println(WiFi.softAPIP());
+        break;
+
+    case Ethernet:
+        Serial.print("Not yet implemented");
+        break;
+    }
+
     delay(500);
-    //}
-    // Serial.print("WiFi connected, IP = ");
-    // Serial.println(WiFi.localIP());
 
     // Initialize Art-Net
     artnet.begin();
