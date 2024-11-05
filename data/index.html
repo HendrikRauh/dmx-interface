@@ -6,14 +6,30 @@
         <title>Konfiguration</title>
         <link rel="stylesheet" href="/style.css" />
         <script type="module" src="/input-visibility.js" defer></script>
+        <script type="module" src="/loading-screen.js" defer></script>
         <script type="module" src="/load-data.js" defer></script>
         <script type="module" src="/submit.js" defer></script>
         <script type="module" src="/reset.js" defer></script>
     </head>
     <body>
         <main>
-            <h1>Konfiguration</h1>
-            <form>
+            <section class="loading-screen">
+                <div class="spinner-container">
+                    <!-- h2 is filled dynamically -->
+                    <h2></h2>
+                    <div class="spinner"></div>
+                    <button
+                        class="reload"
+                        type="button"
+                        onclick="window.location.reload()"
+                    >
+                        Seite neu laden
+                    </button>
+                </div>
+            </section>
+
+            <form class="hidden">
+                <h1>Konfiguration</h1>
                 <fieldset>
                     <legend>Verbindung</legend>
                     <label for="ip-method"
@@ -63,8 +79,8 @@
                             id="input-connection"
                             title="Verbindung"
                         >
-                            <option value="0">WiFi-Station</option>
-                            <option value="1">WiFi-AccessPoint</option>
+                            <option value="0">WiFi-AccessPoint</option>
+                            <option value="1">WiFi-Station</option>
                             <option value="2">Ethernet</option>
                         </select>
                     </label>

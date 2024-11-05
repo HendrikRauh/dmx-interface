@@ -1,3 +1,10 @@
+import { loadData, writeDataToInput } from "./load-data.js";
+import {
+    showLoadingScreen,
+    hideLoadingScreen,
+    showError,
+} from "./loading-screen.js";
+
 const form = document.querySelector("form");
 
 function parseValue(input) {
@@ -31,25 +38,35 @@ form.addEventListener("submit", (event) => {
     }, {});
     console.log(data);
 
-    putData(data);
+    updateConfig({
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
 });
 
-async function putData(data) {
+export async function updateConfig(fetchOptions) {
+    showLoadingScreen("Konfiguration anwenden und ESP neustarten...");
+
     try {
-        const res = await fetch("/config", {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
+        const res = await fetch("/config", fetchOptions);
         if (!res.ok) {
             throw new Error(`Response status: ${res.status}`);
         }
 
-        const json = await res.json();
-        console.log(json);
+        // wait for the esp to restart
+        const delay = new Promise((resolve) =>
+            setTimeout(() => resolve(), 500)
+        );
+        await delay;
+
+        const data = await loadData(30 * 1000);
+        writeDataToInput(data);
+        hideLoadingScreen();
     } catch (error) {
         console.error(error.message);
+        showError(error.message);
     }
 }
