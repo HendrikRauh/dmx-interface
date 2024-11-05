@@ -91,9 +91,9 @@ void onGetConfig(AsyncWebServerRequest *request)
     doc["ip"] = ip.toString();
     doc["subnet"] = subnet.toString();
     doc["gateway"] = gateway.toString();
-    doc["universe-1"] = config.getUChar("universe-1", 1);
+    doc["universe-1"] = config.getUInt("universe-1", 1);
     doc["direction-1"] = config.getUInt("direction-1", Output);
-    doc["universe-2"] = config.getUChar("universe-2", 1);
+    doc["universe-2"] = config.getUInt("universe-2", 1);
     doc["direction-2"] = config.getUInt("direction-2", Input);
 
     config.end();
@@ -143,10 +143,13 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
         }
 
         Direction direction1 = parseDirection(doc["direction-1"].as<uint8_t>());
-        config.putInt("direction-1", direction1);
+        config.putUInt("direction-1", direction1);
 
         Direction direction2 = parseDirection(doc["direction-2"].as<uint8_t>());
-        config.putInt("direction-2", direction2);
+        config.putUInt("direction-2", direction2);
+
+        config.putUInt("universe-1", doc["universe-1"]);
+        config.putUInt("universe-2", doc["universe-2"]);
 
         config.end();
 
