@@ -22,7 +22,7 @@
 #define DMXCHANNELS 512
 
 bool dmxStarted = false;
-int sendPin = 18;
+int sendPin = 33;
 int receivePin = -1;
 
 // DMX value array and size. Entry 0 will hold startbyte, so we need 512+1 elements

@@ -1,9 +1,3 @@
-#include <ArtnetWiFi.h>
-#include <ArtnetEther.h>
-#include <ArduinoJson.h>
-#include "ESPDMX.h"
-#include "SPI.h"
-
 #ifdef ESP32
 #include <WiFi.h>
 #include <AsyncTCP.h>
@@ -12,30 +6,85 @@
 #include <ESPAsyncTCP.h>
 #endif
 
-#include <ESPAsyncWebServer.h>
+#include <AsyncWebServer_ESP32_W5500.h>
+//#include "w5500/esp32_w5500.h"
+//#include <ESPAsyncWebServer.h>
+
+
+#include <ArtnetWiFi.h>
+#include <ArduinoJson.h>
+#include "ESPDMX.h"
+#include "SPI.h"
+
 #include <SPIFFS.h>
 #include <Preferences.h>
 
 Preferences config;
 DMXESPSerial dmx;
 
+// Button
+#define PIN_LED     7
+#define PIN_BUTTON  5
+
+#ifdef ESP32
+#include "esp32-hal.h"
+#endif
+
+hw_timer_t * timer = NULL;      //H/W timer defining (Pointer to the Structure)
+portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
+
+bool status_led;
+uint8_t brightness_led;
+
+void IRAM_ATTR onTimer() {      //Defining Inerrupt function with IRAM_ATTR for faster access
+ portENTER_CRITICAL_ISR(&timerMux);
+ status_led = !status_led;
+ if (status_led) {
+    ledcWrite(0, brightness_led);
+ } else {
+    ledcWrite(0, 0);
+ }
+ portEXIT_CRITICAL_ISR(&timerMux);
+}
+
 // Ethernet stuff
-#define SCK       39
-#define SS        33
-#define MOSI      35
-#define MISO      37
-#define SPI_FREQ  32000000
+#define ETH_SCK       36
+#define ETH_SS        34
+#define ETH_MOSI      35
+#define ETH_MISO      37
+#define ETH_INT       38
+#define ETH_SPI_HOST  SPI2_HOST
+#define ETH_SPI_CLOCK_MHZ       25
 byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
-enum ethTypes {AP = 1, STA = 2, ETH = 3}; // to be changed to Raffaels(TM) enum
+
+enum ethTypes {TYP_AP = 1, TYP_STA = 2, TYP_ETH = 3}; // to be changed to Raffaels(TM) enum
+ethTypes ethType;
 
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
+
 const uint16_t size = 512;
 uint8_t data[size];
 
 void setup()
 {
+    // LED
+    brightness_led = 20;
+    ledcAttachPin(PIN_LED, 0);
+    ledcSetup(0, 20000, 8);
+    //ledcFade();
+    //ledcRead(0);
+    //ledc_fade_func_install(0);
+    //ledc_set_fade_with_time( LEDC_HIGH_SPEED_MODE, (ledc_channel_t)0, ( 0x00000001 << LEDC_TIMER_15_BIT ) - 1, 86400 * 1000 );
+    //ledc_fade_start( LEDC_HIGH_SPEED_MODE, (ledc_channel_t)0, LEDC_FADE_NO_WAIT );
+
+    timer = timerBegin(0, 80, true);           	// timer 0, prescalar: 80, UP counting
+    timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
+    timerAlarmWrite(timer, 500000, true);  		// Match value= 1000000 for 1 sec. delay.
+    timerAlarmEnable(timer);           			// Enable Timer with interrupt (Alarm Enable)
+
+
     // Serial console
     Serial.begin(9600);
     Serial.print("Start DMX-Interface");
@@ -48,6 +97,7 @@ void setup()
 
     String ssid = config.getString("ssid", "artnet");
     String pwd = config.getString("pwd", "mbgmbgmbg");
+
     IPAddress defaultIp(192, 168, 1, 201);
     IPAddress ip = config.getUInt("ip", defaultIp);
 
@@ -57,14 +107,23 @@ void setup()
     const IPAddress gateway(192, 168, 1, 1);
     const IPAddress subnet(255, 255, 255, 0);
 
+    // TODO: Initialize Interface connection type - to be changed to Raffaels(TM) enum
+    ethType = TYP_ETH;
 
-    // Initialize Interface connection type - to be changed to Raffaels(TM) enum
-    ethTypes ethType;
-    ethType = ETH;
+
+    // Button
+    pinMode(PIN_BUTTON,INPUT_PULLUP);
+    if(digitalRead(PIN_BUTTON) == LOW){
+        timerAlarmWrite(timer, 100000, true);
+        timerAlarmEnable(timer);
+        delay(2000);
+        Serial.println("Start AP-Mode");
+        ethType = TYP_AP;
+    }
 
     switch (ethType) 
     {
-    case STA:
+    case TYP_STA:
         Serial.println("Initialize as WiFi-STA");
         WiFi.begin(ssid, pwd);
         WiFi.config(ip, gateway, subnet);
@@ -75,75 +134,76 @@ void setup()
         Serial.print("WiFi connected, IP = ");
         Serial.println(WiFi.localIP());
         break;
-    case ETH:
+    case TYP_ETH:{
         Serial.println("Initialize as ETH");
-    
-        WiFi.mode(WIFI_STA); // Trotzdem wegen WebServer
-        SPI.begin(SCK, MISO, MOSI, SS);
-        SPI.setFrequency(SPI_FREQ);
-    
-        Ethernet.init(SS);
-        delay(1000);
+        ESP32_W5500_onEvent();
 
-        if (Ethernet.begin(mac)) { // Dynamic IP setup
-            Serial.println("DHCP OK!");
+        if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
+            Serial.println("ETH initialized");
         }else{
-            Serial.println("Failed to configure Ethernet using DHCP");
-            // Check for Ethernet hardware present
-            if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-            Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-            while (true) {
-                delay(1); // do nothing, no point running without Ethernet hardware
-            }
-            }
-            if (Ethernet.linkStatus() == LinkOFF) {
-            Serial.println("Ethernet cable is not connected.");
-            }
-    
-            Ethernet.begin(mac, ip, gateway, gateway, subnet);
-            Serial.println("STATIC OK!");
-
+            Serial.println("Failed to configure Ethernet");
         }
-        Serial.print("Local IP : ");
-        Serial.println(Ethernet.localIP());
-        Serial.print("Subnet Mask : ");
-        Serial.println(Ethernet.subnetMask());
-        Serial.print("Gateway IP : ");
-        Serial.println(Ethernet.gatewayIP());
-        Serial.print("DNS Server : ");
-        Serial.println(Ethernet.dnsServerIP());
 
-        Serial.println("Ethernet Successfully Initialized"); 
+
+        //ESP32_W5500_waitForConnect();
+        uint8_t timeout = 5; // in s
+        Serial.print("Wait for connect");
+        while (!ESP32_W5500_eth_connected && timeout > 0) { 
+            delay(1000);
+            timeout--;
+            Serial.print(".");
+        }
+        Serial.println();
+        if (ESP32_W5500_eth_connected) {
+            Serial.println("DHCP OK!");
+        } else {
+            Serial.println("Set static IP");
+            ETH.config(ip, gateway, subnet);
+        }
+        
+
+        Serial.print("Local IP : ");
+        Serial.println(ETH.localIP());
+        Serial.print("Subnet Mask : ");
+        Serial.println(ETH.subnetMask());
+        Serial.print("Gateway IP : ");
+        Serial.println(ETH.gatewayIP());
+        Serial.print("DNS Server : ");
+        Serial.println(ETH.dnsIP());
+
+        Serial.println("Ethernet Successfully Initialized");
         break;
+    }
     default:
         Serial.println("Initialize as WiFi-AP");
         WiFi.softAP(ssid, pwd);
         WiFi.softAPConfig(ip, gateway, subnet);
         Serial.print("WiFi AP enabled, IP = ");
-        Serial.println(WiFi.localIP());
+        Serial.println(WiFi.softAPIP());
         break;
     }
 
     delay(500);
     
 
-    // Initialize Art-Net
-    Serial.println("Initialize Art-Net...");
-    artnet.begin();
-
     // Initialize DMX ports
     Serial.println("Initialize DMX...");
     dmx.init();
 
+    // Initialize Art-Net
+    Serial.println("Initialize Art-Net...");
+    artnet.begin();
+
     // if Artnet packet comes to this universe, this function is called
     artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
-                                   {
-                                    for (size_t i = 0; i < size; ++i)
-                                    {
-                                        dmx.write((i + 1), data[i]);
-                                    }
+    {
+        for (size_t i = 0; i < size; ++i)
+        {
+            dmx.write((i + 1), data[i]);
+        }
 
-                                    dmx.update(); });
+        dmx.update();
+    });
 
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
@@ -183,9 +243,13 @@ void setup()
     delay(1000);
     server.begin();
     Serial.println("Server started!");
+
+    timerAlarmDisable(timer);
+    ledcWrite(0, 20);
 }
 
 void loop()
 {
-    artnet.parse(); // check if artnet packet has come and execute callback
+    // check if artnet packet has come and execute callback
+    artnet.parse();
 }
