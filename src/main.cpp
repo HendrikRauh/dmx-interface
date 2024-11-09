@@ -1,18 +1,18 @@
 #include <ArtnetWiFi.h>
 // #include <ArtnetEther.h>
-
-#include <ArduinoJson.h>
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
 #include <SPIFFS.h>
-#include <Preferences.h>
+#include "routes/config.h"
 
-Preferences config;
-DMXESPSerial dmx;
+DMXESPSerial dmx1;
+DMXESPSerial dmx2;
 
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
+DMXESPSerial dmx;
+
 const uint16_t size = 512;
 uint8_t data[size];
 
@@ -20,20 +20,27 @@ void setup()
 {
     Serial.begin(9600);
 
-    config.begin("dmx", false);
+    config.begin("dmx", true);
 
-    uint8_t universe = config.getUChar("universe", 1);
+    uint8_t universe1 = config.getUChar("universe-1", 1);
+    uint8_t universe2 = config.getUChar("universe-2", 1);
+
+    Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
+    Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
+
+    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiSta));
+    IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), Static);
 
     String ssid = config.getString("ssid", "artnet");
-    String pwd = config.getString("pwd", "mbgmbgmbg");
+    String pwd = config.getString("password", "mbgmbgmbg");
     IPAddress defaultIp(192, 168, 1, 201);
     IPAddress ip = config.getUInt("ip", defaultIp);
+    IPAddress defaultSubnet(255, 255, 255, 0);
+    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
+    IPAddress defaultGateway(192, 168, 1, 1);
+    IPAddress gateway = config.getUInt("gateway", defaultGateway);
 
-    IPAddress cidr = config.getUChar("cidr", 24);
-
-    // TODO: \/ Herleiten \/ @psxde
-    const IPAddress gateway(192, 168, 1, 1);
-    const IPAddress subnet(255, 255, 255, 0);
+    config.end();
 
     // WiFi stuff
     // WiFi.begin(ssid, pwd);
@@ -51,17 +58,17 @@ void setup()
     artnet.begin();
 
     // Initialize DMX ports
-    dmx.init();
+    dmx1.init(19, -1);
 
     // if Artnet packet comes to this universe, this function is called
-    artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
+    artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                    {
                                     for (size_t i = 0; i < size; ++i)
                                     {
-                                        dmx.write((i + 1), data[i]);
+                                        dmx1.write((i + 1), data[i]);
                                     }
 
-                                    dmx.update(); });
+                                    dmx1.update(); });
 
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
@@ -74,19 +81,26 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
+    server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetConfig(request); });
+
+    server.on("/config", HTTP_DELETE, [](AsyncWebServerRequest *request)
               {
-                DynamicJsonDocument doc(1024);
+                config.begin("dmx", false);
+                config.clear();
+                config.end();
+                // respond with default config
+                onGetConfig(request);
 
-                doc["ssid"] = ssid;
-                doc["pwd"] = pwd;
-                doc["ip"] = defaultIp;
-                doc["universe"] = universe;
+                ESP.restart(); });
 
-                String jsonString;
-                serializeJson(doc, jsonString);
+    server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
+                         {
+                            if (request->url() == "/config" && request->method() == HTTP_PUT) {
+                                onPutConfig(request, data, len, index, total);
+                                ESP.restart();
+                            } });
 
-                request->send(200, "application/json", jsonString); });
     delay(1000);
     server.begin();
     Serial.println("Server started!");
