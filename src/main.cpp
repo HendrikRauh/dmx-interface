@@ -46,6 +46,7 @@ void setup()
     // WiFi.begin(ssid, pwd);
     WiFi.softAP(ssid, pwd);
     WiFi.softAPConfig(ip, gateway, subnet);
+    WiFi.scanNetworks(true);
     // WiFi.config(ip, gateway, subnet);
     // while (WiFi.status() != WL_CONNECTED) {
     //     Serial.print(".");
@@ -53,6 +54,8 @@ void setup()
     //}
     // Serial.print("WiFi connected, IP = ");
     // Serial.println(WiFi.localIP());
+
+    delay(5000);
 
     // Initialize Art-Net
     artnet.begin();
@@ -93,6 +96,9 @@ void setup()
                 onGetConfig(request);
 
                 ESP.restart(); });
+
+    server.on("/networks", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetNetworks(request); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
