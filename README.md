@@ -4,9 +4,9 @@ Art-Net-Interface
 
 ## Case
 
-[OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2)
+All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format you like.
 
-STL's coming soon, case still being developed.
+![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
 
 ## Wiring
 
