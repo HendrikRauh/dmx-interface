@@ -26,23 +26,18 @@ DMXESPSerial dmx;
 #define PIN_LED     7
 #define PIN_BUTTON  5
 
-#ifdef ESP32
-#include "esp32-hal.h"
-#endif
+uint8_t brightness_led = 20;
+bool status_led;
 
 hw_timer_t * timer = NULL;      //H/W timer defining (Pointer to the Structure)
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-
-bool status_led;
-uint8_t brightness_led;
-
 void IRAM_ATTR onTimer() {      //Defining Inerrupt function with IRAM_ATTR for faster access
  portENTER_CRITICAL_ISR(&timerMux);
  status_led = !status_led;
- if (status_led) {
-    ledcWrite(0, brightness_led);
+ if (!status_led) {
+    analogWrite(PIN_LED, brightness_led);
  } else {
-    ledcWrite(0, 0);
+    analogWrite(PIN_LED, 0);
  }
  portEXIT_CRITICAL_ISR(&timerMux);
 }
@@ -55,7 +50,7 @@ void IRAM_ATTR onTimer() {      //Defining Inerrupt function with IRAM_ATTR for 
 #define ETH_INT       38
 #define ETH_SPI_HOST  SPI2_HOST
 #define ETH_SPI_CLOCK_MHZ       25
-byte mac[] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+byte mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
 enum ethTypes {TYP_AP = 1, TYP_STA = 2, TYP_ETH = 3}; // to be changed to Raffaels(TM) enum
 ethTypes ethType;
@@ -67,23 +62,33 @@ ArtnetWiFi artnet;
 const uint16_t size = 512;
 uint8_t data[size];
 
+void ledBlink(int ms) {
+    if(timer == NULL) {
+        timer = timerBegin(0, 80, true);           	    // timer 0, prescalar: 80, UP counting
+        timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
+    }
+    if(ms == 0) {
+        timerAlarmDisable(timer);
+        analogWrite(PIN_LED, 0);
+    } else if(ms == 1) {
+        timerAlarmDisable(timer);
+        analogWrite(PIN_LED, brightness_led);
+    } else {
+        ms = ms*1000;
+        timerAlarmWrite(timer, ms, true);  // Match value= 1000000 for 1 sec. delay.
+        timerAlarmEnable(timer);           // Enable Timer with interrupt (Alarm Enable)
+    } 
+}
+
 void setup()
 {
+    // Get ETH mac
+    esp_read_mac(mac, ESP_MAC_ETH);
+
     // LED
-    brightness_led = 20;
-    ledcAttachPin(PIN_LED, 0);
-    ledcSetup(0, 20000, 8);
-    //ledcFade();
-    //ledcRead(0);
-    //ledc_fade_func_install(0);
-    //ledc_set_fade_with_time( LEDC_HIGH_SPEED_MODE, (ledc_channel_t)0, ( 0x00000001 << LEDC_TIMER_15_BIT ) - 1, 86400 * 1000 );
-    //ledc_fade_start( LEDC_HIGH_SPEED_MODE, (ledc_channel_t)0, LEDC_FADE_NO_WAIT );
-
-    timer = timerBegin(0, 80, true);           	// timer 0, prescalar: 80, UP counting
-    timerAttachInterrupt(timer, &onTimer, true); 	// Attach interrupt
-    timerAlarmWrite(timer, 500000, true);  		// Match value= 1000000 for 1 sec. delay.
-    timerAlarmEnable(timer);           			// Enable Timer with interrupt (Alarm Enable)
-
+    analogWrite(PIN_LED, brightness_led);
+    delay(5000);
+    ledBlink(500);
 
     // Serial console
     Serial.begin(9600);
@@ -95,17 +100,23 @@ void setup()
 
     uint8_t universe = config.getUChar("universe", 1);
 
-    String ssid = config.getString("ssid", "artnet");
+    WiFi.macAddress(mac);
+    char hostname[30];
+    snprintf(hostname, sizeof(hostname), "ChaosDMX %02X%02X", mac[4], mac[5]);
+    Serial.print("Hostname: ");
+    Serial.println(hostname);
+
+    String ssid = config.getString("ssid", hostname);
     String pwd = config.getString("pwd", "mbgmbgmbg");
 
-    IPAddress defaultIp(192, 168, 1, 201);
+    IPAddress defaultIp(2, mac[3], mac[4], mac[5]);
     IPAddress ip = config.getUInt("ip", defaultIp);
 
     IPAddress cidr = config.getUChar("cidr", 24);
 
     // TODO: \/ Herleiten \/ @psxde
-    const IPAddress gateway(192, 168, 1, 1);
-    const IPAddress subnet(255, 255, 255, 0);
+    const IPAddress gateway(2, 0, 0, 1);
+    const IPAddress subnet(255, 0, 0, 0);
 
     // TODO: Initialize Interface connection type - to be changed to Raffaels(TM) enum
     ethType = TYP_ETH;
@@ -114,8 +125,7 @@ void setup()
     // Button
     pinMode(PIN_BUTTON,INPUT_PULLUP);
     if(digitalRead(PIN_BUTTON) == LOW){
-        timerAlarmWrite(timer, 100000, true);
-        timerAlarmEnable(timer);
+        ledBlink(100);
         delay(2000);
         Serial.println("Start AP-Mode");
         ethType = TYP_AP;
@@ -126,6 +136,7 @@ void setup()
     case TYP_STA:
         Serial.println("Initialize as WiFi-STA");
         WiFi.begin(ssid, pwd);
+        WiFi.setHostname(hostname);
         WiFi.config(ip, gateway, subnet);
         while (WiFi.status() != WL_CONNECTED) {
             Serial.print(".");
@@ -133,10 +144,14 @@ void setup()
         }
         Serial.print("WiFi connected, IP = ");
         Serial.println(WiFi.localIP());
+        Serial.print("MAC address: ");
+        Serial.println(WiFi.macAddress());
         break;
     case TYP_ETH:{
         Serial.println("Initialize as ETH");
         ESP32_W5500_onEvent();
+
+        ETH.setHostname(hostname);
 
         if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
             Serial.println("ETH initialized");
@@ -170,6 +185,8 @@ void setup()
         Serial.println(ETH.gatewayIP());
         Serial.print("DNS Server : ");
         Serial.println(ETH.dnsIP());
+        Serial.print("MAC address : ");
+        Serial.println(ETH.macAddress());
 
         Serial.println("Ethernet Successfully Initialized");
         break;
@@ -177,9 +194,12 @@ void setup()
     default:
         Serial.println("Initialize as WiFi-AP");
         WiFi.softAP(ssid, pwd);
+        WiFi.softAPsetHostname(hostname);
         WiFi.softAPConfig(ip, gateway, subnet);
         Serial.print("WiFi AP enabled, IP = ");
         Serial.println(WiFi.softAPIP());
+        Serial.print("MAC address: ");
+        Serial.println(WiFi.softAPmacAddress());
         break;
     }
 
@@ -244,8 +264,7 @@ void setup()
     server.begin();
     Serial.println("Server started!");
 
-    timerAlarmDisable(timer);
-    ledcWrite(0, 20);
+    ledBlink(1);
 }
 
 void loop()

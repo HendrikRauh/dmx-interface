@@ -62,8 +62,8 @@ struct Config
     uint16_t esta_man {0x0000}; // ESTA manufacturer code
     uint8_t status1 {0x00};     // Unknown / Normal
     uint8_t status2 {0x08};     // sACN capable
-    String short_name {"ChaosArtNet"};
-    String long_name {"Chaos ArtNet Interface"};
+    String short_name {"ChaosDMX"};
+    String long_name {"ChaosDMX Interface"};
     String node_report {""};
     // Four universes from Device to Controller
     // NOTE: Only low 4 bits of the universes
