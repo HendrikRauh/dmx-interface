@@ -4,9 +4,11 @@ Art-Net-Interface
 
 ## Case
 
-[OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2)
+[STL for the body](/assets/case/case-main.stl)
 
-STL's coming soon, case still being developed.
+[STL for the lid](/assets/case/case-lid.stl)
+
+[Onshape Project](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2)
 
 ## Wiring
 
