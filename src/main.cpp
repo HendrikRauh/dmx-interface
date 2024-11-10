@@ -2,7 +2,7 @@
 // #include <ArtnetEther.h>
 #include "ESPDMX.h"
 #include <ESPAsyncWebServer.h>
-#include <SPIFFS.h>
+#include <LittleFS.h>
 #include "routes/config.h"
 
 DMXESPSerial dmx1;
@@ -73,13 +73,13 @@ void setup()
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
 
-    if (!SPIFFS.begin(true))
+    if (!LittleFS.begin(true))
     {
-        Serial.println("An Error has occurred while mounting SPIFFS");
+        Serial.println("An Error has occurred while mounting LittleFS");
         return;
     }
 
-    server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
 
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetConfig(request); });
