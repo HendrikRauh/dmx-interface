@@ -102,7 +102,7 @@ void setup()
 
     WiFi.macAddress(mac);
     char hostname[30];
-    snprintf(hostname, sizeof(hostname), "ChaosDMX %02X%02X", mac[4], mac[5]);
+    snprintf(hostname, sizeof(hostname), "ChaosDMX-%02X%02X", mac[4], mac[5]);
     Serial.print("Hostname: ");
     Serial.println(hostname);
 
@@ -151,14 +151,13 @@ void setup()
         Serial.println("Initialize as ETH");
         ESP32_W5500_onEvent();
 
-        ETH.setHostname(hostname);
+        
 
         if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
-            Serial.println("ETH initialized");
         }else{
             Serial.println("Failed to configure Ethernet");
         }
-
+        ETH.setHostname(hostname);
 
         //ESP32_W5500_waitForConnect();
         uint8_t timeout = 5; // in s
