@@ -1,6 +1,8 @@
 :root {
     --color-primary: #087e8b;
     --color-on-primary: white;
+    --color-background: #222;
+    --color-danger: #fa2b58;
 }
 
 body {
@@ -13,7 +15,7 @@ body {
 }
 
 main {
-    background-color: #222;
+    background-color: var(--color-background);
     max-width: 700px;
     padding: 8px max(5%, 8px);
     margin: 0 auto;
@@ -44,7 +46,7 @@ label {
 input,
 select {
     width: clamp(200px, 100%, 400px);
-    background-color: #222;
+    background-color: var(--color-background);
     color: white;
     border: 1px solid white;
     border-radius: 8px;
@@ -59,14 +61,16 @@ select:focus {
 }
 
 button {
-    display: block;
     border: none;
     inset: none;
     border-radius: 8px;
     background-color: var(--color-primary);
     color: var(--color-on-primary);
     padding: 8px 16px;
-    margin: 0 auto;
+}
+
+button[type="reset"] {
+    background-color: var(--color-danger);
 }
 
 :is(div:has(:is(input, select)), input, select, label)
@@ -75,7 +79,7 @@ button {
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 label.switch {
@@ -125,4 +129,69 @@ label.switch input:not(:checked) + .slider::before {
 label.switch input:checked + .slider::before {
     left: 100%;
     translate: -100% -50%;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 8px;
+}
+
+.loading-screen {
+    display: grid;
+    justify-content: center;
+}
+
+h2.error {
+    color: var(--color-danger);
+}
+
+button.reload {
+    display: block;
+    margin: 0 auto;
+}
+
+.spinner-container {
+    width: min(max-content, 100%);
+}
+
+.spinner {
+    position: relative;
+    margin: 10px auto;
+    background: conic-gradient(transparent 150deg, var(--color-primary));
+    --outer-diameter: 50px;
+    width: var(--outer-diameter);
+    height: var(--outer-diameter);
+    border-radius: 50%;
+
+    animation-name: spin;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.spinner::after {
+    position: absolute;
+    content: "";
+    display: block;
+    --spinner-border: 5px;
+    top: var(--spinner-border);
+    left: var(--spinner-border);
+
+    --inner-diameter: calc(var(--outer-diameter) - 2 * var(--spinner-border));
+    width: var(--inner-diameter);
+    height: var(--inner-diameter);
+
+    background-color: var(--color-background);
+    border-radius: 50%;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }

@@ -10,17 +10,17 @@
 //#include "w5500/esp32_w5500.h"
 //#include <ESPAsyncWebServer.h>
 
-
 #include <ArtnetWiFi.h>
 #include <ArduinoJson.h>
+
 #include "ESPDMX.h"
 #include "SPI.h"
 
 #include <SPIFFS.h>
-#include <Preferences.h>
+#include "routes/config.h"
 
-Preferences config;
-DMXESPSerial dmx;
+DMXESPSerial dmx1;
+DMXESPSerial dmx2;
 
 // Button
 #define PIN_LED     7
@@ -96,9 +96,16 @@ void setup()
     delay(1000);
     Serial.println("...");
 
-    config.begin("dmx", false);
+    config.begin("dmx", true);
 
-    uint8_t universe = config.getUChar("universe", 1);
+    uint8_t universe1 = config.getUChar("universe-1", 1);
+    uint8_t universe2 = config.getUChar("universe-2", 1);
+
+    Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
+    Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
+
+    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiAP));
+    IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), Static);
 
     WiFi.macAddress(mac);
     char hostname[30];
@@ -111,84 +118,113 @@ void setup()
 
     IPAddress defaultIp(2, mac[3], mac[4], mac[5]);
     IPAddress ip = config.getUInt("ip", defaultIp);
+    IPAddress defaultSubnet(255, 255, 255, 0);
+    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
+    IPAddress defaultGateway(192, 168, 1, 1);
+    IPAddress gateway = config.getUInt("gateway", defaultGateway);
 
-    IPAddress cidr = config.getUChar("cidr", 24);
+    config.end();
 
-    // TODO: \/ Herleiten \/ @psxde
-    const IPAddress gateway(2, 0, 0, 1);
-    const IPAddress subnet(255, 0, 0, 0);
+    // wait for serial monitor
+    delay(5000);
 
-    // TODO: Initialize Interface connection type - to be changed to Raffaels(TM) enum
-    ethType = TYP_ETH;
-
-
-    // Button
-    pinMode(PIN_BUTTON,INPUT_PULLUP);
-    if(digitalRead(PIN_BUTTON) == LOW){
-        ledBlink(100);
-        delay(2000);
-        Serial.println("Start AP-Mode");
-        ethType = TYP_AP;
-    }
-
-    switch (ethType) 
+    switch (connection)
     {
-    case TYP_STA:
-        Serial.println("Initialize as WiFi-STA");
+    case WiFiSta:
+        Serial.println("Initialize as WiFi-Station");
         WiFi.begin(ssid, pwd);
-        WiFi.setHostname(hostname);
-        WiFi.config(ip, gateway, subnet);
-        while (WiFi.status() != WL_CONNECTED) {
+        if (ipMethod == Static)
+        {
+            WiFi.config(ip, gateway, subnet);
+        }
+        while (WiFi.status() != WL_CONNECTED)
+        {
             Serial.print(".");
             delay(500);
         }
+        Serial.println("");
         Serial.print("WiFi connected, IP = ");
         Serial.println(WiFi.localIP());
-        Serial.print("MAC address: ");
-        Serial.println(WiFi.macAddress());
         break;
-    case TYP_ETH:{
-        Serial.println("Initialize as ETH");
-        ESP32_W5500_onEvent();
 
-        
-
-        if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
-        }else{
-            Serial.println("Failed to configure Ethernet");
-        }
-        ETH.setHostname(hostname);
-
-        //ESP32_W5500_waitForConnect();
-        uint8_t timeout = 5; // in s
-        Serial.print("Wait for connect");
-        while (!ESP32_W5500_eth_connected && timeout > 0) { 
-            delay(1000);
-            timeout--;
-            Serial.print(".");
-        }
-        Serial.println();
-        if (ESP32_W5500_eth_connected) {
-            Serial.println("DHCP OK!");
-        } else {
-            Serial.println("Set static IP");
-            ETH.config(ip, gateway, subnet);
-        }
-        
-
-        Serial.print("Local IP : ");
-        Serial.println(ETH.localIP());
-        Serial.print("Subnet Mask : ");
-        Serial.println(ETH.subnetMask());
-        Serial.print("Gateway IP : ");
-        Serial.println(ETH.gatewayIP());
-        Serial.print("DNS Server : ");
-        Serial.println(ETH.dnsIP());
-        Serial.print("MAC address : ");
-        Serial.println(ETH.macAddress());
-
-        Serial.println("Ethernet Successfully Initialized");
+    case WiFiAP:
+        Serial.println("Initialize as WiFi-Access-Point");
+        WiFi.softAP(ssid, pwd);
+        WiFi.softAPConfig(ip, gateway, subnet);
+        Serial.print("WiFi AP enabled, IP = ");
+        Serial.println(WiFi.softAPIP());
         break;
+
+    case Ethernet:
+        // TODO: Initialize Interface connection type - to be changed to Raffaels(TM) enum
+        ethType = TYP_ETH;
+
+        // Button
+        pinMode(PIN_BUTTON,INPUT_PULLUP);
+        if(digitalRead(PIN_BUTTON) == LOW){
+            ledBlink(100);
+            delay(2000);
+            Serial.println("Start AP-Mode");
+            ethType = TYP_AP;
+        }
+
+        switch (ethType) 
+        {
+        case TYP_STA:
+            Serial.println("Initialize as WiFi-STA");
+            WiFi.begin(ssid, pwd);
+            WiFi.setHostname(hostname);
+            WiFi.config(ip, gateway, subnet);
+            while (WiFi.status() != WL_CONNECTED) {
+                Serial.print(".");
+                delay(500);
+            }
+            Serial.print("WiFi connected, IP = ");
+            Serial.println(WiFi.localIP());
+            Serial.print("MAC address: ");
+            Serial.println(WiFi.macAddress());
+            break;
+        case TYP_ETH:{
+            Serial.println("Initialize as ETH");
+            ESP32_W5500_onEvent();
+         
+
+            if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
+            }else{
+                Serial.println("Failed to configure Ethernet");
+            }
+            ETH.setHostname(hostname);
+
+            //ESP32_W5500_waitForConnect();
+            uint8_t timeout = 5; // in s
+            Serial.print("Wait for connect");
+            while (!ESP32_W5500_eth_connected && timeout > 0) { 
+                delay(1000);
+                timeout--;
+                Serial.print(".");
+            }
+            Serial.println();
+            if (ESP32_W5500_eth_connected) {
+                Serial.println("DHCP OK!");
+            } else {
+                Serial.println("Set static IP");
+                ETH.config(ip, gateway, subnet);
+            }
+
+
+            Serial.print("Local IP : ");
+            Serial.println(ETH.localIP());
+            Serial.print("Subnet Mask : ");
+            Serial.println(ETH.subnetMask());
+            Serial.print("Gateway IP : ");
+            Serial.println(ETH.gatewayIP());
+            Serial.print("DNS Server : ");
+            Serial.println(ETH.dnsIP());
+            Serial.print("MAC address : ");
+            Serial.println(ETH.macAddress());
+
+            Serial.println("Ethernet Successfully Initialized");
+            break;
     }
     default:
         Serial.println("Initialize as WiFi-AP");
@@ -202,12 +238,11 @@ void setup()
         break;
     }
 
-    delay(500);
+    }
     
-
     // Initialize DMX ports
     Serial.println("Initialize DMX...");
-    dmx.init();
+    dmx1.init(19, -1);
 
     // Initialize Art-Net
     Serial.println("Initialize Art-Net...");
@@ -218,11 +253,12 @@ void setup()
     {
         for (size_t i = 0; i < size; ++i)
         {
-            dmx.write((i + 1), data[i]);
+            dmx1.write((i + 1), data[i]);
         }
 
-        dmx.update();
+        dmx1.update();
     });
+
 
     // if Artnet packet comes, this function is called to every universe
     artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
@@ -235,28 +271,24 @@ void setup()
 
     server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
 
-    server.on("/config", HTTP_GET, [&, defaultIp, ssid, pwd, universe](AsyncWebServerRequest *request)
+    server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetConfig(request); });
+
+    server.on("/config", HTTP_DELETE, [](AsyncWebServerRequest *request)
               {
-                JsonDocument doc;
+                config.begin("dmx", false);
+                config.clear();
+                config.end();
+                // respond with default config
+                onGetConfig(request);
 
-                doc["ssid"] = ssid;
-                doc["pwd"] = pwd;
-                doc["ip"] = defaultIp;
-                doc["universe"] = universe;
-
-                String jsonString;
-                serializeJson(doc, jsonString);
-
-                request->send(200, "application/json", jsonString); });
+                ESP.restart(); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
-                                Serial.printf("[REQUEST]\t%s\r\n", (const char *)data);
-
-                                StaticJsonDocument<256> doc;
-                                deserializeJson(doc, data);
-                                request->send(200);
+                                onPutConfig(request, data, len, index, total);
+                                ESP.restart();
                             } });
 
     delay(1000);

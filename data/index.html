@@ -6,13 +6,30 @@
         <title>Konfiguration</title>
         <link rel="stylesheet" href="/style.css" />
         <script type="module" src="/input-visibility.js" defer></script>
+        <script type="module" src="/loading-screen.js" defer></script>
         <script type="module" src="/load-data.js" defer></script>
         <script type="module" src="/submit.js" defer></script>
+        <script type="module" src="/reset.js" defer></script>
     </head>
     <body>
         <main>
-            <h1>Konfiguration</h1>
-            <form>
+            <section class="loading-screen">
+                <div class="spinner-container">
+                    <!-- h2 is filled dynamically -->
+                    <h2></h2>
+                    <div class="spinner"></div>
+                    <button
+                        class="reload"
+                        type="button"
+                        onclick="window.location.reload()"
+                    >
+                        Seite neu laden
+                    </button>
+                </div>
+            </section>
+
+            <form class="hidden">
+                <h1>Konfiguration</h1>
                 <fieldset>
                     <legend>Verbindung</legend>
                     <label for="ip-method"
@@ -22,18 +39,36 @@
                             id="input-ip-method"
                             title="IP-"
                         >
-                            <option value="static">Statisch</option>
-                            <option value="dhcp">DHCP</option>
+                            <option value="0">Statisch</option>
+                            <option value="1">DHCP</option>
                         </select>
                     </label>
-                    <div data-field="input-ip-method" data-values="static">
+                    <div data-field="input-ip-method" data-values="0">
                         <label>
-                            IP-Adresse/CIDR:
+                            IP-Adresse:
                             <input
                                 type="text"
                                 name="ip"
                                 id="input-ip"
-                                placeholder="IP-Adresse/CIDR"
+                                placeholder="IP-Adresse"
+                            />
+                        </label>
+                        <label>
+                            Subnetzmaske:
+                            <input
+                                type="text"
+                                name="subnet"
+                                id="input-subnet"
+                                placeholder="Subnetzmaske"
+                            />
+                        </label>
+                        <label>
+                            Gateway:
+                            <input
+                                type="text"
+                                name="gateway"
+                                id="input-gateway"
+                                placeholder="Gateway"
                             />
                         </label>
                     </div>
@@ -44,12 +79,12 @@
                             id="input-connection"
                             title="Verbindung"
                         >
-                            <option value="wifi-sta">WiFi-Station</option>
-                            <option value="wifi-ap">WiFi-AccessPoint</option>
-                            <option value="ethernet">Ethernet</option>
+                            <option value="0">WiFi-Station</option>
+                            <option value="1">WiFi-AccessPoint</option>
+                            <option value="2">Ethernet</option>
                         </select>
                     </label>
-                    <div data-field="input-connection" data-values="wifi-sta">
+                    <div data-field="input-connection" data-values="1">
                         <label>
                             SSID:
                             <input
@@ -60,20 +95,17 @@
                             />
                         </label>
                     </div>
-                    <div data-field="input-connection" data-values="wifi-ap">
+                    <div data-field="input-connection" data-values="0">
                         <label>
                             Netzwerk:
                             <select
-                                name="network"
+                                name="ssid"
                                 id="input-network"
                                 title="Netzwerk"
                             ></select>
                         </label>
                     </div>
-                    <div
-                        data-field="input-connection"
-                        data-values="wifi-sta|wifi-ap"
-                    >
+                    <div data-field="input-connection" data-values="0|1">
                         <label>
                             Password:
                             <input
@@ -91,8 +123,8 @@
                         <span>Output</span>
                         <input
                             type="checkbox"
-                            name="input-or-output-1"
-                            id="input-input-or-output-1"
+                            name="direction-1"
+                            id="input-direction-1"
                             data-value-not-checked="output"
                             data-value-checked="input"
                         />
@@ -117,8 +149,8 @@
                         <span>Output</span>
                         <input
                             type="checkbox"
-                            name="input-or-output-2"
-                            id="input-input-or-output-2"
+                            name="direction-2"
+                            id="input-direction-2"
                             data-value-not-checked="output"
                             data-value-checked="input"
                         />
@@ -137,7 +169,10 @@
                         />
                     </label>
                 </fieldset>
-                <button type="submit">Speichern</button>
+                <div class="buttons">
+                    <button type="reset">Zurücksetzen</button>
+                    <button type="submit">Speichern</button>
+                </div>
             </form>
         </main>
     </body>
