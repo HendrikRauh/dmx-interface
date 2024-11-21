@@ -10,7 +10,7 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 ## Wiring
 
-![Handwritten diagram](/assets/circuit/handwritten/circuit%20diagram.jpeg)
+![Circuit diagram](/assets/circuit/diagram.svg)
 
 ## Pin usage
 
