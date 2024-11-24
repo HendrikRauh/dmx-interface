@@ -1,0 +1,6 @@
+[submodule "lib/ArtNet"]
+	path = lib/ArtNet
+	url = https://github.com/psxde/ArtNet.git
+[submodule "lib/AsyncWebServer_ESP32_W5500"]
+	path = lib/AsyncWebServer_ESP32_W5500
+	url = https://github.com/psxde/AsyncWebServer_ESP32_W5500.git

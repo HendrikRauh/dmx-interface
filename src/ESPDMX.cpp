@@ -7,11 +7,16 @@
 // uint8_t dmxDataStores[MAX_IDS][DMXCHANNELS + 1];
 
 // Set up the DMX-Protocol
-void DMXESPSerial::init(int pinSend = 19, int pinRecv = -1)
+void DMXESPSerial::init(int pinSend = DMX_DEFAULT_TX, int pinRecv = DMX_DEFAULT_RX, HardwareSerial& port = DMX_DEFAULT_PORT)
 {
     sendPin = pinSend;
     recvPin = pinRecv;
-    SERIALPORT.begin(DMXSPEED, DMXFORMAT, recvPin, sendPin);
+    _Serial = &port;
+    _Serial->begin(DMXSPEED, DMXFORMAT, recvPin, sendPin);
+    Serial.print("Init DMX with pins (TX/RX): ");
+    Serial.print(sendPin);
+    Serial.print("/");
+    Serial.println(recvPin);
     pinMode(sendPin, OUTPUT);
     dmxStarted = true;
 }
@@ -28,6 +33,14 @@ uint8_t DMXESPSerial::read(int channel)
         channel = DMXCHANNELS;
     return (dmxDataStore[channel]);
 }
+uint8_t* DMXESPSerial::readAll()
+{
+    if (dmxStarted == false)
+        init();
+
+    return (&dmxDataStore[1]);
+}
+
 
 // Function to send DMX data
 void DMXESPSerial::write(int channel, uint8_t value)
@@ -40,17 +53,13 @@ void DMXESPSerial::write(int channel, uint8_t value)
         channel = 1;
     if (channel > DMXCHANNELS)
         channel = DMXCHANNELS;
-    if (value < 0)
-        value = 0;
-    if (value > 255)
-        value = 255;
 
     dmxDataStore[channel] = value;
 }
 
 void DMXESPSerial::end()
 {
-    SERIALPORT.end();
+    _Serial->end();
 }
 
 // Function to update the DMX bus
@@ -58,17 +67,17 @@ void DMXESPSerial::update()
 {
     // Send break
     digitalWrite(sendPin, HIGH);
-    SERIALPORT.begin(BREAKSPEED, BREAKFORMAT, recvPin, sendPin);
-    SERIALPORT.write(0);
-    SERIALPORT.flush();
+    _Serial->begin(BREAKSPEED, BREAKFORMAT, recvPin, sendPin);
+    _Serial->write(0);
+    _Serial->flush();
     delay(1);
-    SERIALPORT.end();
+    _Serial->end();
 
     // send data
-    SERIALPORT.begin(DMXSPEED, DMXFORMAT, recvPin, sendPin);
+    _Serial->begin(DMXSPEED, DMXFORMAT, recvPin, sendPin);
     digitalWrite(sendPin, LOW);
-    SERIALPORT.write(dmxDataStore, DMXCHANNELS);
-    SERIALPORT.flush();
+    _Serial->write(dmxDataStore, DMXCHANNELS);
+    _Serial->flush();
     delay(1);
-    SERIALPORT.end();
+    _Serial->end();
 }
