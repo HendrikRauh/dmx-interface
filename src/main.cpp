@@ -52,15 +52,17 @@ void IRAM_ATTR onTimer() {      //Defining Inerrupt function with IRAM_ATTR for 
 #define ETH_SPI_CLOCK_MHZ       25
 byte mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
-enum ethTypes {TYP_AP = 1, TYP_STA = 2, TYP_ETH = 3}; // to be changed to Raffaels(TM) enum
-ethTypes ethType;
-
 AsyncWebServer server(80);
 
 ArtnetWiFi artnet;
 
-const uint16_t size = 512;
-uint8_t data[size];
+String broadcastIp;
+uint8_t universe1;
+uint8_t universe2;
+Direction direction1;
+Direction direction2;
+//const uint16_t size = 512;
+//uint8_t data[DMXCHANNELS];
 
 void ledBlink(int ms) {
     if(timer == NULL) {
@@ -98,11 +100,21 @@ void setup()
 
     config.begin("dmx", true);
 
-    uint8_t universe1 = config.getUChar("universe-1", 1);
-    uint8_t universe2 = config.getUChar("universe-2", 1);
+    universe1 = config.getUChar("universe-1", 1);
+    universe2 = config.getUChar("universe-2", 1);
 
-    Direction direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
-    Direction direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
+    direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
+    direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
+
+    Serial.print("Port A: Universe ");
+    Serial.print(universe1);
+    Serial.print(" ");
+    Serial.println((direction1==Input)?"DMX -> Art-Net":"Art-Net -> DMX");
+
+    Serial.print("Port B: Universe ");
+    Serial.print(universe2);
+    Serial.print(" ");
+    Serial.println((direction2==Input)?"DMX -> Art-Net":"Art-Net -> DMX");
 
     Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiAP));
     IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), Static);
@@ -116,11 +128,12 @@ void setup()
     String ssid = config.getString("ssid", hostname);
     String pwd = config.getString("pwd", "mbgmbgmbg");
 
+    // Default IP as defined in standard https://art-net.org.uk/downloads/art-net.pdf, page 13
     IPAddress defaultIp(2, mac[3], mac[4], mac[5]);
     IPAddress ip = config.getUInt("ip", defaultIp);
-    IPAddress defaultSubnet(255, 255, 255, 0);
+    IPAddress defaultSubnet(255, 0, 0, 0);
     IPAddress subnet = config.getUInt("subnet", defaultSubnet);
-    IPAddress defaultGateway(192, 168, 1, 1);
+    IPAddress defaultGateway(2, 0, 0, 1);
     IPAddress gateway = config.getUInt("gateway", defaultGateway);
 
     config.end();
@@ -128,10 +141,20 @@ void setup()
     // wait for serial monitor
     delay(5000);
 
+    // Button
+    pinMode(PIN_BUTTON,INPUT_PULLUP);
+    if(digitalRead(PIN_BUTTON) == LOW){
+        ledBlink(100);
+        delay(2000);
+        Serial.println("Start AP-Mode");
+        connection = WiFiAP;
+    }
+
     switch (connection)
     {
     case WiFiSta:
-        Serial.println("Initialize as WiFi-Station");
+        Serial.println("Initialize as WiFi Station");
+        WiFi.setHostname(hostname);
         WiFi.begin(ssid, pwd);
         if (ipMethod == Static)
         {
@@ -142,126 +165,103 @@ void setup()
             Serial.print(".");
             delay(500);
         }
+        broadcastIp = String(WiFi.broadcastIP().toString().c_str());
         Serial.println("");
         Serial.print("WiFi connected, IP = ");
         Serial.println(WiFi.localIP());
+        Serial.print("MAC address: ");
+        Serial.println(WiFi.macAddress());
         break;
 
-    case WiFiAP:
-        Serial.println("Initialize as WiFi-Access-Point");
-        WiFi.softAP(ssid, pwd);
-        WiFi.softAPConfig(ip, gateway, subnet);
-        Serial.print("WiFi AP enabled, IP = ");
-        Serial.println(WiFi.softAPIP());
-        break;
+    case Ethernet: {
+        Serial.println("Initialize as ETH");
+        ESP32_W5500_onEvent();
 
-    case Ethernet:
-        // TODO: Initialize Interface connection type - to be changed to Raffaels(TM) enum
-        ethType = TYP_ETH;
-
-        // Button
-        pinMode(PIN_BUTTON,INPUT_PULLUP);
-        if(digitalRead(PIN_BUTTON) == LOW){
-            ledBlink(100);
-            delay(2000);
-            Serial.println("Start AP-Mode");
-            ethType = TYP_AP;
+        if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
+        }else{
+            Serial.println("Failed to configure Ethernet");
         }
+        ETH.setHostname(hostname);
 
-        switch (ethType) 
-        {
-        case TYP_STA:
-            Serial.println("Initialize as WiFi-STA");
-            WiFi.begin(ssid, pwd);
-            WiFi.setHostname(hostname);
-            WiFi.config(ip, gateway, subnet);
-            while (WiFi.status() != WL_CONNECTED) {
-                Serial.print(".");
-                delay(500);
-            }
-            Serial.print("WiFi connected, IP = ");
-            Serial.println(WiFi.localIP());
-            Serial.print("MAC address: ");
-            Serial.println(WiFi.macAddress());
-            break;
-        case TYP_ETH:{
-            Serial.println("Initialize as ETH");
-            ESP32_W5500_onEvent();
-         
+        //ESP32_W5500_waitForConnect();
+        uint8_t timeout = 5; // in s
+        Serial.print("Wait for connect");
+        while (!ESP32_W5500_eth_connected && timeout > 0) { 
+            delay(1000);
+            timeout--;
+            Serial.print(".");
+        }
+        Serial.println();
+        if (ESP32_W5500_eth_connected) {
+            Serial.println("DHCP OK!");
+        } else {
+            Serial.println("Set static IP");
+            ETH.config(ip, gateway, subnet);
+        }
+        broadcastIp = ETH.broadcastIP().toString();
 
-            if (ETH.begin( ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac )) { // Dynamic IP setup
-            }else{
-                Serial.println("Failed to configure Ethernet");
-            }
-            ETH.setHostname(hostname);
-
-            //ESP32_W5500_waitForConnect();
-            uint8_t timeout = 5; // in s
-            Serial.print("Wait for connect");
-            while (!ESP32_W5500_eth_connected && timeout > 0) { 
-                delay(1000);
-                timeout--;
-                Serial.print(".");
-            }
-            Serial.println();
-            if (ESP32_W5500_eth_connected) {
-                Serial.println("DHCP OK!");
-            } else {
-                Serial.println("Set static IP");
-                ETH.config(ip, gateway, subnet);
-            }
-
-
-            Serial.print("Local IP : ");
-            Serial.println(ETH.localIP());
-            Serial.print("Subnet Mask : ");
-            Serial.println(ETH.subnetMask());
-            Serial.print("Gateway IP : ");
-            Serial.println(ETH.gatewayIP());
-            Serial.print("DNS Server : ");
-            Serial.println(ETH.dnsIP());
-            Serial.print("MAC address : ");
-            Serial.println(ETH.macAddress());
-
-            Serial.println("Ethernet Successfully Initialized");
-            break;
+        Serial.print("Local IP : ");
+        Serial.println(ETH.localIP());
+        Serial.print("Subnet Mask : ");
+        Serial.println(ETH.subnetMask());
+        Serial.print("Gateway IP : ");
+        Serial.println(ETH.gatewayIP());
+        Serial.print("DNS Server : ");
+        Serial.println(ETH.dnsIP());
+        Serial.print("MAC address : ");
+        Serial.println(ETH.macAddress());
+        Serial.println("Ethernet Successfully Initialized");
+        break;
     }
     default:
-        Serial.println("Initialize as WiFi-AP");
-        WiFi.softAP(ssid, pwd);
+        Serial.println("Initialize as WiFi AccessPoint");
         WiFi.softAPsetHostname(hostname);
-        WiFi.softAPConfig(ip, gateway, subnet);
+        WiFi.softAP(ssid, pwd);
+        // AP always with DHCP
+        //WiFi.softAPConfig(ip, gateway, subnet);
+        broadcastIp = WiFi.softAPBroadcastIP().toString();
         Serial.print("WiFi AP enabled, IP = ");
         Serial.println(WiFi.softAPIP());
         Serial.print("MAC address: ");
-        Serial.println(WiFi.softAPmacAddress());
+        Serial.println(WiFi.softAPmacAddress());        
         break;
-    }
-
     }
     
     // Initialize DMX ports
     Serial.println("Initialize DMX...");
-    dmx1.init(19, -1);
+    dmx1.init(21, 33, Serial0);
+    dmx2.init(17, 18, Serial1);
 
     // Initialize Art-Net
     Serial.println("Initialize Art-Net...");
     artnet.begin();
 
     // if Artnet packet comes to this universe, this function is called
-    artnet.subscribeArtDmxUniverse(universe, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
-    {
-        for (size_t i = 0; i < size; ++i)
+    if (direction1 == Output) {
+        artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
         {
-            dmx1.write((i + 1), data[i]);
-        }
+            for (size_t i = 0; i < size; ++i)
+            {
+                dmx1.write((i + 1), data[i]);
+            }
+            dmx1.update();
+        });
+    }
 
-        dmx1.update();
-    });
+    if (direction2 == Output) {
+        artnet.subscribeArtDmxUniverse(universe2, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
+        {
+            for (size_t i = 0; i < size; ++i)
+            {
+                dmx2.write((i + 1), data[i]);
+            }
 
+            dmx2.update();
+        });
+    }
 
     // if Artnet packet comes, this function is called to every universe
-    artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
+    //artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
 
     if (!SPIFFS.begin(true))
     {
@@ -302,4 +302,15 @@ void loop()
 {
     // check if artnet packet has come and execute callback
     artnet.parse();
+
+    // Receive Callback/INT currently not implemented
+    /*if (direction1 == Input) {
+        artnet.setArtDmxData(dmx1.readAll(), DMXCHANNELS);
+        artnet.streamArtDmxTo(broadcastIp, universe1);
+    }
+
+    if (direction2 == Input) {
+        artnet.setArtDmxData(dmx2.readAll(), DMXCHANNELS);
+        artnet.streamArtDmxTo(broadcastIp, universe2);
+    }*/
 }
