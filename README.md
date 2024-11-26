@@ -12,6 +12,8 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 ![Circuit diagram](/assets/circuit/diagram.svg)
 
+You have to short-circuit R0 on the RS485 boards to enable the termination resistor required for DMX before the first and after the last device in line.
+
 ## Pin usage
 
 | GPIO | Usage          |
