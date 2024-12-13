@@ -108,10 +108,10 @@ Contributions, issues and feature requests are welcome!<br />Feel free to check 
 
 ## 👥 Authors
 
+### [Chaostreff Backnang](https://chaostreff-backnang.de/)
+
 ### [@HendrikRauh](https://github.com/HendrikRauh)
 
 ### [@RaffaelW](https://github.com/RaffaelW)
 
 ### [@psxde](https://github.com/psxde)
-
-[Chaostreff Backnang](https://chaostreff-backnang.de/)
