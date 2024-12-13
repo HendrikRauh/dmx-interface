@@ -264,9 +264,6 @@ void setup()
             {
                 dmx1.write((i + 1), data[i]);
             }
-
-            //!
-            Serial.println("dmx 1");
             dmx1.update(); });
     }
 
@@ -278,10 +275,6 @@ void setup()
             {
                 dmx2.write((i + 1), data[i]);
             }
-
-                        //!
-            Serial.println("dmx 2");
-
             dmx2.update(); });
     }
 
