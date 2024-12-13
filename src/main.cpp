@@ -14,9 +14,7 @@
 #include <ArduinoJson.h>
 
 #include "ESPDMX.h"
-#include "SPI.h"
-
-#include <SPIFFS.h>
+#include <LittleFS.h>
 #include "routes/config.h"
 
 DMXESPSerial dmx1;
@@ -117,15 +115,14 @@ void setup()
         config.end();
     }
 
-    // Serial console
-    Serial.print("Start DMX-Interface");
-    delay(1000);
-    Serial.println("...");
+    // wait for serial monitor
+    delay(5000);
+    Serial.println("Starting DMX-Interface...");
 
     config.begin("dmx", true);
 
-    universe1 = config.getUChar("universe-1", 1);
-    universe2 = config.getUChar("universe-2", 1);
+    universe1 = config.getUInt("universe-1", 1);
+    universe2 = config.getUInt("universe-2", 1);
 
     direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
     direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
@@ -161,9 +158,6 @@ void setup()
     IPAddress gateway = config.getUInt("gateway", defaultGateway);
 
     config.end();
-
-    // wait for serial monitor
-    delay(5000);
 
     switch (connection)
     {
@@ -270,6 +264,9 @@ void setup()
             {
                 dmx1.write((i + 1), data[i]);
             }
+
+            //!
+            Serial.println("dmx 1");
             dmx1.update(); });
     }
 
@@ -282,19 +279,22 @@ void setup()
                 dmx2.write((i + 1), data[i]);
             }
 
+                        //!
+            Serial.println("dmx 2");
+
             dmx2.update(); });
     }
 
     // if Artnet packet comes, this function is called to every universe
     // artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
 
-    if (!SPIFFS.begin(true))
+    if (!LittleFS.begin(true))
     {
-        Serial.println("An Error has occurred while mounting SPIFFS");
+        Serial.println("An Error has occurred while mounting LittleFS");
         return;
     }
 
-    server.serveStatic("/", SPIFFS, "/").setDefaultFile("index.html");
+    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.html");
 
     server.on("/config", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetConfig(request); });
