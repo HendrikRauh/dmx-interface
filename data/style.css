@@ -3,6 +3,7 @@
     --color-on-primary: white;
     --color-background: #222;
     --color-danger: #fa2b58;
+    --icon-button-size: 2.5rem;
 }
 
 body {
@@ -38,9 +39,14 @@ fieldset {
 label {
     display: block;
     display: flex;
+    gap: 8px;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
+
+label span {
+    flex-grow: 1;
 }
 
 input,
@@ -58,6 +64,10 @@ input:focus,
 select:focus {
     outline: none;
     border-color: var(--color-primary);
+}
+
+select:has(+ .icon-button) {
+    width: calc(clamp(200px, 100%, 400px) - var(--icon-button-size) - 8px);
 }
 
 button {
@@ -143,8 +153,12 @@ label.switch input:checked + .slider::before {
     justify-content: center;
 }
 
-h2.error {
+.error {
     color: var(--color-danger);
+}
+
+.error-bg {
+    background-color: var(--color-danger) !important;
 }
 
 button.reload {
@@ -194,4 +208,18 @@ button.reload {
     to {
         transform: rotate(360deg);
     }
+}
+
+.icon-button {
+    padding: 8px;
+    font-size: 0;
+    width: var(--icon-button-size);
+    height: var(--icon-button-size);
+}
+
+.spinning {
+    animation-name: spin;
+    animation-duration: 0.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
 }

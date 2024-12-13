@@ -8,6 +8,7 @@
         <script type="module" src="/input-visibility.js" defer></script>
         <script type="module" src="/loading-screen.js" defer></script>
         <script type="module" src="/load-data.js" defer></script>
+        <script type="module" src="/networks.js" defer></script>
         <script type="module" src="/submit.js" defer></script>
         <script type="module" src="/reset.js" defer></script>
     </head>
@@ -32,8 +33,8 @@
                 <h1>Konfiguration</h1>
                 <fieldset>
                     <legend>Verbindung</legend>
-                    <label for="ip-method"
-                        >IP-Zuweisung:
+                    <label>
+                        <span>IP-Zuweisung:</span>
                         <select
                             name="ip-method"
                             id="input-ip-method"
@@ -45,7 +46,7 @@
                     </label>
                     <div data-field="input-ip-method" data-values="0">
                         <label>
-                            IP-Adresse:
+                            <span>IP-Adresse:</span>
                             <input
                                 type="text"
                                 name="ip"
@@ -54,7 +55,7 @@
                             />
                         </label>
                         <label>
-                            Subnetzmaske:
+                            <span>Subnetzmaske:</span>
                             <input
                                 type="text"
                                 name="subnet"
@@ -63,7 +64,7 @@
                             />
                         </label>
                         <label>
-                            Gateway:
+                            <span>Gateway:</span>
                             <input
                                 type="text"
                                 name="gateway"
@@ -73,20 +74,20 @@
                         </label>
                     </div>
                     <label>
-                        Verbindungsmethode:
+                        <span>Verbindungsmethode:</span>
                         <select
                             name="connection"
                             id="input-connection"
                             title="Verbindung"
                         >
-                            <option value="0">WiFi-AccessPoint</option>
-                            <option value="1">WiFi-Station</option>
+                            <option value="0">WiFi-Station</option>
+                            <option value="1">WiFi-AccessPoint</option>
                             <option value="2">Ethernet</option>
                         </select>
                     </label>
-                    <div data-field="input-connection" data-values="0">
+                    <div data-field="input-connection" data-values="1">
                         <label>
-                            SSID:
+                            <span>SSID:</span>
                             <input
                                 type="text"
                                 name="ssid"
@@ -95,19 +96,26 @@
                             />
                         </label>
                     </div>
-                    <div data-field="input-connection" data-values="1">
+                    <div data-field="input-connection" data-values="0">
                         <label>
-                            Netzwerk:
+                            <span>Netzwerk:</span>
                             <select
                                 name="ssid"
-                                id="input-network"
+                                id="select-network"
                                 title="Netzwerk"
                             ></select>
+                            <button
+                                type="button"
+                                id="refresh-networks"
+                                class="icon-button"
+                            >
+                                <img src="/icons/refresh.svg" alt="Neu laden" />
+                            </button>
                         </label>
                     </div>
                     <div data-field="input-connection" data-values="0|1">
                         <label>
-                            Password:
+                            <span>Password:</span>
                             <input
                                 type="password"
                                 name="password"
