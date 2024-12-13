@@ -122,7 +122,7 @@ void setup()
     config.begin("dmx", true);
 
     universe1 = config.getUInt("universe-1", 1);
-    universe2 = config.getUInt("universe-2", 1);
+    universe2 = config.getUInt("universe-2", 2);
 
     direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
     direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
