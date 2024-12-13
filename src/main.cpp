@@ -100,20 +100,26 @@ void setup()
 
     // LED
     analogWrite(PIN_LED, brightness_led);
-    // delay(5000);
-    ledBlink(500);
 
     // Button
     pinMode(PIN_BUTTON, INPUT_PULLUP);
     if (digitalRead(PIN_BUTTON) == LOW)
     {
         ledBlink(100);
-        delay(2000);
-        Serial.println("Reset config");
-        config.begin("dmx", false);
-        config.clear();
-        config.end();
+        unsigned long startTime = millis();
+        while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime >= 5000))
+        {
+        }
+        if (digitalRead(PIN_BUTTON) == LOW)
+        {
+            Serial.println("Reset config");
+            config.begin("dmx", false);
+            config.clear();
+            config.end();
+        }
     }
+
+    ledBlink(500);
 
     // wait for serial monitor
     delay(5000);
