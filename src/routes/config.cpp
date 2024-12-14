@@ -96,6 +96,7 @@ void onGetConfig(AsyncWebServerRequest *request)
     doc["direction-1"] = config.getUInt("direction-1", Output);
     doc["universe-2"] = config.getUInt("universe-2", 1);
     doc["direction-2"] = config.getUInt("direction-2", Input);
+    doc["led-brightness"] = config.getUInt("led-brightness", 25);
 
     config.end();
 
@@ -151,6 +152,8 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
 
         config.putUInt("universe-1", doc["universe-1"]);
         config.putUInt("universe-2", doc["universe-2"]);
+
+        config.putUInt("led-brightness", doc["led-brightness"]);
 
         config.end();
 

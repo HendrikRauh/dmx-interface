@@ -4,7 +4,7 @@
     --color-background: #222;
     --color-surface: #333;
     --color-danger: #fa2b58;
-    --icon-button-size: 2.5rem;
+    --appended-item-size: 2.5rem;
 }
 
 body {
@@ -51,8 +51,13 @@ label span {
 }
 
 input,
-select {
+select,
+label div {
     width: clamp(200px, 100%, 400px);
+}
+
+input,
+select {
     background-color: var(--color-background);
     color: white;
     border: 1px solid white;
@@ -67,8 +72,13 @@ select:focus {
     border-color: var(--color-primary);
 }
 
-select:has(+ .icon-button) {
-    width: calc(clamp(200px, 100%, 400px) - var(--icon-button-size) - 8px);
+select:has(+ .icon-button),
+label div input[type="range"] {
+    width: calc(clamp(200px, 100%, 400px) - var(--appended-item-size) - 8px);
+}
+
+input[type="range"] {
+    accent-color: var(--color-primary);
 }
 
 button {
@@ -245,8 +255,8 @@ button.reload {
 .icon-button {
     padding: 8px;
     font-size: 0;
-    width: var(--icon-button-size);
-    height: var(--icon-button-size);
+    width: var(--appended-item-size);
+    height: var(--appended-item-size);
 }
 
 .spinning {
@@ -254,6 +264,19 @@ button.reload {
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+div:has(.range-value) {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.range-value {
+    width: var(--appended-item-size);
+    height: var(--appended-item-size);
+    text-align: center;
+    line-height: var(--appended-item-size);
 }
 
 .status {

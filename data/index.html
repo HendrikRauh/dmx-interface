@@ -11,6 +11,7 @@
         <script type="module" src="/networks.js" defer></script>
         <script type="module" src="/submit.js" defer></script>
         <script type="module" src="/reset.js" defer></script>
+        <script type="module" src="/range-input.js" defer></script>
         <script type="module" src="/status.js" defer></script>
     </head>
     <body>
@@ -247,6 +248,23 @@
                                 min="0"
                                 max="15"
                             />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Sonstiges</legend>
+                        <label>
+                            LED-Helligkeit
+                            <div>
+                                <input
+                                    type="range"
+                                    name="led-brightness"
+                                    id="led-brightness"
+                                    min="0"
+                                    max="255"
+                                    class="range"
+                                />
+                                <span class="range-value"></span>
+                            </div>
                         </label>
                     </fieldset>
                     <div class="buttons">
