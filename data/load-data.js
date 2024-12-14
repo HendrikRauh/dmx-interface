@@ -6,6 +6,8 @@ import {
 
 const form = document.querySelector("form.config");
 
+export let data = {};
+
 export async function loadData(timeout = null) {
     const req = await fetch("/config", {
         method: "GET",
@@ -38,7 +40,7 @@ export function writeDataToInput(data) {
 
 showLoadingScreen("Konfiguration wird geladen...");
 try {
-    const data = await loadData();
+    data = await loadData();
     hideLoadingScreen();
     writeDataToInput(data);
 } catch (error) {

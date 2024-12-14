@@ -1,3 +1,5 @@
+import { data } from "./load-data.js";
+
 const networkDropdown = document.querySelector("#select-network");
 const refreshButton = document.querySelector("#refresh-networks");
 const refreshIcon = refreshButton.querySelector("img");
@@ -5,6 +7,15 @@ const refreshIcon = refreshButton.querySelector("img");
 let isLoading = false;
 
 refreshButton.addEventListener("click", async () => {
+    // check if interface is connected via WiFi-AccessPoint
+    if (data.connection == 0 || data.connection == 1) {
+        alert(
+            "Um nach WLAN-Netzwerken zu scannen, muss hardware-bedingt die " +
+                "WLAN-Verbindung kurzzeitig unterbrochen werden.\n" +
+                "Wenn das DMX-Interface nach dem Scan nicht mehr verbunden " +
+                "ist, verbinde es bitte neu."
+        );
+    }
     updateNetworks();
 });
 
@@ -56,5 +67,3 @@ async function updateNetworks() {
         insertNetworks(networks);
     }
 }
-
-updateNetworks();
