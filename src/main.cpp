@@ -112,15 +112,17 @@ void setup()
     {
         ledBlink(100);
         unsigned long startTime = millis();
-        while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime >= 5000))
+        while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
+            ledBlink(1);
             Serial.println("Reset config");
             config.begin("dmx", false);
             config.clear();
             config.end();
+            delay(2000);
         }
     }
 
