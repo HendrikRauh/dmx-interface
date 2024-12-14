@@ -18,7 +18,7 @@ function parseValue(input) {
         return null;
     }
 
-    if (input.type === "number") {
+    if (input.type === "number" || input.type === "range") {
         const number = Number(input.value);
         return Number.isNaN(number) ? null : number;
     }
