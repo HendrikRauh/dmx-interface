@@ -305,6 +305,9 @@ void setup()
     server.on("/networks", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetNetworks(request); });
 
+    server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetStatus(request); });
+
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {

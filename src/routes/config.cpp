@@ -69,6 +69,16 @@ Direction parseDirection(uint8_t direction)
     throw ::std::invalid_argument("Invalid direction value: " + direction);
 }
 
+size_t getFreeHeap()
+{
+    return ESP.getFreeHeap();
+}
+
+size_t getTotalHeap()
+{
+    return ESP.getHeapSize();
+}
+
 #pragma endregion
 
 void onGetConfig(AsyncWebServerRequest *request)
@@ -185,6 +195,19 @@ void onGetNetworks(AsyncWebServerRequest *request)
             WiFi.scanNetworks(true);
         }
     }
+
+    String jsonString;
+    serializeJson(doc, jsonString);
+    request->send(200, "application/json", jsonString);
+}
+
+void onGetStatus(AsyncWebServerRequest *request)
+{
+    JsonDocument doc;
+
+    doc["uptime"] = millis();
+    doc["heapFree"] = getFreeHeap();
+    doc["heapTotal"] = getTotalHeap();
 
     String jsonString;
     serializeJson(doc, jsonString);
