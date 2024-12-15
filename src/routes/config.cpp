@@ -198,6 +198,8 @@ void onGetStatus(AsyncWebServerRequest *request)
     doc["uptime"] = millis();
     doc["heapFree"] = ESP.getFreeHeap();
     doc["heapTotal"] = ESP.getHeapSize();
+    doc["psramFree"] = ESP.getFreePsram();
+    doc["psramTotal"] = ESP.getPsramSize();
 
     String jsonString;
     serializeJson(doc, jsonString);
