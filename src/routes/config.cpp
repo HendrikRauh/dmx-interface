@@ -196,6 +196,15 @@ void onGetStatus(AsyncWebServerRequest *request)
     JsonDocument doc;
 
     doc["uptime"] = millis();
+    doc["mac"] = ESP.getEfuseMac();
+    doc["chipModel"] = ESP.getChipModel();
+    doc["chipRevision"] = ESP.getChipRevision();
+    doc["cpuFreqMHz"] = ESP.getCpuFreqMHz();
+    doc["cycleCount"] = ESP.getCycleCount();
+    doc["sdkVersion"] = ESP.getSdkVersion();
+    doc["sketchMD5"] = ESP.getSketchMD5();
+    doc["sketchSpaceFree"] = ESP.getFreeSketchSpace();
+    doc["sketchSize"] = ESP.getSketchSize();
     doc["heapFree"] = ESP.getFreeHeap();
     doc["heapTotal"] = ESP.getHeapSize();
     doc["psramFree"] = ESP.getFreePsram();
