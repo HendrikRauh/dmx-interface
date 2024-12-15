@@ -69,16 +69,6 @@ Direction parseDirection(uint8_t direction)
     throw ::std::invalid_argument("Invalid direction value: " + direction);
 }
 
-size_t getFreeHeap()
-{
-    return ESP.getFreeHeap();
-}
-
-size_t getTotalHeap()
-{
-    return ESP.getHeapSize();
-}
-
 #pragma endregion
 
 void onGetConfig(AsyncWebServerRequest *request)
@@ -206,8 +196,8 @@ void onGetStatus(AsyncWebServerRequest *request)
     JsonDocument doc;
 
     doc["uptime"] = millis();
-    doc["heapFree"] = getFreeHeap();
-    doc["heapTotal"] = getTotalHeap();
+    doc["heapFree"] = ESP.getFreeHeap();
+    doc["heapTotal"] = ESP.getHeapSize();
 
     String jsonString;
     serializeJson(doc, jsonString);
