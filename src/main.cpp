@@ -322,6 +322,9 @@ void setup()
     server.begin();
     Serial.println("Server started!");
 
+    // scan networks and cache them
+    WiFi.scanNetworks(true);
+
     ledBlink(1);
 }
 
