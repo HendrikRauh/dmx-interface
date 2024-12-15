@@ -10,10 +10,9 @@ refreshButton.addEventListener("click", async () => {
     // check if interface is connected via WiFi-AccessPoint
     if (data.connection == 0 || data.connection == 1) {
         alert(
-            "Um nach WLAN-Netzwerken zu scannen, muss hardware-bedingt die " +
-                "WLAN-Verbindung kurzzeitig unterbrochen werden.\n" +
-                "Wenn das DMX-Interface nach dem Scan nicht mehr verbunden " +
-                "ist, verbinde es bitte neu."
+            "Beim WLAN-Scan wird die Verbindung hardwarebedingt kurzzeitig" +
+                "unterbrochen.\n" +
+                "Möglicherweise muss das Interface neu verbunden werden."
         );
     }
     updateNetworks();
