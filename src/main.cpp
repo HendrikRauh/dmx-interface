@@ -155,7 +155,7 @@ void setup()
     // Default IP as defined in standard https://art-net.org.uk/downloads/art-net.pdf, page 13
     IPAddress ip = config.getUInt("ip", DEFAULT_IP);
     IPAddress subnet = config.getUInt("subnet", DEFAULT_SUBNET);
-    IPAddress gateway = config.getUInt("gateway", DEFAULT_GATEWAY);
+    IPAddress gateway = config.getUInt("gateway", NULL);
 
     config.end();
 
