@@ -34,7 +34,7 @@ const IpMethod DEFAULT_IP_METHOD = DHCP;
 extern String DEFAULT_SSID; // initialized in setup because it depends on the mac address
 const String DEFAULT_PASSWORD = "mbgmbgmbg";
 const IPAddress DEFAULT_IP(192, 168, 4, 1);
-const IPAddress DEFAULT_SUBNET(255, 0, 0, 0);
+const IPAddress DEFAULT_SUBNET(255, 255, 255, 0);
 const IPAddress DEFAULT_GATEWAY(2, 0, 0, 1);
 
 const Direction DEFAULT_DIRECTION1 = Output;
