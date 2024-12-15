@@ -16,6 +16,7 @@
 #include "ESPDMX.h"
 #include <LittleFS.h>
 #include "routes/config.h"
+#include "routes/status.h"
 
 DMXESPSerial dmx1;
 DMXESPSerial dmx2;

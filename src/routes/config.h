@@ -37,6 +37,4 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
 
 void onGetNetworks(AsyncWebServerRequest *request);
 
-void onGetStatus(AsyncWebServerRequest *request);
-
 // #endif
