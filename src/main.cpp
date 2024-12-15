@@ -101,6 +101,9 @@ void setup()
     esp_read_mac(mac, ESP_MAC_ETH);
 
     // LED
+    config.begin("dmx", true);
+    brightness_led = config.getUInt("led-brightness", 20);
+    config.end();
     analogWrite(PIN_LED, brightness_led);
     // delay(5000);
     ledBlink(500);
