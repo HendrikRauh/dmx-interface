@@ -196,19 +196,18 @@ void onGetStatus(AsyncWebServerRequest *request)
     JsonDocument doc;
 
     doc["uptime"] = millis();
-    doc["mac"] = ESP.getEfuseMac();
-    doc["chipModel"] = ESP.getChipModel();
-    doc["chipRevision"] = ESP.getChipRevision();
-    doc["cpuFreqMHz"] = ESP.getCpuFreqMHz();
-    doc["cycleCount"] = ESP.getCycleCount();
+    doc["chip"]["model"] = ESP.getChipModel();
+    doc["chip"]["mac"] = ESP.getEfuseMac();
+    doc["chip"]["revision"] = ESP.getChipRevision();
+    doc["chip"]["cpuFreqMHz"] = ESP.getCpuFreqMHz();
+    doc["chip"]["cycleCount"] = ESP.getCycleCount();
     doc["sdkVersion"] = ESP.getSdkVersion();
-    doc["sketchMD5"] = ESP.getSketchMD5();
-    doc["sketchSpaceFree"] = ESP.getFreeSketchSpace();
-    doc["sketchSize"] = ESP.getSketchSize();
-    doc["heapFree"] = ESP.getFreeHeap();
-    doc["heapTotal"] = ESP.getHeapSize();
-    doc["psramFree"] = ESP.getFreePsram();
-    doc["psramTotal"] = ESP.getPsramSize();
+    doc["sketch"]["size"] = ESP.getSketchSize();
+    doc["sketch"]["md5"] = ESP.getSketchMD5();
+    doc["heap"]["free"] = ESP.getFreeHeap();
+    doc["heap"]["total"] = ESP.getHeapSize();
+    doc["psram"]["free"] = ESP.getFreePsram();
+    doc["psram"]["total"] = ESP.getPsramSize();
 
     String jsonString;
     serializeJson(doc, jsonString);
