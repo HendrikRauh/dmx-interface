@@ -75,12 +75,7 @@ void ledBlink(int ms)
         timer = timerBegin(0, 80, true);             // timer 0, prescalar: 80, UP counting
         timerAttachInterrupt(timer, &onTimer, true); // Attach interrupt
     }
-    if (ms == 0)
-    {
-        timerAlarmDisable(timer);
-        analogWrite(PIN_LED, 0);
-    }
-    else if (ms == 1)
+    else if (ms == 0)
     {
         timerAlarmDisable(timer);
         analogWrite(PIN_LED, brightness_led);
@@ -117,7 +112,7 @@ void setup()
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            ledBlink(1);
+            ledBlink(0);
             Serial.println("Reset config");
             config.begin("dmx", false);
             config.clear();
@@ -333,7 +328,7 @@ void setup()
     // scan networks and cache them
     WiFi.scanNetworks(true);
 
-    ledBlink(1);
+    ledBlink(0);
 }
 
 void loop()
