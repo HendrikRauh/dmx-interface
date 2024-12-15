@@ -69,6 +69,18 @@ Direction parseDirection(uint8_t direction)
     throw ::std::invalid_argument("Invalid direction value: " + direction);
 }
 
+int8_t getWiFiStrength()
+{
+    try
+    {
+        return WiFi.RSSI();
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}
+
 #pragma endregion
 
 void onGetConfig(AsyncWebServerRequest *request)
@@ -208,6 +220,7 @@ void onGetStatus(AsyncWebServerRequest *request)
     doc["heap"]["total"] = ESP.getHeapSize();
     doc["psram"]["free"] = ESP.getFreePsram();
     doc["psram"]["total"] = ESP.getPsramSize();
+    doc["connection"]["signalStrength"] = getWiFiStrength();
 
     String jsonString;
     serializeJson(doc, jsonString);
