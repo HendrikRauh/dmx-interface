@@ -11,6 +11,7 @@
         <script type="module" src="/networks.js" defer></script>
         <script type="module" src="/submit.js" defer></script>
         <script type="module" src="/reset.js" defer></script>
+        <script type="module" src="/range-input.js" defer></script>
     </head>
     <body>
         <main>
@@ -39,6 +40,7 @@
                             name="ip-method"
                             id="input-ip-method"
                             title="IP-"
+                            required
                         >
                             <option value="0">Statisch</option>
                             <option value="1">DHCP</option>
@@ -52,6 +54,7 @@
                                 name="ip"
                                 id="input-ip"
                                 placeholder="IP-Adresse"
+                                required
                             />
                         </label>
                         <label>
@@ -61,6 +64,7 @@
                                 name="subnet"
                                 id="input-subnet"
                                 placeholder="Subnetzmaske"
+                                required
                             />
                         </label>
                         <label>
@@ -70,6 +74,7 @@
                                 name="gateway"
                                 id="input-gateway"
                                 placeholder="Gateway"
+                                required
                             />
                         </label>
                     </div>
@@ -79,6 +84,7 @@
                             name="connection"
                             id="input-connection"
                             title="Verbindung"
+                            required
                         >
                             <option value="0">WiFi-Station</option>
                             <option value="1">WiFi-AccessPoint</option>
@@ -93,6 +99,7 @@
                                 name="ssid"
                                 id="input-ssid"
                                 placeholder="SSID"
+                                required
                             />
                         </label>
                     </div>
@@ -103,6 +110,7 @@
                                 name="ssid"
                                 id="select-network"
                                 title="Netzwerk"
+                                required
                             ></select>
                             <button
                                 type="button"
@@ -133,8 +141,8 @@
                             type="checkbox"
                             name="direction-1"
                             id="input-direction-1"
-                            data-value-not-checked="output"
-                            data-value-checked="input"
+                            data-value-not-checked="0"
+                            data-value-checked="1"
                         />
                         <span class="slider"></span>
                         <span>Input</span>
@@ -159,8 +167,8 @@
                             type="checkbox"
                             name="direction-2"
                             id="input-direction-2"
-                            data-value-not-checked="output"
-                            data-value-checked="input"
+                            data-value-not-checked="0"
+                            data-value-checked="1"
                         />
                         <span class="slider"></span>
                         <span>Input</span>
@@ -175,6 +183,23 @@
                             min="0"
                             max="15"
                         />
+                    </label>
+                </fieldset>
+                <fieldset>
+                    <legend>Sonstiges</legend>
+                    <label>
+                        LED-Helligkeit
+                        <div>
+                            <input
+                                type="range"
+                                name="led-brightness"
+                                id="led-brightness"
+                                min="0"
+                                max="255"
+                                class="range"
+                            />
+                            <span class="range-value"></span>
+                        </div>
                     </label>
                 </fieldset>
                 <div class="buttons">

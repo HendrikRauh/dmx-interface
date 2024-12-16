@@ -1,3 +1,5 @@
+import { data } from "./load-data.js";
+
 const networkDropdown = document.querySelector("#select-network");
 const refreshButton = document.querySelector("#refresh-networks");
 const refreshIcon = refreshButton.querySelector("img");
@@ -5,11 +7,24 @@ const refreshIcon = refreshButton.querySelector("img");
 let isLoading = false;
 
 refreshButton.addEventListener("click", async () => {
+    // check if interface is connected via WiFi
+    if (data.connection == 0 || data.connection == 1) {
+        alert(
+            "Beim WLAN-Scan wird die Verbindung hardwarebedingt kurzzeitig" +
+                "unterbrochen.\n" +
+                "Möglicherweise muss das Interface neu verbunden werden."
+        );
+    }
     updateNetworks();
 });
 
+// check if connected via WiFi-Station
+if (data.connection === 0) {
+    // show currently connected wifi
+    insertNetworks([data.ssid]);
+}
+
 function insertNetworks(networks) {
-    networks.unshift(""); // add empty option
     networkDropdown.textContent = ""; // clear dropdown
 
     for (const ssid of networks) {
@@ -53,8 +68,6 @@ async function loadNetworks() {
 async function updateNetworks() {
     const networks = await loadNetworks();
     if (networks) {
-        insertNetworks(networks);
+        insertNetworks(["", ...networks], true);
     }
 }
-
-updateNetworks();

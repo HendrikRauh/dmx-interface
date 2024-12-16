@@ -16,6 +16,7 @@
 #include "ESPDMX.h"
 #include <LittleFS.h>
 #include "routes/config.h"
+#include "routes/networks.h"
 
 DMXESPSerial dmx1;
 DMXESPSerial dmx2;
@@ -94,6 +95,9 @@ void setup()
     esp_read_mac(mac, ESP_MAC_ETH);
 
     // LED
+    config.begin("dmx", true);
+    brightness_led = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
+    config.end();
     analogWrite(PIN_LED, brightness_led);
 
     // Button
@@ -124,11 +128,11 @@ void setup()
 
     config.begin("dmx", true);
 
-    universe1 = config.getUInt("universe-1", 1);
-    universe2 = config.getUInt("universe-2", 2);
+    universe1 = config.getUInt("universe-1", DEFAULT_UNIVERSE1);
+    universe2 = config.getUInt("universe-2", DEFAULT_UNIVERSE2);
 
-    direction1 = static_cast<Direction>(config.getUInt("direction-1", 0));
-    direction2 = static_cast<Direction>(config.getUInt("direction-2", 1));
+    direction1 = static_cast<Direction>(config.getUInt("direction-1", DEFAULT_DIRECTION1));
+    direction2 = static_cast<Direction>(config.getUInt("direction-2", DEFAULT_DIRECTION2));
 
     Serial.print("Port A: Universe ");
     Serial.print(universe1);
@@ -140,25 +144,22 @@ void setup()
     Serial.print(" ");
     Serial.println((direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
 
-    Connection connection = static_cast<Connection>(config.getUInt("connection", WiFiAP));
-    IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), DHCP);
+    Connection connection = static_cast<Connection>(config.getUInt("connection", DEFAULT_CONNECTION));
+    IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), DEFAULT_IP_METHOD);
 
-    WiFi.macAddress(mac);
     char hostname[30];
     snprintf(hostname, sizeof(hostname), "ChaosDMX-%02X%02X", mac[4], mac[5]);
+    DEFAULT_SSID = hostname;
     Serial.print("Hostname: ");
     Serial.println(hostname);
 
-    String ssid = config.getString("ssid", hostname);
-    String pwd = config.getString("password", "mbgmbgmbg");
+    String ssid = config.getString("ssid", DEFAULT_SSID);
+    String pwd = config.getString("password", DEFAULT_PASSWORD);
 
     // Default IP as defined in standard https://art-net.org.uk/downloads/art-net.pdf, page 13
-    IPAddress defaultIp(2, mac[3], mac[4], mac[5]);
-    IPAddress ip = config.getUInt("ip", defaultIp);
-    IPAddress defaultSubnet(255, 0, 0, 0);
-    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
-    IPAddress defaultGateway(2, 0, 0, 1);
-    IPAddress gateway = config.getUInt("gateway", defaultGateway);
+    IPAddress ip = config.getUInt("ip", DEFAULT_IP);
+    IPAddress subnet = config.getUInt("subnet", DEFAULT_SUBNET);
+    IPAddress gateway = config.getUInt("gateway", NULL);
 
     config.end();
 
@@ -319,6 +320,9 @@ void setup()
     delay(1000);
     server.begin();
     Serial.println("Server started!");
+
+    // scan networks and cache them
+    WiFi.scanNetworks(true);
 
     ledBlink(0);
 }
