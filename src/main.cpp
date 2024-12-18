@@ -74,7 +74,7 @@ void ledBlink(int ms)
         timer = timerBegin(0, 80, true);             // timer 0, prescalar: 80, UP counting
         timerAttachInterrupt(timer, &onTimer, true); // Attach interrupt
     }
-    else if (ms == 0)
+    if (ms == 0)
     {
         timerAlarmDisable(timer);
         analogWrite(PIN_LED, brightness_led);
