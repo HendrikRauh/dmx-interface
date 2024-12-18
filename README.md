@@ -86,7 +86,7 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 ## ⚙️ Default config
 
-To reset the settings, hold down the button and connect the ESP to the power supply. As soon as the LED flashes quickly, the settings are reset.
+To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash quickly. After 3 seconds the LED should light up static and the settings are reset. If you release the button early you abort the reset and the LED flashes slowly.
 
 | Setting        | Value              |
 | -------------- | ------------------ |

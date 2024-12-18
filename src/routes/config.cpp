@@ -4,6 +4,7 @@
 #include "WiFi.h"
 
 Preferences config;
+String DEFAULT_SSID = "";
 
 #pragma region Utility
 
@@ -75,27 +76,23 @@ void onGetConfig(AsyncWebServerRequest *request)
 {
     config.begin("dmx", true);
 
-    IPAddress defaultIp(192, 168, 1, 201);
-    IPAddress ip = config.getUInt("ip", defaultIp);
-
-    IPAddress defaultSubnet(255, 255, 255, 0);
-    IPAddress subnet = config.getUInt("subnet", defaultSubnet);
-
-    IPAddress defaultGateway(192, 168, 1, 1);
-    IPAddress gateway = config.getUInt("gateway", defaultGateway);
+    IPAddress ip = config.getUInt("ip", DEFAULT_IP);
+    IPAddress subnet = config.getUInt("subnet", DEFAULT_SUBNET);
+    IPAddress gateway = config.getUInt("gateway", NULL);
 
     JsonDocument doc;
-    doc["connection"] = config.getUInt("connection", WiFiSta);
-    doc["ssid"] = config.getString("ssid", "artnet");
-    doc["password"] = config.getString("password", "mbgmbgmbg");
-    doc["ip-method"] = config.getUInt("ip-method"), Static;
+    doc["connection"] = config.getUInt("connection", DEFAULT_CONNECTION);
+    doc["ssid"] = config.getString("ssid", DEFAULT_SSID);
+    doc["password"] = config.getString("password", DEFAULT_PASSWORD);
+    doc["ip-method"] = config.getUInt("ip-method", DEFAULT_IP_METHOD);
     doc["ip"] = ip.toString();
     doc["subnet"] = subnet.toString();
-    doc["gateway"] = gateway.toString();
-    doc["universe-1"] = config.getUInt("universe-1", 1);
-    doc["direction-1"] = config.getUInt("direction-1", Output);
-    doc["universe-2"] = config.getUInt("universe-2", 1);
-    doc["direction-2"] = config.getUInt("direction-2", Input);
+    doc["gateway"] = gateway != NULL ? gateway.toString() : "";
+    doc["universe-1"] = config.getUInt("universe-1", DEFAULT_UNIVERSE1);
+    doc["direction-1"] = config.getUInt("direction-1", DEFAULT_DIRECTION1);
+    doc["universe-2"] = config.getUInt("universe-2", DEFAULT_UNIVERSE2);
+    doc["direction-2"] = config.getUInt("direction-2", DEFAULT_DIRECTION2);
+    doc["led-brightness"] = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
 
     config.end();
 
@@ -152,6 +149,8 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
         config.putUInt("universe-1", doc["universe-1"]);
         config.putUInt("universe-2", doc["universe-2"]);
 
+        config.putUInt("led-brightness", doc["led-brightness"]);
+
         config.end();
 
         request->send(200);
@@ -161,32 +160,4 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
         config.end();
         request->send(400, "text/plain", e.what());
     }
-}
-
-void onGetNetworks(AsyncWebServerRequest *request)
-{
-    JsonDocument doc;
-    JsonArray array = doc.to<JsonArray>();
-
-    int numberOfNetworks = WiFi.scanComplete();
-    if (numberOfNetworks == WIFI_SCAN_FAILED)
-    {
-        WiFi.scanNetworks(true);
-    }
-    else if (numberOfNetworks)
-    {
-        for (int i = 0; i < numberOfNetworks; ++i)
-        {
-            array.add(WiFi.SSID(i));
-        }
-        WiFi.scanDelete();
-        if (WiFi.scanComplete() == WIFI_SCAN_FAILED)
-        {
-            WiFi.scanNetworks(true);
-        }
-    }
-
-    String jsonString;
-    serializeJson(doc, jsonString);
-    request->send(200, "application/json", jsonString);
 }
