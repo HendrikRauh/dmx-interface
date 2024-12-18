@@ -6,12 +6,20 @@ void onGetChannels(AsyncWebServerRequest *request, DMXESPSerial dmx1, DMXESPSeri
 
     for (int channel = 1; channel <= DMXCHANNELS; channel++)
     {
-        doc["dmx1"][String(channel)] = dmx1.read(channel);
+        uint8_t value = dmx1.read(channel);
+        if (value != 0)
+        {
+            doc["dmx1"][String(channel)] = value;
+        }
     }
 
     for (int channel = 1; channel <= DMXCHANNELS; channel++)
     {
-        doc["dmx2"][String(channel)] = dmx2.read(channel);
+        uint8_t value = dmx2.read(channel);
+        if (value != 0)
+        {
+            doc["dmx2"][String(channel)] = value;
+        }
     }
 
     String jsonBuffer;
