@@ -1,5 +1,12 @@
 #include "status.h"
 
+float getTemperature()
+{
+    float tempC = -1.0f;
+    temp_sensor_read_celsius(&tempC);
+    return tempC;
+}
+
 int8_t getWiFiStrength()
 {
     try
@@ -22,6 +29,7 @@ void onGetStatus(AsyncWebServerRequest *request)
     doc["chip"]["revision"] = ESP.getChipRevision();
     doc["chip"]["cpuFreqMHz"] = ESP.getCpuFreqMHz();
     doc["chip"]["cycleCount"] = ESP.getCycleCount();
+    doc["chip"]["tempC"] = getTemperature();
     doc["sdkVersion"] = ESP.getSdkVersion();
     doc["sketch"]["size"] = ESP.getSketchSize();
     doc["sketch"]["md5"] = ESP.getSketchMD5();
