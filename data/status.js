@@ -33,6 +33,7 @@ function setStatus(status) {
 
     setValue("cpu-freq", status.chip.cpuFreqMHz);
     setValue("cpu-cycle-count", status.chip.cycleCount);
+    setValue("cpu-temp", status.chip.tempC);
 
     const usedHeap = status.heap.total - status.heap.free;
     setValue("heap-used", formatBytes(usedHeap));
