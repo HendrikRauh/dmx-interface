@@ -31,6 +31,73 @@
             </section>
 
             <section class="content hidden">
+                <div class="status">
+                    <span>RSSI: <span class="rssi"></span></span>
+                    <span>Heap: <span class="heap-percentage"></span>%</span>
+                    <span>PSRAM: <span class="psram-percentage"></span>%</span>
+                    <span>Uptime: <span class="uptime"></span></span>
+
+                    <button type="button" class="expand-status">Mehr</button>
+                </div>
+
+                <dialog class="dialog-status">
+                    <h2 class="model"></h2>
+
+                    <div class="dialog-status-content">
+                        <div class="card">
+                            <span>Signalstärke</span>
+                            <span class="rssi"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>Uptime</span>
+                            <span class="uptime"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>CPU-Taktfrequenz</span>
+                            <span><span class="cpu-freq"></span> MHz</span>
+                        </div>
+
+                        <div class="card">
+                            <span>CPU Cycle Count</span>
+                            <span class="cpu-cycle-count"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>Heap</span>
+                            <span><span class="heap-percentage"></span>%</span>
+                            <span
+                                ><span class="heap-used"></span> /
+                                <span class="heap-total"></span
+                            ></span>
+                        </div>
+
+                        <div class="card">
+                            <span>PSRAM</span>
+                            <span><span class="psram-percentage"></span>%</span>
+                            <span
+                                ><span class="psram-used"></span> /
+                                <span class="psram-total"></span
+                            ></span>
+                        </div>
+
+                        <div class="card">
+                            <span>MAC-Adresse</span>
+                            <span class="mac"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>SDK-Version</span>
+                            <span class="sdk-version"></span>
+                        </div>
+                    </div>
+
+                    <form method="dialog">
+                        <button type="submit">Schließen</button>
+                    </form>
+                </dialog>
+
                 <form class="config">
                     <h1>Konfiguration</h1>
                     <fieldset>

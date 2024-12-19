@@ -2,6 +2,7 @@
     --color-primary: #087e8b;
     --color-on-primary: white;
     --color-background: #222;
+    --color-surface: #333;
     --color-danger: #fa2b58;
     --icon-button-size: 2.5rem;
 }
@@ -141,6 +142,37 @@ label.switch input:checked + .slider::before {
     translate: -100% -50%;
 }
 
+dialog {
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+    overflow: scroll;
+    background-color: var(--color-background);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+dialog::backdrop {
+    background-color: #000a;
+}
+
+.card {
+    background-color: var(--color-surface);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.card > * {
+    display: block;
+}
+
+.card > :first-child {
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
@@ -222,4 +254,28 @@ button.reload {
     animation-duration: 0.5s;
     animation-iteration-count: infinite;
     animation-timing-function: linear;
+}
+
+.status {
+    background-color: var(--color-surface);
+    padding: 8px;
+    border-radius: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.dialog-status-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.dialog-status button {
+    display: block;
+    margin: 0 auto;
+    margin-top: 32px;
 }
