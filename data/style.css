@@ -302,3 +302,9 @@ div:has(.range-value) {
     margin: 0 auto;
     margin-top: 32px;
 }
+
+.connection-icon {
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+}

@@ -1,3 +1,5 @@
+import { data } from "./load-data.js";
+
 const statusDialog = document.querySelector(".dialog-status");
 const expandButton = document.querySelector(".expand-status");
 
@@ -30,6 +32,10 @@ function setStatus(status) {
     setValue("sdk-version", status.sdkVersion);
 
     setValue("rssi", status.connection.signalStrength);
+    const icon = selectConnectionIcon(status.connection.signalStrength);
+    document.querySelectorAll(".connection-icon").forEach((img) => {
+        img.src = `/icons/${icon}`;
+    });
 
     setValue("cpu-freq", status.chip.cpuFreqMHz);
     setValue("cpu-cycle-count", status.chip.cycleCount);
@@ -84,6 +90,30 @@ function formatBytes(bytes) {
     }
 
     return `${Math.round(value * 10) / 10} ${units[index]}`;
+}
+
+function selectConnectionIcon(signalStrength) {
+    // access point
+    if (data.connection == 1) {
+        return "hotspot.svg";
+    }
+
+    // ethernet
+    if (data.connection == 2) {
+        return "lan.svg";
+    }
+
+    // station
+    if (signalStrength >= -50) {
+        return "signal4.svg";
+    }
+    if (signalStrength >= -60) {
+        return "signal3.svg";
+    }
+    if (signalStrength >= -70) {
+        return "signal2.svg";
+    }
+    return "signal1.svg";
 }
 
 setStatus(await loadStatus());
