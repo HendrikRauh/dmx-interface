@@ -28,7 +28,7 @@ async function loadStatus() {
 
 function setStatus(status) {
     setValue("model", status.chip.model);
-    setValue("mac", status.chip.mac.toString(16).toUpperCase());
+    setValue("mac", formatMac(status.chip.mac));
     setValue("sdk-version", status.sdkVersion);
 
     setValue("rssi", status.connection.signalStrength);
@@ -90,6 +90,11 @@ function formatBytes(bytes) {
     }
 
     return `${Math.round(value * 10) / 10} ${units[index]}`;
+}
+
+function formatMac(decimalMac) {
+    const octets = decimalMac.toString(16).toUpperCase().match(/../g) || [];
+    return octets.reverse().join(":");
 }
 
 function selectConnectionIcon(signalStrength) {
