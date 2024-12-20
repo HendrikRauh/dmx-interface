@@ -55,18 +55,20 @@ export async function updateConfig(fetchOptions) {
         if (!res.ok) {
             throw new Error(`Response status: ${res.status}`);
         }
-
-        // wait for the esp to restart
-        const delay = new Promise((resolve) =>
-            setTimeout(() => resolve(), 5000)
-        );
-        await delay;
-
-        const data = await loadData(30 * 1000);
-        writeDataToInput(data);
-        hideLoadingScreen();
     } catch (error) {
         console.error(error.message);
         showError(error.message);
+    }
+
+    for (let i = 0; i < 10; i++) {
+        try {
+            const data = await loadData(5000);
+            writeDataToInput(data);
+            hideLoadingScreen();
+
+            break;
+        } catch (error) {
+            // retry loading config until successful
+        }
     }
 }
