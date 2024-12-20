@@ -58,6 +58,8 @@ function setStatus(status) {
     );
 
     setValue("uptime", parseDuration(status.uptime));
+
+    setValue("hash", parseHash(status.sketch.md5));
 }
 
 function setValue(className, value) {
@@ -77,6 +79,10 @@ function parseDuration(ms) {
     const days = Math.floor(date.getTime() / (1000 * 60 * 60 * 24));
 
     return days !== 0 ? `${days} Tage, ${time}` : time;
+}
+
+function parseHash(hash) {
+    return hash.toUpperCase().substring(0, 16);
 }
 
 function formatBytes(bytes) {
