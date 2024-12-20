@@ -5,7 +5,7 @@ import {
     showError,
 } from "./loading-screen.js";
 
-const form = document.querySelector("form");
+const form = document.querySelector("form.config");
 
 function parseValue(input) {
     if (input.type === "checkbox") {

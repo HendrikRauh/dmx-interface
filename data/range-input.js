@@ -1,4 +1,4 @@
-document.querySelector("form").addEventListener("input", (event) => {
+document.querySelector("form.config").addEventListener("input", (event) => {
     if (event.target.classList.contains("range")) {
         updateValue(event.target);
     }

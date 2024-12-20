@@ -1,11 +1,11 @@
-const form = document.querySelector("form");
+const content = document.querySelector("section.content");
 const loadingScreen = document.querySelector(".loading-screen");
 const loadingMsg = loadingScreen.querySelector("h2");
 const spinner = loadingScreen.querySelector(".spinner");
 const reloadBtn = loadingScreen.querySelector(".reload");
 
 export function showLoadingScreen(msg) {
-    hide(form, reloadBtn);
+    hide(content, reloadBtn);
     show(loadingScreen, spinner);
     loadingMsg.classList.remove("error");
     loadingMsg.textContent = msg;
@@ -22,7 +22,7 @@ export function showError(msg) {
 
 export function hideLoadingScreen() {
     hide(loadingScreen, reloadBtn);
-    show(form);
+    show(content);
     loadingMsg.classList.remove("error");
     loadingMsg.textContent = "";
 }
