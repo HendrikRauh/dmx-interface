@@ -40,17 +40,32 @@
                     <span>PSRAM: <span class="psram-percentage"></span> %</span>
                     <span>Uptime: <span class="uptime"></span></span>
 
-                    <button type="button" class="expand-status">Mehr</button>
+                    <button type="button" class="expand-status icon-button">
+                        <img src="/icons/open.svg" alt="Mehr" />
+                    </button>
                 </div>
 
                 <dialog class="dialog-status">
-                    <h2 class="model"></h2>
+                    <div class="dialog-header">
+                        <h2 class="model"></h2>
+                        <form method="dialog">
+                            <button type="submit" class="icon-button">
+                                <img src="/icons/close.svg" alt="Schließen" />
+                            </button>
+                        </form>
+                    </div>
 
                     <div class="dialog-status-content">
                         <div class="card">
                             <span>Signalstärke</span>
-                            <!-- placeholder for wifi icon -->
-                            <span><span class="rssi"></span> dBm</span>
+                            <span class="centered-vertical">
+                                <img
+                                    class="connection-icon small"
+                                    src=""
+                                    alt=""
+                                />
+                                <span><span class="rssi"></span> dBm</span>
+                            </span>
                         </div>
 
                         <div class="card">
@@ -108,10 +123,6 @@
                             <span class="sdk-version"></span>
                         </div>
                     </div>
-
-                    <form method="dialog">
-                        <button type="submit">Schließen</button>
-                    </form>
                 </dialog>
 
                 <form class="config">
