@@ -58,7 +58,7 @@ export async function updateConfig(fetchOptions) {
 
         // wait for the esp to restart
         const delay = new Promise((resolve) =>
-            setTimeout(() => resolve(), 500)
+            setTimeout(() => resolve(), 5000)
         );
         await delay;
 
