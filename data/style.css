@@ -308,3 +308,15 @@ div:has(.range-value) {
     height: 24px;
     padding: 8px;
 }
+
+.connection-icon.small {
+    padding: 0;
+    height: 1em;
+}
+
+.centered-vertical {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+}
