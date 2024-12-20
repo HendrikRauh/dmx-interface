@@ -168,6 +168,17 @@ dialog::backdrop {
     background-color: #000a;
 }
 
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & button {
+        margin: 0;
+    }
+}
+
 .card {
     background-color: var(--color-surface);
     padding: 8px;
@@ -295,12 +306,6 @@ div:has(.range-value) {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-}
-
-.dialog-status button {
-    display: block;
-    margin: 0 auto;
-    margin-top: 32px;
 }
 
 .connection-icon {
