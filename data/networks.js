@@ -7,8 +7,8 @@ const refreshIcon = refreshButton.querySelector("img");
 let isLoading = false;
 
 refreshButton.addEventListener("click", async () => {
-    // check if interface is connected via WiFi
-    if (data.connection == 0 || data.connection == 1) {
+    // check if interface is in WiFi-AccessPoint mode
+    if (data.connection == 1) {
         alert(
             "Beim WLAN-Scan wird die Verbindung hardwarebedingt kurzzeitig" +
                 "unterbrochen.\n" +
