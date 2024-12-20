@@ -1,10 +1,10 @@
 #include "status.h"
 
-float getTemperature()
+int getTemperature()
 {
     float tempC = -1.0f;
     temp_sensor_read_celsius(&tempC);
-    return tempC;
+    return static_cast<int>(round(tempC));
 }
 
 int8_t getWiFiStrength()
