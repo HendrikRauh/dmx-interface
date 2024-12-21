@@ -96,9 +96,13 @@ void onButtonPress()
     switch (action)
     {
     case ResetConfig:
+        ledBlink(100);
+
         config.begin("dmx", false);
         config.clear();
         config.end();
+        delay(1000);
+
         ESP.restart();
         break;
 
