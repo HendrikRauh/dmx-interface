@@ -109,6 +109,9 @@ void onButtonPress()
     case Restart:
         ESP.restart();
         break;
+    case None:
+        // do nothing
+        break;
     }
 }
 
