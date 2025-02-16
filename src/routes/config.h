@@ -1,5 +1,4 @@
 #include <AsyncWebServer_ESP32_W5500.h>
-#include <ESPDMX.h>
 #include <Preferences.h>
 
 #ifndef CONFIG_h
