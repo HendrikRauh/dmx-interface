@@ -51,7 +51,6 @@ void IRAM_ATTR onTimer()
 #define ETH_MOSI 35
 #define ETH_MISO 37
 #define ETH_INT 38
-#define ETH_SPI_HOST SPI2_HOST
 #define ETH_SPI_CLOCK_MHZ 25
 byte mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 
@@ -186,7 +185,7 @@ void setup()
     // Default IP as defined in standard https://art-net.org.uk/downloads/art-net.pdf, page 13
     IPAddress ip = config.getUInt("ip", DEFAULT_IP);
     IPAddress subnet = config.getUInt("subnet", DEFAULT_SUBNET);
-    IPAddress gateway = config.getUInt("gateway", NULL);
+    IPAddress gateway = config.getUInt("gateway", 0);
 
     config.end();
 
@@ -220,7 +219,7 @@ void setup()
         Serial.println("Initialize as ETH");
         ESP32_W5500_onEvent();
 
-        if (ETH.begin(ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, ETH_SPI_HOST, mac))
+        if (ETH.begin(ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, SPI2_HOST, mac))
         { // Dynamic IP setup
         }
         else

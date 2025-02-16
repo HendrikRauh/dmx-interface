@@ -88,7 +88,7 @@ void onGetConfig(AsyncWebServerRequest *request)
 
     IPAddress ip = config.getUInt("ip", DEFAULT_IP);
     IPAddress subnet = config.getUInt("subnet", DEFAULT_SUBNET);
-    IPAddress gateway = config.getUInt("gateway", NULL);
+    IPAddress gateway = config.getUInt("gateway", 0);
 
     JsonDocument doc;
     doc["connection"] = config.getUInt("connection", DEFAULT_CONNECTION);
@@ -97,7 +97,7 @@ void onGetConfig(AsyncWebServerRequest *request)
     doc["ip-method"] = config.getUInt("ip-method", DEFAULT_IP_METHOD);
     doc["ip"] = ip.toString();
     doc["subnet"] = subnet.toString();
-    doc["gateway"] = gateway != NULL ? gateway.toString() : "";
+    doc["gateway"] = gateway != 0 ? gateway.toString() : "";
     doc["universe-1"] = config.getUInt("universe-1", DEFAULT_UNIVERSE1);
     doc["direction-1"] = config.getUInt("direction-1", DEFAULT_DIRECTION1);
     doc["universe-2"] = config.getUInt("universe-2", DEFAULT_UNIVERSE2);
