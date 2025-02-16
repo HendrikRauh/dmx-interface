@@ -7,8 +7,8 @@ const refreshIcon = refreshButton.querySelector("img");
 let isLoading = false;
 
 refreshButton.addEventListener("click", async () => {
-    // check if interface is connected via WiFi
-    if (data.connection == 0 || data.connection == 1) {
+    // check if interface is in WiFi-AccessPoint mode
+    if (data.connection == 1) {
         alert(
             "Beim WLAN-Scan wird die Verbindung hardwarebedingt kurzzeitig" +
                 "unterbrochen.\n" +
@@ -20,7 +20,7 @@ refreshButton.addEventListener("click", async () => {
 
 // check if connected via WiFi-Station
 if (data.connection === 0) {
-    // show currently connected wifi
+    // show currently connected WiFi
     insertNetworks([data.ssid]);
 }
 
@@ -68,6 +68,6 @@ async function loadNetworks() {
 async function updateNetworks() {
     const networks = await loadNetworks();
     if (networks) {
-        insertNetworks(["", ...networks], true);
+        insertNetworks(["", ...networks]);
     }
 }
