@@ -201,7 +201,23 @@
                             <span class="range-value"></span>
                         </div>
                     </label>
+                    <label>
+                        <span>Aktion bei Knopfdruck:</span>
+                        <select
+                            name="button-action"
+                            id="input-button-action"
+                            title="Aktion bei Knopfdruck"
+                            required
+                        >
+                            <option value="0">Nichts</option>
+                            <option value="1">
+                                Konfiguration zurücksetzen
+                            </option>
+                            <option value="2">Neustart</option>
+                        </select>
+                    </label>
                 </fieldset>
+
                 <div class="buttons">
                     <button type="reset">Zurücksetzen</button>
                     <button type="submit">Speichern</button>

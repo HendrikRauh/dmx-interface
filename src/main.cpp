@@ -87,6 +87,34 @@ void ledBlink(int ms)
     }
 }
 
+void onButtonPress()
+{
+    config.begin("dmx", true);
+    ButtonAction action = static_cast<ButtonAction>(config.getUInt("button-action", DEFAULT_BUTTON_ACTION));
+    config.end();
+
+    switch (action)
+    {
+    case ResetConfig:
+        ledBlink(100);
+
+        config.begin("dmx", false);
+        config.clear();
+        config.end();
+        delay(1000);
+
+        ESP.restart();
+        break;
+
+    case Restart:
+        ESP.restart();
+        break;
+    case None:
+        // do nothing
+        break;
+    }
+}
+
 void setup()
 {
     Serial.begin(9600);
@@ -121,6 +149,8 @@ void setup()
     }
 
     ledBlink(500);
+
+    attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
     // wait for serial monitor
     delay(5000);
