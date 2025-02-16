@@ -89,9 +89,9 @@ void ledBlink(int ms)
 
 void onButtonPress()
 {
+    config.begin("dmx", true);
     ButtonAction action = static_cast<ButtonAction>(config.getUInt("button-action", DEFAULT_BUTTON_ACTION));
-    Serial.print("Button pressed, action: ");
-    Serial.println(action);
+    config.end();
 
     switch (action)
     {
