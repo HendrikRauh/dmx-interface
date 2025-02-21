@@ -96,17 +96,18 @@ void onButtonPress()
     switch (action)
     {
     case ResetConfig:
-        ledBlink(100);
-
         config.begin("dmx", false);
         config.clear();
         config.end();
-        delay(1000);
 
         ESP.restart();
         break;
 
     case Restart:
+        config.begin("dmx", false);
+        config.putBool("restart-via-btn", true);
+        config.end();
+
         ESP.restart();
         break;
     case None:
@@ -125,12 +126,13 @@ void setup()
     // LED
     config.begin("dmx", true);
     brightness_led = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
+    bool restartViaButton = config.getBool("restart-via-btn", false);
     config.end();
     analogWrite(PIN_LED, brightness_led);
 
     // Button
     pinMode(PIN_BUTTON, INPUT_PULLUP);
-    if (digitalRead(PIN_BUTTON) == LOW)
+    if (digitalRead(PIN_BUTTON) == LOW && !restartViaButton)
     {
         ledBlink(100);
         unsigned long startTime = millis();
@@ -147,6 +149,10 @@ void setup()
             delay(2000);
         }
     }
+
+    config.begin("dmx", false);
+    config.putBool("restart-via-btn", false);
+    config.end();
 
     ledBlink(500);
 
