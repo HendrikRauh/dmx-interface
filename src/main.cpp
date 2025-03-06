@@ -23,7 +23,6 @@
 #include <LittleFS.h>
 #include "routes/config.h"
 #include "routes/networks.h"
-#include "routes/channels.h"
 
 //DMXESPSerial dmx1;
 //DMXESPSerial dmx2;
@@ -395,9 +394,6 @@ void setup()
 
     server.on("/networks", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetNetworks(request); });
-
-    server.on("/dmx", HTTP_GET, [](AsyncWebServerRequest *request)
-              { onGetChannels(request, dmx1, dmx2); });
 
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
