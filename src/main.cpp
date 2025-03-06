@@ -32,7 +32,7 @@ bool status_led;
 hw_timer_t *timer = NULL; // H/W timer defining (Pointer to the Structure)
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 void IRAM_ATTR onTimer()
-{ // Defining Inerrupt function with IRAM_ATTR for faster access
+{ // Defining interrupt function with IRAM_ATTR for faster access
     portENTER_CRITICAL_ISR(&timerMux);
     status_led = !status_led;
     if (!status_led)
