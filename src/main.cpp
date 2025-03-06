@@ -87,6 +87,35 @@ void ledBlink(int ms)
     }
 }
 
+void onButtonPress()
+{
+    config.begin("dmx", true);
+    ButtonAction action = static_cast<ButtonAction>(config.getUInt("button-action", DEFAULT_BUTTON_ACTION));
+    config.end();
+
+    switch (action)
+    {
+    case ResetConfig:
+        config.begin("dmx", false);
+        config.clear();
+        config.end();
+
+        ESP.restart();
+        break;
+
+    case Restart:
+        config.begin("dmx", false);
+        config.putBool("restart-via-btn", true);
+        config.end();
+
+        ESP.restart();
+        break;
+    case None:
+        // do nothing
+        break;
+    }
+}
+
 void setup()
 {
     Serial.begin(9600);
@@ -97,12 +126,13 @@ void setup()
     // LED
     config.begin("dmx", true);
     brightness_led = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
+    bool restartViaButton = config.getBool("restart-via-btn", false);
     config.end();
     analogWrite(PIN_LED, brightness_led);
 
     // Button
     pinMode(PIN_BUTTON, INPUT_PULLUP);
-    if (digitalRead(PIN_BUTTON) == LOW)
+    if (digitalRead(PIN_BUTTON) == LOW && !restartViaButton)
     {
         ledBlink(100);
         unsigned long startTime = millis();
@@ -120,7 +150,13 @@ void setup()
         }
     }
 
+    config.begin("dmx", false);
+    config.putBool("restart-via-btn", false);
+    config.end();
+
     ledBlink(500);
+
+    attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
     // wait for serial monitor
     delay(5000);
