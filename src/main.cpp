@@ -23,6 +23,7 @@
 #include <LittleFS.h>
 #include "routes/config.h"
 #include "routes/networks.h"
+#include "routes/status.h"
 
 // DMXESPSerial dmx1;
 // DMXESPSerial dmx2;
@@ -97,13 +98,6 @@ void ledBlink(int ms)
         timerAlarmEnable(timer);          // Enable Timer with interrupt (Alarm Enable)
     }
 } */
-
-float getTemperature()
-{
-    float tempC = -1.0f;
-    temp_sensor_read_celsius(&tempC);
-    return tempC;
-}
 
 void onButtonPress()
 {
@@ -428,6 +422,9 @@ void setup()
     server.on("/networks", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetNetworks(request); });
 
+    server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
+              { onGetStatus(request); });
+
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
@@ -454,9 +451,6 @@ void setup()
     float result = 0;
     temp_sensor_read_celsius(&result);
     Serial.print(result);
-    Serial.println(" °C");
-
-    Serial.print(getTemperature());
     Serial.println(" °C");
 
     Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());

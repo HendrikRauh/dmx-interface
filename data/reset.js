@@ -1,6 +1,6 @@
 import { updateConfig } from "/submit.js";
 
-const form = document.querySelector("form");
+const form = document.querySelector("form.config");
 
 form.addEventListener("reset", async (event) => {
     event.preventDefault();

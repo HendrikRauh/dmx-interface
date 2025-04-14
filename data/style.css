@@ -2,6 +2,7 @@
     --color-primary: #087e8b;
     --color-on-primary: white;
     --color-background: #222;
+    --color-surface: #333;
     --color-danger: #fa2b58;
     --appended-item-size: 2.5rem;
 }
@@ -151,6 +152,48 @@ label.switch input:checked + .slider::before {
     translate: -100% -50%;
 }
 
+dialog {
+    width: 80%;
+    max-width: 500px;
+    max-height: 80%;
+    overflow: scroll;
+    background-color: var(--color-background);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+dialog::backdrop {
+    background-color: #000a;
+}
+
+.dialog-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    & button {
+        margin: 0;
+    }
+}
+
+.card {
+    background-color: var(--color-surface);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+.card > * {
+    display: block;
+}
+
+.card > :first-child {
+    color: var(--color-primary);
+    margin-bottom: 8px;
+}
+
 .buttons {
     display: flex;
     flex-direction: row;
@@ -245,4 +288,40 @@ div:has(.range-value) {
     height: var(--appended-item-size);
     text-align: center;
     line-height: var(--appended-item-size);
+}
+
+.status {
+    background-color: var(--color-surface);
+    padding: 8px;
+    border-radius: 8px;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+}
+
+.dialog-status-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.connection-icon {
+    width: 24px;
+    height: 24px;
+    padding: 8px;
+}
+
+.connection-icon.small {
+    padding: 0;
+    height: 1em;
+}
+
+.centered-vertical {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
 }

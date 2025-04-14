@@ -4,7 +4,7 @@ import {
     hideLoadingScreen,
 } from "./loading-screen.js";
 
-const form = document.querySelector("form");
+const form = document.querySelector("form.config");
 
 export let data = {};
 

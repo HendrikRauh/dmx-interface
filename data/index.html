@@ -12,6 +12,7 @@
         <script type="module" src="/submit.js" defer></script>
         <script type="module" src="/reset.js" defer></script>
         <script type="module" src="/range-input.js" defer></script>
+        <script type="module" src="/status.js" defer></script>
     </head>
     <body>
         <main>
@@ -30,199 +31,297 @@
                 </div>
             </section>
 
-            <form class="hidden">
-                <h1>Konfiguration</h1>
-                <fieldset>
-                    <legend>Verbindung</legend>
-                    <label>
-                        <span>IP-Zuweisung:</span>
-                        <select
-                            name="ip-method"
-                            id="input-ip-method"
-                            title="IP-"
-                            required
-                        >
-                            <option value="0">Statisch</option>
-                            <option value="1">DHCP</option>
-                        </select>
-                    </label>
-                    <div data-field="input-ip-method" data-values="0">
-                        <label>
-                            <span>IP-Adresse:</span>
-                            <input
-                                type="text"
-                                name="ip"
-                                id="input-ip"
-                                placeholder="IP-Adresse"
-                                required
-                            />
-                        </label>
-                        <label>
-                            <span>Subnetzmaske:</span>
-                            <input
-                                type="text"
-                                name="subnet"
-                                id="input-subnet"
-                                placeholder="Subnetzmaske"
-                                required
-                            />
-                        </label>
-                        <label>
-                            <span>Gateway:</span>
-                            <input
-                                type="text"
-                                name="gateway"
-                                id="input-gateway"
-                                placeholder="Gateway"
-                                required
-                            />
-                        </label>
-                    </div>
-                    <label>
-                        <span>Verbindungsmethode:</span>
-                        <select
-                            name="connection"
-                            id="input-connection"
-                            title="Verbindung"
-                            required
-                        >
-                            <option value="0">WiFi-Station</option>
-                            <option value="1">WiFi-AccessPoint</option>
-                            <option value="2">Ethernet</option>
-                        </select>
-                    </label>
-                    <div data-field="input-connection" data-values="1">
-                        <label>
-                            <span>SSID:</span>
-                            <input
-                                type="text"
-                                name="ssid"
-                                id="input-ssid"
-                                placeholder="SSID"
-                                required
-                            />
-                        </label>
-                    </div>
-                    <div data-field="input-connection" data-values="0">
-                        <label>
-                            <span>Netzwerk:</span>
-                            <select
-                                name="ssid"
-                                id="select-network"
-                                title="Netzwerk"
-                                required
-                            ></select>
-                            <button
-                                type="button"
-                                id="refresh-networks"
-                                class="icon-button"
-                            >
-                                <img src="/icons/refresh.svg" alt="Neu laden" />
-                            </button>
-                        </label>
-                    </div>
-                    <div data-field="input-connection" data-values="0|1">
-                        <label>
-                            <span>Password:</span>
-                            <input
-                                type="password"
-                                name="password"
-                                id="input-password"
-                                placeholder="Passwort"
-                            />
-                        </label>
-                    </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Input/Output 1</legend>
-                    <label class="switch">
-                        <span>Output</span>
-                        <input
-                            type="checkbox"
-                            name="direction-1"
-                            id="input-direction-1"
-                            data-value-not-checked="0"
-                            data-value-checked="1"
-                        />
-                        <span class="slider"></span>
-                        <span>Input</span>
-                    </label>
-                    <label>
-                        ArtNet-Universe:
-                        <input
-                            type="number"
-                            name="universe-1"
-                            id="universe-1"
-                            placeholder="Universe"
-                            min="0"
-                            max="15"
-                        />
-                    </label>
-                </fieldset>
-                <fieldset>
-                    <legend>Input/Output 2</legend>
-                    <label class="switch">
-                        <span>Output</span>
-                        <input
-                            type="checkbox"
-                            name="direction-2"
-                            id="input-direction-2"
-                            data-value-not-checked="0"
-                            data-value-checked="1"
-                        />
-                        <span class="slider"></span>
-                        <span>Input</span>
-                    </label>
-                    <label>
-                        ArtNet-Universe:
-                        <input
-                            type="number"
-                            name="universe-2"
-                            id="universe-2"
-                            placeholder="Universe"
-                            min="0"
-                            max="15"
-                        />
-                    </label>
-                </fieldset>
-                <fieldset>
-                    <legend>Sonstiges</legend>
-                    <label>
-                        LED-Helligkeit
-                        <div>
-                            <input
-                                type="range"
-                                name="led-brightness"
-                                id="led-brightness"
-                                min="0"
-                                max="255"
-                                class="range"
-                            />
-                            <span class="range-value"></span>
-                        </div>
-                    </label>
-                    <label>
-                        <span>Aktion bei Knopfdruck:</span>
-                        <select
-                            name="button-action"
-                            id="input-button-action"
-                            title="Aktion bei Knopfdruck"
-                            required
-                        >
-                            <option value="0">Nichts</option>
-                            <option value="1">
-                                Konfiguration zurücksetzen
-                            </option>
-                            <option value="2">Neustart</option>
-                        </select>
-                    </label>
-                </fieldset>
+            <section class="content hidden">
+                <div class="status">
+                    <!-- placeholder for wifi icon -->
+                    <img class="connection-icon" src="" alt="" />
+                    <span>Temp.: <span class="cpu-temp"></span> °C</span>
+                    <span>Heap: <span class="heap-percentage"></span> %</span>
+                    <span>PSRAM: <span class="psram-percentage"></span> %</span>
+                    <span>Uptime: <span class="uptime"></span></span>
 
-                <div class="buttons">
-                    <button type="reset">Zurücksetzen</button>
-                    <button type="submit">Speichern</button>
+                    <button type="button" class="expand-status icon-button">
+                        <img src="/icons/open.svg" alt="Mehr" />
+                    </button>
                 </div>
-            </form>
+
+                <dialog class="dialog-status">
+                    <div class="dialog-header">
+                        <h2 class="model"></h2>
+                        <form method="dialog">
+                            <button type="submit" class="icon-button">
+                                <img src="/icons/close.svg" alt="Schließen" />
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="dialog-status-content">
+                        <div class="card">
+                            <span>Signalstärke</span>
+                            <span class="centered-vertical">
+                                <img
+                                    class="connection-icon small"
+                                    src=""
+                                    alt=""
+                                />
+                                <span><span class="rssi"></span> dBm</span>
+                            </span>
+                        </div>
+
+                        <div class="card">
+                            <span>Uptime</span>
+                            <span class="uptime"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>CPU-Temperatur</span>
+                            <span><span class="cpu-temp"></span> °C</span>
+                        </div>
+
+                        <div class="card">
+                            <span>CPU Cycle Count</span>
+                            <span class="cpu-cycle-count"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>Heap</span>
+                            <span><span class="heap-percentage"></span> %</span>
+                            <span
+                                ><span class="heap-used"></span> /
+                                <span class="heap-total"></span
+                            ></span>
+                        </div>
+
+                        <div class="card">
+                            <span>PSRAM</span>
+                            <span
+                                ><span class="psram-percentage"></span> %</span
+                            >
+                            <span
+                                ><span class="psram-used"></span> /
+                                <span class="psram-total"></span
+                            ></span>
+                        </div>
+
+                        <div class="card">
+                            <span>CPU-Taktfrequenz</span>
+                            <span><span class="cpu-freq"></span> MHz</span>
+                        </div>
+
+                        <div class="card">
+                            <span>MAC-Adresse</span>
+                            <span class="mac"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>Script-Hash</span>
+                            <span class="hash"></span>
+                        </div>
+
+                        <div class="card">
+                            <span>SDK-Version</span>
+                            <span class="sdk-version"></span>
+                        </div>
+                    </div>
+                </dialog>
+
+                <form class="config">
+                    <h1>Konfiguration</h1>
+                    <fieldset>
+                        <legend>Verbindung</legend>
+                        <label>
+                            <span>IP-Zuweisung:</span>
+                            <select
+                                name="ip-method"
+                                id="input-ip-method"
+                                title="IP-"
+                                required
+                            >
+                                <option value="0">Statisch</option>
+                                <option value="1">DHCP</option>
+                            </select>
+                        </label>
+                        <div data-field="input-ip-method" data-values="0">
+                            <label>
+                                <span>IP-Adresse:</span>
+                                <input
+                                    type="text"
+                                    name="ip"
+                                    id="input-ip"
+                                    placeholder="IP-Adresse"
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <span>Subnetzmaske:</span>
+                                <input
+                                    type="text"
+                                    name="subnet"
+                                    id="input-subnet"
+                                    placeholder="Subnetzmaske"
+                                    required
+                                />
+                            </label>
+                            <label>
+                                <span>Gateway:</span>
+                                <input
+                                    type="text"
+                                    name="gateway"
+                                    id="input-gateway"
+                                    placeholder="Gateway"
+                                    required
+                                />
+                            </label>
+                        </div>
+                        <label>
+                            <span>Verbindungsmethode:</span>
+                            <select
+                                name="connection"
+                                id="input-connection"
+                                title="Verbindung"
+                                required
+                            >
+                                <option value="0">WiFi-Station</option>
+                                <option value="1">WiFi-AccessPoint</option>
+                                <option value="2">Ethernet</option>
+                            </select>
+                        </label>
+                        <div data-field="input-connection" data-values="1">
+                            <label>
+                                <span>SSID:</span>
+                                <input
+                                    type="text"
+                                    name="ssid"
+                                    id="input-ssid"
+                                    placeholder="SSID"
+                                    required
+                                />
+                            </label>
+                        </div>
+                        <div data-field="input-connection" data-values="0">
+                            <label>
+                                <span>Netzwerk:</span>
+                                <select
+                                    name="ssid"
+                                    id="select-network"
+                                    title="Netzwerk"
+                                    required
+                                ></select>
+                                <button
+                                    type="button"
+                                    id="refresh-networks"
+                                    class="icon-button"
+                                >
+                                    <img
+                                        src="/icons/refresh.svg"
+                                        alt="Neu laden"
+                                    />
+                                </button>
+                            </label>
+                        </div>
+                        <div data-field="input-connection" data-values="0|1">
+                            <label>
+                                <span>Password:</span>
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="input-password"
+                                    placeholder="Passwort"
+                                />
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Input/Output 1</legend>
+                        <label class="switch">
+                            <span>Output</span>
+                            <input
+                                type="checkbox"
+                                name="direction-1"
+                                id="input-direction-1"
+                                data-value-not-checked="0"
+                                data-value-checked="1"
+                            />
+                            <span class="slider"></span>
+                            <span>Input</span>
+                        </label>
+                        <label>
+                            ArtNet-Universe:
+                            <input
+                                type="number"
+                                name="universe-1"
+                                id="universe-1"
+                                placeholder="Universe"
+                                min="0"
+                                max="15"
+                            />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Input/Output 2</legend>
+                        <label class="switch">
+                            <span>Output</span>
+                            <input
+                                type="checkbox"
+                                name="direction-2"
+                                id="input-direction-2"
+                                data-value-not-checked="0"
+                                data-value-checked="1"
+                            />
+                            <span class="slider"></span>
+                            <span>Input</span>
+                        </label>
+                        <label>
+                            ArtNet-Universe:
+                            <input
+                                type="number"
+                                name="universe-2"
+                                id="universe-2"
+                                placeholder="Universe"
+                                min="0"
+                                max="15"
+                            />
+                        </label>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Sonstiges</legend>
+                        <label>
+                            LED-Helligkeit
+                            <div>
+                                <input
+                                    type="range"
+                                    name="led-brightness"
+                                    id="led-brightness"
+                                    min="0"
+                                    max="255"
+                                    class="range"
+                                />
+                                <span class="range-value"></span>
+                            </div>
+                        </label>
+                        <label>
+                            <span>Aktion bei Knopfdruck:</span>
+                            <select
+                                name="button-action"
+                                id="input-button-action"
+                                title="Aktion bei Knopfdruck"
+                                required
+                            >
+                                <option value="0">Nichts</option>
+                                <option value="1">
+                                    Konfiguration zurücksetzen
+                                </option>
+                                <option value="2">Neustart</option>
+                            </select>
+                        </label>
+                    </fieldset>
+
+                    <div class="buttons">
+                        <button type="reset">Zurücksetzen</button>
+                        <button type="submit">Speichern</button>
+                    </div>
+                </form>
+            </section>
         </main>
     </body>
 </html>

@@ -1,4 +1,4 @@
-const form = document.querySelector("form");
+const form = document.querySelector("form.config");
 const dynamicInputs = form.querySelectorAll("[data-field][data-values]");
 
 document.addEventListener("change", updateVisibility);
