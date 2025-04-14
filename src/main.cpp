@@ -442,7 +442,7 @@ void loop()
         officially times out. That amount of time is converted into ESP32 clock
         ticks using the constant `DMX_TIMEOUT_TICK`. If it takes longer than that
         amount of time to receive data, this if statement will evaluate to false. */
-    if (direction1 == Input && dmx_receive(dmx2, &dmx2_packet, DMX_TIMEOUT_TICK))
+    if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
     {
         // Serial.println("Recv DMX1");
         /* If this code gets called, it means we've received DMX data! */
@@ -496,7 +496,7 @@ void loop()
         // dmx_driver_delete(dmx1);
     }
 
-    if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, DMX_TIMEOUT_TICK))
+    if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
     {
         // Serial.println("Recv DMX2");
         /* If this code gets called, it means we've received DMX data! */
