@@ -70,6 +70,16 @@ Direction parseDirection(uint8_t direction)
     throw ::std::invalid_argument("Invalid direction value: " + direction);
 }
 
+ButtonAction parseButtonAction(uint8_t buttonAction)
+{
+    if (buttonAction > 0 || buttonAction < BUTTON_ACTION_SIZE)
+    {
+        return static_cast<ButtonAction>(buttonAction);
+    }
+
+    throw ::std::invalid_argument("Invalid value for button action: " + buttonAction);
+}
+
 #pragma endregion
 
 void onGetConfig(AsyncWebServerRequest *request)
@@ -93,6 +103,7 @@ void onGetConfig(AsyncWebServerRequest *request)
     doc["universe-2"] = config.getUInt("universe-2", DEFAULT_UNIVERSE2);
     doc["direction-2"] = config.getUInt("direction-2", DEFAULT_DIRECTION2);
     doc["led-brightness"] = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
+    doc["button-action"] = config.getUInt("button-action", DEFAULT_BUTTON_ACTION);
 
     config.end();
 
@@ -150,6 +161,9 @@ void onPutConfig(AsyncWebServerRequest *request, uint8_t *data, size_t len, size
         config.putUInt("universe-2", doc["universe-2"]);
 
         config.putUInt("led-brightness", doc["led-brightness"]);
+
+        ButtonAction buttonAction = parseButtonAction(doc["button-action"].as<uint8_t>());
+        config.putUInt("button-action", buttonAction);
 
         config.end();
 
