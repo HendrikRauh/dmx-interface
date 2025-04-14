@@ -28,6 +28,14 @@ enum Direction
 };
 const uint8_t DIRECTION_SIZE = 2;
 
+enum ButtonAction
+{
+    None,
+    ResetConfig,
+    Restart
+};
+const uint8_t BUTTON_ACTION_SIZE = 3;
+
 const Connection DEFAULT_CONNECTION = WiFiAP;
 const IpMethod DEFAULT_IP_METHOD = DHCP;
 extern String DEFAULT_SSID; // initialized in setup because it depends on the mac address
@@ -42,6 +50,7 @@ const uint8_t DEFAULT_UNIVERSE1 = 1;
 const uint8_t DEFAULT_UNIVERSE2 = 2;
 
 const uint8_t DEFAULT_LED_BRIGHTNESS = 25;
+const ButtonAction DEFAULT_BUTTON_ACTION = Restart;
 
 void onGetConfig(AsyncWebServerRequest *request);
 
