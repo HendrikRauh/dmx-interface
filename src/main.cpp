@@ -1,6 +1,9 @@
 #ifdef ESP32
 #include <WiFi.h>
 #include <AsyncTCP.h>
+// #include <USB.h>
+// #include "USBCDC.h"
+#include "driver/temp_sensor.h"
 #elif defined(ESP8266)
 #include <ESP8266WiFi.h>
 #include <ESPAsyncTCP.h>
@@ -13,14 +16,25 @@
 #include <ArtnetWiFi.h>
 #include <ArduinoJson.h>
 
-#include "ESPDMX.h"
+// #include "ESPDMX.h"
+#include <Arduino.h>
+#include <esp_dmx.h>
+
 #include <LittleFS.h>
 #include "routes/config.h"
 #include "routes/networks.h"
 #include "routes/status.h"
 
-DMXESPSerial dmx1;
-DMXESPSerial dmx2;
+// DMXESPSerial dmx1;
+// DMXESPSerial dmx2;
+dmx_port_t dmx1 = DMX_NUM_0; // for esp32s2
+dmx_port_t dmx2 = DMX_NUM_1;
+byte dmx1_data[DMX_PACKET_SIZE];
+byte dmx2_data[DMX_PACKET_SIZE];
+unsigned long dmx1_lastUpdate = millis();
+unsigned long dmx2_lastUpdate = millis();
+bool dmx1_IsConnected = false;
+bool dmx2_IsConnected = false;
 
 // Button
 #define PIN_LED 7
@@ -29,10 +43,10 @@ DMXESPSerial dmx2;
 uint8_t brightness_led = 20;
 bool status_led;
 
-hw_timer_t *timer = NULL; // H/W timer defining (Pointer to the Structure)
+/* hw_timer_t *timer = NULL; // H/W timer defining (Pointer to the Structure)
 portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 void IRAM_ATTR onTimer()
-{ // Defining Inerrupt function with IRAM_ATTR for faster access
+{ // Defining interrupt function with IRAM_ATTR for faster access
     portENTER_CRITICAL_ISR(&timerMux);
     status_led = !status_led;
     if (!status_led)
@@ -44,7 +58,7 @@ void IRAM_ATTR onTimer()
         analogWrite(PIN_LED, 0);
     }
     portEXIT_CRITICAL_ISR(&timerMux);
-}
+} */
 
 // Ethernet stuff
 #define ETH_SCK 36
@@ -53,7 +67,7 @@ void IRAM_ATTR onTimer()
 #define ETH_MISO 37
 #define ETH_INT 38
 #define ETH_SPI_CLOCK_MHZ 25
-byte mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+byte mac[6];
 
 AsyncWebServer server(80);
 
@@ -64,9 +78,7 @@ uint8_t universe1;
 uint8_t universe2;
 Direction direction1;
 Direction direction2;
-// const uint16_t size = 512;
-// uint8_t data[DMXCHANNELS];
-
+/*
 void ledBlink(int ms)
 {
     if (timer == NULL)
@@ -85,14 +97,38 @@ void ledBlink(int ms)
         timerAlarmWrite(timer, ms, true); // Match value= 1000000 for 1 sec. delay.
         timerAlarmEnable(timer);          // Enable Timer with interrupt (Alarm Enable)
     }
-}
+} */
 
+float getTemperature()
+{
+    float tempC = -1.0f;
+    temp_sensor_read_celsius(&tempC);
+    return tempC;
+}
 void setup()
 {
+
     Serial.begin(9600);
 
     // Get ETH mac
+    delay(1000);
+
+    esp_efuse_mac_get_default(mac);
+
     esp_read_mac(mac, ESP_MAC_ETH);
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC ETH\n",
+                  mac[0], mac[1], mac[2],
+                  mac[3], mac[4], mac[5]);
+
+    esp_read_mac(mac, ESP_MAC_WIFI_SOFTAP);
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC SOFTAP\n",
+                  mac[0], mac[1], mac[2],
+                  mac[3], mac[4], mac[5]);
+
+    esp_read_mac(mac, ESP_MAC_WIFI_STA); // ESP_MAC_BASE
+    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC BASE\n",
+                  mac[0], mac[1], mac[2],
+                  mac[3], mac[4], mac[5]);
 
     // LED
     config.begin("dmx", true);
@@ -104,14 +140,14 @@ void setup()
     pinMode(PIN_BUTTON, INPUT_PULLUP);
     if (digitalRead(PIN_BUTTON) == LOW)
     {
-        ledBlink(100);
+        // ledBlink(100);
         unsigned long startTime = millis();
         while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            ledBlink(0);
+            // ledBlink(0);
             Serial.println("Reset config");
             config.begin("dmx", false);
             config.clear();
@@ -120,7 +156,7 @@ void setup()
         }
     }
 
-    ledBlink(500);
+    // ledBlink(500);
 
     // wait for serial monitor
     delay(5000);
@@ -186,6 +222,8 @@ void setup()
         Serial.println(WiFi.localIP());
         Serial.print("MAC address: ");
         Serial.println(WiFi.macAddress());
+        Serial.print("Broadcast IP: ");
+        Serial.println(broadcastIp);
         break;
 
     case Ethernet:
@@ -233,6 +271,8 @@ void setup()
         Serial.println(ETH.dnsIP());
         Serial.print("MAC address : ");
         Serial.println(ETH.macAddress());
+        Serial.print("Broadcast IP: ");
+        Serial.println(broadcastIp);
         Serial.println("Ethernet Successfully Initialized");
         break;
     }
@@ -247,13 +287,58 @@ void setup()
         Serial.println(WiFi.softAPIP());
         Serial.print("MAC address: ");
         Serial.println(WiFi.softAPmacAddress());
+        Serial.print("Broadcast IP: ");
+        Serial.println(broadcastIp);
         break;
     }
 
     // Initialize DMX ports
     Serial.println("Initialize DMX...");
-    dmx1.init(21, 33, Serial0);
-    dmx2.init(17, 18, Serial1);
+
+#ifdef CONFIG_IDF_TARGET_ESP32S2
+    // dmx1.init(21, 33, Serial0);
+    // dmx2.init(17, 18, Serial1);
+
+    Serial.print("DMX driver 1 installed: ");
+    Serial.println(dmx_driver_is_installed(dmx1));
+
+    Serial.print("DMX driver 2 installed: ");
+    Serial.println(dmx_driver_is_installed(dmx2));
+
+    dmx_config_t dmx_config = DMX_CONFIG_DEFAULT;
+
+    dmx_personality_t personalities[] = {};
+    /*dmx_personality_t personalities[] = {
+        {1, "Default Personality"}
+    };*/
+    /*int personality_count = 1;*/
+    int personality_count = 0;
+    dmx_driver_install(dmx1, &dmx_config, personalities, personality_count);
+    dmx_set_pin(dmx1, 21, 33, -1);
+    dmx_driver_install(dmx2, &dmx_config, personalities, personality_count);
+    dmx_set_pin(dmx2, 17, 18, -1);
+
+    Serial.print("DMX driver 1 installed: ");
+    Serial.println(dmx_driver_is_installed(dmx1));
+
+    Serial.print("DMX driver 2 installed: ");
+    Serial.println(dmx_driver_is_installed(dmx2));
+
+    Serial.print("DMX driver 1 enabled: ");
+    Serial.println(dmx_driver_is_enabled(dmx1));
+
+    Serial.print("DMX driver 2 enabled: ");
+    Serial.println(dmx_driver_is_enabled(dmx2));
+
+    // TX/RX Pins und Serial0/Serial1 ausgeben
+
+    /* Now set the DMX hardware pins to the pins that we want to use and setup
+      will be complete! */
+
+#else
+    dmx1.init(21, 33, Serial1);
+    dmx2.init(17, 18, Serial2);
+#endif
 
     // Initialize Art-Net
     Serial.println("Initialize Art-Net...");
@@ -262,24 +347,22 @@ void setup()
     // if Artnet packet comes to this universe, this function is called
     if (direction1 == Output)
     {
+        Serial.println("DMX1 as out");
         artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                        {
-            for (size_t i = 0; i < size; ++i)
-            {
-                dmx1.write((i + 1), data[i]);
-            }
-            dmx1.update(); });
+            dmx_write_offset(dmx1, 1, data, size);
+            dmx_send(dmx1);
+            dmx_wait_sent(dmx1, DMX_TIMEOUT_TICK); });
     }
 
     if (direction2 == Output)
     {
+        Serial.println("DMX2 as out");
         artnet.subscribeArtDmxUniverse(universe2, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                        {
-            for (size_t i = 0; i < size; ++i)
-            {
-                dmx2.write((i + 1), data[i]);
-            }
-            dmx2.update(); });
+            dmx_write_offset(dmx2, 1, data, size);
+            dmx_send(dmx2);
+            dmx_wait_sent(dmx2, DMX_TIMEOUT_TICK); });
     }
 
     // if Artnet packet comes, this function is called to every universe
@@ -327,7 +410,26 @@ void setup()
     // scan networks and cache them
     WiFi.scanNetworks(true);
 
-    ledBlink(0);
+    // ledBlink(0);
+
+    // Internal temperature RP2040
+    /*float tempC = analogReadTemp(); // Get internal temperature
+    Serial.print("Temperature Celsius (ºC): ");
+    Serial.println(tempC);*/
+    // Internal temperature ESP32 https://www.espboards.dev/blog/esp32-inbuilt-temperature-sensor/
+    Serial.print("Temperature: ");
+    float result = 0;
+    temp_sensor_read_celsius(&result);
+    Serial.print(result);
+    Serial.println(" °C");
+
+    Serial.print(getTemperature());
+    Serial.println(" °C");
+
+    Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());
+    Serial.printf("SPIRam Total heap %d, SPIRam Free Heap %d\n", ESP.getPsramSize(), ESP.getFreePsram());
+    Serial.printf("ChipRevision %d, Cpu Freq %d, SDK Version %s\n", ESP.getChipRevision(), ESP.getCpuFreqMHz(), ESP.getSdkVersion());
+    Serial.printf("Flash Size %d, Flash Speed %d\n", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
 }
 
 void loop()
@@ -335,14 +437,121 @@ void loop()
     // check if artnet packet has come and execute callback
     artnet.parse();
 
-    // Receive Callback/INT currently not implemented
-    /*if (direction1 == Input) {
-        artnet.setArtDmxData(dmx1.readAll(), DMXCHANNELS);
-        artnet.streamArtDmxTo(broadcastIp, universe1);
+    /* We need a place to store information about the DMX packets we receive. We
+        will use a dmx_packet_t to store that packet information.  */
+    dmx_packet_t dmx1_packet;
+    dmx_packet_t dmx2_packet;
+
+    /* And now we wait! The DMX standard defines the amount of time until DMX
+        officially times out. That amount of time is converted into ESP32 clock
+        ticks using the constant `DMX_TIMEOUT_TICK`. If it takes longer than that
+        amount of time to receive data, this if statement will evaluate to false. */
+    if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
+    {
+        // Serial.println("Recv DMX1");
+        /* If this code gets called, it means we've received DMX data! */
+
+        dmx_read_offset(dmx1, 1, dmx1_data, 512);
+        artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);
+        /* Get the current time since boot in milliseconds so that we can find out
+             how long it has been since we last updated data and printed to the Serial
+             Monitor. */
+        unsigned long now = millis();
+
+        /* We should check to make sure that there weren't any DMX errors. */
+        if (!dmx1_packet.err)
+        {
+            /* If this is the first DMX data we've received, lets log it! */
+            if (!dmx1_IsConnected)
+            {
+                Serial.println("DMX1 in is connected!");
+                dmx1_IsConnected = true;
+            }
+
+            /* Don't forget we need to actually read the DMX data into our buffer so
+                that we can print it out. */
+
+            /*dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
+            artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);*/
+
+            if (now - dmx1_lastUpdate > 1000)
+            {
+                /* Print the received start code - it's usually 0. */
+                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx1_data[0], dmx1_data[1]);
+                dmx1_lastUpdate = now;
+            }
+        }
+        else
+        {
+            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
+                connect or disconnect your DMX devices. If you are consistently getting
+                DMX errors, then something may have gone wrong with your code or
+                something is seriously wrong with your DMX transmitter. */
+            Serial.println("A DMX 1 error occurred.");
+        }
+    }
+    else if (dmx1_IsConnected)
+    {
+        /* If DMX times out after having been connected, it likely means that the
+        DMX cable was unplugged. When that happens in this example sketch, we'll
+        uninstall the DMX driver. */
+        Serial.println("DMX 1 was disconnected.");
+        dmx1_IsConnected = false;
+        // dmx_driver_delete(dmx1);
     }
 
-    if (direction2 == Input) {
-        artnet.setArtDmxData(dmx2.readAll(), DMXCHANNELS);
-        artnet.streamArtDmxTo(broadcastIp, universe2);
-    }*/
+    if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
+    {
+        // Serial.println("Recv DMX2");
+        /* If this code gets called, it means we've received DMX data! */
+
+        dmx_read_offset(dmx2, 1, dmx2_data, 512);
+        artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);
+
+        /* Get the current time since boot in milliseconds so that we can find out
+        how long it has been since we last updated data and printed to the Serial
+        Monitor. */
+        unsigned long now = millis();
+
+        /* We should check to make sure that there weren't any DMX errors. */
+        if (!dmx2_packet.err)
+        {
+            /* If this is the first DMX data we've received, lets log it! */
+            if (!dmx2_IsConnected)
+            {
+                Serial.println("DMX2 in is connected!");
+                dmx2_IsConnected = true;
+            }
+
+            /* Don't forget we need to actually read the DMX data into our buffer so
+                that we can print it out. */
+
+            /*dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
+            artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);*/
+
+            if (now - dmx2_lastUpdate > 1000)
+            {
+                /* Print the received start code - it's usually 0. */
+                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx2_data[0], dmx2_data[1]);
+                dmx2_lastUpdate = now;
+            }
+        }
+        else
+        {
+            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
+                connect or disconnect your DMX devices. If you are consistently getting
+                DMX errors, then something may have gone wrong with your code or
+                something is seriously wrong with your DMX transmitter. */
+            Serial.println("A DMX 2 error occurred.");
+        }
+    }
+    else if (dmx2_IsConnected)
+    {
+        /* If DMX times out after having been connected, it likely means that the
+        DMX cable was unplugged. When that happens in this example sketch, we'll
+        uninstall the DMX driver. */
+        Serial.println("DMX 2 was disconnected.");
+        dmx2_IsConnected = false;
+        // dmx_driver_delete(dmx2);
+    }
 }
