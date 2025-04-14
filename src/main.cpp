@@ -99,13 +99,6 @@ void ledBlink(int ms)
     }
 } */
 
-float getTemperature()
-{
-    float tempC = -1.0f;
-    temp_sensor_read_celsius(&tempC);
-    return tempC;
-}
-
 void onButtonPress()
 {
     config.begin("dmx", true);
@@ -458,9 +451,6 @@ void setup()
     float result = 0;
     temp_sensor_read_celsius(&result);
     Serial.print(result);
-    Serial.println(" °C");
-
-    Serial.print(getTemperature());
     Serial.println(" °C");
 
     Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());
