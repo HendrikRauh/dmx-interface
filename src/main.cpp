@@ -31,10 +31,6 @@ dmx_port_t dmx1 = DMX_NUM_0; // for esp32s2
 dmx_port_t dmx2 = DMX_NUM_1;
 byte dmx1_data[DMX_PACKET_SIZE];
 byte dmx2_data[DMX_PACKET_SIZE];
-unsigned long dmx1_lastUpdate = millis();
-unsigned long dmx2_lastUpdate = millis();
-bool dmx1_IsConnected = false;
-bool dmx2_IsConnected = false;
 
 // Button
 #define PIN_LED 7
