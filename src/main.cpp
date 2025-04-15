@@ -472,17 +472,13 @@ void loop()
     // check if there's a new DMX packet
     if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
     {
-        dmx_read_offset(dmx1, 1, dmx1_data, 512);
-        artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);
-
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx1_packet.err)
         {
             /* Don't forget we need to actually read the DMX data into our buffer so
                 that we can print it out. */
-
-            /*dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);*/
+            dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
+            artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, dmx1_packet.size);
         }
         else
         {
@@ -496,17 +492,13 @@ void loop()
 
     if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
     {
-        dmx_read_offset(dmx2, 1, dmx2_data, 512);
-        artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);
-
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx2_packet.err)
         {
             /* Don't forget we need to actually read the DMX data into our buffer so
                 that we can print it out. */
-
-            /*dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);*/
+            dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
+            artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, dmx2_packet.size);
         }
         else
         {
