@@ -455,54 +455,46 @@ void setup()
     Serial.printf("Flash Size %d, Flash Speed %d\n", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
 }
 
+void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUniverse)
+{
+    /* We need a place to store information about the DMX packets we receive. We
+        will use a dmx_packet_t to store that packet information.  */
+    dmx_packet_t dmx_packet;
+
+    // check if there's a new DMX packet
+    if (dmx_receive(dmxPort, &dmx_packet, 0))
+    {
+        /* We should check to make sure that there weren't any DMX errors. */
+        if (!dmx_packet.err)
+        {
+            /* Don't forget we need to actually read the DMX data into our buffer so
+                that we can print it out. */
+            dmx_read_offset(dmxPort, 1, dmx_data, dmx_packet.size);
+            artnet.sendArtDmx(broadcastIp, artnetUniverse, dmx_data, dmx_packet.size);
+        }
+        else
+        {
+            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
+                connect or disconnect your DMX devices. If you are consistently getting
+                DMX errors, then something may have gone wrong with your code or
+                something is seriously wrong with your DMX transmitter. */
+            Serial.printf("A DMX error occurred on port %d.\n", dmxPort);
+        }
+    }
+}
+
 void loop()
 {
     // check if artnet packet has come and execute callback
     artnet.parse();
 
-    /* We need a place to store information about the DMX packets we receive. We
-        will use a dmx_packet_t to store that packet information.  */
-    dmx_packet_t dmx1_packet;
-    dmx_packet_t dmx2_packet;
-
-    // check if there's a new DMX packet
-    if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
+    if (direction1 == Input)
     {
-        /* We should check to make sure that there weren't any DMX errors. */
-        if (!dmx1_packet.err)
-        {
-            /* Don't forget we need to actually read the DMX data into our buffer so
-                that we can print it out. */
-            dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, dmx1_packet.size);
-        }
-        else
-        {
-            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
-                connect or disconnect your DMX devices. If you are consistently getting
-                DMX errors, then something may have gone wrong with your code or
-                something is seriously wrong with your DMX transmitter. */
-            Serial.println("A DMX 1 error occurred.");
-        }
+        transmitDmxToArtnet(dmx1, dmx1_data, universe1);
     }
 
-    if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
+    if (direction2 == Input)
     {
-        /* We should check to make sure that there weren't any DMX errors. */
-        if (!dmx2_packet.err)
-        {
-            /* Don't forget we need to actually read the DMX data into our buffer so
-                that we can print it out. */
-            dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, dmx2_packet.size);
-        }
-        else
-        {
-            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
-                connect or disconnect your DMX devices. If you are consistently getting
-                DMX errors, then something may have gone wrong with your code or
-                something is seriously wrong with your DMX transmitter. */
-            Serial.println("A DMX 2 error occurred.");
-        }
+        transmitDmxToArtnet(dmx2, dmx2_data, universe2);
     }
 }
