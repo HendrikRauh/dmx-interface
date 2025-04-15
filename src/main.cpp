@@ -488,13 +488,6 @@ void loop()
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx1_packet.err)
         {
-            /* If this is the first DMX data we've received, lets log it! */
-            if (!dmx1_IsConnected)
-            {
-                Serial.println("DMX1 in is connected!");
-                dmx1_IsConnected = true;
-            }
-
             /* Don't forget we need to actually read the DMX data into our buffer so
                 that we can print it out. */
 
@@ -517,15 +510,6 @@ void loop()
             Serial.println("A DMX 1 error occurred.");
         }
     }
-    else if (dmx1_IsConnected)
-    {
-        /* If DMX times out after having been connected, it likely means that the
-        DMX cable was unplugged. When that happens in this example sketch, we'll
-        uninstall the DMX driver. */
-        Serial.println("DMX 1 was disconnected.");
-        dmx1_IsConnected = false;
-        // dmx_driver_delete(dmx1);
-    }
 
     if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
     {
@@ -543,13 +527,6 @@ void loop()
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx2_packet.err)
         {
-            /* If this is the first DMX data we've received, lets log it! */
-            if (!dmx2_IsConnected)
-            {
-                Serial.println("DMX2 in is connected!");
-                dmx2_IsConnected = true;
-            }
-
             /* Don't forget we need to actually read the DMX data into our buffer so
                 that we can print it out. */
 
@@ -571,14 +548,5 @@ void loop()
                 something is seriously wrong with your DMX transmitter. */
             Serial.println("A DMX 2 error occurred.");
         }
-    }
-    else if (dmx2_IsConnected)
-    {
-        /* If DMX times out after having been connected, it likely means that the
-        DMX cable was unplugged. When that happens in this example sketch, we'll
-        uninstall the DMX driver. */
-        Serial.println("DMX 2 was disconnected.");
-        dmx2_IsConnected = false;
-        // dmx_driver_delete(dmx2);
     }
 }
