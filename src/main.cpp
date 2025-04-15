@@ -485,8 +485,12 @@ void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUnive
 
 void loop()
 {
-    // check if artnet packet has come and execute callback
-    artnet.parse();
+    // only check for artnet packets if we expect to receive data
+    if (direction1 == Output || direction2 == Output)
+    {
+        // check if artnet packet has come and execute callback
+        artnet.parse();
+    }
 
     if (direction1 == Input)
     {
