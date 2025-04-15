@@ -469,21 +469,11 @@ void loop()
     dmx_packet_t dmx1_packet;
     dmx_packet_t dmx2_packet;
 
-    /* And now we wait! The DMX standard defines the amount of time until DMX
-        officially times out. That amount of time is converted into ESP32 clock
-        ticks using the constant `DMX_TIMEOUT_TICK`. If it takes longer than that
-        amount of time to receive data, this if statement will evaluate to false. */
+    // check if there's a new DMX packet
     if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
     {
-        // Serial.println("Recv DMX1");
-        /* If this code gets called, it means we've received DMX data! */
-
         dmx_read_offset(dmx1, 1, dmx1_data, 512);
         artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);
-        /* Get the current time since boot in milliseconds so that we can find out
-             how long it has been since we last updated data and printed to the Serial
-             Monitor. */
-        unsigned long now = millis();
 
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx1_packet.err)
@@ -493,13 +483,6 @@ void loop()
 
             /*dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
             artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);*/
-
-            if (now - dmx1_lastUpdate > 1000)
-            {
-                /* Print the received start code - it's usually 0. */
-                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx1_data[0], dmx1_data[1]);
-                dmx1_lastUpdate = now;
-            }
         }
         else
         {
@@ -513,16 +496,8 @@ void loop()
 
     if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
     {
-        // Serial.println("Recv DMX2");
-        /* If this code gets called, it means we've received DMX data! */
-
         dmx_read_offset(dmx2, 1, dmx2_data, 512);
         artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);
-
-        /* Get the current time since boot in milliseconds so that we can find out
-        how long it has been since we last updated data and printed to the Serial
-        Monitor. */
-        unsigned long now = millis();
 
         /* We should check to make sure that there weren't any DMX errors. */
         if (!dmx2_packet.err)
@@ -532,13 +507,6 @@ void loop()
 
             /*dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
             artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);*/
-
-            if (now - dmx2_lastUpdate > 1000)
-            {
-                /* Print the received start code - it's usually 0. */
-                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx2_data[0], dmx2_data[1]);
-                dmx2_lastUpdate = now;
-            }
         }
         else
         {
