@@ -33,6 +33,11 @@ export function writeDataToInput(data) {
         } else {
             element.value = value;
         }
+
+        if (element.type === "range") {
+            // update text next to the slider by sending an event
+            element.dispatchEvent(new Event("input", { bubbles: true }));
+        }
     }
     // send "change" event
     form.dispatchEvent(new Event("change", { bubbles: true }));
