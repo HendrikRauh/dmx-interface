@@ -19,7 +19,7 @@ int8_t getWiFiStrength()
     }
 }
 
-void onGetStatus(AsyncWebServerRequest *request)
+JsonDocument buildStatusJson()
 {
     JsonDocument doc;
 
@@ -39,7 +39,5 @@ void onGetStatus(AsyncWebServerRequest *request)
     doc["psram"]["total"] = ESP.getPsramSize();
     doc["connection"]["signalStrength"] = getWiFiStrength();
 
-    String jsonString;
-    serializeJson(doc, jsonString);
-    request->send(200, "application/json", jsonString);
+    return doc;
 }
