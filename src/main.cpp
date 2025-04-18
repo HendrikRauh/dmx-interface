@@ -357,9 +357,6 @@ void setup()
             dmx_wait_sent(dmx2, DMX_TIMEOUT_TICK); });
     }
 
-    // if Artnet packet comes, this function is called to every universe
-    // artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
-
     if (!LittleFS.begin(true))
     {
         Serial.println("An Error has occurred while mounting LittleFS");
