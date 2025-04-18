@@ -38,8 +38,8 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 | GPIO | Usage          |
 | ---- | -------------- |
 | GND  | GND to others  |
-| 3,5V | VIN on RS485   |
-| 5V   | VIN on W5500   |
+| 3,3V | VIN on RS485   |
+| 3,3V | VIN on W5500   |
 | 0    | Onboard Button |
 | 5    | Ext. Button    |
 | 7    | Ext. LED       |
