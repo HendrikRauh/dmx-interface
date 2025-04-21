@@ -35,23 +35,23 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ![Circuit diagram](/assets/circuit/diagram.svg)
 
-| GPIO | Usage          |
-| ---- | -------------- |
-| GND  | GND to others  |
-| 3,5V | VIN on RS485   |
-| 5V   | VIN on W5500   |
-| 0    | Onboard Button |
-| 5    | Ext. Button    |
-| 7    | Ext. LED       |
-| 15   | Onboard LED    |
-| 17   | U1TXD          |
-| 18   | U1RXD          |
-| 21   | U0TXD          |
-| 33   | U0RXD          |
-| 34   | SPI CS         |
-| 35   | SPI MOS        |
-| 36   | SPI SCK        |
-| 37   | SPI MISO       |
+| GPIO    | Usage          |
+| ------- | -------------- |
+| GND     | GND to others  |
+| 3,3V    | VIN on RS485   |
+| 5V/VBUS | VIN on W5500   |
+| 0       | Onboard Button |
+| 5       | Ext. Button    |
+| 7       | Ext. LED       |
+| 15      | Onboard LED    |
+| 17      | U1TXD          |
+| 18      | U1RXD          |
+| 21      | U0TXD          |
+| 33      | U0RXD          |
+| 34      | SPI CS         |
+| 35      | SPI MOS        |
+| 36      | SPI SCK        |
+| 37      | SPI MISO       |
 
 ---
 
