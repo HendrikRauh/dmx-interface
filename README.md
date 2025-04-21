@@ -7,7 +7,7 @@
 ## 🛒 Parts
 
 | Count | Part          |
-|-------|---------------|
+| ----- | ------------- |
 | 1x    | ESP32         |
 | 2x    | RS485         |
 | 1x    | W5500-ETH     |
@@ -36,7 +36,7 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 ![Circuit diagram](/assets/circuit/diagram.svg)
 
 | GPIO    | Usage          |
-|---------|----------------|
+| ------- | -------------- |
 | GND     | GND to others  |
 | 3,3V    | VIN on RS485   |
 | 5V/VBUS | VIN on W5500   |
@@ -76,7 +76,7 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 ## 💡 Status LED
 
 | LED                               | Description               |
-|-----------------------------------|---------------------------|
+| --------------------------------- | ------------------------- |
 | ![off](/assets/led/off.gif)       | no power; LED deactivated |
 | ![static](/assets/led/static.gif) | powered on; normal        |
 | ![slow](/assets/led/slow.gif)     | startup; warning          |
@@ -89,7 +89,7 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash quickly. After 3 seconds the LED should light up static and the settings are reset. If you release the button early you abort the reset and the LED flashes slowly.
 
 | Setting        | Value              |
-|----------------|--------------------|
+| -------------- | ------------------ |
 | TYPE           | WiFi AP            |
 | SSID           | ChaosDMX-□□□□      |
 | PASSWORD       | mbgmbgmbg          |
