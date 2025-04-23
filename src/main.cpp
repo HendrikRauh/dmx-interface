@@ -25,16 +25,10 @@
 #include "routes/networks.h"
 #include "routes/status.h"
 
-// DMXESPSerial dmx1;
-// DMXESPSerial dmx2;
 dmx_port_t dmx1 = DMX_NUM_0; // for esp32s2
 dmx_port_t dmx2 = DMX_NUM_1;
 byte dmx1_data[DMX_PACKET_SIZE];
 byte dmx2_data[DMX_PACKET_SIZE];
-unsigned long dmx1_lastUpdate = millis();
-unsigned long dmx2_lastUpdate = millis();
-bool dmx1_IsConnected = false;
-bool dmx2_IsConnected = false;
 
 // Button
 #define PIN_LED 7
@@ -200,15 +194,8 @@ void setup()
     direction1 = static_cast<Direction>(config.getUInt("direction-1", DEFAULT_DIRECTION1));
     direction2 = static_cast<Direction>(config.getUInt("direction-2", DEFAULT_DIRECTION2));
 
-    Serial.print("Port A: Universe ");
-    Serial.print(universe1);
-    Serial.print(" ");
-    Serial.println((direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
-
-    Serial.print("Port B: Universe ");
-    Serial.print(universe2);
-    Serial.print(" ");
-    Serial.println((direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    Serial.printf("Port A: Universe %d %s\n", universe1, (direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    Serial.printf("Port B: Universe %d %s\n", universe2, (direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
 
     Connection connection = static_cast<Connection>(config.getUInt("connection", DEFAULT_CONNECTION));
     IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), DEFAULT_IP_METHOD);
@@ -326,44 +313,21 @@ void setup()
     Serial.println("Initialize DMX...");
 
 #ifdef CONFIG_IDF_TARGET_ESP32S2
-    // dmx1.init(21, 33, Serial0);
-    // dmx2.init(17, 18, Serial1);
-
-    Serial.print("DMX driver 1 installed: ");
-    Serial.println(dmx_driver_is_installed(dmx1));
-
-    Serial.print("DMX driver 2 installed: ");
-    Serial.println(dmx_driver_is_installed(dmx2));
 
     dmx_config_t dmx_config = DMX_CONFIG_DEFAULT;
-
     dmx_personality_t personalities[] = {};
-    /*dmx_personality_t personalities[] = {
-        {1, "Default Personality"}
-    };*/
-    /*int personality_count = 1;*/
     int personality_count = 0;
+
     dmx_driver_install(dmx1, &dmx_config, personalities, personality_count);
     dmx_set_pin(dmx1, 21, 33, -1);
     dmx_driver_install(dmx2, &dmx_config, personalities, personality_count);
     dmx_set_pin(dmx2, 17, 18, -1);
 
-    Serial.print("DMX driver 1 installed: ");
-    Serial.println(dmx_driver_is_installed(dmx1));
+    Serial.printf("DMX driver 1 installed: %d\n", dmx_driver_is_installed(dmx1));
+    Serial.printf("DMX driver 2 installed: %d\n", dmx_driver_is_installed(dmx2));
 
-    Serial.print("DMX driver 2 installed: ");
-    Serial.println(dmx_driver_is_installed(dmx2));
-
-    Serial.print("DMX driver 1 enabled: ");
-    Serial.println(dmx_driver_is_enabled(dmx1));
-
-    Serial.print("DMX driver 2 enabled: ");
-    Serial.println(dmx_driver_is_enabled(dmx2));
-
-    // TX/RX Pins und Serial0/Serial1 ausgeben
-
-    /* Now set the DMX hardware pins to the pins that we want to use and setup
-      will be complete! */
+    Serial.printf("DMX driver 1 enabled: %d\n", dmx_driver_is_enabled(dmx1));
+    Serial.printf("DMX driver 2 enabled: %d\n", dmx_driver_is_enabled(dmx2));
 
 #else
     dmx1.init(21, 33, Serial1);
@@ -377,7 +341,6 @@ void setup()
     // if Artnet packet comes to this universe, this function is called
     if (direction1 == Output)
     {
-        Serial.println("DMX1 as out");
         artnet.subscribeArtDmxUniverse(universe1, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                        {
             dmx_write_offset(dmx1, 1, data, size);
@@ -387,16 +350,12 @@ void setup()
 
     if (direction2 == Output)
     {
-        Serial.println("DMX2 as out");
         artnet.subscribeArtDmxUniverse(universe2, [&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote)
                                        {
             dmx_write_offset(dmx2, 1, data, size);
             dmx_send(dmx2);
             dmx_wait_sent(dmx2, DMX_TIMEOUT_TICK); });
     }
-
-    // if Artnet packet comes, this function is called to every universe
-    // artnet.subscribeArtDmx([&](const uint8_t *data, uint16_t size, const ArtDmxMetadata &metadata, const ArtNetRemoteInfo &remote) {});
 
     if (!LittleFS.begin(true))
     {
@@ -459,47 +418,22 @@ void setup()
     Serial.printf("Flash Size %d, Flash Speed %d\n", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
 }
 
-void loop()
+void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUniverse)
 {
-    // check if artnet packet has come and execute callback
-    artnet.parse();
-
     /* We need a place to store information about the DMX packets we receive. We
         will use a dmx_packet_t to store that packet information.  */
-    dmx_packet_t dmx1_packet;
-    dmx_packet_t dmx2_packet;
+    dmx_packet_t dmx_packet;
 
-    /* And now we wait! The DMX standard defines the amount of time until DMX
-        officially times out. That amount of time is converted into ESP32 clock
-        ticks using the constant `DMX_TIMEOUT_TICK`. If it takes longer than that
-        amount of time to receive data, this if statement will evaluate to false. */
-    if (direction1 == Input && dmx_receive(dmx1, &dmx1_packet, 0))
+    // check if there's a new DMX packet
+    if (dmx_receive(dmxPort, &dmx_packet, 0))
     {
-        // Serial.println("Recv DMX1");
-        /* If this code gets called, it means we've received DMX data! */
-
-        dmx_read_offset(dmx1, 1, dmx1_data, 512);
-        artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);
-        /* Get the current time since boot in milliseconds so that we can find out
-             how long it has been since we last updated data and printed to the Serial
-             Monitor. */
-        unsigned long now = millis();
-
         /* We should check to make sure that there weren't any DMX errors. */
-        if (!dmx1_packet.err)
+        if (!dmx_packet.err)
         {
             /* Don't forget we need to actually read the DMX data into our buffer so
                 that we can print it out. */
-
-            /*dmx_read_offset(dmx1, 1, dmx1_data, dmx1_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe1, dmx1_data, 512);*/
-
-            if (now - dmx1_lastUpdate > 1000)
-            {
-                /* Print the received start code - it's usually 0. */
-                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx1_data[0], dmx1_data[1]);
-                dmx1_lastUpdate = now;
-            }
+            dmx_read_offset(dmxPort, 1, dmx_data, dmx_packet.size);
+            artnet.sendArtDmx(broadcastIp, artnetUniverse, dmx_data, dmx_packet.size);
         }
         else
         {
@@ -507,46 +441,27 @@ void loop()
                 connect or disconnect your DMX devices. If you are consistently getting
                 DMX errors, then something may have gone wrong with your code or
                 something is seriously wrong with your DMX transmitter. */
-            Serial.println("A DMX 1 error occurred.");
+            Serial.printf("A DMX error occurred on port %d.\n", dmxPort);
         }
     }
+}
 
-    if (direction2 == Input && dmx_receive(dmx2, &dmx2_packet, 0))
+void loop()
+{
+    // only check for artnet packets if we expect to receive data
+    if (direction1 == Output || direction2 == Output)
     {
-        // Serial.println("Recv DMX2");
-        /* If this code gets called, it means we've received DMX data! */
+        // check if artnet packet has come and execute callback
+        artnet.parse();
+    }
 
-        dmx_read_offset(dmx2, 1, dmx2_data, 512);
-        artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);
+    if (direction1 == Input)
+    {
+        transmitDmxToArtnet(dmx1, dmx1_data, universe1);
+    }
 
-        /* Get the current time since boot in milliseconds so that we can find out
-        how long it has been since we last updated data and printed to the Serial
-        Monitor. */
-        unsigned long now = millis();
-
-        /* We should check to make sure that there weren't any DMX errors. */
-        if (!dmx2_packet.err)
-        {
-            /* Don't forget we need to actually read the DMX data into our buffer so
-                that we can print it out. */
-
-            /*dmx_read_offset(dmx2, 1, dmx2_data, dmx2_packet.size);
-            artnet.sendArtDmx(broadcastIp, universe2, dmx2_data, 512);*/
-
-            if (now - dmx2_lastUpdate > 1000)
-            {
-                /* Print the received start code - it's usually 0. */
-                // Serial.printf("Start code is 0x%02X and slot 1 is 0x%02X\n", dmx2_data[0], dmx2_data[1]);
-                dmx2_lastUpdate = now;
-            }
-        }
-        else
-        {
-            /* Oops! A DMX error occurred! Don't worry, this can happen when you first
-                connect or disconnect your DMX devices. If you are consistently getting
-                DMX errors, then something may have gone wrong with your code or
-                something is seriously wrong with your DMX transmitter. */
-            Serial.println("A DMX 2 error occurred.");
-        }
+    if (direction2 == Input)
+    {
+        transmitDmxToArtnet(dmx2, dmx2_data, universe2);
     }
 }
