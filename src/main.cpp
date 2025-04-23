@@ -38,23 +38,6 @@ byte dmx2_data[DMX_PACKET_SIZE];
 uint8_t brightness_led = 20;
 bool status_led;
 
-/* hw_timer_t *timer = NULL; // H/W timer defining (Pointer to the Structure)
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-void IRAM_ATTR onTimer()
-{ // Defining interrupt function with IRAM_ATTR for faster access
-    portENTER_CRITICAL_ISR(&timerMux);
-    status_led = !status_led;
-    if (!status_led)
-    {
-        analogWrite(PIN_LED, brightness_led);
-    }
-    else
-    {
-        analogWrite(PIN_LED, 0);
-    }
-    portEXIT_CRITICAL_ISR(&timerMux);
-} */
-
 // Ethernet stuff
 #define ETH_SCK 36
 #define ETH_SS 34
@@ -73,26 +56,63 @@ uint8_t universe1;
 uint8_t universe2;
 Direction direction1;
 Direction direction2;
-/*
-void ledBlink(int ms)
+
+enum class Status
 {
-    if (timer == NULL)
+    Starting,
+    Resetting,
+    Normal,
+    Warning,
+    Critical
+};
+
+Status status = Status::Starting;
+struct BlinkingConfig
+{
+    int interval_ms;
+    bool is_blinking;
+    int brightness;
+};
+
+BlinkingConfig getBlinkingConfig(Status status)
+{
+    switch (status)
     {
-        timer = timerBegin(0, 80, true);             // timer 0, prescalar: 80, UP counting
-        timerAttachInterrupt(timer, &onTimer, true); // Attach interrupt
+    case Status::Starting:
+        return {500, true, brightness_led};
+    case Status::Resetting:
+        return {100, true, brightness_led};
+    case Status::Normal:
+        return {0, false, brightness_led};
+    case Status::Warning:
+        return {500, true, 255};
+    case Status::Critical:
+        return {100, true, 255};
+    default:
+        return {0, false, 0};
     }
-    if (ms == 0)
+}
+
+void updateLed()
+{
+    BlinkingConfig led_config = getBlinkingConfig(status);
+    if (!led_config.is_blinking)
     {
-        timerAlarmDisable(timer);
-        analogWrite(PIN_LED, brightness_led);
+        analogWrite(PIN_LED, led_config.brightness);
+        return;
     }
     else
     {
-        ms = ms * 1000;
-        timerAlarmWrite(timer, ms, true); // Match value= 1000000 for 1 sec. delay.
-        timerAlarmEnable(timer);          // Enable Timer with interrupt (Alarm Enable)
+        if (millis() % led_config.interval_ms < led_config.interval_ms / 2) //? blinks twice as fast?! & directly based on millis
+        {
+            analogWrite(PIN_LED, led_config.brightness);
+        }
+        else
+        {
+            analogWrite(PIN_LED, 0);
+        }
     }
-} */
+}
 
 void onButtonPress()
 {
@@ -125,7 +145,6 @@ void onButtonPress()
 
 void setup()
 {
-
     Serial.begin(9600);
 
     // Get ETH mac
@@ -159,18 +178,18 @@ void setup()
     pinMode(PIN_BUTTON, INPUT_PULLUP);
     if (digitalRead(PIN_BUTTON) == LOW && !restartViaButton)
     {
-        // ledBlink(100);
+        status = Status::Resetting;
         unsigned long startTime = millis();
         while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            // ledBlink(0);
             Serial.println("Reset config");
             config.begin("dmx", false);
             config.clear();
             config.end();
+            status = Status::Normal;
             delay(2000);
         }
     }
@@ -179,7 +198,7 @@ void setup()
     config.putBool("restart-via-btn", false);
     config.end();
 
-    // ledBlink(500);
+    status = Status::Starting;
 
     attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
@@ -398,7 +417,7 @@ void setup()
     // scan networks and cache them
     WiFi.scanNetworks(true);
 
-    // ledBlink(0);
+    status = Status::Normal;
 
     // Internal temperature RP2040
     /*float tempC = analogReadTemp(); // Get internal temperature
@@ -465,4 +484,5 @@ void loop()
     }
 
     webSocketLoop();
+    updateLed();
 }
