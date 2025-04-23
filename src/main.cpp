@@ -36,7 +36,7 @@ byte dmx2_data[DMX_PACKET_SIZE];
 #define PIN_BUTTON 5
 
 uint8_t brightness_led = 20;
-bool status_led;
+bool led_on = true;
 
 // Ethernet stuff
 #define ETH_SCK 36
@@ -83,35 +83,44 @@ BlinkingConfig getBlinkingConfig(Status status)
     case Status::Resetting:
         return {100, true, brightness_led};
     case Status::Normal:
-        return {0, false, brightness_led};
+        return {1000, false, brightness_led};
     case Status::Warning:
         return {500, true, 255};
     case Status::Critical:
         return {100, true, 255};
     default:
-        return {0, false, 0};
+        return {1000, false, 0};
     }
 }
 
-void updateLed()
+BlinkingConfig led_config = getBlinkingConfig(status);
+
+void updateTimer(int interval_ms)
 {
-    BlinkingConfig led_config = getBlinkingConfig(status);
-    if (!led_config.is_blinking)
+    // TODO: update the tickspeed of the timer
+}
+
+void updateLed() // TODO: callback for timer
+{
+    led_config = getBlinkingConfig(status);
+    if (led_config.is_blinking)
+    {
+        led_on = !led_on;
+        analogWrite(PIN_LED, led_on ? led_config.brightness : 0);
+    }
+    else
     {
         analogWrite(PIN_LED, led_config.brightness);
         return;
     }
-    else
-    {
-        if (millis() % led_config.interval_ms < led_config.interval_ms / 2) //? blinks twice as fast?! & directly based on millis
-        {
-            analogWrite(PIN_LED, led_config.brightness);
-        }
-        else
-        {
-            analogWrite(PIN_LED, 0);
-        }
-    }
+}
+
+void setStatus(Status newStatus)
+{
+    status = newStatus;
+    led_config = getBlinkingConfig(status);
+    updateTimer(led_config.interval_ms);
+    updateLed();
 }
 
 void onButtonPress()
@@ -178,7 +187,7 @@ void setup()
     pinMode(PIN_BUTTON, INPUT_PULLUP);
     if (digitalRead(PIN_BUTTON) == LOW && !restartViaButton)
     {
-        status = Status::Resetting;
+        setStatus(Status::Resetting);
         unsigned long startTime = millis();
         while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
@@ -189,7 +198,7 @@ void setup()
             config.begin("dmx", false);
             config.clear();
             config.end();
-            status = Status::Normal;
+            setStatus(Status::Normal);
             delay(2000);
         }
     }
@@ -198,7 +207,7 @@ void setup()
     config.putBool("restart-via-btn", false);
     config.end();
 
-    status = Status::Starting;
+    setStatus(Status::Starting);
 
     attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
@@ -417,7 +426,7 @@ void setup()
     // scan networks and cache them
     WiFi.scanNetworks(true);
 
-    status = Status::Normal;
+    setStatus(Status::Normal);
 
     // Internal temperature RP2040
     /*float tempC = analogReadTemp(); // Get internal temperature
@@ -484,5 +493,4 @@ void loop()
     }
 
     webSocketLoop();
-    updateLed();
 }
