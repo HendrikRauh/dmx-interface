@@ -2,4 +2,4 @@
 #include <ArduinoJson.h>
 #include <driver/temp_sensor.h>
 
-void onGetStatus(AsyncWebServerRequest *request);
+JsonDocument buildStatusJson();

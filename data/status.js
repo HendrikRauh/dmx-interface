@@ -1,4 +1,5 @@
 import { data } from "./load-data.js";
+import { initWebSocket, registerCallback } from "./websocket.js";
 
 const statusDialog = document.querySelector(".dialog-status");
 const expandButton = document.querySelector(".expand-status");
@@ -7,24 +8,8 @@ expandButton.addEventListener("click", () => {
     statusDialog.showModal();
 });
 
-async function loadStatus() {
-    try {
-        const res = await fetch("/status");
-        if (!res.ok) {
-            throw new Error(
-                `Response status: ${res.status}\n${await res.text()}`
-            );
-        }
-
-        const data = await res.json();
-        console.log(data);
-
-        return data;
-    } catch (e) {
-        console.error(e);
-        return null;
-    }
-}
+registerCallback("status", setStatus);
+initWebSocket();
 
 function setStatus(status) {
     setValue("model", status.chip.model);
@@ -70,7 +55,6 @@ function setValue(className, value) {
 
 function parseDuration(ms) {
     const date = new Date(ms);
-    console.log(date);
     const time =
         date.getUTCHours().toString().padStart(2, "0") +
         ":" +
@@ -126,5 +110,3 @@ function selectConnectionIcon(signalStrength) {
     }
     return "signal1.svg";
 }
-
-setStatus(await loadStatus());

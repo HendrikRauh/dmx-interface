@@ -21,6 +21,7 @@
 #include <esp_dmx.h>
 
 #include <LittleFS.h>
+#include "websocket.h"
 #include "routes/config.h"
 #include "routes/networks.h"
 #include "routes/status.h"
@@ -381,9 +382,6 @@ void setup()
     server.on("/networks", HTTP_GET, [](AsyncWebServerRequest *request)
               { onGetNetworks(request); });
 
-    server.on("/status", HTTP_GET, [](AsyncWebServerRequest *request)
-              { onGetStatus(request); });
-
     server.onRequestBody([](AsyncWebServerRequest *request, uint8_t *data, size_t len, size_t index, size_t total)
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
@@ -392,7 +390,8 @@ void setup()
                                 ESP.restart();
                             } });
 
-    delay(1000);
+    initWebSocket(&server);
+
     server.begin();
     Serial.println("Server started!");
 
@@ -464,4 +463,6 @@ void loop()
     {
         transmitDmxToArtnet(dmx2, dmx2_data, universe2);
     }
+
+    webSocketLoop();
 }
