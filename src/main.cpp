@@ -66,7 +66,7 @@ enum class Status
     Critical
 };
 
-Status status = Status::Starting;
+Status status;
 struct BlinkingConfig
 {
     int interval_ms;
@@ -154,6 +154,7 @@ void onButtonPress()
 
 void setup()
 {
+    setStatus(Status::Starting);
     Serial.begin(9600);
 
     // Get ETH mac
