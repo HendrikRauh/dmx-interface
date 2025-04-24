@@ -37,6 +37,7 @@ byte dmx2_data[DMX_PACKET_SIZE];
 
 uint8_t brightness_led = 20;
 bool led_on = true;
+double lastMills = 0;
 
 // Ethernet stuff
 #define ETH_SCK 36
@@ -102,16 +103,20 @@ void updateTimer(int interval_ms)
 
 void updateLed() // TODO: callback for timer
 {
-    led_config = getBlinkingConfig(status);
-    if (led_config.is_blinking)
+    if (millis() - lastMills >= led_config.interval_ms)
     {
-        led_on = !led_on;
-        analogWrite(PIN_LED, led_on ? led_config.brightness : 0);
-    }
-    else
-    {
-        analogWrite(PIN_LED, led_config.brightness);
-        return;
+        lastMills = millis();
+        led_config = getBlinkingConfig(status);
+        if (led_config.is_blinking)
+        {
+            led_on = !led_on;
+            analogWrite(PIN_LED, led_on ? led_config.brightness : 0);
+        }
+        else
+        {
+            analogWrite(PIN_LED, led_config.brightness);
+            return;
+        }
     }
 }
 
@@ -155,6 +160,9 @@ void onButtonPress()
 void setup()
 {
     setStatus(Status::Starting);
+    pinMode(PIN_LED, OUTPUT);
+    updateLed();
+
     Serial.begin(9600);
 
     // Get ETH mac
@@ -182,7 +190,7 @@ void setup()
     brightness_led = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
     bool restartViaButton = config.getBool("restart-via-btn", false);
     config.end();
-    analogWrite(PIN_LED, brightness_led);
+    updateLed();
 
     // Button
     pinMode(PIN_BUTTON, INPUT_PULLUP);
@@ -192,6 +200,7 @@ void setup()
         unsigned long startTime = millis();
         while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
+            updateLed();
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
@@ -200,7 +209,11 @@ void setup()
             config.clear();
             config.end();
             setStatus(Status::Normal);
-            delay(2000);
+            unsigned long startTime = millis();
+            while (millis() - startTime <= 2000)
+            {
+                updateLed();
+            }
         }
     }
 
@@ -213,7 +226,11 @@ void setup()
     attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
     // wait for serial monitor
-    delay(5000);
+    unsigned long startTime = millis();
+    while (millis() - startTime <= 5000)
+    {
+        updateLed();
+    }
     Serial.println("Starting DMX-Interface...");
 
     config.begin("dmx", true);
@@ -494,4 +511,5 @@ void loop()
     }
 
     webSocketLoop();
+    updateLed();
 }
