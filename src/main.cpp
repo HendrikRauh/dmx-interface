@@ -36,24 +36,8 @@ byte dmx2_data[DMX_PACKET_SIZE];
 #define PIN_BUTTON 5
 
 uint8_t brightness_led = 20;
-bool status_led;
-
-/* hw_timer_t *timer = NULL; // H/W timer defining (Pointer to the Structure)
-portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
-void IRAM_ATTR onTimer()
-{ // Defining interrupt function with IRAM_ATTR for faster access
-    portENTER_CRITICAL_ISR(&timerMux);
-    status_led = !status_led;
-    if (!status_led)
-    {
-        analogWrite(PIN_LED, brightness_led);
-    }
-    else
-    {
-        analogWrite(PIN_LED, 0);
-    }
-    portEXIT_CRITICAL_ISR(&timerMux);
-} */
+bool led_on = true;
+double lastMills = 0;
 
 // Ethernet stuff
 #define ETH_SCK 36
@@ -73,26 +57,76 @@ uint8_t universe1;
 uint8_t universe2;
 Direction direction1;
 Direction direction2;
-/*
-void ledBlink(int ms)
+
+enum class Status
 {
-    if (timer == NULL)
+    Starting,
+    Resetting,
+    Normal,
+    Warning,
+    Critical
+};
+
+Status status;
+struct BlinkingConfig
+{
+    int interval_ms;
+    bool is_blinking;
+    int brightness;
+};
+
+BlinkingConfig getBlinkingConfig(Status status)
+{
+    switch (status)
     {
-        timer = timerBegin(0, 80, true);             // timer 0, prescalar: 80, UP counting
-        timerAttachInterrupt(timer, &onTimer, true); // Attach interrupt
+    case Status::Starting:
+        return {500, true, brightness_led};
+    case Status::Resetting:
+        return {100, true, brightness_led};
+    case Status::Normal:
+        return {1000, false, brightness_led};
+    case Status::Warning:
+        return {500, true, 255};
+    case Status::Critical:
+        return {100, true, 255};
+    default:
+        return {1000, false, 0};
     }
-    if (ms == 0)
+}
+
+BlinkingConfig led_config = getBlinkingConfig(status);
+
+void updateTimer(int interval_ms)
+{
+    // TODO: update the tickspeed of the timer
+}
+
+void updateLed() // TODO: callback for timer
+{
+    if (millis() - lastMills >= led_config.interval_ms)
     {
-        timerAlarmDisable(timer);
-        analogWrite(PIN_LED, brightness_led);
+        lastMills = millis();
+        led_config = getBlinkingConfig(status);
+        if (led_config.is_blinking)
+        {
+            led_on = !led_on;
+            analogWrite(PIN_LED, led_on ? led_config.brightness : 0);
+        }
+        else
+        {
+            analogWrite(PIN_LED, led_config.brightness);
+            return;
+        }
     }
-    else
-    {
-        ms = ms * 1000;
-        timerAlarmWrite(timer, ms, true); // Match value= 1000000 for 1 sec. delay.
-        timerAlarmEnable(timer);          // Enable Timer with interrupt (Alarm Enable)
-    }
-} */
+}
+
+void setStatus(Status newStatus)
+{
+    status = newStatus;
+    led_config = getBlinkingConfig(status);
+    updateTimer(led_config.interval_ms);
+    updateLed();
+}
 
 void onButtonPress()
 {
@@ -125,6 +159,9 @@ void onButtonPress()
 
 void setup()
 {
+    setStatus(Status::Starting);
+    pinMode(PIN_LED, OUTPUT);
+    updateLed();
 
     Serial.begin(9600);
 
@@ -153,25 +190,30 @@ void setup()
     brightness_led = config.getUInt("led-brightness", DEFAULT_LED_BRIGHTNESS);
     bool restartViaButton = config.getBool("restart-via-btn", false);
     config.end();
-    analogWrite(PIN_LED, brightness_led);
+    updateLed();
 
     // Button
     pinMode(PIN_BUTTON, INPUT_PULLUP);
     if (digitalRead(PIN_BUTTON) == LOW && !restartViaButton)
     {
-        // ledBlink(100);
+        setStatus(Status::Resetting);
         unsigned long startTime = millis();
         while (digitalRead(PIN_BUTTON) == LOW && (millis() - startTime <= 3000))
         {
+            updateLed();
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            // ledBlink(0);
             Serial.println("Reset config");
             config.begin("dmx", false);
             config.clear();
             config.end();
-            delay(2000);
+            setStatus(Status::Normal);
+            unsigned long startTime = millis();
+            while (millis() - startTime <= 2000)
+            {
+                updateLed();
+            }
         }
     }
 
@@ -179,12 +221,16 @@ void setup()
     config.putBool("restart-via-btn", false);
     config.end();
 
-    // ledBlink(500);
+    setStatus(Status::Starting);
 
     attachInterrupt(PIN_BUTTON, onButtonPress, FALLING);
 
     // wait for serial monitor
-    delay(5000);
+    unsigned long startTime = millis();
+    while (millis() - startTime <= 5000)
+    {
+        updateLed();
+    }
     Serial.println("Starting DMX-Interface...");
 
     config.begin("dmx", true);
@@ -398,7 +444,7 @@ void setup()
     // scan networks and cache them
     WiFi.scanNetworks(true);
 
-    // ledBlink(0);
+    setStatus(Status::Normal);
 
     // Internal temperature RP2040
     /*float tempC = analogReadTemp(); // Get internal temperature
@@ -465,4 +511,5 @@ void loop()
     }
 
     webSocketLoop();
+    updateLed();
 }
