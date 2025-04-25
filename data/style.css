@@ -22,7 +22,7 @@ main {
     padding: 8px max(5%, 8px);
     margin: 0 auto;
     height: 100vh;
-    overflow: scroll;
+    overflow: auto;
 }
 
 h1 {
@@ -156,7 +156,7 @@ dialog {
     width: 80%;
     max-width: 500px;
     max-height: 80%;
-    overflow: scroll;
+    overflow: auto;
     background-color: var(--color-background);
     color: white;
     border: none;
