@@ -5,6 +5,8 @@
     --color-surface: #333;
     --color-danger: #fa2b58;
     --appended-item-size: 2.5rem;
+
+    color-scheme: dark;
 }
 
 body {
@@ -35,6 +37,7 @@ form > * {
 
 fieldset {
     border-radius: 8px;
+    border-color: white;
 }
 
 label {
