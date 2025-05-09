@@ -26,6 +26,16 @@
 #include "routes/networks.h"
 #include "routes/status.h"
 
+#include <Elog.h>
+
+#define SYSTEM 0
+#define DMX 1
+#define ARTNET 2
+#define SERVER 3
+#define WIFI 4
+#define ETHERNET 5
+#define CONFIG 6
+
 dmx_port_t dmx1 = DMX_NUM_0; // for esp32s2
 dmx_port_t dmx2 = DMX_NUM_1;
 byte dmx1_data[DMX_PACKET_SIZE];
@@ -165,25 +175,35 @@ void setup()
 
     Serial.begin(9600);
 
+    Logger.registerSerial(SYSTEM, 10, "SYSTEM");
+    Logger.registerSerial(DMX, 10, "DMX");
+    Logger.registerSerial(ARTNET, 10, "ARTNET");
+    Logger.registerSerial(WIFI, 10, "WIFI");
+    Logger.registerSerial(ETHERNET, 10, "ETHERNET");
+    Logger.registerSerial(SERVER, 10, "SERVER");
+    Logger.registerSerial(CONFIG, 10, "CONFIG");
+
+    Logger.info(SYSTEM, "Interface starting...");
+
     // Get ETH mac
     delay(1000);
 
     esp_efuse_mac_get_default(mac);
 
     esp_read_mac(mac, ESP_MAC_ETH);
-    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC ETH\n",
-                  mac[0], mac[1], mac[2],
-                  mac[3], mac[4], mac[5]);
+    Logger.debug(CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC ETH\n",
+                 mac[0], mac[1], mac[2],
+                 mac[3], mac[4], mac[5]);
 
     esp_read_mac(mac, ESP_MAC_WIFI_SOFTAP);
-    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC SOFTAP\n",
-                  mac[0], mac[1], mac[2],
-                  mac[3], mac[4], mac[5]);
+    Logger.debug(CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC SOFTAP\n",
+                 mac[0], mac[1], mac[2],
+                 mac[3], mac[4], mac[5]);
 
     esp_read_mac(mac, ESP_MAC_WIFI_STA); // ESP_MAC_BASE
-    Serial.printf("%02x:%02x:%02x:%02x:%02x:%02x ESP MAC BASE\n",
-                  mac[0], mac[1], mac[2],
-                  mac[3], mac[4], mac[5]);
+    Logger.debug(CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC BASE\n",
+                 mac[0], mac[1], mac[2],
+                 mac[3], mac[4], mac[5]);
 
     // LED
     config.begin("dmx", true);
@@ -204,7 +224,7 @@ void setup()
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            Serial.println("Reset config");
+            Logger.notice(CONFIG, "Resetting config");
             config.begin("dmx", false);
             config.clear();
             config.end();
@@ -231,7 +251,6 @@ void setup()
     {
         updateLed();
     }
-    Serial.println("Starting DMX-Interface...");
 
     config.begin("dmx", true);
 
@@ -241,8 +260,8 @@ void setup()
     direction1 = static_cast<Direction>(config.getUInt("direction-1", DEFAULT_DIRECTION1));
     direction2 = static_cast<Direction>(config.getUInt("direction-2", DEFAULT_DIRECTION2));
 
-    Serial.printf("Port A: Universe %d %s\n", universe1, (direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
-    Serial.printf("Port B: Universe %d %s\n", universe2, (direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    Logger.info(CONFIG, "Port A: Universe %d %s", universe1, (direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    Logger.info(CONFIG, "Port B: Universe %d %s", universe2, (direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
 
     Connection connection = static_cast<Connection>(config.getUInt("connection", DEFAULT_CONNECTION));
     IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), DEFAULT_IP_METHOD);
@@ -250,8 +269,7 @@ void setup()
     char hostname[30];
     snprintf(hostname, sizeof(hostname), "ChaosDMX-%02X%02X", mac[4], mac[5]);
     DEFAULT_SSID = hostname;
-    Serial.print("Hostname: ");
-    Serial.println(hostname);
+    Logger.info(CONFIG, "Hostname: %s", hostname);
 
     String ssid = config.getString("ssid", DEFAULT_SSID);
     String pwd = config.getString("password", DEFAULT_PASSWORD);
@@ -266,33 +284,32 @@ void setup()
     switch (connection)
     {
     case WiFiSta:
-        Serial.println("Initialize as WiFi Station");
+        Logger.debug(SYSTEM, "Initialize as WiFi Station");
         WiFi.setHostname(hostname);
         WiFi.begin(ssid, pwd);
-        Serial.println("SSID: " + ssid + ", pwd: " + pwd);
+        Logger.info(CONFIG, "SSID: %s; PWD: %s", ssid, pwd);
         if (ipMethod == Static)
         {
             WiFi.config(ip, gateway, subnet);
-            Serial.println("IP: " + ip.toString() + ", gateway: " + gateway + ", subnet: " + subnet);
+            Logger.info(CONFIG, "IP: %s; gateway: %s; subnet: %s", ip.toString(), gateway, subnet);
         }
+        Logger.debug(WIFI, "Connecting...");
         while (WiFi.status() != WL_CONNECTED)
         {
-            Serial.print(".");
-            delay(500);
+            delay(50);
+            updateLed();
         }
+        Logger.info(WIFI, "Connected!");
         broadcastIp = String(WiFi.broadcastIP().toString().c_str());
-        Serial.println("");
-        Serial.print("WiFi connected, IP = ");
-        Serial.println(WiFi.localIP());
-        Serial.print("MAC address: ");
-        Serial.println(WiFi.macAddress());
-        Serial.print("Broadcast IP: ");
-        Serial.println(broadcastIp);
+        Logger.info(WIFI, "IP: %s", WiFi.localIP().toString());
+        Logger.info(WIFI, "MAC: %X", WiFi.macAddress());
+        Logger.info(WIFI, "Broadcast IP: %s", broadcastIp);
+
         break;
 
     case Ethernet:
     {
-        Serial.println("Initialize as ETH");
+        Logger.debug(SYSTEM, "Initialize as ETH");
         ESP32_W5500_onEvent();
 
         if (ETH.begin(ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, SPI2_HOST, mac))
@@ -300,64 +317,56 @@ void setup()
         }
         else
         {
-            Serial.println("Failed to configure Ethernet");
+            Logger.critical(ETHERNET, "Failed to configure Ethernet");
         }
         ETH.setHostname(hostname);
 
         // ESP32_W5500_waitForConnect();
         uint8_t timeout = 5; // in s
-        Serial.print("Wait for connect");
+        Logger.debug(ETHERNET, "Wait for connect");
+        // TODO: use millis
         while (!ESP32_W5500_eth_connected && timeout > 0)
         {
             delay(1000);
             timeout--;
-            Serial.print(".");
         }
-        Serial.println();
         if (ESP32_W5500_eth_connected)
         {
-            Serial.println("DHCP OK!");
+            Logger.debug(ETHERNET, "DHCP OK!");
         }
         else
         {
-            Serial.println("Set static IP");
+            Logger.debug(ETHERNET, "Set static IP");
             ETH.config(ip, gateway, subnet);
         }
+        Logger.debug(ETHERNET, "Ethernet Successfully Initialized");
+
         broadcastIp = ETH.broadcastIP().toString();
 
-        Serial.print("Local IP : ");
-        Serial.println(ETH.localIP());
-        Serial.print("Subnet Mask : ");
-        Serial.println(ETH.subnetMask());
-        Serial.print("Gateway IP : ");
-        Serial.println(ETH.gatewayIP());
-        Serial.print("DNS Server : ");
-        Serial.println(ETH.dnsIP());
-        Serial.print("MAC address : ");
-        Serial.println(ETH.macAddress());
-        Serial.print("Broadcast IP: ");
-        Serial.println(broadcastIp);
-        Serial.println("Ethernet Successfully Initialized");
+        Logger.info(ETHERNET, "Local IP: %s", ETH.localIP().toString());
+        Logger.info(ETHERNET, "Subnet Mask: %s", ETH.subnetMask().toString());
+        Logger.info(ETHERNET, "Gateway IP: %s", ETH.gatewayIP().toString());
+        Logger.debug(ETHERNET, "DNS Server: %s", ETH.dnsIP().toString());
+        Logger.debug(ETHERNET, "MAC address: %X", ETH.macAddress());
+        Logger.debug(ETHERNET, "Broadcast IP: %s", broadcastIp);
         break;
     }
     default:
-        Serial.println("Initialize as WiFi AccessPoint");
+        Logger.debug(SYSTEM, "Initialize as WiFi AccessPoint");
         WiFi.softAPsetHostname(hostname);
         WiFi.softAP(ssid, pwd);
         // AP always with DHCP
         // WiFi.softAPConfig(ip, gateway, subnet);
         broadcastIp = WiFi.softAPBroadcastIP().toString();
-        Serial.print("WiFi AP enabled, IP = ");
-        Serial.println(WiFi.softAPIP());
-        Serial.print("MAC address: ");
-        Serial.println(WiFi.softAPmacAddress());
-        Serial.print("Broadcast IP: ");
-        Serial.println(broadcastIp);
+        Logger.debug(WIFI, "WiFi AP enabled");
+        Logger.info(CONFIG, "IP: %s", WiFi.softAPIP().toString());
+        Logger.debug(CONFIG, "MAC address: %X", WiFi.softAPmacAddress());
+        Logger.debug(CONFIG, "Broadcast IP: %s", broadcastIp);
         break;
     }
 
     // Initialize DMX ports
-    Serial.println("Initialize DMX...");
+    Logger.debug(DMX, "Initialize DMX...");
 
 #ifdef CONFIG_IDF_TARGET_ESP32S2
 
@@ -370,19 +379,20 @@ void setup()
     dmx_driver_install(dmx2, &dmx_config, personalities, personality_count);
     dmx_set_pin(dmx2, 17, 18, -1);
 
-    Serial.printf("DMX driver 1 installed: %d\n", dmx_driver_is_installed(dmx1));
-    Serial.printf("DMX driver 2 installed: %d\n", dmx_driver_is_installed(dmx2));
+    Logger.verbose(DMX, "DMX driver 1 installed: %d", dmx_driver_is_installed(dmx1));
+    Logger.verbose(DMX, "DMX driver 2 installed: %d", dmx_driver_is_installed(dmx2));
 
-    Serial.printf("DMX driver 1 enabled: %d\n", dmx_driver_is_enabled(dmx1));
-    Serial.printf("DMX driver 2 enabled: %d\n", dmx_driver_is_enabled(dmx2));
+    Logger.verbose(DMX, "DMX driver 1 enabled: %d", dmx_driver_is_enabled(dmx1));
+    Logger.verbose(DMX, "DMX driver 2 enabled: %d", dmx_driver_is_enabled(dmx2));
 
 #else
     dmx1.init(21, 33, Serial1);
     dmx2.init(17, 18, Serial2);
 #endif
+    Logger.debug(DMX, "DMX initialized");
 
     // Initialize Art-Net
-    Serial.println("Initialize Art-Net...");
+    Logger.debug(ARTNET, "Initialize Art-Net...");
     artnet.begin();
 
     // if Artnet packet comes to this universe, this function is called
@@ -403,10 +413,12 @@ void setup()
             dmx_send(dmx2);
             dmx_wait_sent(dmx2, DMX_TIMEOUT_TICK); });
     }
+    Logger.debug(ARTNET, "Initialized Art-Net");
 
     if (!LittleFS.begin(true))
     {
-        Serial.println("An Error has occurred while mounting LittleFS");
+        setStatus(Status::Critical);
+        Logger.critical(SYSTEM, "An Error has occurred while mounting LittleFS");
         return;
     }
 
@@ -432,14 +444,14 @@ void setup()
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
                                 onPutConfig(request, data, len, index, total);
-                                Serial.println("restarting ESP...");
+                                Logger.info(SYSTEM, "Restarting ESP...");
                                 ESP.restart();
                             } });
 
     initWebSocket(&server);
 
     server.begin();
-    Serial.println("Server started!");
+    Logger.debug(SERVER, "Webserver started!");
 
     // scan networks and cache them
     WiFi.scanNetworks(true);
@@ -447,20 +459,17 @@ void setup()
     setStatus(Status::Normal);
 
     // Internal temperature RP2040
-    /*float tempC = analogReadTemp(); // Get internal temperature
-    Serial.print("Temperature Celsius (ºC): ");
-    Serial.println(tempC);*/
+    // float tempC = analogReadTemp(); // Get internal temperature
+    // Logger.verbose(SYSTEM, "Temperature Celsius: %d °C", tempC);
     // Internal temperature ESP32 https://www.espboards.dev/blog/esp32-inbuilt-temperature-sensor/
-    Serial.print("Temperature: ");
     float result = 0;
     temp_sensor_read_celsius(&result);
-    Serial.print(result);
-    Serial.println(" °C");
+    Logger.verbose(SYSTEM, "Temperature: %.2f °C", result);
 
-    Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());
-    Serial.printf("SPIRam Total heap %d, SPIRam Free Heap %d\n", ESP.getPsramSize(), ESP.getFreePsram());
-    Serial.printf("ChipRevision %d, Cpu Freq %d, SDK Version %s\n", ESP.getChipRevision(), ESP.getCpuFreqMHz(), ESP.getSdkVersion());
-    Serial.printf("Flash Size %d, Flash Speed %d\n", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
+    Logger.verbose(SYSTEM, "Internal Total heap: %d; internal Free Heap: %d", ESP.getHeapSize(), ESP.getFreeHeap());
+    Logger.verbose(SYSTEM, "SPIRam Total heap: %d; SPIRam Free Heap: %d", ESP.getPsramSize(), ESP.getFreePsram());
+    Logger.verbose(SYSTEM, "ChipRevision: %d; Cpu Freq: %d; SDK Version: %s", ESP.getChipRevision(), ESP.getCpuFreqMHz(), ESP.getSdkVersion());
+    Logger.verbose(SYSTEM, "Flash Size: %d; Flash Speed: %d", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
 }
 
 void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUniverse)
@@ -486,7 +495,7 @@ void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUnive
                 connect or disconnect your DMX devices. If you are consistently getting
                 DMX errors, then something may have gone wrong with your code or
                 something is seriously wrong with your DMX transmitter. */
-            Serial.printf("A DMX error occurred on port %d.\n", dmxPort);
+            Logger.error(DMX, "A DMX error occurred on port %d", dmxPort);
         }
     }
 }
