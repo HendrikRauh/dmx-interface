@@ -160,12 +160,11 @@ void onButtonPress()
 
 void setup()
 {
+    setupLogger();
     setStatus(Status::Starting);
     pinMode(PIN_LED, OUTPUT);
     updateLed();
-    setupLogger();
     logMessage(INFO, tag::SYSTEM, "Interface starting...");
-    logMessage(INFO, tag::SYSTEM, "Test %s", "hello world");
     // Get ETH mac
     delay(1000);
 
