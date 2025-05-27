@@ -2,27 +2,26 @@
 
 enum log_level
 {
-    INFO,
-    DEBUG,
-    VERBOSE,
-    ERROR,
+    EMERGENCY,
+    ALERT,
     CRITICAL,
+    ERROR,
     WARNING,
     NOTICE,
-    ALERT,
-    EMERGENCY
+    INFO,
+    DEBUG
 };
 
-enum log_tag
+namespace tag
 {
-    SYSTEM,
-    DMX,
-    ARTNET,
-    SERVER,
-    WIFI,
-    ETHERNET,
-    CONFIG
-};
+    const char *const SYSTEM = "SYS";
+    const char *const DMX = "DMX";
+    const char *const ARTNET = "ART";
+    const char *const SERVER = "SVR";
+    const char *const WIFI = "WIF";
+    const char *const ETHERNET = "ETH";
+    const char *const CONFIG = "CNF";
+}
 
 void setupLogger();
-void writeLogEntry(const log_level level, const log_tag tag, const char *message, ...);
+void writeLogEntry(const log_level level, const char *tag, const char *message, ...);

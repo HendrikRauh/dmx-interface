@@ -1,5 +1,30 @@
 #include "log.h"
 
+const char *getLogLevelString(log_level level)
+{
+    switch (level)
+    {
+    case EMERGENCY:
+        return "EMRG";
+    case ALERT:
+        return "ALRT";
+    case CRITICAL:
+        return "CRIT";
+    case ERROR:
+        return "EROR";
+    case WARNING:
+        return "WRNG";
+    case NOTICE:
+        return "NOTI";
+    case INFO:
+        return "INFO";
+    case DEBUG:
+        return "DEBG";
+    default:
+        return "UKWN";
+    }
+}
+
 void setupLogger()
 {
     Serial.begin(9600);
@@ -11,7 +36,7 @@ void setupLogger()
     Serial.println("Logger initialized");
 }
 
-void writeLogEntry(const log_level level, const log_tag tag, const char *message, ...)
+void writeLogEntry(const log_level level, const char *tag, const char *message, ...)
 {
     va_list args;
     va_start(args, message);
@@ -21,6 +46,6 @@ void writeLogEntry(const log_level level, const log_tag tag, const char *message
     char *buffer = new char[size + 1];
     va_start(args, message);
     vsnprintf(buffer, size + 1, message, args);
-    Serial.printf("[%d] [%d] \t %s\n", level, tag, buffer);
+    Serial.printf("[%s][%s]> %s\n", getLogLevelString(level), tag, buffer);
     delete[] buffer;
 }

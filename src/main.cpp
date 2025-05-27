@@ -164,25 +164,25 @@ void setup()
     pinMode(PIN_LED, OUTPUT);
     updateLed();
     setupLogger();
-    writeLogEntry(INFO, SYSTEM, "Interface starting...");
-    writeLogEntry(INFO, SYSTEM, "Test %s", "hello world");
+    writeLogEntry(INFO, tag::SYSTEM, "Interface starting...");
+    writeLogEntry(INFO, tag::SYSTEM, "Test %s", "hello world");
     // Get ETH mac
     delay(1000);
 
     esp_efuse_mac_get_default(mac);
 
     esp_read_mac(mac, ESP_MAC_ETH);
-    writeLogEntry(DEBUG, CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC ETH",
+    writeLogEntry(DEBUG, tag::CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC ETH",
                   mac[0], mac[1], mac[2],
                   mac[3], mac[4], mac[5]);
 
     esp_read_mac(mac, ESP_MAC_WIFI_SOFTAP);
-    writeLogEntry(DEBUG, CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC SOFTAP",
+    writeLogEntry(DEBUG, tag::CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC SOFTAP",
                   mac[0], mac[1], mac[2],
                   mac[3], mac[4], mac[5]);
 
     esp_read_mac(mac, ESP_MAC_WIFI_STA); // ESP_MAC_BASE
-    writeLogEntry(DEBUG, CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC BASE",
+    writeLogEntry(DEBUG, tag::CONFIG, "%02x:%02x:%02x:%02x:%02x:%02x ESP MAC BASE",
                   mac[0], mac[1], mac[2],
                   mac[3], mac[4], mac[5]);
 
@@ -205,7 +205,7 @@ void setup()
         }
         if (digitalRead(PIN_BUTTON) == LOW)
         {
-            writeLogEntry(NOTICE, CONFIG, "Resetting config");
+            writeLogEntry(NOTICE, tag::CONFIG, "Resetting config");
             config.begin("dmx", false);
             config.clear();
             config.end();
@@ -234,8 +234,8 @@ void setup()
     direction1 = static_cast<Direction>(config.getUInt("direction-1", DEFAULT_DIRECTION1));
     direction2 = static_cast<Direction>(config.getUInt("direction-2", DEFAULT_DIRECTION2));
 
-    writeLogEntry(INFO, CONFIG, "Port A: Universe %d %s", universe1, (direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
-    writeLogEntry(INFO, CONFIG, "Port B: Universe %d %s", universe2, (direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    writeLogEntry(INFO, tag::CONFIG, "Port A: Universe %d %s", universe1, (direction1 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
+    writeLogEntry(INFO, tag::CONFIG, "Port B: Universe %d %s", universe2, (direction2 == Input) ? "DMX -> Art-Net" : "Art-Net -> DMX");
 
     Connection connection = static_cast<Connection>(config.getUInt("connection", DEFAULT_CONNECTION));
     IpMethod ipMethod = static_cast<IpMethod>(config.getUInt("ip-method"), DEFAULT_IP_METHOD);
@@ -243,7 +243,7 @@ void setup()
     char hostname[30];
     snprintf(hostname, sizeof(hostname), "ChaosDMX-%02X%02X", mac[4], mac[5]);
     DEFAULT_SSID = hostname;
-    writeLogEntry(INFO, CONFIG, "Hostname: %s", hostname);
+    writeLogEntry(INFO, tag::CONFIG, "Hostname: %s", hostname);
 
     String ssid = config.getString("ssid", DEFAULT_SSID);
     String pwd = config.getString("password", DEFAULT_PASSWORD);
@@ -258,32 +258,32 @@ void setup()
     switch (connection)
     {
     case WiFiSta:
-        writeLogEntry(DEBUG, SYSTEM, "Initialize as WiFi Station");
+        writeLogEntry(DEBUG, tag::SYSTEM, "Initialize as WiFi Station");
         WiFi.setHostname(hostname);
         WiFi.begin(ssid, pwd);
-        writeLogEntry(INFO, CONFIG, "SSID: %s; PWD: %s", ssid, pwd);
+        writeLogEntry(INFO, tag::CONFIG, "SSID: %s; PWD: %s", ssid, pwd);
         if (ipMethod == Static)
         {
             WiFi.config(ip, gateway, subnet);
-            writeLogEntry(INFO, CONFIG, "IP: %s; gateway: %s; subnet: %s", ip.toString(), gateway, subnet);
+            writeLogEntry(INFO, tag::CONFIG, "IP: %s; gateway: %s; subnet: %s", ip.toString(), gateway, subnet);
         }
-        writeLogEntry(DEBUG, WIFI, "Connecting...");
+        writeLogEntry(DEBUG, tag::WIFI, "Connecting...");
         while (WiFi.status() != WL_CONNECTED)
         {
             delay(50);
             updateLed();
         }
-        writeLogEntry(INFO, WIFI, "Connected!");
+        writeLogEntry(INFO, tag::WIFI, "Connected!");
         broadcastIp = String(WiFi.broadcastIP().toString().c_str());
-        writeLogEntry(INFO, WIFI, "IP: %s", WiFi.localIP().toString());
-        writeLogEntry(INFO, WIFI, "MAC: %X", WiFi.macAddress());
-        writeLogEntry(INFO, WIFI, "Broadcast IP: %s", broadcastIp);
+        writeLogEntry(INFO, tag::WIFI, "IP: %s", WiFi.localIP().toString());
+        writeLogEntry(INFO, tag::WIFI, "MAC: %X", WiFi.macAddress());
+        writeLogEntry(INFO, tag::WIFI, "Broadcast IP: %s", broadcastIp);
 
         break;
 
     case Ethernet:
     {
-        writeLogEntry(DEBUG, SYSTEM, "Initialize as ETH");
+        writeLogEntry(DEBUG, tag::SYSTEM, "Initialize as ETH");
         ESP32_W5500_onEvent();
 
         if (ETH.begin(ETH_MISO, ETH_MOSI, ETH_SCK, ETH_SS, ETH_INT, ETH_SPI_CLOCK_MHZ, SPI2_HOST, mac))
@@ -291,13 +291,13 @@ void setup()
         }
         else
         {
-            writeLogEntry(CRITICAL, ETHERNET, "Failed to configure Ethernet");
+            writeLogEntry(CRITICAL, tag::ETHERNET, "Failed to configure Ethernet");
         }
         ETH.setHostname(hostname);
 
         // ESP32_W5500_waitForConnect();
         uint8_t timeout = 5; // in s
-        writeLogEntry(DEBUG, ETHERNET, "Wait for connect");
+        writeLogEntry(DEBUG, tag::ETHERNET, "Wait for connect");
         // TODO: use millis
         while (!ESP32_W5500_eth_connected && timeout > 0)
         {
@@ -306,41 +306,41 @@ void setup()
         }
         if (ESP32_W5500_eth_connected)
         {
-            writeLogEntry(DEBUG, ETHERNET, "DHCP OK!");
+            writeLogEntry(DEBUG, tag::ETHERNET, "DHCP OK!");
         }
         else
         {
-            writeLogEntry(DEBUG, ETHERNET, "Set static IP");
+            writeLogEntry(DEBUG, tag::ETHERNET, "Set static IP");
             ETH.config(ip, gateway, subnet);
         }
-        writeLogEntry(DEBUG, ETHERNET, "Ethernet Successfully Initialized");
+        writeLogEntry(DEBUG, tag::ETHERNET, "Ethernet Successfully Initialized");
 
         broadcastIp = ETH.broadcastIP().toString();
 
-        writeLogEntry(INFO, ETHERNET, "Local IP: %s", ETH.localIP().toString());
-        writeLogEntry(INFO, ETHERNET, "Subnet Mask: %s", ETH.subnetMask().toString());
-        writeLogEntry(INFO, ETHERNET, "Gateway IP: %s", ETH.gatewayIP().toString());
-        writeLogEntry(DEBUG, ETHERNET, "DNS Server: %s", ETH.dnsIP().toString());
-        writeLogEntry(DEBUG, ETHERNET, "MAC address: %X", ETH.macAddress());
-        writeLogEntry(DEBUG, ETHERNET, "Broadcast IP: %s", broadcastIp);
+        writeLogEntry(INFO, tag::ETHERNET, "Local IP: %s", ETH.localIP().toString());
+        writeLogEntry(INFO, tag::ETHERNET, "Subnet Mask: %s", ETH.subnetMask().toString());
+        writeLogEntry(INFO, tag::ETHERNET, "Gateway IP: %s", ETH.gatewayIP().toString());
+        writeLogEntry(DEBUG, tag::ETHERNET, "DNS Server: %s", ETH.dnsIP().toString());
+        writeLogEntry(DEBUG, tag::ETHERNET, "MAC address: %X", ETH.macAddress());
+        writeLogEntry(DEBUG, tag::ETHERNET, "Broadcast IP: %s", broadcastIp);
         break;
     }
     default:
-        writeLogEntry(DEBUG, SYSTEM, "Initialize as WiFi AccessPoint");
+        writeLogEntry(DEBUG, tag::SYSTEM, "Initialize as WiFi AccessPoint");
         WiFi.softAPsetHostname(hostname);
         WiFi.softAP(ssid, pwd);
         // AP always with DHCP
         // WiFi.softAPConfig(ip, gateway, subnet);
         broadcastIp = WiFi.softAPBroadcastIP().toString();
-        writeLogEntry(DEBUG, WIFI, "WiFi AP enabled");
-        writeLogEntry(INFO, CONFIG, "IP: %s", WiFi.softAPIP().toString());
-        writeLogEntry(DEBUG, CONFIG, "MAC address: %X", WiFi.softAPmacAddress());
-        writeLogEntry(DEBUG, CONFIG, "Broadcast IP: %s", broadcastIp);
+        writeLogEntry(DEBUG, tag::WIFI, "WiFi AP enabled");
+        writeLogEntry(INFO, tag::CONFIG, "IP: %s", WiFi.softAPIP().toString());
+        writeLogEntry(DEBUG, tag::CONFIG, "MAC address: %X", WiFi.softAPmacAddress());
+        writeLogEntry(DEBUG, tag::CONFIG, "Broadcast IP: %s", broadcastIp);
         break;
     }
 
     // Initialize DMX ports
-    writeLogEntry(DEBUG, DMX, "Initialize DMX...");
+    writeLogEntry(DEBUG, tag::DMX, "Initialize DMX...");
 
 #ifdef CONFIG_IDF_TARGET_ESP32S2
 
@@ -353,20 +353,20 @@ void setup()
     dmx_driver_install(dmx2, &dmx_config, personalities, personality_count);
     dmx_set_pin(dmx2, 17, 18, -1);
 
-    writeLogEntry(VERBOSE, DMX, "DMX driver 1 installed: %d", dmx_driver_is_installed(dmx1));
-    writeLogEntry(VERBOSE, DMX, "DMX driver 2 installed: %d", dmx_driver_is_installed(dmx2));
+    writeLogEntry(DEBUG, tag::DMX, "DMX driver 1 installed: %d", dmx_driver_is_installed(dmx1));
+    writeLogEntry(DEBUG, tag::DMX, "DMX driver 2 installed: %d", dmx_driver_is_installed(dmx2));
 
-    writeLogEntry(VERBOSE, DMX, "DMX driver 1 enabled: %d", dmx_driver_is_enabled(dmx1));
-    writeLogEntry(VERBOSE, DMX, "DMX driver 2 enabled: %d", dmx_driver_is_enabled(dmx2));
+    writeLogEntry(DEBUG, tag::DMX, "DMX driver 1 enabled: %d", dmx_driver_is_enabled(dmx1));
+    writeLogEntry(DEBUG, tag::DMX, "DMX driver 2 enabled: %d", dmx_driver_is_enabled(dmx2));
 
 #else
     dmx1.init(21, 33, Serial1);
     dmx2.init(17, 18, Serial2);
 #endif
-    writeLogEntry(DEBUG, DMX, "DMX initialized");
+    writeLogEntry(DEBUG, tag::DMX, "DMX initialized");
 
     // Initialize Art-Net
-    writeLogEntry(DEBUG, ARTNET, "Initialize Art-Net...");
+    writeLogEntry(DEBUG, tag::ARTNET, "Initialize Art-Net...");
     artnet.begin();
 
     // if Artnet packet comes to this universe, this function is called
@@ -387,12 +387,12 @@ void setup()
             dmx_send(dmx2);
             dmx_wait_sent(dmx2, DMX_TIMEOUT_TICK); });
     }
-    writeLogEntry(DEBUG, ARTNET, "Initialized Art-Net");
+    writeLogEntry(DEBUG, tag::ARTNET, "Initialized Art-Net");
 
     if (!LittleFS.begin(true))
     {
         setStatus(Status::Critical);
-        writeLogEntry(CRITICAL, SYSTEM, "An Error has occurred while mounting LittleFS");
+        writeLogEntry(CRITICAL, tag::SYSTEM, "An Error has occurred while mounting LittleFS");
         return;
     }
 
@@ -418,14 +418,14 @@ void setup()
                          {
                             if (request->url() == "/config" && request->method() == HTTP_PUT) {
                                 onPutConfig(request, data, len, index, total);
-                                writeLogEntry(INFO, SYSTEM, "Restarting ESP...");
+                                writeLogEntry(INFO, tag::SYSTEM, "Restarting ESP...");
                                 ESP.restart();
                             } });
 
     initWebSocket(&server);
 
     server.begin();
-    writeLogEntry(DEBUG, SERVER, "Webserver started!");
+    writeLogEntry(DEBUG, tag::SERVER, "Webserver started!");
 
     // scan networks and cache them
     WiFi.scanNetworks(true);
@@ -434,16 +434,16 @@ void setup()
 
     // Internal temperature RP2040
     // float tempC = analogReadTemp(); // Get internal temperature
-    // logIT(VERBOSE, SYSTEM, "Temperature Celsius: %d °C", tempC);
+    // logIT(DEBUG, SYSTEM, "Temperature Celsius: %d °C", tempC);
     // Internal temperature ESP32 https://www.espboards.dev/blog/esp32-inbuilt-temperature-sensor/
     float result = 0;
     temp_sensor_read_celsius(&result);
-    writeLogEntry(VERBOSE, SYSTEM, "Temperature: %.2f °C", result);
+    writeLogEntry(DEBUG, tag::SYSTEM, "Temperature: %.2f °C", result);
 
-    writeLogEntry(VERBOSE, SYSTEM, "Internal Total heap: %d; internal Free Heap: %d", ESP.getHeapSize(), ESP.getFreeHeap());
-    writeLogEntry(VERBOSE, SYSTEM, "SPIRam Total heap: %d; SPIRam Free Heap: %d", ESP.getPsramSize(), ESP.getFreePsram());
-    writeLogEntry(VERBOSE, SYSTEM, "ChipRevision: %d; Cpu Freq: %d; SDK Version: %s", ESP.getChipRevision(), ESP.getCpuFreqMHz(), ESP.getSdkVersion());
-    writeLogEntry(VERBOSE, SYSTEM, "Flash Size: %d; Flash Speed: %d", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
+    writeLogEntry(DEBUG, tag::SYSTEM, "Internal Total heap: %d; internal Free Heap: %d", ESP.getHeapSize(), ESP.getFreeHeap());
+    writeLogEntry(DEBUG, tag::SYSTEM, "SPIRam Total heap: %d; SPIRam Free Heap: %d", ESP.getPsramSize(), ESP.getFreePsram());
+    writeLogEntry(DEBUG, tag::SYSTEM, "ChipRevision: %d; Cpu Freq: %d; SDK Version: %s", ESP.getChipRevision(), ESP.getCpuFreqMHz(), ESP.getSdkVersion());
+    writeLogEntry(DEBUG, tag::SYSTEM, "Flash Size: %d; Flash Speed: %d", ESP.getFlashChipSize(), ESP.getFlashChipSpeed());
 }
 
 void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUniverse)
@@ -469,7 +469,7 @@ void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUnive
                 connect or disconnect your DMX devices. If you are consistently getting
                 DMX errors, then something may have gone wrong with your code or
                 something is seriously wrong with your DMX transmitter. */
-            writeLogEntry(ERROR, DMX, "A DMX error occurred on port %d", dmxPort);
+            writeLogEntry(ERROR, tag::DMX, "A DMX error occurred on port %d", dmxPort);
         }
     }
 }
