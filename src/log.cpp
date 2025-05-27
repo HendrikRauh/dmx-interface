@@ -36,8 +36,14 @@ void setupLogger()
     Serial.println("Logger initialized");
 }
 
+void writeSerialLog(const log_level level, const char *tag, const unsigned long timestamp, const char *formattedMessage)
+{
+    Serial.printf("[%s][%s](%d)> %s\n", getLogLevelString(level), tag, timestamp, formattedMessage);
+}
+
 void writeLogEntry(const log_level level, const char *tag, const char *message, ...)
 {
+    const unsigned long timestamp = millis();
     va_list args;
     va_start(args, message);
     int size = vsnprintf(nullptr, 0, message, args);
@@ -46,6 +52,8 @@ void writeLogEntry(const log_level level, const char *tag, const char *message, 
     char *messageBuffer = new char[size + 1];
     va_start(args, message);
     vsnprintf(messageBuffer, size + 1, message, args);
-    Serial.printf("[%s][%s](%d)> %s\n", getLogLevelString(level), tag, millis(), messageBuffer);
+
+    writeSerialLog(level, tag, timestamp, messageBuffer);
+
     delete[] messageBuffer;
 }
