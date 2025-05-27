@@ -1,58 +1,23 @@
 #include "log.h"
-#include <Elog.h>
 
-void Log::setup()
+void setupLogger()
 {
-    Logger.registerSerial(SYSTEM, 10, "SYSTEM");
-    Logger.registerSerial(DMX, 10, "DMX");
-    Logger.registerSerial(ARTNET, 10, "ARTNET");
-    Logger.registerSerial(WIFI, 10, "WIFI");
-    Logger.registerSerial(ETHERNET, 10, "ETHERNET");
-    Logger.registerSerial(SERVER, 10, "SERVER");
-    Logger.registerSerial(CONFIG, 10, "CONFIG");
-};
-
-void Log::info(int tag, String format, ...)
-{
-    Logger.info(tag, format, va_list());
+    Serial.begin(9600);
+    while (!Serial)
+    {
+        // updateLed();
+    }
+    // delay(5000);
+    Serial.println("Logger initialized");
 }
 
-void Log::debug(int tag, String format, ...)
+void writeLogEntry(const log_level level, const log_tag tag, const char *message, ...)
 {
-    Logger.debug(tag, format, va_list());
-}
+    char buffer[256];
+    va_list args;
+    va_start(args, message);
+    vsnprintf(buffer, sizeof(buffer), message, args);
+    va_end(args);
 
-void Log::verbose(int tag, String format, ...)
-{
-    Logger.verbose(tag, format, va_list());
-}
-
-void Log::error(int tag, String format, ...)
-{
-    Logger.error(tag, format, va_list());
-}
-
-void Log::critical(int tag, String format, ...)
-{
-    Logger.critical(tag, format, va_list());
-}
-
-void Log::warning(int tag, String format, ...)
-{
-    Logger.warning(tag, format, va_list());
-}
-
-void Log::notice(int tag, String format, ...)
-{
-    Logger.notice(tag, format, va_list());
-}
-
-void Log::alert(int tag, String format, ...)
-{
-    Logger.alert(tag, format, va_list());
-}
-
-void Log::emergency(int tag, String format, ...)
-{
-    Logger.emergency(tag, format, va_list());
+    Serial.printf("[%d] [%d] \t %s\n", level, tag, buffer);
 }
