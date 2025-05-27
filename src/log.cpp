@@ -47,11 +47,9 @@ void writeLogEntry(const log_level level, const char *tag, const char *message, 
     va_list args;
     va_start(args, message);
     int size = vsnprintf(nullptr, 0, message, args);
-    va_end(args);
-
     char *messageBuffer = new char[size + 1];
-    va_start(args, message);
     vsnprintf(messageBuffer, size + 1, message, args);
+    va_end(args);
 
     writeSerialLog(level, tag, timestamp, messageBuffer);
 
