@@ -46,6 +46,6 @@ void writeLogEntry(const log_level level, const char *tag, const char *message, 
     char *buffer = new char[size + 1];
     va_start(args, message);
     vsnprintf(buffer, size + 1, message, args);
-    Serial.printf("[%s][%s]> %s\n", getLogLevelString(level), tag, buffer);
+    Serial.printf("[%s][%s](%d)> %s\n", getLogLevelString(level), tag, millis(), buffer);
     delete[] buffer;
 }
