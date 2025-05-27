@@ -41,7 +41,7 @@ void writeSerialLog(const log_level level, const char *tag, const unsigned long 
     Serial.printf("[%s][%s](%d)> %s\n", getLogLevelString(level), tag, timestamp, formattedMessage);
 }
 
-void writeLogEntry(const log_level level, const char *tag, const char *message, ...)
+void logMessage(const log_level level, const char *tag, const char *message, ...)
 {
     const unsigned long timestamp = millis();
     va_list args;

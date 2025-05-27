@@ -24,4 +24,4 @@ namespace tag
 }
 
 void setupLogger();
-void writeLogEntry(const log_level level, const char *tag, const char *message, ...);
+void logMessage(const log_level level, const char *tag, const char *message, ...);
