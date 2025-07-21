@@ -493,6 +493,8 @@ void transmitDmxToArtnet(dmx_port_t dmxPort, byte *dmx_data, uint8_t artnetUnive
 
 void loop()
 {
+    Serial.printf("[MEM_DEBUG] Free heap: %u bytes\n", xPortGetFreeHeapSize());
+
     // only check for artnet packets if we expect to receive data
     if (direction1 == Output || direction2 == Output)
     {
