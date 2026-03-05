@@ -9,6 +9,7 @@
 #include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "storage.h"
 
 static const char *TAG = "WEBSERVER";
 
@@ -22,22 +23,85 @@ static httpd_handle_t s_server_handle = NULL;
 static TaskHandle_t s_server_task_handle = NULL;
 
 /**
- * @brief HTTP handler for root (GET /)
+ * @brief Get MIME type based on file extension
  */
-static esp_err_t root_handler(httpd_req_t *req)
+static const char *get_mime_type(const char *filename)
 {
-    const char *html = "<!DOCTYPE html>"
-                       "<html>"
-                       "<head><title>DMX Interface</title></head>"
-                       "<body>"
-                       "<h1>DMX Interface</h1>"
-                       "<p>Web server is running!</p>"
-                       "<p><a href=\"/api/health\">Check Health</a></p>"
-                       "</body>"
-                       "</html>";
+    const char *dot = strrchr(filename, '.');
+    if (!dot)
+        return "application/octet-stream";
 
-    httpd_resp_set_type(req, "text/html");
-    httpd_resp_sendstr(req, html);
+    if (strcmp(dot, ".html") == 0)
+        return "text/html";
+    if (strcmp(dot, ".css") == 0)
+        return "text/css";
+    if (strcmp(dot, ".js") == 0)
+        return "application/javascript";
+    if (strcmp(dot, ".json") == 0)
+        return "application/json";
+    if (strcmp(dot, ".png") == 0)
+        return "image/png";
+    if (strcmp(dot, ".jpg") == 0 || strcmp(dot, ".jpeg") == 0)
+        return "image/jpeg";
+    if (strcmp(dot, ".gif") == 0)
+        return "image/gif";
+    if (strcmp(dot, ".svg") == 0)
+        return "image/svg+xml";
+    if (strcmp(dot, ".ico") == 0)
+        return "image/x-icon";
+    if (strcmp(dot, ".txt") == 0)
+        return "text/plain";
+    if (strcmp(dot, ".xml") == 0)
+        return "application/xml";
+    if (strcmp(dot, ".wav") == 0)
+        return "audio/wav";
+    if (strcmp(dot, ".mp3") == 0)
+        return "audio/mpeg";
+
+    return "application/octet-stream";
+}
+
+/**
+ * @brief HTTP handler for static files from LittleFS
+ */
+static esp_err_t static_file_handler(httpd_req_t *req)
+{
+    // Build the file path
+    char filepath[1024];
+    snprintf(filepath, sizeof(filepath), "%s%s", storage_get_mount_point(), req->uri);
+
+    // Handle root path
+    if (strcmp(req->uri, "/") == 0)
+    {
+        snprintf(filepath, sizeof(filepath), "%s/index.html", storage_get_mount_point());
+    }
+
+    FILE *f = fopen(filepath, "r");
+    if (!f)
+    {
+        ESP_LOGW(TAG, "File not found: %s", filepath);
+        httpd_resp_send_404(req);
+        return ESP_OK;
+    }
+
+    // Get MIME type and set content type
+    const char *mime_type = get_mime_type(filepath);
+    httpd_resp_set_type(req, mime_type);
+
+    // Send file in chunks
+    char buf[1024];
+    size_t read_len;
+    while ((read_len = fread(buf, 1, sizeof(buf), f)) > 0)
+    {
+        if (httpd_resp_send_chunk(req, buf, read_len) != ESP_OK)
+        {
+            ESP_LOGW(TAG, "Failed to send data chunk for %s", filepath);
+            break;
+        }
+    }
+
+    fclose(f);
+    httpd_resp_send_chunk(req, NULL, 0); // Send end marker
     return ESP_OK;
 }
 
@@ -57,7 +121,7 @@ static esp_err_t health_check_handler(httpd_req_t *req)
  */
 static void webserver_task(void *arg)
 {
-    httpd_handle_t server = (httpd_handle_t)arg;
+    (void)arg; // Unused parameter
     ESP_LOGI(TAG, "Web server task started");
 
     // Keep task alive - the server runs in the background
@@ -76,6 +140,14 @@ httpd_handle_t webserver_start(const webserver_config_t *config)
     {
         ESP_LOGW(TAG, "Web server already running");
         return s_server_handle;
+    }
+
+    // Initialize LittleFS
+    esp_err_t ret = storage_init();
+    if (ret != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Failed to initialize storage");
+        return NULL;
     }
 
     // Use provided config or defaults
@@ -100,7 +172,7 @@ httpd_handle_t webserver_start(const webserver_config_t *config)
     http_config.uri_match_fn = httpd_uri_match_wildcard;
 
     // Start HTTP server
-    esp_err_t ret = httpd_start(&s_server_handle, &http_config);
+    ret = httpd_start(&s_server_handle, &http_config);
     if (ret != ESP_OK)
     {
         ESP_LOGE(TAG, "Failed to start HTTP server: %s", esp_err_to_name(ret));
@@ -120,23 +192,14 @@ httpd_handle_t webserver_start(const webserver_config_t *config)
     };
     httpd_register_uri_handler(s_server_handle, &health_uri);
 
-    // Root / index.html handler
-    httpd_uri_t root_uri = {
-        .uri = "/",
-        .method = HTTP_GET,
-        .handler = root_handler,
-        .user_ctx = NULL,
-    };
-    httpd_register_uri_handler(s_server_handle, &root_uri);
-
-    // Wildcard handler for 404 (must be last)
-    httpd_uri_t wildcard_uri = {
+    // Wildcard handler for static files from LittleFS (must be last)
+    httpd_uri_t file_uri = {
         .uri = "/*",
         .method = HTTP_GET,
-        .handler = NULL, // Let httpd handle as 404
+        .handler = static_file_handler,
         .user_ctx = NULL,
     };
-    // Don't register wildcard - just let httpd default to 404
+    httpd_register_uri_handler(s_server_handle, &file_uri);
 
     // Create FreeRTOS task for the server
     // This allows other tasks to continue running and makes the server async-ready
