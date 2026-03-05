@@ -1,4 +1,6 @@
 from invoke import task
+import os
+import shutil
 
 @task
 def cleanbuild(c):
@@ -38,6 +40,7 @@ def clean(c):
     """Clean build artifacts"""
     c.run("idf.py fullclean")
 
+
 @task 
 def config(c):
     """Open menuconfig to edit project settings"""
@@ -53,3 +56,16 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies")
+
+@task
+def reset(c):
+    """Reset project to clean state: remove build, config, and managed components"""
+    if os.path.exists("sdkconfig"):
+        os.remove("sdkconfig")
+    if os.path.exists("sdkconfig.old"):
+        os.remove("sdkconfig.old")
+    if os.path.exists("build"):
+        shutil.rmtree("build")
+    if os.path.exists("managed_components"):
+        shutil.rmtree("managed_components")
+    
