@@ -65,6 +65,44 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ---
 
+## 🧑‍💻 Development
+
+### Required tools
+
+- `ESP-IDF` (includes `idf.py`)
+- `Python 3`
+- `invoke` (for project tasks)
+- Optional but recommended formatters:
+  - `clang-format`
+  - `black`
+  - `prettier`
+  - `svgo`
+  - `nixfmt`
+
+### Environment setup
+
+This repository includes a `flake.nix` with a ready-to-use development shell.
+
+```bash
+nix develop
+```
+
+Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
+
+Without Nix, install ESP-IDF and Python dependencies manually (especially `invoke`) and ensure `idf.py` is available in your shell.
+
+Run `invoke --list` to see all available tasks.
+
+Examples:
+
+```bash
+invoke flash
+invoke reset
+invoke config
+```
+
+---
+
 ## 📦 Case
 
 All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format you like.
