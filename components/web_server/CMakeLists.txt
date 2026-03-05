@@ -1,0 +1,8 @@
+idf_component_register(
+    SRCS "src/web_server.c"
+         "src/wifi.c"
+    INCLUDE_DIRS "include"
+    REQUIRES esp_http_server
+    PRIV_REQUIRES freertos esp_wifi esp_event esp_netif nvs_flash
+)
+
