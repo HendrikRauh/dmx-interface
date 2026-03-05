@@ -22,6 +22,8 @@
       devShells.${system}.default = pkgs.mkShell {
         buildInputs = [
           esp-idf
+          pkgs.python3
+          pkgs.python3Packages.invoke
         ];
       };
     };

@@ -15,6 +15,7 @@ cmake_install.cmake
 compile_commands.json
 
 # ESP-IDF specific
+sdkconfig
 sdkconfig.old
 flasher_args.json
 flash_args*
