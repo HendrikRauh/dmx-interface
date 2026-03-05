@@ -21,9 +21,9 @@
 
 ## 📱 Implemented microcontrollers
 
--   [x] Lolin S2 mini
--   [ ] ESP 32 WROOM
--   [ ] ESP 32 C3
+- [x] Lolin S2 mini
+- [ ] ESP 32 WROOM
+- [ ] ESP 32 C3
 
 > For other microcontrollers you may need to adjust the `platformio.ini`
 

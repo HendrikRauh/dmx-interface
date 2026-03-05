@@ -9,21 +9,18 @@
 
 static const char *TAG = "MAIN";
 
-void app_main(void)
-{
+void app_main(void) {
   ESP_LOGI(TAG, "DMX Interface starting...");
 
   esp_err_t wifi_err = wifi_start_ap("DMX", "mbgmbgmbg", 1, 4);
-  if (wifi_err != ESP_OK)
-  {
+  if (wifi_err != ESP_OK) {
     ESP_LOGE(TAG, "Failed to start WiFi AP: %s", esp_err_to_name(wifi_err));
     return;
   }
 
   // Start HTTP web server
   httpd_handle_t server = webserver_start(NULL);
-  if (server == NULL)
-  {
+  if (server == NULL) {
     ESP_LOGE(TAG, "Failed to start web server!");
     return;
   }
@@ -32,8 +29,7 @@ void app_main(void)
   ESP_LOGI(TAG, "Open http://192.168.4.1 in your browser");
 
   // Keep the app running
-  while (1)
-  {
+  while (1) {
     vTaskDelay(pdMS_TO_TICKS(1000));
   }
 }
