@@ -24,6 +24,12 @@
           esp-idf
           pkgs.python3
           pkgs.python3Packages.invoke
+          # Formatting tools
+          pkgs.clang-tools
+          pkgs.nodePackages.prettier
+          # pkgs.nodePackages.svgo
+          pkgs.black
+          pkgs.nixfmt
         ];
       };
     };
