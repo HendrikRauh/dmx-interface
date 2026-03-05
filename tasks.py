@@ -83,37 +83,59 @@ def format(c):
     result = c.run(
         "find main components -name '*.c' -o -name '*.h' | xargs clang-format -i",
         warn=True,
+        hide=False,
     )
-    if result and not result.ok:
-        missing_tools.append("clang-format")
+    if result.exited == 127 or (not result.ok and result.exited != 0):
+        # Check if tool exists
+        check = c.run("command -v clang-format", warn=True, hide=True)
+        if not check.ok:
+            missing_tools.append("clang-format")
 
     print("Formatting Python files...")
-    result = c.run("black tasks.py", warn=True)
-    if result and not result.ok:
-        missing_tools.append("black")
+    result = c.run("black tasks.py", warn=True, hide=False)
+    if result.exited == 127 or (not result.ok and result.exited != 0):
+        check = c.run("command -v black", warn=True, hide=True)
+        if not check.ok:
+            missing_tools.append("black")
 
     print("Formatting Nix files...")
-    result = c.run("nixfmt flake.nix", warn=True)
-    if result and not result.ok:
-        missing_tools.append("nixfmt")
+    result = c.run("nixfmt flake.nix", warn=True, hide=False)
+    if result.exited == 127 or (not result.ok and result.exited != 0):
+        check = c.run("command -v nixfmt", warn=True, hide=True)
+        if not check.ok:
+            missing_tools.append("nixfmt")
 
     print("Formatting SVG files...")
     result = c.run(
-        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs svgo",
+        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs -r svgo",
         warn=True,
+        hide=False,
     )
-    if result and not result.ok:
-        missing_tools.append("svgo")
+    if result.exited == 127 or (not result.ok and result.exited != 0):
+        check = c.run("command -v svgo", warn=True, hide=True)
+        if not check.ok:
+            missing_tools.append("svgo")
 
     print("Formatting other files...")
-    result = c.run("prettier --write '**/*.{js,json,yaml,yml,md,html,css}'", warn=True)
-    if result and not result.ok:
-        missing_tools.append("prettier")
+    result = c.run(
+        "prettier --write '**/*.{js,json,yaml,yml,md,html,css}'", warn=True, hide=False
+    )
+    if result.exited == 127 or (not result.ok and result.exited != 0):
+        check = c.run("command -v prettier", warn=True, hide=True)
+        if not check.ok:
+            missing_tools.append("prettier")
 
     if missing_tools:
-        print(f"\n❌ ERROR: Missing formatting tools: {', '.join(missing_tools)}")
+        print("\n" + "=" * 60)
+        print(f"❌  ERROR: Missing formatting tools: {', '.join(missing_tools)}")
+        print("=" * 60)
         print("Please install them or reload the nix-shell.")
+        print("=" * 60 + "\n")
         sys.exit(1)
+    else:
+        print("\n" + "=" * 60)
+        print("✅  All files formatted successfully!")
+        print("=" * 60 + "\n")
 
 
 @task

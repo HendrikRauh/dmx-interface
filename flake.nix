@@ -15,7 +15,6 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
-      # Use the same esp-idf-full as previously in .envrc
       esp-idf = esp-dev.packages.${system}.esp-idf-full;
     in
     {
@@ -24,10 +23,11 @@
           esp-idf
           pkgs.python3
           pkgs.python3Packages.invoke
+
           # Formatting tools
           pkgs.clang-tools
           pkgs.nodePackages.prettier
-          # pkgs.nodePackages.svgo
+          pkgs.nodePackages.svgo
           pkgs.black
           pkgs.nixfmt
         ];
