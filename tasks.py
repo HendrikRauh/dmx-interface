@@ -48,3 +48,8 @@ def config(c):
 def saveconfig(c):
     """Save current config as sdkconfig.defaults"""
     c.run("idf.py save-defconfig")
+
+@task
+def update(c):
+    """Update project dependencies"""
+    c.run("idf.py update-dependencies")
