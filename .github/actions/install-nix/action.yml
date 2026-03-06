@@ -3,8 +3,16 @@ description: Composite action to checkout the repo and install Nix with flakes e
 runs:
   using: composite
   steps:
-    - name: Checkout
-      uses: actions/checkout@v5
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+      with:
+        extra_nix_config: |
+          experimental-features = nix-command flakes
+    - name: Prewarm flake devShell
+      run: |
+        # use the flake devShell defined in ./flake.nix to fetch deps
+        nix develop --command true
+      shell: bash
 
     - name: Install Nix
       uses: cachix/install-nix-action@v31

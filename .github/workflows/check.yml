@@ -11,6 +11,9 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
       - name: Setup checkout + Nix
         uses: ./.github/actions/install-nix
 
@@ -23,6 +26,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
       - name: Setup checkout + Nix
         uses: ./.github/actions/install-nix
 
