@@ -1,2 +1,9 @@
 ---
 BasedOnStyle: LLVM
+
+# Include sorting
+SortIncludes: true
+
+# Spacing
+MaxEmptyLinesToKeep: 2
+SeparateDefinitionBlocks: Always

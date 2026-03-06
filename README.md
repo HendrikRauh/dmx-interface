@@ -70,14 +70,14 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 ### Required tools
 
 - `ESP-IDF` (includes `idf.py`)
-- `Python 3`
 - `invoke` (for project tasks)
-- Optional but recommended formatters:
-  - `clang-format`
-  - `black`
-  - `prettier`
-  - `svgo`
-  - `nixfmt`
+
+- Optional but recommended for development:
+  - `pre-commit` (for code quality hooks)
+  - `clang-format` (C/C++)
+  - `prettier` (JavaScript/CSS/HTML/YAML)
+  - `svgo` (SVG optimization)
+  - `nixfmt` (Nix formatting)
 
 ### Environment setup
 
@@ -99,6 +99,20 @@ Examples:
 invoke flash
 invoke reset
 invoke config
+```
+
+### Pre-commit hooks
+
+This project uses [pre-commit](https://pre-commit.com/) to automatically check code quality, formatting, and common mistakes before committing.
+
+**Setup:**
+
+```bash
+# Install pre-commit hooks
+pre-commit install
+
+# Optionally, run all hooks on all files
+pre-commit run --all-files
 ```
 
 ---

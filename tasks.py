@@ -46,7 +46,14 @@ def clean(c):
 @task
 def config(c):
     """Open menuconfig to edit project settings"""
-    c.run("idf.py menuconfig --color-scheme=monochrome", pty=True)
+    is_windows = os.name == "nt"
+    if is_windows:
+        # Windows doesn't provide a POSIX pty, not sure how to open menuconfig interactive
+        print(
+            "Please run 'idf.py menuconfig' directly in the terminal to edit project settings. This option is not supported in the invoke task on Windows."
+        )
+    else:
+        c.run("idf.py menuconfig --color-scheme=monochrome", pty=True)
 
 
 @task
@@ -76,66 +83,18 @@ def reset(c):
 
 @task
 def format(c):
-    """Format all source files with clang-format, black, prettier, nixfmt, and svgo"""
-    missing_tools = []
-
-    print("Formatting C files...")
-    result = c.run(
-        "find main components -name '*.c' -o -name '*.h' | xargs clang-format -i",
+    """Format all source files using pre-commit hooks and optimize SVGs"""
+    print("\nOptimizing SVG files...")
+    c.run(
+        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs -r svgo --quiet --final-newline",
         warn=True,
-        hide=False,
     )
-    if result.exited == 127 or (not result.ok and result.exited != 0):
-        # Check if tool exists
-        check = c.run("command -v clang-format", warn=True, hide=True)
-        if not check.ok:
-            missing_tools.append("clang-format")
-
-    print("Formatting Python files...")
-    result = c.run("black tasks.py", warn=True, hide=False)
-    if result.exited == 127 or (not result.ok and result.exited != 0):
-        check = c.run("command -v black", warn=True, hide=True)
-        if not check.ok:
-            missing_tools.append("black")
-
-    print("Formatting Nix files...")
-    result = c.run("nixfmt flake.nix", warn=True, hide=False)
-    if result.exited == 127 or (not result.ok and result.exited != 0):
-        check = c.run("command -v nixfmt", warn=True, hide=True)
-        if not check.ok:
-            missing_tools.append("nixfmt")
-
-    print("Formatting SVG files...")
-    result = c.run(
-        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs -r svgo",
-        warn=True,
-        hide=False,
-    )
-    if result.exited == 127 or (not result.ok and result.exited != 0):
-        check = c.run("command -v svgo", warn=True, hide=True)
-        if not check.ok:
-            missing_tools.append("svgo")
-
-    print("Formatting other files...")
-    result = c.run(
-        "prettier --write '**/*.{js,json,yaml,yml,md,html,css}'", warn=True, hide=False
-    )
-    if result.exited == 127 or (not result.ok and result.exited != 0):
-        check = c.run("command -v prettier", warn=True, hide=True)
-        if not check.ok:
-            missing_tools.append("prettier")
-
-    if missing_tools:
-        print("\n" + "=" * 60)
-        print(f"❌  ERROR: Missing formatting tools: {', '.join(missing_tools)}")
-        print("=" * 60)
-        print("Please install them or reload the nix-shell.")
-        print("=" * 60 + "\n")
-        sys.exit(1)
+    is_windows = os.name == "nt"
+    if is_windows:
+        # Windows doesn't provide a POSIX pty
+        c.run("pre-commit run --all-files")
     else:
-        print("\n" + "=" * 60)
-        print("✅  All files formatted successfully!")
-        print("=" * 60 + "\n")
+        c.run("pre-commit run --all-files", pty=True)
 
 
 @task

@@ -24,11 +24,11 @@
           pkgs.python3
           pkgs.python3Packages.invoke
 
-          # Formatting tools
+          pkgs.pre-commit
           pkgs.clang-tools
-          pkgs.nodePackages.prettier
-          pkgs.nodePackages.svgo
-          pkgs.black
+          pkgs.svgo
+          pkgs.prettier
+
           pkgs.nixfmt
         ];
       };
