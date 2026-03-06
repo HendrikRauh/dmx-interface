@@ -1,27 +1,16 @@
 name: install-nix
-description: Composite action to checkout the repo and install Nix with flakes enabled
+description: Install Nix with flakes enabled and pre-warm the repository's flake devShell
 runs:
   using: composite
   steps:
-    - name: Install Nix
+    - name: Install Nix (with flakes)
       uses: cachix/install-nix-action@v31
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
-    - name: Prewarm flake devShell
+    - name: Pre-warm flake devShell
       run: |
-        # use the flake devShell defined in ./flake.nix to fetch deps
-        nix develop --command true
-      shell: bash
-
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
-      with:
-        extra_nix_config: |
-          experimental-features = nix-command flakes
-
-    - name: Prewarm flake devShell
-      run: |
-        # use the flake devShell defined in ./flake.nix to fetch deps
+        # Use the repository's `flake.nix` devShell to fetch dependencies.
+        # This speeds up later `nix develop` invocations in workflow steps.
         nix develop --command true
       shell: bash

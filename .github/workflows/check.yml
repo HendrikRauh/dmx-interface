@@ -11,29 +11,29 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup checkout + Nix
+      - name: Install Nix and pre-warm flake devShell
         uses: ./.github/actions/install-nix
 
       - name: Run pre-commit from flake devShell
         run: |
-          # use the flake devShell defined in ./flake.nix (x86_64 runner)
+          # Use the flake devShell defined in ./flake.nix (x86_64 runner)
           nix develop --command pre-commit run --all-files
         shell: bash
 
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v5
 
-      - name: Setup checkout + Nix
+      - name: Install Nix and pre-warm flake devShell
         uses: ./.github/actions/install-nix
 
       - name: Run build from flake devShell
         run: |
-          # use the flake devShell defined in ./flake.nix (x86_64 runner)
+          # Use the flake devShell defined in ./flake.nix (x86_64 runner)
           nix develop --command invoke build
         shell: bash
