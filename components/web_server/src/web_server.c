@@ -1,3 +1,5 @@
+#define LOG_TAG "WEBSRV"
+
 #include "web_server.h"
 
 #include <ctype.h>
@@ -6,12 +8,10 @@
 #include <string.h>
 
 #include "esp_err.h"
-#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "logger.h"
 #include "storage.h"
-
-static const char *TAG = "WEBSERVER";
 
 // Default configuration values
 #define WEBSERVER_DEFAULT_PORT 80
@@ -77,7 +77,7 @@ static esp_err_t static_file_handler(httpd_req_t *req) {
 
   FILE *f = fopen(filepath, "r");
   if (!f) {
-    ESP_LOGW(TAG, "File not found: %s", filepath);
+    LOGW("File not found: %s", filepath);
     httpd_resp_send_404(req);
     return ESP_OK;
   }
@@ -91,7 +91,7 @@ static esp_err_t static_file_handler(httpd_req_t *req) {
   size_t read_len;
   while ((read_len = fread(buf, 1, sizeof(buf), f)) > 0) {
     if (httpd_resp_send_chunk(req, buf, read_len) != ESP_OK) {
-      ESP_LOGW(TAG, "Failed to send data chunk for %s", filepath);
+      LOGW("Failed to send data chunk for %s", filepath);
       break;
     }
   }
@@ -116,27 +116,27 @@ static esp_err_t health_check_handler(httpd_req_t *req) {
  */
 static void webserver_task(void *arg) {
   (void)arg; // Unused parameter
-  ESP_LOGI(TAG, "Web server task started");
+  LOGI("Web server task started");
 
   // Keep task alive - the server runs in the background
   while (s_server_handle != NULL) {
     vTaskDelay(pdMS_TO_TICKS(10000)); // 10 second check interval
   }
 
-  ESP_LOGI(TAG, "Web server task ending");
+  LOGI("Web server task ending");
   vTaskDelete(NULL);
 }
 
 httpd_handle_t webserver_start(const webserver_config_t *config) {
   if (s_server_handle != NULL) {
-    ESP_LOGW(TAG, "Web server already running");
+    LOGW("Web server already running");
     return s_server_handle;
   }
 
   // Initialize LittleFS
   esp_err_t ret = storage_init();
   if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "Failed to initialize storage");
+    LOGE("Failed to initialize storage");
     return NULL;
   }
 
@@ -163,12 +163,12 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   // Start HTTP server
   ret = httpd_start(&s_server_handle, &http_config);
   if (ret != ESP_OK) {
-    ESP_LOGE(TAG, "Failed to start HTTP server: %s", esp_err_to_name(ret));
+    LOGE("Failed to start HTTP server: %s", esp_err_to_name(ret));
     s_server_handle = NULL;
     return NULL;
   }
 
-  ESP_LOGI(TAG, "HTTP server started on port %d", port);
+  LOGI("HTTP server started on port %d", port);
 
   // Register default handlers
   // Health check endpoint
@@ -197,13 +197,13 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
                                     &s_server_task_handle);
 
   if (task_ret != pdPASS) {
-    ESP_LOGE(TAG, "Failed to create web server task");
+    LOGE("Failed to create web server task");
     httpd_stop(s_server_handle);
     s_server_handle = NULL;
     return NULL;
   }
 
-  ESP_LOGI(TAG, "Web server initialized successfully");
+  LOGI("Web server initialized successfully");
   return s_server_handle;
 }
 
@@ -221,7 +221,7 @@ void webserver_stop(httpd_handle_t server) {
     s_server_task_handle = NULL;
   }
 
-  ESP_LOGI(TAG, "Web server stopped");
+  LOGI("Web server stopped");
 }
 
 esp_err_t webserver_register_handler(httpd_handle_t server,
@@ -232,11 +232,10 @@ esp_err_t webserver_register_handler(httpd_handle_t server,
 
   esp_err_t ret = httpd_register_uri_handler(server, uri_handler);
   if (ret == ESP_OK) {
-    ESP_LOGI(TAG, "Registered handler: %s [%d]", uri_handler->uri,
-             uri_handler->method);
+    LOGI("Registered handler: %s [%d]", uri_handler->uri, uri_handler->method);
   } else {
-    ESP_LOGE(TAG, "Failed to register handler %s: %s", uri_handler->uri,
-             esp_err_to_name(ret));
+    LOGE("Failed to register handler %s: %s", uri_handler->uri,
+         esp_err_to_name(ret));
   }
 
   return ret;

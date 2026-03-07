@@ -1,10 +1,10 @@
+#define LOG_TAG "STORE"
+
 #include "storage.h"
-
 #include "esp_littlefs.h"
-#include "esp_log.h"
 #include "esp_vfs.h"
+#include "logger.h"
 
-static const char *TAG = "STORAGE";
 static const char *LITTLEFS_MOUNT_POINT = "/data";
 
 esp_err_t storage_init(void) {
@@ -19,11 +19,11 @@ esp_err_t storage_init(void) {
 
   if (ret != ESP_OK) {
     if (ret == ESP_FAIL) {
-      ESP_LOGE(TAG, "Failed to mount LittleFS or format filesystem");
+      LOGE("Failed to mount LittleFS or format filesystem");
     } else if (ret == ESP_ERR_INVALID_STATE) {
-      ESP_LOGE(TAG, "ESP_ERR_INVALID_STATE");
+      LOGE("ESP_ERR_INVALID_STATE");
     } else {
-      ESP_LOGE(TAG, "Failed to initialize LittleFS: %s", esp_err_to_name(ret));
+      LOGE("Failed to initialize LittleFS: %s", esp_err_to_name(ret));
     }
     return ret;
   }
@@ -31,10 +31,10 @@ esp_err_t storage_init(void) {
   size_t total = 0, used = 0;
   ret = esp_littlefs_info(conf.partition_label, &total, &used);
   if (ret == ESP_OK) {
-    ESP_LOGI(TAG, "LittleFS mounted at %s. Total: %d bytes, Used: %d bytes",
-             LITTLEFS_MOUNT_POINT, total, used);
+    LOGI("LittleFS mounted at %s. Total: %d bytes, Used: %d bytes",
+         LITTLEFS_MOUNT_POINT, total, used);
   } else {
-    ESP_LOGE(TAG, "Failed to get LittleFS information");
+    LOGE("Failed to get LittleFS information");
   }
 
   return ESP_OK;

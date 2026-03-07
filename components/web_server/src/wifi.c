@@ -1,14 +1,15 @@
+#define LOG_TAG "WIFI"
+
 #include "wifi.h"
 
 #include <string.h>
 
 #include "esp_event.h"
-#include "esp_log.h"
 #include "esp_netif.h"
 #include "esp_wifi.h"
+#include "logger.h"
 #include "nvs_flash.h"
 
-static const char *TAG = "WIFI";
 static bool s_wifi_started = false;
 
 esp_err_t wifi_start_ap(const char *ssid, const char *password, uint8_t channel,
@@ -69,7 +70,7 @@ esp_err_t wifi_start_ap(const char *ssid, const char *password, uint8_t channel,
   ESP_ERROR_CHECK(esp_wifi_start());
 
   s_wifi_started = true;
-  ESP_LOGI(TAG, "WiFi AP started: SSID=%s channel=%u", ssid, channel);
+  LOGI("WiFi AP started: SSID=%s channel=%u", ssid, channel);
   return ESP_OK;
 }
 
@@ -81,5 +82,5 @@ void wifi_stop_ap(void) {
   esp_wifi_stop();
   esp_wifi_deinit();
   s_wifi_started = false;
-  ESP_LOGI(TAG, "WiFi AP stopped");
+  LOGI("WiFi AP stopped");
 }
