@@ -30,6 +30,8 @@
           pkgs.prettier
 
           pkgs.nixfmt
+          pkgs.doxygen
+          pkgs.graphviz
         ];
       };
     };

@@ -1,7 +1,9 @@
 from invoke import task
 import os
 import shutil
+import subprocess
 import sys
+import webbrowser
 
 
 @task
@@ -149,3 +151,16 @@ def format_check(c):
         sys.exit(1)
 
     print("\n✅ All files are correctly formatted!")
+
+
+@task(help={"o": "Open documentation in the default browser after generation."})
+def docs(c, o=False):
+    """Generate Doxygen documentation."""
+    proc = subprocess.run("doxygen Doxyfile", shell=True)
+    if proc.returncode == 0:
+        path = "docs/doxygen/html/index.html"
+        print(f"\n✓ Documentation generated in {path}")
+        if o:
+            webbrowser.open(f"file://{os.path.abspath(path)}")
+        return
+    raise Exit(code=1)

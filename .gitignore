@@ -52,6 +52,9 @@ venv*/
 *.tmp
 *.bak
 
+# Documentation
+docs/doxygen/*
+
 # Misc
 *.local
 
