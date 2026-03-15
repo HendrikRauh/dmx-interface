@@ -85,12 +85,8 @@ def reset(c):
 
 @task
 def format(c):
-    """Format all source files using pre-commit hooks and optimize SVGs"""
-    print("\nOptimizing SVG files...")
-    c.run(
-        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs -r svgo --quiet --final-newline",
-        warn=True,
-    )
+    """Format all source files using pre-commit hooks"""
+
     is_windows = os.name == "nt"
     if is_windows:
         # Windows doesn't provide a POSIX pty
