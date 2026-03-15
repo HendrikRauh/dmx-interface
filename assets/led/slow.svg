@@ -1,0 +1,27 @@
+<svg height="24" inkscape:export-xdpi="96" inkscape:export-ydpi="96" style="fill:none;stroke:none;" version="1.1" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:osb="http://www.openswatchbook.org/uri/2009/osb" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Composition</title>
+    <defs/>
+    <sodipodi:namedview bordercolor="#666666" borderlayer="true" inkscape:document-units="px" inkscape:pagecheckerboard="true" pagecolor="#ffffff"/>
+    <metadata>
+        <rdf:RDF>
+            <cc:Work>
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/MovingImage"/>
+                <dc:title>Composition</dc:title>
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <g id="Composition_68e70de2e95844aa9a6cda7f8fad19a5" inkscape:groupmode="layer" inkscape:label="Composition">
+        <g id="Layer_81bf99f338594df5b4bc1d3ee18cdb29" inkscape:groupmode="layer" inkscape:label="Layer" opacity="1" transform="matrix(1, 0, 0, 1, 0, 0)"/>
+        <g fill="#929292" fill-opacity="1" id="Fill_e600c40c2e254b48b7881b73fe05a18f" inkscape:label="Ellipse 11" opacity="1" transform="matrix(1.10857, 0, 0, 1.10857, -2.68489, -3.04258)">
+            <ellipse cx="13.2468" cy="13.5694" rx="10.7044" ry="10.7044" style="stroke:none;"/>
+        </g>
+        <g fill="#7c7c7c" fill-opacity="1" id="Fill_d096c4c626ce4a4881faab6eabb9b6b5" inkscape:label="Ellipse 8" opacity="1" transform="matrix(1, 0, 0, 1, -0.040933, -0.391489)">
+            <ellipse cx="12.0409" cy="12.3915" rx="9.49863" ry="9.52653" style="stroke:none;"/>
+            <animate attributeName="fill" begin="0.000000" calcMode="spline" dur="1.000000" keySplines="0.000000 0.000000 1.000000 1.000000; 0 0 1 1; 0.000000 0.000000 1.000000 1.000000" keyTimes="0.000000; 0.483333; 0.500000; 1" repeatCount="indefinite" values="#7c7c7c; #7c7c7c; #ffffff; #ffffff"/>
+        </g>
+        <g fill="#909090" fill-opacity="1" id="Fill_efe8a750144d4e948f6a9a5ee27ca824" inkscape:label="Ellipse 7" opacity="1" transform="matrix(1, 0, 0, 1, -2.06419, -0.518428)">
+            <ellipse cx="14.0642" cy="12.5184" rx="8.09646" ry="8.09646" style="stroke:none;"/>
+        </g>
+    </g>
+</svg>

@@ -21,9 +21,9 @@
 
 ## 📱 Implemented microcontrollers
 
--   [x] Lolin S2 mini
--   [ ] ESP 32 WROOM
--   [ ] ESP 32 C3
+- [x] Lolin S2 mini
+- [ ] ESP 32 WROOM
+- [ ] ESP 32 C3
 
 > For other microcontrollers you may need to adjust the `platformio.ini`
 
@@ -77,10 +77,10 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 | LED                               | Description               |
 | --------------------------------- | ------------------------- |
-| ![off](/assets/led/off.gif)       | no power; LED deactivated |
-| ![static](/assets/led/static.gif) | powered on; normal        |
-| ![slow](/assets/led/slow.gif)     | startup; warning          |
-| ![fast](/assets/led/fast.gif)     | resetting; error          |
+| ![off](/assets/led/off.svg)       | no power; LED deactivated |
+| ![static](/assets/led/static.svg) | powered on; normal        |
+| ![slow](/assets/led/slow.svg)     | startup; warning          |
+| ![fast](/assets/led/fast.svg)     | resetting; error          |
 
 ---
 
