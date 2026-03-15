@@ -1,7 +1,9 @@
 from invoke import task
 import os
 import shutil
+import subprocess
 import sys
+import webbrowser
 
 
 @task
@@ -154,17 +156,11 @@ def format_check(c):
 @task(help={"o": "Open documentation in the default browser after generation."})
 def docs(c, o=False):
     """Generate Doxygen documentation."""
-    task_begin("docs", "Docs")
     proc = subprocess.run("doxygen Doxyfile", shell=True)
     if proc.returncode == 0:
-        task_end("docs", "done", "Docs generated")
         path = "docs/doxygen/html/index.html"
-        console.print(
-            f"\n[bold green]✓ Documentation generated in {path}[/bold green]"
-        )
+        print(f"\n✓ Documentation generated in {path}")
         if o:
-            import webbrowser
             webbrowser.open(f"file://{os.path.abspath(path)}")
         return
-    task_end("docs", "failed", "Doxygen failed")
     raise Exit(code=1)
