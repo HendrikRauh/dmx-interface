@@ -33,7 +33,6 @@ repos:
         args: [--maxkb=1000]
       - id: check-ast
       - id: check-case-conflict
-      - id: check-docstring-first
       - id: check-json
       - id: check-merge-conflict
       - id: detect-private-key
