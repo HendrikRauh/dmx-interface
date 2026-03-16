@@ -98,3 +98,14 @@ repos:
         entry: nixfmt
         language: system
         types: [nix]
+
+  # Doxygen code coverage
+  - repo: local
+    hooks:
+      - id: doxygen-coverage
+        name: Doxygen code coverage
+        language: system
+        entry: tools/doxy-coverage.py
+        args: [docs/doxygen/xml, --no-error, --summary-only]
+        types_or: [c, c++, header]
+        verbose: true
