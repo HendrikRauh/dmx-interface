@@ -1,3 +1,6 @@
 [submodule "docs/external/doxygen-awesome-css"]
 	path = docs/external/doxygen-awesome-css
 	url = https://github.com/jothepro/doxygen-awesome-css
+[submodule "bootloader"]
+	path = bootloader
+	url = https://github.com/adafruit/tinyuf2.git
