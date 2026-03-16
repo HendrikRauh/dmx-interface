@@ -3,7 +3,6 @@ from invoke.exceptions import Exit
 import os
 import shutil
 import subprocess
-import sys
 import webbrowser
 
 
