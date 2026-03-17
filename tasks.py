@@ -106,3 +106,11 @@ def docs(c, o=False):
             webbrowser.open(f"file://{os.path.abspath(path)}")
         return
     raise Exit(code=1)
+
+
+@task
+def docs_coverage(c):
+    """List doxygen coverage of documentation."""
+    subprocess.run(
+        "python tools/doxy-coverage.py docs/doxygen/xml --no-error", shell=True
+    )
