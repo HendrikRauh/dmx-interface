@@ -114,7 +114,7 @@ repos:
         name: doxygen code coverage
         language: system
         entry: tools/doxy-coverage.py
-        args: [docs/doxygen/xml, --threshold=40, --generate-docs]
+        args: [docs/doxygen/xml, --threshold=100, --generate-docs]
         types_or: [c, c++, header]
         verbose: false
         require_serial: true
