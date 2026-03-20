@@ -110,10 +110,10 @@ repos:
   - repo: local
     hooks:
       - id: doxygen-coverage
-        name: Doxygen code coverage
+        name: doxygen code coverage
         language: system
         entry: tools/doxy-coverage.py
-        args: [docs/doxygen/xml, --no-error, --summary-only]
+        args: [docs/doxygen/xml, --threshold=40, --summary-only]
         types_or: [c, c++, header]
-        verbose: true
+        verbose: false
         require_serial: true
