@@ -1,5 +1,4 @@
-#ifndef STORAGE_H
-#define STORAGE_H
+#pragma once
 
 #include "esp_err.h"
 
@@ -24,5 +23,3 @@ const char *storage_get_mount_point(void);
 #ifdef __cplusplus
 }
 #endif
-
-#endif /* STORAGE_H */

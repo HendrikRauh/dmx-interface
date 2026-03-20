@@ -1,8 +1,8 @@
 from invoke import task
+from invoke.exceptions import Exit
 import os
 import shutil
 import subprocess
-import sys
 import webbrowser
 
 
@@ -85,72 +85,14 @@ def reset(c):
 
 @task
 def format(c):
-    """Format all source files using pre-commit hooks and optimize SVGs"""
-    print("\nOptimizing SVG files...")
-    c.run(
-        "find . -name '*.svg' -not -path './build/*' -not -path './managed_components/*' | xargs -r svgo --quiet --final-newline",
-        warn=True,
-    )
+    """Format all source files using pre-commit hooks"""
+
     is_windows = os.name == "nt"
     if is_windows:
         # Windows doesn't provide a POSIX pty
         c.run("pre-commit run --all-files")
     else:
         c.run("pre-commit run --all-files", pty=True)
-
-
-@task
-def format_check(c):
-    """Check if all files are formatted correctly"""
-    missing_tools = []
-    format_errors = []
-
-    print("Checking C file formatting...")
-    result = c.run(
-        "find main components -name '*.c' -o -name '*.h' | xargs clang-format --dry-run --Werror",
-        warn=True,
-    )
-    if result:
-        if result.return_code == 127:  # Command not found
-            missing_tools.append("clang-format")
-        elif not result.ok:
-            format_errors.append("C files")
-
-    print("Checking Python file formatting...")
-    result = c.run("black --check tasks.py", warn=True)
-    if result:
-        if result.return_code == 127:
-            missing_tools.append("black")
-        elif not result.ok:
-            format_errors.append("Python files")
-
-    print("Checking Nix file formatting...")
-    result = c.run("nixfmt --check flake.nix", warn=True)
-    if result:
-        if result.return_code == 127:
-            missing_tools.append("nixfmt")
-        elif not result.ok:
-            format_errors.append("Nix files")
-
-    print("Checking other file formatting...")
-    result = c.run("prettier --check '**/*.{js,json,yaml,yml,md,html,css}'", warn=True)
-    if result:
-        if result.return_code == 127:
-            missing_tools.append("prettier")
-        elif not result.ok:
-            format_errors.append("JS/JSON/YAML/HTML/CSS files")
-
-    if missing_tools:
-        print(f"\n❌ ERROR: Missing formatting tools: {', '.join(missing_tools)}")
-        print("Please install them or reload the nix-shell.")
-        sys.exit(1)
-
-    if format_errors:
-        print(f"\n❌ ERROR: Formatting issues in: {', '.join(format_errors)}")
-        print("Run 'invoke format' to fix them.")
-        sys.exit(1)
-
-    print("\n✅ All files are correctly formatted!")
 
 
 @task(help={"o": "Open documentation in the default browser after generation."})
@@ -164,3 +106,11 @@ def docs(c, o=False):
             webbrowser.open(f"file://{os.path.abspath(path)}")
         return
     raise Exit(code=1)
+
+
+@task
+def docs_coverage(c):
+    """List doxygen coverage of documentation."""
+    subprocess.run(
+        "python tools/doxy-coverage.py docs/doxygen/xml --no-error", shell=True
+    )

@@ -1,3 +1,9 @@
-idf_component_register(SRCS "dmx-interface.c"
-                    INCLUDE_DIRS "."
-                    REQUIRES web_server dmx)
+idf_component_register(
+  SRCS
+  "dmx-interface.c"
+  INCLUDE_DIRS
+  "."
+  REQUIRES
+  dmx
+  logger
+  web_server)

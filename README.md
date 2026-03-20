@@ -15,7 +15,7 @@
 | 1x    | ♂️-DMX-socket |
 | 1x    | ♀️-DMX-socket |
 
-> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws`, `shrink tubing`, `hot glue gun`
+> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](#-case)), `heat shrink tubing`, `hot glue gun`
 
 ---
 
@@ -122,6 +122,13 @@ pre-commit run --all-files
 All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format you like.
 
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
+
+| Part        | Screw   | Count |
+| ----------- | ------- | ----- |
+| Case lid    | M2x5    | 4x    |
+| ESP32       | M2x5    | 2x    |
+| W5500       | M2,5x5  | 2x    |
+| XLR sockets | M3+Nuts | 4x    |
 
 ---
 

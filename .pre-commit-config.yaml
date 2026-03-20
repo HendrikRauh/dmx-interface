@@ -11,7 +11,8 @@ exclude: |
     .*\.o|
     flake.lock|
     dependencies.lock|
-    assets/case/
+    assets/case/|
+    docs/doxygen/
   )
 
 repos:
@@ -33,7 +34,6 @@ repos:
         args: [--maxkb=1000]
       - id: check-ast
       - id: check-case-conflict
-      - id: check-docstring-first
       - id: check-json
       - id: check-merge-conflict
       - id: detect-private-key
@@ -99,3 +99,22 @@ repos:
         entry: nixfmt
         language: system
         types: [nix]
+
+  # CMake formatting and linting
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.10
+    hooks:
+      - id: cmake-format
+      - id: cmake-lint
+
+  # Doxygen code coverage
+  - repo: local
+    hooks:
+      - id: doxygen-coverage
+        name: doxygen code coverage
+        language: system
+        entry: tools/doxy-coverage.py
+        args: [docs/doxygen/xml, --threshold=40, --generate-docs]
+        types_or: [c, c++, header]
+        verbose: false
+        require_serial: true

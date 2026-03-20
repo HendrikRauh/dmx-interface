@@ -1,6 +1,8 @@
 # Ignore build artifacts and generated files
 build/
 managed_components/
+docs/doxygen/
+docs/external/
 .direnv/
 *.lock
 

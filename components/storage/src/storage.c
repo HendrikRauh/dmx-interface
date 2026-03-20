@@ -1,11 +1,12 @@
-#define LOG_TAG "STORE"
+#define LOG_TAG "STORE" ///< "STORE" log tag for this file
 
 #include "storage.h"
 #include "esp_littlefs.h"
 #include "esp_vfs.h"
 #include "logger.h"
 
-static const char *LITTLEFS_MOUNT_POINT = "/data";
+static const char *LITTLEFS_MOUNT_POINT =
+    "/data"; ///< Mount point for LittleFS filesystem
 
 esp_err_t storage_init(void) {
   esp_vfs_littlefs_conf_t conf = {

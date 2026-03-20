@@ -17,6 +17,7 @@ USE_MDFILE_AS_MAINPAGE = README.md
 # Documentation settings
 GENERATE_LATEX         = NO
 GENERATE_HTML          = YES
+GENERATE_XML=YES
 
 # doxygen-awesome-css settings
 HTML_EXTRA_STYLESHEET  = docs/external/doxygen-awesome-css/doxygen-awesome.css \
