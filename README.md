@@ -15,7 +15,7 @@
 | 1x    | ♂️-DMX-socket |
 | 1x    | ♀️-DMX-socket |
 
-> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws`, `shrink tubing`, `hot glue gun`
+> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](#-case)), `heat shrink tubing`, `hot glue gun`
 
 ---
 
@@ -123,6 +123,12 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
 
+| Part        | Screw   | Count |
+| ----------- | ------- | ----- |
+| Case lid    | M2x5    | 4x    |
+| ESP32       | M2x5    | 2x    |
+| W5500       | M2,5x5  | 2x    |
+| XLR sockets | M3+Nuts | 4x    |
 ---
 
 ## 💡 Status LED
