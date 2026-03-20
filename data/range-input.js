@@ -1,14 +1,14 @@
-document.querySelector("form.config").addEventListener("input", (event) => {
-    if (event.target.classList.contains("range")) {
-        updateValue(event.target);
-    }
+document.querySelector("form.config").addEventListener("input", event => {
+  if (event.target.classList.contains("range")) {
+    updateValue(event.target);
+  }
 });
 
 function updateValue(slider) {
-    const percentage = Math.round((slider.value / slider.max) * 100);
-    slider.nextElementSibling.innerText = `${percentage}%`;
+  const percentage = Math.round((slider.value / slider.max) * 100);
+  slider.nextElementSibling.innerText = `${percentage}%`;
 }
 
-document.querySelectorAll("input[type='range'].range").forEach((element) => {
-    updateValue(element);
+document.querySelectorAll("input[type='range'].range").forEach(element => {
+  updateValue(element);
 });

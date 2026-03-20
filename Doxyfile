@@ -1,0 +1,62 @@
+PROJECT_NAME           = "DMX-Interface"
+PROJECT_BRIEF          = "ChaosDMX"
+OUTPUT_DIRECTORY       = docs/doxygen
+
+# Input settings
+
+INPUT                  = main \
+                         components \
+                         data \
+                         README.md
+FILE_PATTERNS          = *.c *.h *.cpp *.hpp *.md *.py *.js *.css *.html
+RECURSIVE              = YES
+EXCLUDE_PATTERNS       = */build/* \
+                         */managed_components/*
+USE_MDFILE_AS_MAINPAGE = README.md
+
+# Documentation settings
+GENERATE_LATEX         = NO
+GENERATE_HTML          = YES
+GENERATE_XML=YES
+
+# doxygen-awesome-css settings
+HTML_EXTRA_STYLESHEET  = docs/external/doxygen-awesome-css/doxygen-awesome.css \
+                         docs/external/doxygen-awesome-css/doxygen-awesome-sidebar-only.css
+
+HTML_EXTRA_FILES       = docs/external/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js \
+                         docs/external/doxygen-awesome-css/doxygen-awesome-fragment-copy-button.js \
+                         docs/external/doxygen-awesome-css/doxygen-awesome-paragraph-link.js \
+                         docs/external/doxygen-awesome-css/doxygen-awesome-interactive-toc.js \
+                         docs/external/doxygen-awesome-css/doxygen-awesome-tabs.js
+
+# Custom header for JS integration
+
+# Better HTML output
+HTML_COLORSTYLE        = LIGHT
+GENERATE_TREEVIEW      = YES
+DISABLE_INDEX          = NO
+FULL_SIDEBAR           = NO
+
+# Extraction settings
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+
+# Graphviz / Dot settings
+HAVE_DOT               = YES
+DOT_IMAGE_FORMAT       = svg
+INTERACTIVE_SVG        = YES
+DOT_FONTNAME           = Helvetica
+DOT_FONTSIZE           = 10
+
+# Graphs to generate
+CALL_GRAPH             = YES
+CALLER_GRAPH           = YES
+GRAPHICAL_HIERARCHY    = YES
+DIRECTORY_GRAPH        = YES
+CLASS_GRAPH            = YES
+COLLABORATION_GRAPH    = YES
+GROUP_GRAPHS           = YES
+INCLUDE_GRAPH          = YES
+INCLUDED_BY_GRAPH      = YES

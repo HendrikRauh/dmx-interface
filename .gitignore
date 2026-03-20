@@ -1,5 +1,63 @@
-# Development
+# .gitignore für ESP-IDF / CMake-Projekt
 
-.pio
-.vscode
-!.vscode\extensions.json
+# --- Build artefacts -----------------------------------------------------
+/build/
+*.elf
+*.bin
+*.uf2
+*.hex
+*.map
+*.img
+
+# CMake / build system
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+# ESP-IDF specific
+sdkconfig
+sdkconfig.old
+flasher_args.json
+flash_args*
+flash_app_args
+flash_bootloader_args
+flash_project_args
+bootloader-prefix/
+project_description.json
+managed_components/
+
+# Component build directories
+components/**/build/
+partition_table/build/
+
+# IDEs / editors / OS
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# direnv (local environment/profile cache)
+.direnv/
+
+# Python / virtualenvs
+__pycache__/
+*.pyc
+venv/
+venv*/
+.env
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
+
+# Documentation
+docs/doxygen/*
+
+# Misc
+*.local
+
+# Keep Snyk instructions file tracked (project policy)
+# .github/instructions/snyk_rules.instructions.md

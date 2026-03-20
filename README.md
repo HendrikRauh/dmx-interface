@@ -21,9 +21,9 @@
 
 ## 📱 Implemented microcontrollers
 
--   [x] Lolin S2 mini
--   [ ] ESP 32 WROOM
--   [ ] ESP 32 C3
+- [x] Lolin S2 mini
+- [ ] ESP 32 WROOM
+- [ ] ESP 32 C3
 
 > For other microcontrollers you may need to adjust the `platformio.ini`
 
@@ -62,6 +62,58 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 3. click `Upload Filesystem Image`
 4. click `Upload and Monitor`
 5. 🏁 you are done 🎉
+
+---
+
+## 🧑‍💻 Development
+
+### Required tools
+
+- `ESP-IDF` (includes `idf.py`)
+- `invoke` (for project tasks)
+
+- Optional but recommended for development:
+  - `pre-commit` (for code quality hooks)
+  - `clang-format` (C/C++)
+  - `prettier` (JavaScript/CSS/HTML/YAML)
+  - `svgo` (SVG optimization)
+  - `nixfmt` (Nix formatting)
+
+### Environment setup
+
+This repository includes a `flake.nix` with a ready-to-use development shell.
+
+```bash
+nix develop
+```
+
+Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
+
+Without Nix, install ESP-IDF and Python dependencies manually (especially `invoke`) and ensure `idf.py` is available in your shell.
+
+Run `invoke --list` to see all available tasks.
+
+Examples:
+
+```bash
+invoke flash
+invoke reset
+invoke config
+```
+
+### Pre-commit hooks
+
+This project uses [pre-commit](https://pre-commit.com/) to automatically check code quality, formatting, and common mistakes before committing.
+
+**Setup:**
+
+```bash
+# Install pre-commit hooks
+pre-commit install
+
+# Optionally, run all hooks on all files
+pre-commit run --all-files
+```
 
 ---
 

@@ -1,0 +1,29 @@
+# EditorConfig is awesome: https://EditorConfig.org
+# Ensures consistent coding styles for multiple developers working on the same project across various editors and IDEs.
+
+root = true
+
+# All files
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# Python files - 4 space indent
+[*.py]
+indent_size = 4
+
+# Markdown files - preserve whitespace for formatting
+[*.md]
+trim_trailing_whitespace = false
+
+# Makefile - requires tabs
+[Makefile]
+indent_style = tab
+
+# Make files - requires tabs
+[*.make]
+indent_style = tab

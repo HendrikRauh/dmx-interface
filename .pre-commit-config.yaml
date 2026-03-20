@@ -1,0 +1,120 @@
+# yaml-language-server: $schema=https://json.schemastore.org/pre-commit-config.json
+
+# Global exclude pattern for build artifacts and dependencies
+exclude: |
+  (?x)^(
+    build/|
+    managed_components/|
+    .*\.bin|
+    .*\.elf|
+    .*\.hex|
+    .*\.o|
+    flake.lock|
+    dependencies.lock|
+    assets/case/|
+    docs/doxygen/
+  )
+
+repos:
+  # General file checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      # Line ending checks
+      - id: end-of-file-fixer
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+        args: [--fix=lf]
+
+      # Whitespace & formatting
+      - id: trailing-whitespace
+
+      # File format checks
+      - id: check-added-large-files
+        args: [--maxkb=1000]
+      - id: check-ast
+      - id: check-case-conflict
+      - id: check-json
+      - id: check-merge-conflict
+      - id: detect-private-key
+      - id: debug-statements
+
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.21.2
+    hooks:
+      - id: pyupgrade
+        args: [--py38-plus]
+
+  # Spell checking
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.2
+    hooks:
+      - id: codespell
+        args: [--ignore-words=.codespellignore]
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.37.1
+    hooks:
+      - id: yamllint
+        args:
+          [
+            --strict,
+            -d,
+            "{extends: default, rules: {line-length: {max: 120}, document-start: disable}}",
+          ]
+
+  # Markdown linting
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.17.1
+    hooks:
+      - id: markdownlint-cli2
+
+  # Python formatting
+  - repo: https://github.com/psf/black
+    rev: 26.1.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: [--quiet]
+
+  # JavaScript/JSON/CSS/HTML/YAML formatting and C/C++ formatting
+  - repo: local
+    hooks:
+      - id: prettier
+        name: prettier
+        entry: prettier
+        language: system
+        types_or: [javascript, jsx, json, css, scss, html, yaml]
+        exclude: \.md$
+        args: [--write, --ignore-unknown]
+      - id: clang-format
+        name: clang-format
+        entry: clang-format
+        language: system
+        types_or: [c, c++]
+        args: [-i]
+      - id: nixfmt
+        name: nixfmt
+        entry: nixfmt
+        language: system
+        types: [nix]
+
+  # CMake formatting and linting
+  - repo: https://github.com/cheshirekow/cmake-format-precommit
+    rev: v0.6.10
+    hooks:
+      - id: cmake-format
+      - id: cmake-lint
+
+  # Doxygen code coverage
+  - repo: local
+    hooks:
+      - id: doxygen-coverage
+        name: doxygen code coverage
+        language: system
+        entry: tools/doxy-coverage.py
+        args: [docs/doxygen/xml, --threshold=100, --generate-docs]
+        types_or: [c, c++, header]
+        verbose: false
+        require_serial: true
