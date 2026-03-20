@@ -77,6 +77,7 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 | ESP32       | M2x5    | 2x    |
 | W5500       | M2,5x5  | 2x    |
 | XLR sockets | M3+Nuts | 4x    |
+
 ---
 
 ## 💡 Status LED
