@@ -1,4 +1,4 @@
-#define LOG_TAG "DMX"
+#define LOG_TAG "DMX" ///< "DMX" log tag for this file
 
 #include <stdint.h>
 
