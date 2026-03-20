@@ -42,6 +42,7 @@ __copyright__ = "Copyright (C) 2014 Alvaro Lopez Ortega"
 
 from filecmp import cmp
 import os
+import subprocess
 import sys
 import argparse
 import xml.etree.ElementTree as ET
@@ -60,6 +61,20 @@ def ERROR(*objs):
 def FATAL(*objs):
     ERROR(*objs)
     sys.exit(0 if ns.no_error else 1)
+
+
+def generate_docs():
+    print("Generating Doxygen documentation...")
+    proc = subprocess.run(
+        "doxygen Doxyfile",
+        shell=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
+    if proc.returncode == 0:
+        print("Documentation generated")
+    else:
+        FATAL("Failed to generate documentation. Exiting.")
 
 
 def parse_file(fullpath):
@@ -200,11 +215,19 @@ def main():
         default=ACCEPTABLE_COVERAGE,
         type=int,
     )
+    parser.add_argument(
+        "--generate-docs",
+        action="store_true",
+        help="Generate Doxygen documentation before checking coverage",
+    )
 
     global ns
     ns = parser.parse_args()
     if not ns:
         FATAL("ERROR: Couldn't parse parameters")
+
+    if ns.generate_docs:
+        generate_docs()
 
     # Parse
     files = parse(ns.dir)
