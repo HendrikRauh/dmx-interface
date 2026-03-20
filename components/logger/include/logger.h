@@ -1,4 +1,3 @@
-
 /**
  * @file logger.h
  * @brief Project-wide logging macros based on ESP-IDF's logging library.
@@ -27,8 +26,12 @@
 
 #include "esp_log.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #ifndef LOG_TAG
-#define LOG_TAG "CHAOS"
+#define LOG_TAG "CHAOS" ///< Default log tag
 #endif
 
 /** @brief Log a message at Error level. */
@@ -41,3 +44,7 @@
 #define LOGD(...) ESP_LOGD(LOG_TAG, __VA_ARGS__)
 /** @brief Log a message at Verbose level. */
 #define LOGV(...) ESP_LOGV(LOG_TAG, __VA_ARGS__)
+
+#ifdef __cplusplus
+}
+#endif
