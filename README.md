@@ -15,7 +15,7 @@
 | 1x    | ♂️-DMX-socket |
 | 1x    | ♀️-DMX-socket |
 
-> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see case), `heat shrink tubing`, `hot glue gun`
+> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](##-case)), `heat shrink tubing`, `hot glue gun`
 
 ---
 
