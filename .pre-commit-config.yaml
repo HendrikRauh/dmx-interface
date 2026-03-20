@@ -116,3 +116,4 @@ repos:
         args: [docs/doxygen/xml, --no-error, --summary-only]
         types_or: [c, c++, header]
         verbose: true
+        require_serial: true
