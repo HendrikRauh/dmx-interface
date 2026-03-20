@@ -4,5 +4,6 @@ idf_component_register(
   INCLUDE_DIRS
   "."
   REQUIRES
-  web_server
-  logger)
+  dmx
+  logger
+  web_server)
