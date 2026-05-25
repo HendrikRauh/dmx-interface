@@ -40,6 +40,8 @@ partition_table/build/
 
 # direnv (local environment/profile cache)
 .direnv/
+.pre-commit-config.yaml
+.cache
 
 # Python / virtualenvs
 __pycache__/
