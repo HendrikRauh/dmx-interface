@@ -108,10 +108,8 @@ Alternatively, you can use `direnv` to automatically enter the development shell
 
 Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
 
-```bash
-python -m pip install invoke
-```
 
+This project uses [invoke](https://www.pyinvoke.org/) to simplify running common commands.
 Run `invoke --list` to see all available tasks.
 
 Examples:
