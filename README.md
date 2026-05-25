@@ -55,13 +55,30 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ---
 
-## 🚀 Installation
+## 🚀 Installation (ESP-IDF)
 
-1. make sure you have [PlatformIO](https://platformio.org/) installed
-2. open the project folder in PlatformIO
-3. click `Upload Filesystem Image`
-4. click `Upload and Monitor`
-5. 🏁 you are done 🎉
+This project uses `ESP-IDF` as the build system.
+
+1. Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
+
+   ```bash
+   nix develop
+   ```
+
+2. Connect your board.
+3. Build and flash the firmware:
+
+   ```bash
+   invoke flash
+   ```
+
+4. Open the serial monitor (optional):
+
+   ```bash
+   invoke monitor --port /dev/ttyUSB0
+   ```
+
+5. 🏁 done 🎉
 
 ---
 
@@ -89,8 +106,10 @@ nix develop
 
 Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
 
-Without Nix, install ESP-IDF and Python dependencies manually (especially `invoke`) and ensure `idf.py` is available in your shell.
+Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
 
+
+This project uses [invoke](https://www.pyinvoke.org/) to simplify running common commands.
 Run `invoke --list` to see all available tasks.
 
 Examples:
@@ -99,6 +118,8 @@ Examples:
 invoke flash
 invoke reset
 invoke config
+invoke docs
+invoke docs -o
 ```
 
 ### Pre-commit hooks
