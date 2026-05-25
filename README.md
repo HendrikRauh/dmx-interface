@@ -106,7 +106,7 @@ nix develop
 
 Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
 
-Without Nix, install ESP-IDF and Python dependencies manually (especially `invoke`) and ensure `idf.py` is available in your shell.
+Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
 
 ```bash
 python -m pip install invoke
