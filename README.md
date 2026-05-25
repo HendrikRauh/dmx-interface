@@ -57,7 +57,7 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ## 🚀 Installation (ESP-IDF)
 
-This project uses `ESP-IDF` as build system.
+This project uses `ESP-IDF` as the build system.
 
 1. Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
 
