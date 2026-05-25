@@ -121,7 +121,7 @@ invoke flash
 invoke reset
 invoke config
 invoke docs
-invoke docs --o
+invoke docs -o
 ```
 
 ### Pre-commit hooks
