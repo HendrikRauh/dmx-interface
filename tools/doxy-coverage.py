@@ -82,6 +82,7 @@ def parse_file(fullpath):
     sourcefile = None
     definitions = {}
 
+    # cspell:disable-next-line
     for definition in tree.findall("./compounddef//memberdef"):
         # Should it be documented
         if definition.get("kind") == "function" and definition.get("static") == "yes":
@@ -89,6 +90,8 @@ def parse_file(fullpath):
 
         # Is the definition documented?
         documented = False
+
+        # cspell:disable-next-line
         for k in ("briefdescription", "detaileddescription", "inbodydescription"):
             if definition.findall(f"./{k}/"):
                 documented = True
@@ -131,7 +134,7 @@ def parse(path):
         if entry.get("kind") == "dir":
             continue
 
-        file_fp = os.path.join(path, f"{entry.get('refid')}.xml")
+        file_fp = os.path.join(path, f"{entry.get('refid')}.xml")  # cspell:disable-line
         sourcefile, definitions = parse_file(file_fp)
 
         if definitions != {}:

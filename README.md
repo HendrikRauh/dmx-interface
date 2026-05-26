@@ -177,7 +177,7 @@ To reset the settings, hold down the button and connect the ESP to the power sup
 | -------------- | ------------------ |
 | TYPE | WiFi AP |
 | SSID | ChaosDMX-□□□□ |
-| PASSWORD | mbgmbgmbg |
+| PASSWORD | mbgmbgmbg <!-- cspell:disable-line --> |
 | IP-Address | 192.168.4.1 |
 | DMX1 (Left) | OUTPUT; Universe 1 |
 | DMX2 (Right) | INPUT; Universe 2 |

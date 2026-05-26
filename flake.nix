@@ -107,9 +107,9 @@
         };
         markdownlint.enable = true;
         mdformat.enable = true;
-        typos.enable = true;
+        cspell.enable = true;
 
-        # C/C++ & Build-Systeme
+        # C/C++ & Build-Systems
         clang-format = {
           enable = true;
           types_or = [
