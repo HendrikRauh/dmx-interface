@@ -128,9 +128,6 @@
         statix.enable = true;
         flake-checker.enable = true;
 
-        # Typst Support
-        typstyle.enable = true;
-
         # Git
         convco.enable = true;
 
