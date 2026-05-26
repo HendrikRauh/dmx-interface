@@ -3,14 +3,9 @@ import { initWebSocket, registerCallback } from "./websocket.js";
 
 const statusDialog = document.querySelector(".dialog-status");
 const expandButton = document.querySelector(".expand-status");
-const closeButton = document.querySelector("#close-status");
 
 expandButton.addEventListener("click", () => {
   statusDialog.showModal();
-});
-
-closeButton.addEventListener("click", () => {
-  statusDialog.close();
 });
 
 registerCallback("status", setStatus);

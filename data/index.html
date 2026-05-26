@@ -20,7 +20,7 @@
       <section class="loading-screen">
         <div class="spinner-container">
           <!-- h2 is filled dynamically -->
-          <h2>&nbsp;</h2>
+          <h2></h2>
           <div class="spinner"></div>
           <button
             class="reload"
@@ -35,15 +35,11 @@
       <section class="content hidden">
         <div class="status">
           <!-- placeholder for wifi icon -->
-          <img
-            class="connection-icon"
-            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-            alt=""
-          />
-          <span>Temp.: <span class="cpu-temp">&nbsp;</span> °C</span>
-          <span>Heap: <span class="heap-percentage">&nbsp;</span> %</span>
-          <span>PSRAM: <span class="psram-percentage">&nbsp;</span> %</span>
-          <span>Uptime: <span class="uptime">&nbsp;</span></span>
+          <img class="connection-icon" src="" alt="" />
+          <span>Temp.: <span class="cpu-temp"></span> °C</span>
+          <span>Heap: <span class="heap-percentage"></span> %</span>
+          <span>PSRAM: <span class="psram-percentage"></span> %</span>
+          <span>Uptime: <span class="uptime"></span></span>
 
           <button type="button" class="expand-status icon-button">
             <img src="/icons/open.svg" alt="Mehr" />
@@ -52,76 +48,74 @@
 
         <dialog class="dialog-status">
           <div class="dialog-header">
-            <h2 class="model">&nbsp;</h2>
-            <button type="button" class="icon-button" id="close-status">
-              <img src="/icons/close.svg" alt="Schließen" />
-            </button>
+            <h2 class="model"></h2>
+            <form method="dialog">
+              <button type="submit" class="icon-button">
+                <img src="/icons/close.svg" alt="Schließen" />
+              </button>
+            </form>
           </div>
 
           <div class="dialog-status-content">
             <div class="card">
               <span>Signalstärke</span>
               <span class="centered-vertical">
-                <img
-                  class="connection-icon small"
-                  src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                  alt=""
-                />
-                <span><span class="rssi">&nbsp;</span> dBm</span>
+                <img class="connection-icon small" src="" alt="" />
+                <span><span class="rssi"></span> dBm</span>
               </span>
             </div>
 
             <div class="card">
               <span>Uptime</span>
-              <span class="uptime">&nbsp;</span>
+              <span class="uptime"></span>
             </div>
 
             <div class="card">
               <span>CPU-Temperatur</span>
-              <span><span class="cpu-temp">&nbsp;</span> °C</span>
+              <span><span class="cpu-temp"></span> °C</span>
             </div>
 
             <div class="card">
               <span>CPU Cycle Count</span>
-              <span class="cpu-cycle-count">&nbsp;</span>
+              <span class="cpu-cycle-count"></span>
             </div>
 
             <div class="card">
               <span>Heap</span>
-              <span><span class="heap-percentage">&nbsp;</span> %</span>
+              <span><span class="heap-percentage"></span> %</span>
               <span
-                ><span class="heap-used">&nbsp;</span> /
-                <span class="heap-total">&nbsp;</span></span
-              >
+                ><span class="heap-used"></span> /
+                <span class="heap-total"></span
+              ></span>
             </div>
 
             <div class="card">
               <span>PSRAM</span>
-              <span><span class="psram-percentage">&nbsp;</span> %</span>
+              <span><span class="psram-percentage"></span> %</span>
               <span
-                ><span class="psram-used">&nbsp;</span> /
-                <span class="psram-total">&nbsp;</span></span
-              >
+                ><span class="psram-used"></span> /
+                <span class="psram-total"></span
+              ></span>
             </div>
 
             <div class="card">
               <span>CPU-Taktfrequenz</span>
-              <span><span class="cpu-freq">&nbsp;</span> MHz</span>
+              <span><span class="cpu-freq"></span> MHz</span>
             </div>
 
             <div class="card">
               <span>MAC-Adresse</span>
-              <span class="mac">&nbsp;</span>
+              <span class="mac"></span>
             </div>
 
             <div class="card">
               <span>Script-Hash</span>
-              <span class="hash">&nbsp;</span>
+              <span class="hash"></span>
             </div>
 
             <div class="card">
               <span>SDK-Version</span>
-              <span class="sdk-version">&nbsp;</span>
+              <span class="sdk-version"></span>
             </div>
           </div>
         </dialog>
@@ -236,7 +230,7 @@
                 data-value-not-checked="0"
                 data-value-checked="1"
               />
-              <span class="slider">&nbsp;</span>
+              <span class="slider"></span>
               <span>Input</span>
             </label>
             <label>
@@ -262,7 +256,7 @@
                 data-value-not-checked="0"
                 data-value-checked="1"
               />
-              <span class="slider">&nbsp;</span>
+              <span class="slider"></span>
               <span>Input</span>
             </label>
             <label>
@@ -279,8 +273,8 @@
           </fieldset>
           <fieldset>
             <legend>Sonstiges</legend>
-            <div class="field">
-              <label for="led-brightness">LED-Helligkeit</label>
+            <label>
+              LED-Helligkeit
               <div>
                 <input
                   type="range"
@@ -290,9 +284,9 @@
                   max="255"
                   class="range"
                 />
-                <span class="range-value">&nbsp;</span>
+                <span class="range-value"></span>
               </div>
-            </div>
+            </label>
             <label>
               <span>Aktion bei Knopfdruck:</span>
               <select

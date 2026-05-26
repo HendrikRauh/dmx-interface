@@ -120,7 +120,6 @@
         };
 
         # Web-Files
-        html-tidy.enable = true;
         prettier = {
           enable = true;
           types_or = [
