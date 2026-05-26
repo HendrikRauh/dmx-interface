@@ -1,0 +1,24 @@
+[default]
+extend-ignore-re = [
+  "(?i)Konfiguration",
+  "(?i)alle",
+  "(?i)Tage",
+  "(?i)Aktion",
+  "(?i)Adresse",
+  "(?i)Temperatur",
+  "(?i)neustarten",
+  "(?i)anwenden",
+  "(?i)zurücksetzen",
+  "(?i)möchtest",
+  "(?i)geladen",
+  "(?i)konnte",
+  "(?i)nicht",
+  "(?i)werden",
+  "(?i)Stelle",
+  "(?i)sicher",
+  "(?i)verbunden",
+  "(?i)bist",
+  "(?i)stimmt",
+  "d_nam",
+  "dout"
+]
