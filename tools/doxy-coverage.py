@@ -40,7 +40,6 @@ __author__ = "Alvaro Lopez Ortega"
 __email__ = "alvaro@alobbs.com"
 __copyright__ = "Copyright (C) 2014 Alvaro Lopez Ortega"
 
-from filecmp import cmp
 import os
 import subprocess
 import sys
@@ -100,9 +99,9 @@ def parse_file(fullpath):
         d_nam = definition.find("./name")
 
         if not sourcefile:
-            l = definition.find("./location")
-            if l is not None:
-                sourcefile = l.get("file")
+            location = definition.find("./location")
+            if location is not None:
+                sourcefile = location.get("file")
 
         if d_def is not None:
             name = d_def.text
@@ -179,7 +178,7 @@ def report(files, include_files, summary_only):
     total_all = total_yes + total_no
     total_percentage = total_yes * 100 / total_all
     print(
-        f"{"" if summary_only else "\n"}{int(total_percentage)}% API documentation coverage"
+        f"{'' if summary_only else '\n'}{int(total_percentage)}% API documentation coverage"
     )
     return (ns.threshold - total_percentage, 0)[total_percentage > ns.threshold]
 
