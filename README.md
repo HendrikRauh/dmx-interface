@@ -126,16 +126,19 @@ invoke docs -o
 
 ### Pre-commit hooks
 
-This project uses [pre-commit](https://pre-commit.com/) to automatically check code quality, formatting, and common mistakes before committing.
+This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to run code quality, formatting, and consistency checks.
 
 **Setup:**
 
 ```bash
-# Install pre-commit hooks
-pre-commit install
+# Enter the development shell and install the Git hooks via shellHook
+nix develop
 
-# Optionally, run all hooks on all files
-pre-commit run --all-files
+# Run all configured checks
+nix flake check
+
+# Or run only the pre-commit-style checks
+nix build .#checks.x86_64-linux.pre-commit-check
 ```
 
 ______________________________________________________________________
