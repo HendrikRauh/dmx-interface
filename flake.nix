@@ -2,43 +2,62 @@
   description = "dmx-interface development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
-    git-hooks.url = "github:cachix/git-hooks.nix";
     git-hooks.inputs.nixpkgs.follows = "nixpkgs";
+    git-hooks.url = "github:cachix/git-hooks.nix";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   };
 
   outputs = {
-    nixpkgs,
     esp-dev,
     git-hooks,
+    nixpkgs,
     ...
   }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
     esp-idf = esp-dev.packages.${system}.esp-idf-full;
+    pkgs = nixpkgs.legacyPackages.${system};
+    system = "x86_64-linux";
 
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
       excludes = [
-        "^build/"
-        "^managed_components/"
         "\\.bin$"
         "\\.elf$"
         "\\.hex$"
         "\\.o$"
-        "^flake\\.lock$"
-        "^dependencies\\.lock$"
         "^assets/case/"
+        "^build/"
+        "^dependencies\\.lock$"
         "^docs/doxygen/"
         "^docs/external/"
+        "^flake\\.lock$"
         "^latex/"
+        "^managed_components/"
         "^sdkconfig$"
       ];
 
       hooks = {
         # General
+        action-validator.enable = true;
+        actionlint.enable = true;
+        check-added-large-files = {
+          enable = true;
+          args = ["--maxkb=1000"];
+        };
+        check-case-conflicts.enable = true;
+        check-symlinks.enable = true;
+        editorconfig-checker = {
+          enable = true;
+          excludes = [
+            "\\.c$"
+            "\\.cpp$"
+            "\\.h$"
+            "\\.hpp$"
+            "\\.md$"
+            "^\\.envrc$"
+          ];
+        };
         end-of-file-fixer.enable = true;
         fix-byte-order-marker.enable = true;
         mixed-line-endings = {
@@ -46,48 +65,11 @@
           args = ["--fix=lf"];
         };
         trim-trailing-whitespace.enable = true;
-        check-added-large-files = {
-          enable = true;
-          args = ["--maxkb=1000"];
-        };
-        check-case-conflicts.enable = true;
+
+        # YAML, JSON & TOML
         check-json.enable = true;
-        check-merge-conflicts.enable = true;
-        detect-private-keys.enable = true;
-        check-symlinks.enable = true;
-        action-validator.enable = true;
-        actionlint.enable = true;
-        ripsecrets.enable = true;
-        typos.enable = true;
-        editorconfig-checker = {
-          enable = true;
-          excludes = [
-            "\\.c$"
-            "\\.h$"
-            "\\.cpp$"
-            "\\.hpp$"
-            "\\.md$"
-            "^\\.envrc$"
-          ];
-        };
-
-        check-yaml.enable = true;
         check-toml.enable = true;
-
-        # Shell
-        shellcheck = {
-          enable = true;
-          excludes = ["^\\.envrc$"];
-        };
-        shfmt.enable = true;
-        check-executables-have-shebangs.enable = true;
-        check-shebang-scripts-are-executable.enable = true;
-
-        # Python
-        ruff.enable = true;
-        ruff-format.enable = true;
-        python-debug-statements.enable = true;
-
+        check-yaml.enable = true;
         yamllint = {
           enable = true;
           args = [
@@ -97,9 +79,25 @@
           ];
         };
 
+        # Secrets
+        detect-private-keys.enable = true;
+        ripsecrets.enable = true;
+
+        # Shell
+        check-executables-have-shebangs.enable = true;
+        check-shebang-scripts-are-executable.enable = true;
+        shellcheck = {
+          enable = true;
+          excludes = ["^\\.envrc$"];
+        };
+        shfmt.enable = true;
+
+        # Python
+        python-debug-statements.enable = true;
+        ruff-format.enable = true;
+        ruff.enable = true;
+
         # Documentation
-        markdownlint.enable = true;
-        mdformat.enable = true;
         doxygen-coverage = {
           enable = true;
           name = "doxygen code coverage";
@@ -107,9 +105,11 @@
           files = "\\.(c|h|cpp|hpp)$";
           pass_filenames = false;
         };
+        markdownlint.enable = true;
+        mdformat.enable = true;
+        typos.enable = true;
 
         # C/C++ & Build-Systeme
-        cmake-format.enable = true;
         clang-format = {
           enable = true;
           types_or = [
@@ -118,6 +118,7 @@
           ];
           args = ["-i"];
         };
+        cmake-format.enable = true;
 
         # Web-Files
         prettier = {
@@ -141,10 +142,11 @@
         # Nix
         alejandra.enable = true;
         deadnix.enable = true;
-        statix.enable = true;
         flake-checker.enable = true;
+        statix.enable = true;
 
         # Git
+        check-merge-conflicts.enable = true;
         convco.enable = true;
       };
     };
@@ -157,12 +159,12 @@
         pre-commit-check.enabledPackages
         ++ [
           esp-idf
-          pkgs.python3
-          pkgs.python3Packages.invoke
           pkgs.clang-tools
-          pkgs.svgo
           pkgs.doxygen
           pkgs.graphviz
+          pkgs.python3
+          pkgs.python3Packages.invoke
+          pkgs.svgo
         ];
     };
   };
