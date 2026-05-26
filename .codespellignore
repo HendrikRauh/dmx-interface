@@ -1,0 +1,9 @@
+# Words that codespell should ignore
+# Add common false positives here
+inout
+uart
+dout
+din
+Tage
+alle
+Aktion

@@ -15,7 +15,7 @@
 | 1x    | ♂️-DMX-socket |
 | 1x    | ♀️-DMX-socket |
 
-> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws`, `shrink tubing`, `hot glue gun`
+> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](#-case)), `heat shrink tubing`, `hot glue gun`
 
 ---
 
@@ -55,13 +55,86 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ---
 
-## 🚀 Installation
+## 🚀 Installation (ESP-IDF)
 
-1. make sure you have [PlatformIO](https://platformio.org/) installed
-2. open the project folder in PlatformIO
-3. click `Upload Filesystem Image`
-4. click `Upload and Monitor`
-5. 🏁 you are done 🎉
+This project uses `ESP-IDF` as the build system.
+
+1. Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
+
+   ```bash
+   nix develop
+   ```
+
+2. Connect your board.
+3. Build and flash the firmware:
+
+   ```bash
+   invoke flash
+   ```
+
+4. Open the serial monitor (optional):
+
+   ```bash
+   invoke monitor --port /dev/ttyUSB0
+   ```
+
+5. 🏁 done 🎉
+
+---
+
+## 🧑‍💻 Development
+
+### Required tools
+
+- `ESP-IDF` (includes `idf.py`)
+- `invoke` (for project tasks)
+
+- Optional but recommended for development:
+  - `pre-commit` (for code quality hooks)
+  - `clang-format` (C/C++)
+  - `prettier` (JavaScript/CSS/HTML/YAML)
+  - `svgo` (SVG optimization)
+  - `nixfmt` (Nix formatting)
+
+### Environment setup
+
+This repository includes a `flake.nix` with a ready-to-use development shell.
+
+```bash
+nix develop
+```
+
+Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
+
+Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
+
+
+This project uses [invoke](https://www.pyinvoke.org/) to simplify running common commands.
+Run `invoke --list` to see all available tasks.
+
+Examples:
+
+```bash
+invoke flash
+invoke reset
+invoke config
+invoke docs
+invoke docs -o
+```
+
+### Pre-commit hooks
+
+This project uses [pre-commit](https://pre-commit.com/) to automatically check code quality, formatting, and common mistakes before committing.
+
+**Setup:**
+
+```bash
+# Install pre-commit hooks
+pre-commit install
+
+# Optionally, run all hooks on all files
+pre-commit run --all-files
+```
 
 ---
 
@@ -70,6 +143,13 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format you like.
 
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
+
+| Part        | Screw   | Count |
+| ----------- | ------- | ----- |
+| Case lid    | M2x5    | 4x    |
+| ESP32       | M2x5    | 2x    |
+| W5500       | M2,5x5  | 2x    |
+| XLR sockets | M3+Nuts | 4x    |
 
 ---
 

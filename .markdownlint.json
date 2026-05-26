@@ -1,0 +1,32 @@
+{
+  "default": true,
+  "MD013": {
+    "line_length": 300,
+    "tables": true,
+    "code_blocks": true
+  },
+  "MD033": false,
+  "MD012": {
+    "maximum": 2
+  },
+  "MD026": {
+    "punctuation": ".,;:!"
+  },
+  "MD024": {
+    "siblings_only": false
+  },
+  "MD029": {
+    "style": "ordered"
+  },
+  "MD046": {
+    "style": "fenced"
+  },
+  "MD049": {
+    "style": "underscore"
+  },
+  "MD050": {
+    "style": "asterisk"
+  },
+  "MD052": false,
+  "MD053": false
+}

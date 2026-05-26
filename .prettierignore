@@ -1,0 +1,16 @@
+# Ignore build artifacts and generated files
+build/
+managed_components/
+docs/doxygen/
+docs/external/
+.direnv/
+*.lock
+
+# Ignore sdkconfig (generated)
+sdkconfig
+sdkconfig.old
+
+# SVGs are formatted with svgo instead
+*.svg
+# Ignore dependencies
+dependencies.lock

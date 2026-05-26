@@ -1,0 +1,10 @@
+idf_component_register(
+  SRCS
+  "src/storage.c"
+  INCLUDE_DIRS
+  "include"
+  REQUIRES
+  joltwallet__littlefs
+  PRIV_REQUIRES
+  vfs
+  logger)

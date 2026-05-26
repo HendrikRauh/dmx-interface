@@ -1,0 +1,30 @@
+dependencies:
+  idf:
+    source:
+      type: idf
+    version: 5.5.2
+  joltwallet/littlefs:
+    component_hash: 150ca47225f7c9917f7f610a5f85e5e93fe3c15402234c23496ff045ad558b0b
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.20.2
+  someweisguy/esp_dmx:
+    component_hash: 9a7cdcf093ef6f44337f2a254bbadbe4c8089c12aec4991cf43a83831a8389f4
+    dependencies: []
+    source:
+      git: https://github.com/davispolito/esp_dmx.git
+      path: .
+      type: git
+    version: 93cd565bb07d6bf9a56b5c62c96f2552a8fc6194
+direct_dependencies:
+- idf
+- joltwallet/littlefs
+- someweisguy/esp_dmx
+manifest_hash: 452ccdb963e60a5d4bb28f619a5058b387491bb886d6685d4d8ba97c5884abe2
+target: esp32s2
+version: 2.0.0
