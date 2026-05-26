@@ -38,7 +38,7 @@
       ];
 
       hooks = {
-        # Allgemeine Datei-Checks
+        # General
         end-of-file-fixer.enable = true;
         fix-byte-order-marker.enable = true;
         mixed-line-endings = {
@@ -61,12 +61,20 @@
         typos.enable = true;
         editorconfig-checker = {
           enable = true;
-          excludes = ["\\.c$" "\\.h$" "\\.cpp$" "\\.hpp$" "\\.md$" "^\\.envrc$"];
+          excludes = [
+            "\\.c$"
+            "\\.h$"
+            "\\.cpp$"
+            "\\.hpp$"
+            "\\.md$"
+            "^\\.envrc$"
+          ];
         };
+
         check-yaml.enable = true;
         check-toml.enable = true;
 
-        # Shell Skript Validierung
+        # Shell
         shellcheck = {
           enable = true;
           excludes = ["^\\.envrc$"];
@@ -75,11 +83,10 @@
         check-executables-have-shebangs.enable = true;
         check-shebang-scripts-are-executable.enable = true;
 
-        # Python & Linters
+        # Python
         ruff.enable = true;
         ruff-format.enable = true;
         python-debug-statements.enable = true;
-        mdformat.enable = true;
 
         yamllint = {
           enable = true;
@@ -89,7 +96,17 @@
             "{extends: default, rules: {line-length: {max: 120}, document-start: disable}}"
           ];
         };
+
+        # Documentation
         markdownlint.enable = true;
+        mdformat.enable = true;
+        doxygen-coverage = {
+          enable = true;
+          name = "doxygen code coverage";
+          entry = "tools/doxy-coverage.py docs/doxygen/xml --threshold=100 --generate-docs";
+          files = "\\.(c|h|cpp|hpp)$";
+          pass_filenames = false;
+        };
 
         # C/C++ & Build-Systeme
         cmake-format.enable = true;
@@ -102,8 +119,8 @@
           args = ["-i"];
         };
 
-        # Web-Files (HTML, CSS, JS) & Formatierung
-        html-tidy.enable = true; # Validiert HTML Struktur
+        # Web-Files
+        html-tidy.enable = true;
         prettier = {
           enable = true;
           types_or = [
@@ -122,23 +139,14 @@
           ];
         };
 
-        # Nix Quality Assurance (Mit Alejandra)
-        alejandra.enable = true; # Der kompromisslose Formatierer
+        # Nix
+        alejandra.enable = true;
         deadnix.enable = true;
         statix.enable = true;
         flake-checker.enable = true;
 
         # Git
         convco.enable = true;
-
-        # Custom Hook (Doxygen)
-        doxygen-coverage = {
-          enable = true;
-          name = "doxygen code coverage";
-          entry = "tools/doxy-coverage.py docs/doxygen/xml --threshold=100 --generate-docs";
-          files = "\\.(c|h|cpp|hpp)$";
-          pass_filenames = false;
-        };
       };
     };
   in {
