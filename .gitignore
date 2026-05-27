@@ -1,6 +1,6 @@
-# .gitignore für ESP-IDF / CMake-Projekt
+# .gitignore for ESP-IDF / CMake-Projects
 
-# --- Build artefacts -----------------------------------------------------
+# --- Build artifacts -----------------------------------------------------
 /build/
 *.elf
 *.bin
@@ -40,6 +40,9 @@ partition_table/build/
 
 # direnv (local environment/profile cache)
 .direnv/
+.pre-commit-config.yaml
+.cache
+.cspellcache
 
 # Python / virtualenvs
 __pycache__/
