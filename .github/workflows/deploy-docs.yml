@@ -1,0 +1,44 @@
+# cspell:words nojekyll
+name: gh-pages
+
+"on":
+  push:
+    branches: ["**", "!gh-pages"]
+
+permissions:
+  contents: write
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          submodules: recursive
+
+      - name: Install Nix and pre-warm flake devShell
+        uses: ./.github/actions/install-nix
+
+      - name: Build Doxygen Documentation from flake devShell
+        run: |
+          nix develop --command invoke docs
+          touch docs/doxygen/html/.nojekyll
+        shell: bash
+
+      - name: Deploy Main Docs
+        if: github.ref == 'refs/heads/idf'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/doxygen/html
+          clean: false
+
+      - name: Deploy Feature Branch Docs
+        if: github.ref != 'refs/heads/idf'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: docs/doxygen/html
+          target-folder: branch/${{ github.ref_name }}
+          clean: true

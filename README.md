@@ -2,22 +2,22 @@
 
 > _Art-Net interface for controlling DMX devices via WiFi or Ethernet._
 
----
+______________________________________________________________________
 
 ## 🛒 Parts
 
-| Count | Part          |
+| Count | Part |
 | ----- | ------------- |
-| 1x    | ESP32         |
-| 2x    | RS485         |
-| 1x    | W5500-ETH     |
-| 1x    | LED-Button    |
-| 1x    | ♂️-DMX-socket |
-| 1x    | ♀️-DMX-socket |
+| 1x | ESP32 |
+| 2x | RS485 |
+| 1x | W5500-ETH |
+| 1x | LED-Button |
+| 1x | ♂️-DMX-socket |
+| 1x | ♀️-DMX-socket |
 
 > Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](#-case)), `heat shrink tubing`, `hot glue gun`
 
----
+______________________________________________________________________
 
 ## 📱 Implemented microcontrollers
 
@@ -27,7 +27,7 @@
 
 > For other microcontrollers you may need to adjust the `platformio.ini`
 
----
+______________________________________________________________________
 
 ## 🔌 Wiring
 
@@ -35,44 +35,64 @@ You have to short-circuit `R0` on the RS485 boards to enable the termination res
 
 ![Circuit diagram](/assets/circuit/diagram.svg)
 
-| GPIO    | Usage          |
+| GPIO | Usage |
 | ------- | -------------- |
-| GND     | GND to others  |
-| 3,3V    | VIN on RS485   |
-| 5V/VBUS | VIN on W5500   |
-| 0       | Onboard Button |
-| 5       | Ext. Button    |
-| 7       | Ext. LED       |
-| 15      | Onboard LED    |
-| 17      | U1TXD          |
-| 18      | U1RXD          |
-| 21      | U0TXD          |
-| 33      | U0RXD          |
-| 34      | SPI CS         |
-| 35      | SPI MOS        |
-| 36      | SPI SCK        |
-| 37      | SPI MISO       |
+| GND | GND to others |
+| 3,3V | VIN on RS485 |
+| 5V/VBUS | VIN on W5500 |
+| 0 | Onboard Button |
+| 5 | Ext. Button |
+| 7 | Ext. LED |
+| 15 | Onboard LED |
+| 17 | U1TXD |
+| 18 | U1RXD |
+| 21 | U0TXD |
+| 33 | U0RXD |
+| 34 | SPI CS |
+| 35 | SPI MOS |
+| 36 | SPI SCK |
+| 37 | SPI MISO |
 
----
+______________________________________________________________________
 
-## 🚀 Installation
+## 🚀 Installation (ESP-IDF)
 
-1. make sure you have [PlatformIO](https://platformio.org/) installed
-2. open the project folder in PlatformIO
-3. click `Upload Filesystem Image`
-4. click `Upload and Monitor`
-5. 🏁 you are done 🎉
+This project uses `ESP-IDF` as the build system.
 
----
+1. Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
+
+   ```bash
+   nix develop
+   ```
+
+1. Connect your board.
+
+1. Build and flash the firmware:
+
+   ```bash
+   invoke flash
+   ```
+
+1. Open the serial monitor (optional):
+
+   ```bash
+   invoke monitor --port /dev/ttyUSB0
+   ```
+
+1. 🏁 done 🎉
+
+______________________________________________________________________
 
 ## 🧑‍💻 Development
 
 ### Required tools
 
 - `ESP-IDF` (includes `idf.py`)
+
 - `invoke` (for project tasks)
 
 - Optional but recommended for development:
+
   - `pre-commit` (for code quality hooks)
   - `clang-format` (C/C++)
   - `prettier` (JavaScript/CSS/HTML/YAML)
@@ -89,8 +109,9 @@ nix develop
 
 Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
 
-Without Nix, install ESP-IDF and Python dependencies manually (especially `invoke`) and ensure `idf.py` is available in your shell.
+Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
 
+This project uses [invoke](https://www.pyinvoke.org/) to simplify running common commands.
 Run `invoke --list` to see all available tasks.
 
 Examples:
@@ -99,23 +120,28 @@ Examples:
 invoke flash
 invoke reset
 invoke config
+invoke docs
+invoke docs -o
 ```
 
 ### Pre-commit hooks
 
-This project uses [pre-commit](https://pre-commit.com/) to automatically check code quality, formatting, and common mistakes before committing.
+This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to run code quality, formatting, and consistency checks.
 
 **Setup:**
 
 ```bash
-# Install pre-commit hooks
-pre-commit install
+# Enter the development shell and install the Git hooks via shellHook
+nix develop
 
-# Optionally, run all hooks on all files
-pre-commit run --all-files
+# Run all configured checks
+nix flake check
+
+# Or run only the pre-commit-style checks
+nix build .#checks.x86_64-linux.pre-commit-check
 ```
 
----
+______________________________________________________________________
 
 ## 📦 Case
 
@@ -123,47 +149,47 @@ All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). A
 
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
 
-| Part        | Screw   | Count |
+| Part | Screw | Count |
 | ----------- | ------- | ----- |
-| Case lid    | M2x5    | 4x    |
-| ESP32       | M2x5    | 2x    |
-| W5500       | M2,5x5  | 2x    |
-| XLR sockets | M3+Nuts | 4x    |
+| Case lid | M2x5 | 4x |
+| ESP32 | M2x5 | 2x |
+| W5500 | M2,5x5 | 2x |
+| XLR sockets | M3+Nuts | 4x |
 
----
+______________________________________________________________________
 
 ## 💡 Status LED
 
-| LED                               | Description               |
+| LED | Description |
 | --------------------------------- | ------------------------- |
-| ![off](/assets/led/off.gif)       | no power; LED deactivated |
-| ![static](/assets/led/static.gif) | powered on; normal        |
-| ![slow](/assets/led/slow.gif)     | startup; warning          |
-| ![fast](/assets/led/fast.gif)     | resetting; error          |
+| ![off](/assets/led/off.svg) | no power; LED deactivated |
+| ![static](/assets/led/static.svg) | powered on; normal |
+| ![slow](/assets/led/slow.svg) | startup; warning |
+| ![fast](/assets/led/fast.svg) | resetting; error |
 
----
+______________________________________________________________________
 
 ## ⚙️ Default config
 
 To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash quickly. After 3 seconds the LED should light up static and the settings are reset. If you release the button early you abort the reset and the LED flashes slowly.
 
-| Setting        | Value              |
+| Setting | Value |
 | -------------- | ------------------ |
-| TYPE           | WiFi AP            |
-| SSID           | ChaosDMX-□□□□      |
-| PASSWORD       | mbgmbgmbg          |
-| IP-Address     | 192.168.4.1        |
-| DMX1 (Left)    | OUTPUT; Universe 1 |
-| DMX2 (Right)   | INPUT; Universe 2  |
-| LED Brightness | 10 %               |
+| TYPE | WiFi AP |
+| SSID | ChaosDMX-□□□□ |
+| PASSWORD | mbgmbgmbg <!-- cspell:disable-line --> |
+| IP-Address | 192.168.4.1 |
+| DMX1 (Left) | OUTPUT; Universe 1 |
+| DMX2 (Right) | INPUT; Universe 2 |
+| LED Brightness | 10 % |
 
----
+______________________________________________________________________
 
 ## 🤝 Contributing
 
 Contributions, issues and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/HendrikRauh/dmx-interface/issues).
 
----
+______________________________________________________________________
 
 ## 👥 Authors
 

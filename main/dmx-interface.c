@@ -19,7 +19,8 @@
 void app_main(void) {
   LOGI("DMX Interface starting...");
 
-  esp_err_t wifi_err = wifi_start_ap("DMX", "mbgmbgmbg", 1, 4);
+  esp_err_t wifi_err =
+      wifi_start_ap("DMX", "mbgmbgmbg", 1, 4); // cspell:disable-line
   if (wifi_err != ESP_OK) {
     LOGE("Failed to start WiFi AP: %s", esp_err_to_name(wifi_err));
     return;

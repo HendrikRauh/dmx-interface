@@ -1,0 +1,88 @@
+{
+  "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "import": ["https://cdn.jsdelivr.net/npm/@cspell/dict-de-de/cspell-ext.json"],
+  "ignorePaths": [
+    ".cspell.json",
+    ".git",
+    "assets/case/",
+    "assets/circuit/diagram.svg",
+    "docs/external/",
+    "Doxyfile",
+    "sdkconfig.defaults"
+  ],
+  "language": "en",
+  "languageSettings": [],
+  "overrides": [
+    {
+      "filename": ["**/*.html", "**/*.js"],
+      "language": "en,de",
+      "words": ["ethernet", "hardwarebedingt", "hotspot", "ssid", "wifi"]
+    },
+    {
+      "filename": "**/CMakeLists.txt",
+      "words": ["SRCS"]
+    },
+    {
+      "filename": "**/*.svg",
+      "words": ["evenodd"]
+    }
+  ],
+  "cache": {
+    "useCache": true,
+    "cacheStrategy": "content"
+  },
+  "failFast": true,
+  "enableGlobDot": true,
+  "useGitignore": true,
+  "words": [
+    "Backnang",
+    "cachix",
+    "Chaostreff",
+    "cleanbuild",
+    "convco",
+    "deadnix",
+    "defconfig",
+    "deinitializes",
+    "direnv",
+    "Doxyfile",
+    "envrc",
+    "fullclean",
+    "graphviz",
+    "Hendrik",
+    "joltwallet",
+    "littlefs",
+    "LOGD",
+    "LOGI",
+    "LOGV",
+    "LOGW",
+    "Lolin",
+    "mdformat",
+    "menuconfig",
+    "microcontrollers",
+    "mirrexagon",
+    "netif",
+    "nixfmt",
+    "nixos",
+    "nixpkgs",
+    "pkgs",
+    "Prusa",
+    "psram",
+    "psxde",
+    "pycache",
+    "Raffael",
+    "Rauh",
+    "ripsecrets",
+    "rssi",
+    "saveconfig",
+    "sdkconfig",
+    "shellcheck",
+    "shfmt",
+    "someweisguy",
+    "statix",
+    "VBUS",
+    "venv",
+    "virtualenvs",
+    "WROOM"
+  ]
+}
