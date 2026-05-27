@@ -14,6 +14,8 @@ EXCLUDE_PATTERNS       = */build/* \
                          */managed_components/*
 USE_MDFILE_AS_MAINPAGE = README.md
 
+IMAGE_PATH = ./assets
+
 # Documentation settings
 GENERATE_LATEX         = NO
 GENERATE_HTML          = YES
