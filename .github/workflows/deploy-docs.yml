@@ -48,7 +48,7 @@ jobs:
         shell: bash
 
       - name: Deploy Main Docs
-        if: github.ref == 'refs/heads/idf'
+        if: github.ref == 'refs/heads/118-publish-doxygen-page'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
