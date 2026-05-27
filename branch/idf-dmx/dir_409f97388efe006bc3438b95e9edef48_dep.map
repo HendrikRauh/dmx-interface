@@ -1,0 +1,15 @@
+<map id="components" name="components">
+<area shape="rect" id="node2" href="dir_321fb8c14b17a96f609d1a5c12c9aa2d.html" title="dmx" alt="" coords="71,102,121,130"/>
+<area shape="rect" id="node3" href="dir_902f11f9cffea26fcf374030c654fe09.html" title="logger" alt="" coords="116,178,178,206"/>
+<area shape="poly" id="edge1" href="dir_000002_000007.html" alt="" coords="107,129,131,163,127,167,103,132"/>
+<area shape="rect" id="edge1-headlabel" href="dir_000002_000007.html" title="1" alt="" coords="130,149,138,166"/>
+<area shape="rect" id="node4" href="dir_fb9708495fdec0253f03e873de4e2ba2.html" title="storage" alt="" coords="172,102,242,130"/>
+<area shape="poly" id="edge2" href="dir_000012_000007.html" alt="" coords="198,132,169,167,165,164,194,129"/>
+<area shape="rect" id="edge2-headlabel" href="dir_000012_000007.html" title="1" alt="" coords="171,160,179,177"/>
+<area shape="rect" id="node5" href="dir_0a72549e2760402ada88361c3a2bfb8e.html" title="web_server" alt="" coords="152,27,248,54"/>
+<area shape="poly" id="edge3" href="dir_000013_000007.html" alt="" coords="191,56,176,78,162,103,154,133,150,163,145,162,149,132,158,101,171,75,187,53"/>
+<area shape="rect" id="edge3-headlabel" href="dir_000013_000007.html" title="2" alt="" coords="152,151,160,168"/>
+<area shape="poly" id="edge4" href="dir_000013_000012.html" alt="" coords="204,55,207,86,201,87,199,55"/>
+<area shape="rect" id="edge4-headlabel" href="dir_000013_000012.html" title="1" alt="" coords="208,75,216,92"/>
+<area shape="rect" id="clust1" href="dir_409f97388efe006bc3438b95e9edef48.html" alt="" coords="16,16,259,216"/>
+</map>

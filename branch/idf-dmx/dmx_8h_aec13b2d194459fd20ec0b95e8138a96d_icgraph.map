@@ -1,0 +1,9 @@
+<map id="send_dmx" name="send_dmx">
+<area shape="rect" id="Node000001" title="Send some test DMX data on the specified port." alt="" coords="449,5,538,33"/>
+<area shape="rect" id="Node000002" href="$dmx_8c.html#a37ff8430c1cb1a31097b574fa0289924" title=" " alt="" coords="265,5,401,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="434,22,402,22,402,16,434,16"/>
+<area shape="rect" id="Node000003" href="$dmx_8c.html#a918e809bab126d63bea43c8e8b101355" title="Initialize the DMX interface." alt="" coords="139,5,217,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,22,217,22,217,16,249,16"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="123,22,91,22,91,16,123,16"/>
+</map>

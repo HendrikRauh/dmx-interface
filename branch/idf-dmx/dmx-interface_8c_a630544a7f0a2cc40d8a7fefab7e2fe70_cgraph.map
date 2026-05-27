@@ -1,0 +1,25 @@
+<map id="app_main" name="app_main">
+<area shape="rect" id="Node000001" title="Main entry point for the DMX Interface application." alt="" coords="5,109,91,137"/>
+<area shape="rect" id="Node000002" href="$dmx_8c.html#a918e809bab126d63bea43c8e8b101355" title="Initialize the DMX interface." alt="" coords="163,32,241,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="76,106,158,65,160,69,79,111"/>
+<area shape="rect" id="Node000005" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="139,109,265,137"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="91,120,123,120,123,126,91,126"/>
+<area shape="rect" id="Node000012" href="$wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc" title="Start WiFi Access Point (AP) mode." alt="" coords="150,161,254,189"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="92,135,145,153,143,158,90,140"/>
+<area shape="rect" id="Node000003" href="$dmx_8c.html#a37ff8430c1cb1a31097b574fa0289924" title=" " alt="" coords="326,5,463,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="241,38,310,28,311,33,242,43"/>
+<area shape="rect" id="Node000004" href="$dmx_8c.html#aec13b2d194459fd20ec0b95e8138a96d" title="Send some test DMX data on the specified port." alt="" coords="574,5,662,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="463,16,558,16,558,22,463,22"/>
+<area shape="rect" id="Node000006" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="313,57,476,85"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="255,106,325,87,327,92,257,111"/>
+<area shape="rect" id="Node000007" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="324,109,465,137"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="265,120,309,120,309,126,265,126"/>
+<area shape="rect" id="Node000010" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="346,161,444,189"/>
+<area shape="poly" id="edge9_Node000005_Node000010" title=" " alt="" coords="257,135,331,155,330,161,255,140"/>
+<area shape="rect" id="Node000011" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="332,213,457,241"/>
+<area shape="poly" id="edge10_Node000005_Node000011" title=" " alt="" coords="244,135,267,148,282,161,291,174,300,186,315,198,325,204,322,209,311,203,296,190,287,177,278,165,263,152,242,140"/>
+<area shape="rect" id="Node000008" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="556,84,680,112"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="465,113,541,104,541,109,466,118"/>
+<area shape="rect" id="Node000009" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="524,136,712,164"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="466,129,509,134,509,139,465,134"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="dmx_sender_task" name="dmx_sender_task">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,142,33"/>
+<area shape="rect" id="Node000002" href="$dmx_8c.html#aec13b2d194459fd20ec0b95e8138a96d" title="Send some test DMX data on the specified port." alt="" coords="190,5,278,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="142,16,174,16,174,22,142,22"/>
+</map>
