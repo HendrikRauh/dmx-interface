@@ -12,7 +12,7 @@ by including it, with the C preprocessing directive `#include'.
 
 int main (void)
 {
- ...
+  ...
 }
 ```
 
