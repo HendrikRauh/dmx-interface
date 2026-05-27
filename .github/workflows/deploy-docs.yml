@@ -1,37 +1,16 @@
 # cspell:words nojekyll
-name: Deploy Doxygen to Pages
+name: gh-pages
 
 "on":
   push:
-    branches: ["idf", "**", "!gh-pages"]
-  delete: null
+    branches: ["**", "!gh-pages"]
 
 permissions:
   contents: write
 
 jobs:
-  cleanup:
-    runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'delete' &&
-      github.event.ref != 'gh-pages'
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v5
-
-      - name: Handle Branch Deletion
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: .
-          target-folder: branch/${{ github.event.ref }}
-          clean: true
-          clean-exclude: |
-            !branch/${{ github.event.ref }}
-
   build_and_deploy:
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
