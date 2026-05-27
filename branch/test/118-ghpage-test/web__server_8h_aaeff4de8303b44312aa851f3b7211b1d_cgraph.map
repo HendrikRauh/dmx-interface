@@ -1,0 +1,15 @@
+<map id="webserver_start" name="webserver_start">
+<area shape="rect" id="Node000001" title="Initialize and start the HTTP web server." alt="" coords="5,84,132,112"/>
+<area shape="rect" id="Node000002" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="180,5,343,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,81,179,43,198,36,200,41,181,48,99,86"/>
+<area shape="rect" id="Node000003" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="191,57,332,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="132,86,176,80,176,86,132,92"/>
+<area shape="rect" id="Node000006" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="212,109,310,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="132,103,198,112,197,117,132,109"/>
+<area shape="rect" id="Node000007" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="199,161,324,189"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="100,110,181,146,200,153,198,158,179,151,98,115"/>
+<area shape="rect" id="Node000004" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="423,32,546,60"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="332,61,407,52,408,57,332,66"/>
+<area shape="rect" id="Node000005" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="391,84,578,112"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="332,77,376,82,375,87,332,82"/>
+</map>
