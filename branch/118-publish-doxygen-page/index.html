@@ -137,8 +137,11 @@ $(function(){initNavTree('index.html','',''); });
 <h1 class="doxsection"><a class="anchor" id="autotoc_md3"></a>
 🔌 Wiring</h1>
 <p>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX before the first and after the last device in line.</p>
-<p><img src="/assets/circuit/diagram.svg" alt="Circuit diagram" style="pointer-events: none;" class="inline"/></p>
-<table class="markdownTable">
+<div class="image">
+<object type="image/svg+xml" data="diagram.svg" style="pointer-events: none;"></object>
+<div class="caption">
+Circuit diagram</div></div>
+    <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">GPIO  </th><th class="markdownTableHeadNone">Usage  </th></tr>
 <tr class="markdownTableRowOdd">
@@ -243,8 +246,11 @@ Pre-commit hooks</h2>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md9"></a>
 📦 Case</h1>
 <p>All print files (STL, STEP, X_T) can be found in <a href="/assets/case/">assets/case</a>. Alternatively you can view the project on <a href="https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2">OnShape</a> where you can export the files in a format you like.</p>
-<p><img src="/assets/case/Screenshot.png" alt="Prusa Slicer with case loaded" class="inline"/></p>
-<table class="markdownTable">
+<div class="image">
+<img src="Screenshot.png" alt=""/>
+<div class="caption">
+Prusa Slicer with case loaded</div></div>
+    <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Part  </th><th class="markdownTableHeadNone">Screw  </th><th class="markdownTableHeadNone">Count  </th></tr>
 <tr class="markdownTableRowOdd">
@@ -263,13 +269,21 @@ Pre-commit hooks</h2>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">LED  </th><th class="markdownTableHeadNone">Description  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><img src="/assets/led/off.svg" alt="off" style="pointer-events: none;" class="inline"/>  </td><td class="markdownTableBodyNone">no power; LED deactivated  </td></tr>
+<td class="markdownTableBodyNone"><p class="starttd"><img src="off.svg" alt="" style="pointer-events: none;" class="inline" title="off"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">no power; LED deactivated  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><img src="/assets/led/static.svg" alt="static" style="pointer-events: none;" class="inline"/>  </td><td class="markdownTableBodyNone">powered on; normal  </td></tr>
+<td class="markdownTableBodyNone"><p class="starttd"><img src="static.svg" alt="" style="pointer-events: none;" class="inline" title="static"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">powered on; normal  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><img src="/assets/led/slow.svg" alt="slow" style="pointer-events: none;" class="inline"/>  </td><td class="markdownTableBodyNone">startup; warning  </td></tr>
+<td class="markdownTableBodyNone"><p class="starttd"><img src="slow.svg" alt="" style="pointer-events: none;" class="inline" title="slow"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">startup; warning  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><img src="/assets/led/fast.svg" alt="fast" style="pointer-events: none;" class="inline"/>  </td><td class="markdownTableBodyNone">resetting; error  </td></tr>
+<td class="markdownTableBodyNone"><p class="starttd"><img src="fast.svg" alt="" style="pointer-events: none;" class="inline" title="fast"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">resetting; error  </td></tr>
 </table>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md11"></a>
