@@ -162,10 +162,10 @@ ______________________________________________________________________
 
 | LED | Description |
 | --------------------------------- | ------------------------- |
-| ![off](/assets/led/off.gif) | no power; LED deactivated |
-| ![static](/assets/led/static.gif) | powered on; normal |
-| ![slow](/assets/led/slow.gif) | startup; warning |
-| ![fast](/assets/led/fast.gif) | resetting; error |
+| ![off](/assets/led/off.svg) | no power; LED deactivated |
+| ![static](/assets/led/static.svg) | powered on; normal |
+| ![slow](/assets/led/slow.svg) | startup; warning |
+| ![fast](/assets/led/fast.svg) | resetting; error |
 
 ______________________________________________________________________
 
