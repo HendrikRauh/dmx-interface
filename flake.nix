@@ -106,7 +106,10 @@
           pass_filenames = false;
         };
         markdownlint.enable = true;
-        mdformat.enable = true;
+        mdformat = {
+          enable = true;
+          args = ["--number"];
+        };
         cspell.enable = true;
 
         # C/C++ & Build-Systems

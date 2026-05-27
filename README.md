@@ -65,21 +65,21 @@ This project uses `ESP-IDF` as the build system.
    nix develop
    ```
 
-1. Connect your board.
+2. Connect your board.
 
-1. Build and flash the firmware:
+3. Build and flash the firmware:
 
    ```bash
    invoke flash
    ```
 
-1. Open the serial monitor (optional):
+4. Open the serial monitor (optional):
 
    ```bash
    invoke monitor --port /dev/ttyUSB0
    ```
 
-1. 🏁 done 🎉
+5. 🏁 done 🎉
 
 ______________________________________________________________________
 
