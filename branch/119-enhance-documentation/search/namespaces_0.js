@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['doxy_2dcoverage_0',['doxy-coverage',['../namespacedoxy-coverage.html',1,'']]]
+  ['tasks_0',['tasks',['../namespacetasks.html',1,'']]]
 ];
