@@ -1,0 +1,5 @@
+<map id="components/logger/include/logger.h" name="components/logger/include/logger.h">
+<area shape="rect" id="Node000001" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="5,5,203,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="62,98,146,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,50,107,82,101,82,101,50"/>
+</map>

@@ -1,0 +1,405 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DMX-Interface: DMX-Interface</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  DMX-Interface
+                </div>
+                <div id="projectbrief">ChaosDMX</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+  </body>
+</html>
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('index.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">DMX-Interface </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="md_README"></a></p>
+<p>Art-Net interface for controlling DMX devices via WiFi or Ethernet.</p>
+<dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we switched from Arduino to ESP-IDF and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by contributing to the project!</dd></dl>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
+🛒 Parts</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Count  </th><th class="markdownTableHeadNone">Part  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">ESP32 (Lolin S2 Mini)  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">2x  </td><td class="markdownTableBodyNone">RS485  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">W5500-ETH  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">LED-Button  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♂️-DMX-socket  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♀️-DMX-socket  </td></tr>
+</table>
+<p>Additionally, you need:</p>
+<ul>
+<li>some wires</li>
+<li>soldering equipment</li>
+<li>3D-printer</li>
+<li>small screws (see <a class="el" href="#autotoc_md-case" title="📦 Case">case</a>)</li>
+<li>heat shrink tubing</li>
+<li>hot glue gun</li>
+</ul>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-wiring"></a>
+🔌 Wiring</h1>
+<dl class="section important"><dt>Important</dt><dd>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.</dd></dl>
+<p><img src="assets/circuit/diagram.svg" alt="Circuit diagram" onerror="this.onerror=null; this.src=&apos;diagram.svg&apos;;" style="pointer-events: none;" class="inline"/></p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">GPIO  </th><th class="markdownTableHeadNone">Usage  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">GND  </td><td class="markdownTableBodyNone">GND to others  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">3,3V  </td><td class="markdownTableBodyNone">VIN on RS485  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">5V/VBUS  </td><td class="markdownTableBodyNone">VIN on W5500  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">0  </td><td class="markdownTableBodyNone">Onboard Button  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">5  </td><td class="markdownTableBodyNone">Ext. Button  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">7  </td><td class="markdownTableBodyNone">Ext. LED  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">15  </td><td class="markdownTableBodyNone">Onboard LED  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">17  </td><td class="markdownTableBodyNone">U1TXD  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">18  </td><td class="markdownTableBodyNone">U1RXD  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">21  </td><td class="markdownTableBodyNone">U0TXD  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">33  </td><td class="markdownTableBodyNone">U0RXD  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">34  </td><td class="markdownTableBodyNone">SPI CS  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">35  </td><td class="markdownTableBodyNone">SPI MOS  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">36  </td><td class="markdownTableBodyNone">SPI SCK  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">37  </td><td class="markdownTableBodyNone">SPI MISO  </td></tr>
+</table>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-installation-esp-idf"></a>
+🚀 Installation (ESP-IDF)</h1>
+<p>This project uses <span class="tt">ESP-IDF</span> as the build system.</p>
+<ul>
+<li><p class="startli">Install <span class="tt">ESP-IDF</span> (<span class="tt">idf.py</span>) and <span class="tt">invoke</span>, or use the provided Nix shell:</p>
+<div class="fragment"><div class="line">nix develop</div>
+</div><!-- fragment --></li>
+<li>Connect your board.</li>
+<li><p class="startli">Build and flash the firmware:</p>
+<div class="fragment"><div class="line">inv flash</div>
+</div><!-- fragment --></li>
+<li><p class="startli">Open the serial monitor (optional):</p>
+<div class="fragment"><div class="line">inv monitor --port /dev/ttyUSB0</div>
+</div><!-- fragment --></li>
+</ul>
+<p>🏁 Done 🎉</p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="‍-development"></a>
+🧑‍💻 Development</h1>
+<h2 class="doxsection"><a class="anchor" id="required-tools"></a>
+Required tools</h2>
+<ul>
+<li><span class="tt">ESP-IDF</span> (includes <span class="tt">idf.py</span>)</li>
+<li><span class="tt">invoke</span> (for project tasks)</li>
+<li>Optional but recommended for development:<ul>
+<li><span class="tt">pre-commit</span> (for code quality hooks)</li>
+<li><span class="tt">clang-format</span> (C/C++)</li>
+<li><span class="tt">prettier</span> (JavaScript/CSS/HTML/YAML)</li>
+<li><span class="tt">svgo</span> (SVG optimization)</li>
+<li><span class="tt">nixfmt</span> (Nix formatting)</li>
+</ul>
+</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="environment-setup"></a>
+Environment setup</h2>
+<p>This repository includes a <span class="tt">flake.nix</span> with a ready-to-use development shell.</p>
+<div class="fragment"><div class="line">nix develop</div>
+</div><!-- fragment --><p>Alternatively, you can use <span class="tt">direnv</span> to automatically enter the development shell when you <span class="tt">cd</span> into the project directory.</p>
+<p>If you are not using Nix, manually install the packages listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>.</p>
+<p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">inv --list</span> to see all available tasks.</p>
+<p>Examples:</p>
+<div class="fragment"><div class="line">inv flash</div>
+<div class="line">inv reset</div>
+<div class="line">inv config</div>
+<div class="line">inv docs</div>
+<div class="line">inv docs -o</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="pre-commit-hooks"></a>
+Pre-commit hooks</h2>
+<p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks.</p>
+<p><b>Setup:</b></p>
+<p>Enter the development shell and install the Git hooks via shellHook:</p>
+<div class="fragment"><div class="line">nix develop</div>
+</div><!-- fragment --><p>Run all configured checks:</p>
+<div class="fragment"><div class="line">nix flake check</div>
+</div><!-- fragment --><p>Or run only the pre-commit-style checks:</p>
+<div class="fragment"><div class="line">nix build .#checks.x86_64-linux.pre-commit-check</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="documentation"></a>
+Documentation</h2>
+<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a></p>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-case"></a>
+📦 Case</h1>
+<p>All print files (STL, STEP, X_T) can be found in the folder assets/case. Alternatively you can view the project on <a href="https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2">OnShape</a> where you can export the files in a format of your choice.</p>
+<div class="image">
+<img src="Screenshot.png" alt=""/>
+<div class="caption">
+Prusa Slicer with case loaded</div></div>
+    <p>In addition to this print you will need:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Part  </th><th class="markdownTableHeadNone">Screw  </th><th class="markdownTableHeadNone">Count  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Case lid  </td><td class="markdownTableBodyNone">M2x5  </td><td class="markdownTableBodyNone">4x  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">ESP32  </td><td class="markdownTableBodyNone">M2x5  </td><td class="markdownTableBodyNone">2x  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">W5500  </td><td class="markdownTableBodyNone">M2,5x5  </td><td class="markdownTableBodyNone">2x  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">XLR sockets  </td><td class="markdownTableBodyNone">M3+Screw nuts  </td><td class="markdownTableBodyNone">4x  </td></tr>
+</table>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-status-led"></a>
+💡 Status LED</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">LED  </th><th class="markdownTableHeadNone">Description  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="off.svg" alt="" style="pointer-events: none;" class="inline" title="off"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">no power; LED deactivated  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="static.svg" alt="" style="pointer-events: none;" class="inline" title="static"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">powered on; normal  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="slow.svg" alt="" style="pointer-events: none;" class="inline" title="slow"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">startup; warning  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><p class="starttd"><img src="fast.svg" alt="" style="pointer-events: none;" class="inline" title="fast"/>    </p>
+<p class="endtd"></p>
+</td><td class="markdownTableBodyNone">resetting; error  </td></tr>
+</table>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="️-default-config"></a>
+⚙️ Default config</h1>
+<p>To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED will flash slowly.</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Setting  </th><th class="markdownTableHeadNone">Value  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">TYPE  </td><td class="markdownTableBodyNone">WiFi AP  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">SSID  </td><td class="markdownTableBodyNone">ChaosDMX-□□□□  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">PASSWORD  </td><td class="markdownTableBodyNone">mbgmbgmbg  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">IP-Address  </td><td class="markdownTableBodyNone">192.168.4.1  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">DMX1 (Left)  </td><td class="markdownTableBodyNone">OUTPUT; Universe 1  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">DMX2 (Right)  </td><td class="markdownTableBodyNone">INPUT; Universe 2  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">LED Brightness  </td><td class="markdownTableBodyNone">10 %  </td></tr>
+</table>
+<hr  />
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-contributing"></a>
+🤝 Contributing</h1>
+<p>Contributions, issues, and feature requests are welcome!<br  />
+Feel free to check the <a href="https://github.com/HendrikRauh/dmx-interface/issues">issues page</a>.</p>
+<p>Special thanks to all the contributors:</p>
+<p><a href="https://github.com/HendrikRauh/dmx-interface/graphs/contributors"><img src="https://contrib.rocks/image?repo=HendrikRauh/dmx-interface" alt="Contributors listed with their avatars" class="inline"/> </a> </p>
+</div></div><!-- PageDoc -->
+<a href="doxygen_crawl.html"></a>
+</div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>
