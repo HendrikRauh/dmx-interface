@@ -219,6 +219,8 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simple HTTP web server component for ESP32 with async FreeRTOS support. </p>
+
+<p class="definition">Definition in file <a class="el" href="web__server_8h_source.html">web_server.h</a>.</p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
 <a id="a59de75410c50a6ebac8de34c4560758e" name="a59de75410c50a6ebac8de34c4560758e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59de75410c50a6ebac8de34c4560758e">&#9670;&#160;</a></span>webserver_register_handler()</h2>
@@ -259,6 +261,10 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, ESP_ERR_INVALID_ARG or other error codes on failure </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00278">278</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
+
 </div>
 </div>
 <a id="aaeff4de8303b44312aa851f3b7211b1d" name="aaeff4de8303b44312aa851f3b7211b1d"></a>
@@ -294,6 +300,12 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Handle to the running HTTP server, or NULL on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00166">166</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">References <a class="el" href="web__server_8c_source.html#l00134">health_check_handler()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>, <a class="el" href="storage_8c_source.html#l00011">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00029">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00025">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00033">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00037">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, and <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00018">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -337,6 +349,10 @@ Here is the caller graph for this function:</div>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00253">253</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>.</p>
 
 </div>
 </div>

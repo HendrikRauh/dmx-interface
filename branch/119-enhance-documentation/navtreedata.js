@@ -38,6 +38,14 @@ var NAVTREE =
     [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
     [ "⚙️ Default config", "index.html#️-default-config", null ],
     [ "🤝 Contributing", "index.html#autotoc_md-contributing", null ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ]
+      ] ]
+    ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],

@@ -1,10 +1,4 @@
 var searchData=
 [
-  ['default_20config_0',['⚙️ Default config',['../index.html#️-default-config',1,'']]],
-  ['development_1',['🧑‍💻 Development',['../index.html#‍-development',1,'']]],
-  ['dmx_20interface_2',['DMX-Interface',['../index.html',1,'']]],
-  ['dmx_2dinterface_2ec_3',['dmx-interface.c',['../dmx-interface_8c.html',1,'']]],
-  ['dmx_2ec_4',['dmx.c',['../dmx_8c.html',1,'']]],
-  ['dmx_2eh_5',['dmx.h',['../dmx_8h.html',1,'']]],
-  ['documentation_6',['Documentation',['../index.html#documentation',1,'']]]
+  ['build_0',['build',['../namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7',1,'tasks']]]
 ];

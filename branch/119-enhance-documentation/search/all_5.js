@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['get_5fmime_5ftype_0',['get_mime_type',['../web__server_8c.html#a40f36853d75f35777d20f32d31fcd129',1,'web_server.c']]]
+  ['environment_20setup_0',['Environment setup',['../index.html#environment-setup',1,'']]],
+  ['error_1',['ERROR',['../namespacedoxy-coverage.html#aeda91262d9b9ddafd6da649d613fa126',1,'doxy-coverage']]],
+  ['esp_20idf_2',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]]
 ];

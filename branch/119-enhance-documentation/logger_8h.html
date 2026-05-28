@@ -224,6 +224,8 @@ Macros</h2></td></tr>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage</h1>
 <p>To use these macros, a <span class="tt"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6" title="Default log tag.">LOG_TAG</a></span> should be defined before including this header. The <span class="tt"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6" title="Default log tag.">LOG_TAG</a></span> is a string that identifies the source of the log messages, typically the component or file name. If <span class="tt"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6" title="Default log tag.">LOG_TAG</a></span> is not defined, a default tag "CHAOS" will be used. </p>
+
+<p class="definition">Definition in file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a7ce0df38eb467e59f209470c8f5ac4e6" name="a7ce0df38eb467e59f209470c8f5ac4e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ce0df38eb467e59f209470c8f5ac4e6">&#9670;&#160;</a></span>LOG_TAG</h2>
@@ -238,6 +240,8 @@ Usage</h1>
 </div><div class="memdoc">
 
 <p>Default log tag. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00034">34</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
 
 </div>
 </div>
@@ -255,10 +259,12 @@ Usage</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ESP_LOGD(<a class="code hl_define" href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
-<div class="ttc" id="admx-interface_8c_html_a7ce0df38eb467e59f209470c8f5ac4e6"><div class="ttname"><a href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a></div><div class="ttdeci">#define LOG_TAG</div><div class="ttdoc">&quot;MAIN&quot; log tag for this file</div><div class="ttdef"><b>Definition</b> dmx-interface.c:1</div></div>
+<b>Value:</b><div class="fragment"><div class="line">ESP_LOGD(<a class="code hl_define" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
+<div class="ttc" id="alogger_8h_html_a7ce0df38eb467e59f209470c8f5ac4e6"><div class="ttname"><a href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a></div><div class="ttdeci">#define LOG_TAG</div><div class="ttdoc">Default log tag.</div><div class="ttdef"><b>Definition</b> <a href="logger_8h_source.html#l00034">logger.h:34</a></div></div>
 </div><!-- fragment -->
 <p>Log a message at Debug level. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00044">44</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
 
 </div>
 </div>
@@ -276,9 +282,13 @@ Usage</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ESP_LOGE(<a class="code hl_define" href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line">ESP_LOGE(<a class="code hl_define" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Log a message at Error level. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00038">38</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00018">app_main()</a>, <a class="el" href="storage_8c_source.html#l00011">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00278">webserver_register_handler()</a>, and <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -296,9 +306,13 @@ Usage</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ESP_LOGI(<a class="code hl_define" href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line">ESP_LOGI(<a class="code hl_define" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Log a message at Info level. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00042">42</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00018">app_main()</a>, <a class="el" href="storage_8c_source.html#l00011">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00278">webserver_register_handler()</a>, <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, <a class="el" href="web__server_8c_source.html#l00253">webserver_stop()</a>, <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>, <a class="el" href="wifi_8c_source.html#l00029">wifi_start_ap()</a>, and <a class="el" href="wifi_8c_source.html#l00096">wifi_stop_ap()</a>.</p>
 
 </div>
 </div>
@@ -316,9 +330,11 @@ Usage</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ESP_LOGV(<a class="code hl_define" href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line">ESP_LOGV(<a class="code hl_define" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Log a message at Verbose level. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00046">46</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
 
 </div>
 </div>
@@ -336,9 +352,13 @@ Usage</h1>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">ESP_LOGW(<a class="code hl_define" href="dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
+<b>Value:</b><div class="fragment"><div class="line">ESP_LOGW(<a class="code hl_define" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>, __VA_ARGS__)</div>
 </div><!-- fragment -->
 <p>Log a message at Warning level. </p>
+
+<p class="definition">Definition at line <a class="el" href="logger_8h_source.html#l00040">40</a> of file <a class="el" href="logger_8h_source.html">logger.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>, and <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
 
 </div>
 </div>

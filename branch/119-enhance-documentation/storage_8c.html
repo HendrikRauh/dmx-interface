@@ -195,7 +195,9 @@ Include dependency graph for storage.c:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="storage_8c__incl.svg" width="432" height="207"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-</div><table class="memberdecls">
+</div>
+<p><a href="storage_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a7ce0df38eb467e59f209470c8f5ac4e6" id="r_a7ce0df38eb467e59f209470c8f5ac4e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>&#160;&#160;&#160;&quot;STORE&quot;</td></tr>
@@ -228,6 +230,8 @@ Variables</h2></td></tr>
 
 <p>"STORE" log tag for this file </p>
 
+<p class="definition">Definition at line <a class="el" href="storage_8c_source.html#l00001">1</a> of file <a class="el" href="storage_8c_source.html">storage.c</a>.</p>
+
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
@@ -248,6 +252,12 @@ Variables</h2></td></tr>
 
 <p>Get the mount point for the LittleFS filesystem. </p>
 <dl class="section return"><dt>Returns</dt><dd>Pointer to the mount point string (e.g., "/data") </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="storage_8c_source.html#l00044">44</a> of file <a class="el" href="storage_8c_source.html">storage.c</a>.</p>
+
+<p class="reference">References <a class="el" href="storage_8c_source.html#l00008">LITTLEFS_MOUNT_POINT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -273,6 +283,12 @@ Here is the caller graph for this function:</div>
 
 <p>Initialize and mount LittleFS filesystem. </p>
 <dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, error code otherwise </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="storage_8c_source.html#l00011">11</a> of file <a class="el" href="storage_8c_source.html">storage.c</a>.</p>
+
+<p class="reference">References <a class="el" href="storage_8c_source.html#l00008">LITTLEFS_MOUNT_POINT</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -305,6 +321,10 @@ Here is the caller graph for this function:</div>
 <div class="line"><span class="stringliteral">&quot;/data&quot;</span></div>
 </div><!-- fragment -->
 <p>Mount point for LittleFS filesystem. </p>
+
+<p class="definition">Definition at line <a class="el" href="storage_8c_source.html#l00008">8</a> of file <a class="el" href="storage_8c_source.html">storage.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="storage_8c_source.html#l00044">storage_get_mount_point()</a>, and <a class="el" href="storage_8c_source.html#l00011">storage_init()</a>.</p>
 
 </div>
 </div>
