@@ -61,27 +61,27 @@ ______________________________________________________________________
 
 This project uses `ESP-IDF` as the build system.
 
-1. Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
+- Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
 
    ```bash
    nix develop
    ```
 
-2. Connect your board.
+- Connect your board.
 
-3. Build and flash the firmware:
+- Build and flash the firmware:
 
    ```bash
    inv flash
    ```
 
-4. Open the serial monitor (optional):
+- Open the serial monitor (optional):
 
    ```bash
    inv monitor --port /dev/ttyUSB0
    ```
 
-5. 🏁 Done 🎉
+🏁 Done 🎉
 
 ______________________________________________________________________
 
@@ -132,31 +132,38 @@ This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to ru
 
 **Setup:**
 
+Enter the development shell and install the Git hooks via shellHook:
 ```bash
-# Enter the development shell and install the Git hooks via shellHook
 nix develop
+```
 
-# Run all configured checks
+Run all configured checks:
+```bash
 nix flake check
+```
 
-# Or run only the pre-commit-style checks
+Or run only the pre-commit-style checks:
+```bash
 nix build .#checks.x86_64-linux.pre-commit-check
 ```
 
+### Documentation
+Further documentation including data structures and code can be found on [DMX-Interface](https://hendrikrauh.github.io/dmx-interface/)
 ______________________________________________________________________
 
 ## 📦 Case
 
-All print files (STL, STEP, X_T) can be found in [assets/case](/assets/case/). Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format you like.
+All print files (STL, STEP, X_T) can be found in the folder assets/case. Alternatively you can view the project on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format of your choice.
 
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
 
+In addition to this print you will need:
 | Part | Screw | Count |
 | ----------- | ------- | ----- |
 | Case lid | M2x5 | 4x |
 | ESP32 | M2x5 | 2x |
 | W5500 | M2,5x5 | 2x |
-| XLR sockets | M3+Nuts | 4x |
+| XLR sockets | M3+Screw nuts | 4x |
 
 ______________________________________________________________________
 
@@ -173,7 +180,7 @@ ______________________________________________________________________
 
 ## ⚙️ Default config
 
-To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED flashes slowly.
+To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED will flash slowly.
 
 | Setting | Value |
 | -------------- | -------------------------------------- |
