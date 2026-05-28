@@ -43,6 +43,7 @@ var NAVTREEINDEX0 =
 "index.html#autotoc_md-parts":[0],
 "index.html#autotoc_md-status-led":[5],
 "index.html#autotoc_md-wiring":[1],
+"index.html#documentation":[3,3],
 "index.html#environment-setup":[3,1],
 "index.html#pre-commit-hooks":[3,2],
 "index.html#required-tools":[3,0],

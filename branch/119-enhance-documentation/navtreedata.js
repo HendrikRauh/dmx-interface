@@ -31,7 +31,8 @@ var NAVTREE =
     [ "🧑‍💻 Development", "index.html#‍-development", [
       [ "Required tools", "index.html#required-tools", null ],
       [ "Environment setup", "index.html#environment-setup", null ],
-      [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ]
+      [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ],
+      [ "Documentation", "index.html#documentation", null ]
     ] ],
     [ "📦 Case", "index.html#autotoc_md-case", null ],
     [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
