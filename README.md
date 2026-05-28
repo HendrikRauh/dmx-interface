@@ -35,7 +35,7 @@ ______________________________________________________________________
 > [!IMPORTANT]
 > You have to short-circuit `R0` on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.
 
-![Circuit diagram](/assets/circuit/diagram.svg)
+<img src="assets/circuit/diagram.svg" onerror="this.onerror=null; this.src='diagram.svg';" alt="Circuit diagram">
 
 | GPIO | Usage |
 | ------- | -------------- |
