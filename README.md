@@ -63,23 +63,23 @@ This project uses `ESP-IDF` as the build system.
 
 - Install `ESP-IDF` (`idf.py`) and `invoke`, or use the provided Nix shell:
 
-   ```bash
-   nix develop
-   ```
+  ```bash
+  nix develop
+  ```
 
 - Connect your board.
 
 - Build and flash the firmware:
 
-   ```bash
-   inv flash
-   ```
+  ```bash
+  inv flash
+  ```
 
 - Open the serial monitor (optional):
 
-   ```bash
-   inv monitor --port /dev/ttyUSB0
-   ```
+  ```bash
+  inv monitor --port /dev/ttyUSB0
+  ```
 
 🏁 Done 🎉
 
