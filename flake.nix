@@ -110,7 +110,10 @@
           enable = true;
           args = ["--number"];
         };
-        cspell.enable = true;
+        cspell = {
+          enable = true;
+          args = ["--no-must-find-files"];
+        };
 
         # C/C++ & Build-Systems
         clang-format = {
