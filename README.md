@@ -133,22 +133,27 @@ This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to ru
 **Setup:**
 
 Enter the development shell and install the Git hooks via shellHook:
+
 ```bash
 nix develop
 ```
 
 Run all configured checks:
+
 ```bash
 nix flake check
 ```
 
 Or run only the pre-commit-style checks:
+
 ```bash
 nix build .#checks.x86_64-linux.pre-commit-check
 ```
 
 ### Documentation
+
 Further documentation including data structures and code can be found on [DMX-Interface](https://hendrikrauh.github.io/dmx-interface/)
+
 ______________________________________________________________________
 
 ## 📦 Case
@@ -158,6 +163,7 @@ All print files (STL, STEP, X_T) can be found in the folder assets/case. Alterna
 ![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
 
 In addition to this print you will need:
+
 | Part | Screw | Count |
 | ----------- | ------- | ----- |
 | Case lid | M2x5 | 4x |
