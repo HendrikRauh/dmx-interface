@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['idf_0',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]],
-  ['index_2ehtml_1',['index.html',['../index_8html.html',1,'']]],
-  ['input_2dvisibility_2ejs_2',['input-visibility.js',['../input-visibility_8js.html',1,'']]],
-  ['installation_20esp_20idf_3',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]],
-  ['interface_4',['DMX-Interface',['../index.html',1,'']]]
+  ['header_2ehtml_0',['header.html',['../header_8html.html',1,'']]],
+  ['health_5fcheck_5fhandler_1',['health_check_handler',['../web__server_8c.html#af26c5903f907fb3d73fe269a81809275',1,'web_server.c']]],
+  ['hooks_2',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
 ];
