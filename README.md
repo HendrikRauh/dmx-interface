@@ -1,37 +1,39 @@
 # DMX-Interface
 
-> _Art-Net interface for controlling DMX devices via WiFi or Ethernet._
+Art-Net interface for controlling DMX devices via WiFi or Ethernet.
+
+> [!NOTE]
+> This project is currently in a rewrite phase, we switched from Arduino to ESP-IDF and are reworking the codebase. The current state is not stable, but you can check out the [legacy/arduino](https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino) branch.
+> Feel free to help us by contributing to the project!
 
 ______________________________________________________________________
 
 ## 🛒 Parts
 
 | Count | Part |
-| ----- | ------------- |
-| 1x | ESP32 |
+| ----- | --------------------- |
+| 1x | ESP32 (Lolin S2 Mini) |
 | 2x | RS485 |
 | 1x | W5500-ETH |
 | 1x | LED-Button |
 | 1x | ♂️-DMX-socket |
 | 1x | ♀️-DMX-socket |
 
-> Additionally you need: `some wires`, `soldering equipment`, `3D-printer`, `small screws` (see [case](#-case)), `heat shrink tubing`, `hot glue gun`
+Additionally, you need:
 
-______________________________________________________________________
-
-## 📱 Implemented microcontrollers
-
-- [x] Lolin S2 mini
-- [ ] ESP 32 WROOM
-- [ ] ESP 32 C3
-
-> For other microcontrollers you may need to adjust the `platformio.ini`
+- some wires
+- soldering equipment
+- 3D-printer
+- small screws (see [case](#-case))
+- heat shrink tubing
+- hot glue gun
 
 ______________________________________________________________________
 
 ## 🔌 Wiring
 
-You have to short-circuit `R0` on the RS485 boards to enable the termination resistor required for DMX before the first and after the last device in line.
+> [!IMPORTANT]
+> You have to short-circuit `R0` on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.
 
 ![Circuit diagram](/assets/circuit/diagram.svg)
 
@@ -70,16 +72,16 @@ This project uses `ESP-IDF` as the build system.
 3. Build and flash the firmware:
 
    ```bash
-   invoke flash
+   inv flash
    ```
 
 4. Open the serial monitor (optional):
 
    ```bash
-   invoke monitor --port /dev/ttyUSB0
+   inv monitor --port /dev/ttyUSB0
    ```
 
-5. 🏁 done 🎉
+5. 🏁 Done 🎉
 
 ______________________________________________________________________
 
@@ -109,19 +111,19 @@ nix develop
 
 Alternatively, you can use `direnv` to automatically enter the development shell when you `cd` into the project directory.
 
-Without Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
+If you are not using Nix, manually install the packages listed in the `buildInputs` section in `flake.nix`.
 
 This project uses [invoke](https://www.pyinvoke.org/) to simplify running common commands.
-Run `invoke --list` to see all available tasks.
+Run `inv --list` to see all available tasks.
 
 Examples:
 
 ```bash
-invoke flash
-invoke reset
-invoke config
-invoke docs
-invoke docs -o
+inv flash
+inv reset
+inv config
+inv docs
+inv docs -o
 ```
 
 ### Pre-commit hooks
@@ -171,10 +173,10 @@ ______________________________________________________________________
 
 ## ⚙️ Default config
 
-To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash quickly. After 3 seconds the LED should light up static and the settings are reset. If you release the button early you abort the reset and the LED flashes slowly.
+To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED flashes slowly.
 
 | Setting | Value |
-| -------------- | ------------------ |
+| -------------- | -------------------------------------- |
 | TYPE | WiFi AP |
 | SSID | ChaosDMX-□□□□ |
 | PASSWORD | mbgmbgmbg <!-- cspell:disable-line --> |
@@ -187,16 +189,10 @@ ______________________________________________________________________
 
 ## 🤝 Contributing
 
-Contributions, issues and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/HendrikRauh/dmx-interface/issues).
+Contributions, issues, and feature requests are welcome!<br />Feel free to check the [issues page](https://github.com/HendrikRauh/dmx-interface/issues).
 
-______________________________________________________________________
+Special thanks to all the contributors:
 
-## 👥 Authors
-
-### [Chaostreff Backnang](https://chaostreff-backnang.de/)
-
-### [@HendrikRauh](https://github.com/HendrikRauh)
-
-### [@RaffaelW](https://github.com/RaffaelW)
-
-### [@psxde](https://github.com/psxde)
+<a href="https://github.com/HendrikRauh/dmx-interface/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=HendrikRauh/dmx-interface" alt="Contributors listed with their avatars" />
+</a>
