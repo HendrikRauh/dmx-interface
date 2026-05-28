@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['led_0',['💡 Status LED',['../index.html#autotoc_md10',1,'']]],
+  ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]],
   ['littlefs_5fmount_5fpoint_1',['LITTLEFS_MOUNT_POINT',['../storage_8c.html#a82a9ae0986f65cbf7f753091674034a9',1,'storage.c']]],
   ['load_2ddata_2ejs_2',['load-data.js',['../load-data_8js.html',1,'']]],
   ['loading_2dscreen_2ejs_3',['loading-screen.js',['../loading-screen_8js.html',1,'']]],

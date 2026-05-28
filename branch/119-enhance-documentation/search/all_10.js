@@ -16,5 +16,5 @@ var searchData=
   ['wifi_2eh_13',['wifi.h',['../wifi_8h.html',1,'']]],
   ['wifi_5fstart_5fap_14',['wifi_start_ap',['../wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c'],['../wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c']]],
   ['wifi_5fstop_5fap_15',['wifi_stop_ap',['../wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c'],['../wifi_8c.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c']]],
-  ['wiring_16',['🔌 Wiring',['../index.html#autotoc_md3',1,'']]]
+  ['wiring_16',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
 ];
