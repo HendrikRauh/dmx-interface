@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['parts_0',['🛒 Parts',['../index.html#autotoc_md-parts',1,'']]],
-  ['port_1',['port',['../structwebserver__config__t.html#ae62caeef1bff2fb47253b1ee0d1c509a',1,'webserver_config_t']]],
-  ['pre_20commit_20hooks_2',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
+  ['range_2dinput_2ejs_0',['range-input.js',['../range-input_8js.html',1,'']]],
+  ['readme_2emd_1',['README.md',['../README_8md.html',1,'']]],
+  ['required_20tools_2',['Required tools',['../index.html#required-tools',1,'']]],
+  ['reset_2ejs_3',['reset.js',['../reset_8js.html',1,'']]]
 ];

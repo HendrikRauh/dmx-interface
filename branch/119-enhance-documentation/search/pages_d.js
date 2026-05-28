@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usage_0',['Usage',['../logger_8h.html#usage',1,'']]]
+  ['💡_20status_20led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]]
 ];

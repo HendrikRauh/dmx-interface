@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['required_20tools_0',['Required tools',['../index.html#required-tools',1,'']]]
+  ['usage_0',['Usage',['../logger_8h.html#usage',1,'']]]
 ];

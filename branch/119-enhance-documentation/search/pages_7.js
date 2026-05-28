@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]]
+  ['required_20tools_0',['Required tools',['../index.html#required-tools',1,'']]]
 ];

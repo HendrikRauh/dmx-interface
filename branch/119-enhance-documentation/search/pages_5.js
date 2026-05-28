@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['hooks_0',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
+  ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]]
 ];

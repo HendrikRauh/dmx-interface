@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['tools_0',['Required tools',['../index.html#required-tools',1,'']]]
+  ['⚙️_20default_20config_0',['⚙️ Default config',['../index.html#️-default-config',1,'']]]
 ];

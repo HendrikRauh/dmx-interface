@@ -26,7 +26,6 @@ var NAVTREE =
 [
   [ "DMX-Interface", "index.html", [
     [ "🛒 Parts", "index.html#autotoc_md-parts", null ],
-    [ "📱 Implemented microcontrollers", "index.html#autotoc_md-implemented-microcontrollers", null ],
     [ "🔌 Wiring", "index.html#autotoc_md-wiring", null ],
     [ "🚀 Installation (ESP-IDF)", "index.html#autotoc_md-installation-esp-idf", null ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
@@ -38,12 +37,6 @@ var NAVTREE =
     [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
     [ "⚙️ Default config", "index.html#️-default-config", null ],
     [ "🤝 Contributing", "index.html#autotoc_md-contributing", null ],
-    [ "👥 Authors", "index.html#autotoc_md-authors", [
-      [ "<a href=\"https://chaostreff-backnang.de/\">Chaostreff Backnang</a>", "index.html#chaostreff-backnanghttpschaostreff-backnangde", null ],
-      [ "<a href=\"https://github.com/HendrikRauh\">@HendrikRauh</a>", "index.html#hendrikrauhhttpsgithubcomhendrikrauh", null ],
-      [ "<a href=\"https://github.com/RaffaelW\">@RaffaelW</a>", "index.html#raffaelwhttpsgithubcomraffaelw", null ],
-      [ "<a href=\"https://github.com/psxde\">@psxde</a>", "index.html#psxdehttpsgithubcompsxde", null ]
-    ] ],
     [ "Data Structures", "annotated.html", [
       [ "Data Structures", "annotated.html", "annotated_dup" ],
       [ "Data Structure Index", "classes.html", null ],

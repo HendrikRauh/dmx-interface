@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['case_0',['📦 Case',['../index.html#autotoc_md-case',1,'']]],
-  ['chaostreff_20backnang_1',['&lt;a href=&quot;https://chaostreff-backnang.de/&quot;&gt;Chaostreff Backnang&lt;/a&gt;',['../index.html#chaostreff-backnanghttpschaostreff-backnangde',1,'']]],
-  ['commit_20hooks_2',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]],
-  ['config_3',['⚙️ Default config',['../index.html#️-default-config',1,'']]],
-  ['contributing_4',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]],
-  ['custom_2ecss_5',['custom.css',['../custom_8css.html',1,'']]]
+  ['default_20config_0',['⚙️ Default config',['../index.html#️-default-config',1,'']]],
+  ['development_1',['🧑‍💻 Development',['../index.html#‍-development',1,'']]],
+  ['dmx_20interface_2',['DMX-Interface',['../index.html',1,'']]],
+  ['dmx_2dinterface_2ec_3',['dmx-interface.c',['../dmx-interface_8c.html',1,'']]],
+  ['dmx_2ec_4',['dmx.c',['../dmx_8c.html',1,'']]],
+  ['dmx_2eh_5',['dmx.h',['../dmx_8h.html',1,'']]]
 ];

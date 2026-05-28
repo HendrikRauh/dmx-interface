@@ -187,9 +187,8 @@ $(function(){initNavTree('index.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<blockquote class="doxtable">
-<p><em>Art-Net interface for controlling DMX devices via WiFi or Ethernet.</em> </p>
-</blockquote>
+<p>Art-Net interface for controlling DMX devices via WiFi or Ethernet.</p>
+<dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we switched from Arduino to ESP-IDF and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by contributing to the project!</dd></dl>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
 🛒 Parts</h1>
@@ -197,7 +196,7 @@ $(function(){initNavTree('index.html','',''); });
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Count  </th><th class="markdownTableHeadNone">Part  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">ESP32  </td></tr>
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">ESP32 (Lolin S2 Mini)  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">2x  </td><td class="markdownTableBodyNone">RS485  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -209,26 +208,19 @@ $(function(){initNavTree('index.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♀️-DMX-socket  </td></tr>
 </table>
-<blockquote class="doxtable">
-<p>Additionally you need: <span class="tt">some wires</span>, <span class="tt">soldering equipment</span>, <span class="tt">3D-printer</span>, <span class="tt">small screws</span> (see <a class="el" href="#autotoc_md-case" title="📦 Case">case</a>), <span class="tt">heat shrink tubing</span>, <span class="tt">hot glue gun</span> </p>
-</blockquote>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md-implemented-microcontrollers"></a>
-📱 Implemented microcontrollers</h1>
-<ul class="check">
-<li class="checked">Lolin S2 mini</li>
-<li class="unchecked">ESP 32 WROOM</li>
+<p>Additionally, you need:</p>
+<ul>
+<li>some wires</li>
+<li>soldering equipment</li>
+<li>3D-printer</li>
+<li>small screws (see <a class="el" href="#autotoc_md-case" title="📦 Case">case</a>)</li>
+<li>heat shrink tubing</li>
+<li>hot glue gun</li>
 </ul>
-<ul class="check">
-<li class="unchecked">ESP 32 C3</li>
-</ul>
-<blockquote class="doxtable">
-<p>For other microcontrollers you may need to adjust the <span class="tt">platformio.ini</span> </p>
-</blockquote>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-wiring"></a>
 🔌 Wiring</h1>
-<p>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX before the first and after the last device in line.</p>
+<dl class="section important"><dt>Important</dt><dd>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.</dd></dl>
 <div class="image">
 <object type="image/svg+xml" data="diagram.svg" style="pointer-events: none;"></object>
 <div class="caption">
@@ -277,12 +269,12 @@ Circuit diagram</div></div>
 </div><!-- fragment --></li>
 <li>Connect your board.</li>
 <li><p class="startli">Build and flash the firmware:</p>
-<div class="fragment"><div class="line">invoke flash</div>
+<div class="fragment"><div class="line">inv flash</div>
 </div><!-- fragment --></li>
 <li><p class="startli">Open the serial monitor (optional):</p>
-<div class="fragment"><div class="line">invoke monitor --port /dev/ttyUSB0</div>
+<div class="fragment"><div class="line">inv monitor --port /dev/ttyUSB0</div>
 </div><!-- fragment --></li>
-<li>🏁 done 🎉</li>
+<li>🏁 Done 🎉</li>
 </ol>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="‍-development"></a>
@@ -306,14 +298,14 @@ Environment setup</h2>
 <p>This repository includes a <span class="tt">flake.nix</span> with a ready-to-use development shell.</p>
 <div class="fragment"><div class="line">nix develop</div>
 </div><!-- fragment --><p>Alternatively, you can use <span class="tt">direnv</span> to automatically enter the development shell when you <span class="tt">cd</span> into the project directory.</p>
-<p>Without Nix, manually install the packages listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>.</p>
-<p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">invoke --list</span> to see all available tasks.</p>
+<p>If you are not using Nix, manually install the packages listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>.</p>
+<p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">inv --list</span> to see all available tasks.</p>
 <p>Examples:</p>
-<div class="fragment"><div class="line">invoke flash</div>
-<div class="line">invoke reset</div>
-<div class="line">invoke config</div>
-<div class="line">invoke docs</div>
-<div class="line">invoke docs -o</div>
+<div class="fragment"><div class="line">inv flash</div>
+<div class="line">inv reset</div>
+<div class="line">inv config</div>
+<div class="line">inv docs</div>
+<div class="line">inv docs -o</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="pre-commit-hooks"></a>
 Pre-commit hooks</h2>
 <p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks.</p>
@@ -372,7 +364,7 @@ Prusa Slicer with case loaded</div></div>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="️-default-config"></a>
 ⚙️ Default config</h1>
-<p>To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash quickly. After 3 seconds the LED should light up static and the settings are reset. If you release the button early you abort the reset and the LED flashes slowly.</p>
+<p>To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED flashes slowly.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Setting  </th><th class="markdownTableHeadNone">Value  </th></tr>
@@ -394,19 +386,10 @@ Prusa Slicer with case loaded</div></div>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-contributing"></a>
 🤝 Contributing</h1>
-<p>Contributions, issues and feature requests are welcome!<br  />
+<p>Contributions, issues, and feature requests are welcome!<br  />
 Feel free to check the <a href="https://github.com/HendrikRauh/dmx-interface/issues">issues page</a>.</p>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md-authors"></a>
-👥 Authors</h1>
-<h2 class="doxsection"><a class="anchor" id="chaostreff-backnanghttpschaostreff-backnangde"></a>
-<a href="https://chaostreff-backnang.de/">Chaostreff Backnang</a></h2>
-<h2 class="doxsection"><a class="anchor" id="hendrikrauhhttpsgithubcomhendrikrauh"></a>
-<a href="https://github.com/HendrikRauh">@HendrikRauh</a></h2>
-<h2 class="doxsection"><a class="anchor" id="raffaelwhttpsgithubcomraffaelw"></a>
-<a href="https://github.com/RaffaelW">@RaffaelW</a></h2>
-<h2 class="doxsection"><a class="anchor" id="psxdehttpsgithubcompsxde"></a>
-<a href="https://github.com/psxde">@psxde</a></h2>
+<p>Special thanks to all the contributors:</p>
+<p><a href="https://github.com/HendrikRauh/dmx-interface/graphs/contributors"><img src="https://contrib.rocks/image?repo=HendrikRauh/dmx-interface" alt="Contributors listed with their avatars" class="inline"/> </a> </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
