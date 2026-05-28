@@ -7,6 +7,29 @@
   height: 72px;
 }
 
+html {
+  dl dd span.tt {
+    border: none;
+  }
+
+  dl.warning dd span.tt,
+  dl.attention dd span.tt {
+    background-color: var(--warning-color-dark);
+    color: var(--warning-color);
+  }
+
+  dl.note dd span.tt,
+  dl.remark dd span.tt {
+    background-color: var(--note-color-dark);
+    color: var(--note-color);
+  }
+
+  dl.important dd span.tt {
+    background-color: #b61825;
+    color: #f8d1cc;
+  }
+}
+
 @media screen and (max-width: 767px) {
   .github-corner svg {
     width: 50px;
