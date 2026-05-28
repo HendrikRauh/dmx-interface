@@ -310,12 +310,16 @@ Environment setup</h2>
 Pre-commit hooks</h2>
 <p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks.</p>
 <p><b>Setup:</b></p>
-<p>Enter the development shell and install the Git hooks via shellHook: </p><div class="fragment"><div class="line">nix develop</div>
-</div><!-- fragment --><p>Run all configured checks: </p><div class="fragment"><div class="line">nix flake check</div>
-</div><!-- fragment --><p>Or run only the pre-commit-style checks: </p><div class="fragment"><div class="line">nix build .#checks.x86_64-linux.pre-commit-check</div>
+<p>Enter the development shell and install the Git hooks via shellHook:</p>
+<div class="fragment"><div class="line">nix develop</div>
+</div><!-- fragment --><p>Run all configured checks:</p>
+<div class="fragment"><div class="line">nix flake check</div>
+</div><!-- fragment --><p>Or run only the pre-commit-style checks:</p>
+<div class="fragment"><div class="line">nix build .#checks.x86_64-linux.pre-commit-check</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="documentation"></a>
 Documentation</h2>
-<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a> </p><hr  />
+<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a></p>
+<hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-case"></a>
 📦 Case</h1>
 <p>All print files (STL, STEP, X_T) can be found in the folder assets/case. Alternatively you can view the project on <a href="https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2">OnShape</a> where you can export the files in a format of your choice.</p>
@@ -323,7 +327,8 @@ Documentation</h2>
 <img src="Screenshot.png" alt=""/>
 <div class="caption">
 Prusa Slicer with case loaded</div></div>
-    <p>In addition to this print you will need: </p><table class="markdownTable">
+    <p>In addition to this print you will need:</p>
+<table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Part  </th><th class="markdownTableHeadNone">Screw  </th><th class="markdownTableHeadNone">Count  </th></tr>
 <tr class="markdownTableRowOdd">
