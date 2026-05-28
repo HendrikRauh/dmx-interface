@@ -102,7 +102,7 @@
           enable = true;
           name = "doxygen code coverage";
           entry = "tools/doxy-coverage.py docs/doxygen/xml --threshold=100 --generate-docs";
-          files = "\\.(c|h|cpp|hpp)$";
+          files = "\\.(c|cc|cxx|cxxm|cpp|cppm|ccm|c++|c++m|java|ii|ixx|ipp|i++|inl|idl|ddl|odl|h|hh|hxx|hpp|h++|l|cs|d|php|php4|php5|phtml|inc|m|markdown|md|mm|dox|py|pyw|f90|f95|f03|f08|f18|f|for|vhd|vhdl|ucf|qsf|ice)$"; # cspell:disable-line
           pass_filenames = false;
         };
         markdownlint.enable = true;
