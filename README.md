@@ -113,7 +113,7 @@ ______________________________________________________________________
 
 ## ⚙️ Config
 
-You can configure the device by connecting to the WiFi network and accessing the web interface via the IP address configured or the default listed below.
+You can configure the device by connecting to the WiFi network and accessing the web interface via the default (listed below) or configured IP address.
 
 ### Default config
 
@@ -121,36 +121,36 @@ To reset the settings, hold down the button and connect the ESP to the power sup
 
 | Setting | Value |
 | --- | --- |
-| TYPE | WiFi AP |
+| Type | WiFi AP |
 | SSID | ChaosDMX-□□□□ |
-| PASSWORD | ChaosDMX |
+| Password | ChaosDMX |
 | IP-Address | 192.168.4.1 |
-| DMX1 (Left) | OUTPUT; Universe 1 |
-| DMX2 (Right) | INPUT; Universe 2 |
+| DMX0 | OUTPUT; Universe 1 |
+| DMX1 | INPUT; Universe 2 |
 | LED Brightness | 10 % |
 
 ______________________________________________________________________
 
 ## 🧑‍💻 Development
 
-We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer. If you don't want to use Nix make sure you install the required tools listed in the `buildInputs` section in `flake.nix`.
-If you're on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session.
+We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the `buildInputs` section in `flake.nix`.
+If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session.
 
 > [!WARNING]
-> Under WSL further steps are required, needs research! [USB usage](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) etc (usbipd-win)
+> Under WSL, further steps are required, needs research! [USB usage](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) etc (usbipd-win)
 
 ### Setup NIX
 
 > [!WARNING]
-> There is a nix installer that enables flakes by default, we should recommend this
+> There is a nix installer that enables flakes by default, which we recommend
 
-For usage of the development environment, you need to have the nix package manager installed on your system. In addition, you need to enable flakes support by adding the following lines to your `~/.config/nix/nix.conf`:
+For usage of the development environment, having the nix package manager installed on your system is required. In addition, you need to enable flakes support by adding the following lines to your `~/.config/nix/nix.conf`:
 
 ```conf
 experimental-features = nix-command flakes
 ```
 
-You can do this by running the following command that installs you nix and enables flakes support:
+You can do this by running the following command that installs nix and enables flakes support:
 
 ```bash
 curl -L https://nixos.org/nix/install | sh
@@ -158,10 +158,10 @@ curl -L https://nixos.org/nix/install | sh
 
 ### Setup direnv (optional)
 
-In addition you can use [direnv](https://direnv.net/) to automatically enter the development environment when you navigate to the project folder. You can install it by following [the instructions on their website](https://direnv.net/docs/installation.html).
+Optionally, you are able to use [direnv](https://direnv.net/) to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on [their website](https://direnv.net/docs/installation.html).
 
-The first time, you need to allow the `.envrc` file by running `direnv allow` in the project folder.
-After that, you can just navigate to the project folder and you will automatically enter the development environment.
+When using it for the first time, you need to allow the `.envrc` file by running `direnv allow` in the project folder.
+Afterwards, you can simply navigate to the project folder and you will automatically enter the development environment.
 
 ### Commands
 
@@ -179,14 +179,14 @@ Here is a small selection of the most common tasks:
 
 ### Pre-commit hooks
 
-This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to run code quality, formatting, and consistency checks. When you use the dev-shell these run before your commit and format the code etc.
-If you're not using the dev-shell don't worry, the action runner does the check on the repo again and will check it for you.
+This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to run code quality, formatting, and consistency checks. When using the dev-shell, these run before your commit and format the code etc.
+If you are not using the dev-shell, the action runner will do the check on the repository again and check it for you.
 
 ### Documentation
 
-Further documentation including data structures and code can be found on [DMX-Interface](https://hendrikrauh.github.io/dmx-interface/).
-This uses [Doxygen](https://www.doxygen.nl/) to generate the documentation from the source code, you can also generate it locally by running `inv docs` or `inv docs -o` to open it in your browser after generation.
-Functions, variables, and data structures should be documented using Doxygen comments, see the [Doxygen manual](https://www.doxygen.nl/manual/docblocks.html) for more information on how to write these comments.
+Further documentation including data structures and code can be found [here](https://hendrikrauh.github.io/dmx-interface/).
+[Doxygen](https://www.doxygen.nl/) is used to generate the documentation from the source code, you can also generate it locally by running `inv docs` or `inv docs -o` to open it in your browser after generation.
+Functions, variables, and data structures should be documented using Doxygen comments, look at the [Doxygen manual](https://www.doxygen.nl/manual/docblocks.html) for more information on how to write these comments.
 
 The documentation for your branch will be automatically generated and published under `https://hendrikrauh.github.io/dmx-interface/branch/<your-branch-name>` when you push your changes.
 
