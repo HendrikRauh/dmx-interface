@@ -5,7 +5,7 @@
 > The current state is not stable, but you can check out the [legacy/arduino](https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino) branch.
 > Feel free to help us by [contributing](#-contributing) to the project!
 
-ChaosDMX is a Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting
+ChaosDMX is an open-source, multi-protocol DIY interface that acts as a versatile bridge between lighting
 control software (e.g., [QLC+](https://www.qlcplus.org/)) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines.
 It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.
 
