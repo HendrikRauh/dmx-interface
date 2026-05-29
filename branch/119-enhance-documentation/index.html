@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DMX-Interface: DMX-Interface</title>
+    <title>DMX-Interface: ChaosDMX</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -183,18 +183,12 @@ $(function(){initNavTree('index.html','',''); });
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">DMX-Interface </div></div>
+  <div class="headertitle"><div class="title">ChaosDMX </div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<h2 class="doxsection"><a class="anchor" id="project-overview-chaosdmx"></a>
-Project Overview: ChaosDMX</h2>
-<p><b>ChaosDMX</b> is a 100% Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., QLC+, Freestyler, DMXControl) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features <b>two fully configurable DMX ports</b> that can be individually set up as either <b>DMX Input</b> or <b>DMX Output</b>.</p>
-<p>The interface offers maximum connectivity by supporting industry-standard protocols and wireless technologies over both network and hardware interfaces:</p>
-<ul>
-<li><b>Network &amp; Wireless (Art-Net, sACN / E1.31, ESP-NOW):</b> Operates over a stable, wired <b>Ethernet</b> connection or wirelessly via <b>Wi-Fi</b>. It supports <b>Station Mode (STA)</b> for existing networks, <b>Access Point Mode (AP)</b> for standalone operation, and <b>ESP-NOW</b> for low-latency, direct wireless communication between devices.</li>
-<li><b>USB:</b> Connects directly to a PC as a serial device, providing native plug-and-play compatibility with software like <b>QLC+</b> for sending and receiving DMX data.</li>
-</ul>
+<p>ChaosDMX is a Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., QLC+) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.</p>
+<p>The interface offers maximum connectivity by supporting industry-standard protocols like Art-Net, E1.31, and ESP-NOW and wireless technologies over both network and hardware interfaces. It is able to operate over a wired Ethernet connection or wirelessly over Wi-Fi. By providing a USB connection directly to a PC as a serial device, native plug and play compatability with software is made possible.</p>
 <dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we are currently switching the Framework from <a href="https://www.arduino.cc/">Arduino</a> to <a href="https://developer.espressif.com/tags/esp-idf/">ESP-IDF</a> and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by <a class="el" href="#autotoc_md-contributing" title="🤝 Contributing">contributing</a> to the project!</dd></dl>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>

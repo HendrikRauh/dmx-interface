@@ -1,7 +1,7 @@
 var searchData=
 [
   ['case_0',['📦 Case',['../index.html#autotoc_md-case',1,'']]],
-  ['chaosdmx_1',['Project Overview: ChaosDMX',['../index.html#project-overview-chaosdmx',1,'']]],
+  ['chaosdmx_1',['ChaosDMX',['../index.html',1,'']]],
   ['clean_2',['clean',['../namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4',1,'tasks']]],
   ['cleanbuild_3',['cleanbuild',['../namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c',1,'tasks']]],
   ['commands_4',['Commands',['../index.html#commands',1,'']]],
