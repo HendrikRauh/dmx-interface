@@ -1,6 +1,13 @@
 # DMX-Interface
 
-Art-Net interface for controlling DMX devices via WiFi or Ethernet.
+### Project Overview: ChaosDMX
+
+**ChaosDMX** is a 100% Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., QLC+, Freestyler, DMXControl) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features **two fully configurable DMX ports** that can be individually set up as either **DMX Input** or **DMX Output**.
+
+The interface offers maximum connectivity by supporting industry-standard protocols and wireless technologies over both network and hardware interfaces:
+
+* **Network & Wireless (Art-Net, sACN / E1.31, ESP-NOW):** Operates over a stable, wired **Ethernet** connection or wirelessly via **Wi-Fi**. It supports **Station Mode (STA)** for existing networks, **Access Point Mode (AP)** for standalone operation, and **ESP-NOW** for low-latency, direct wireless communication between devices.
+* **USB:** Connects directly to a PC as a serial device, providing native plug-and-play compatibility with software like **QLC+** for sending and receiving DMX data.
 
 > [!NOTE]
 > This project is currently in a rewrite phase, we are currently switching the Framework from [Arduino](https://www.arduino.cc/) to [ESP-IDF](https://developer.espressif.com/tags/esp-idf/) and are reworking the codebase.
