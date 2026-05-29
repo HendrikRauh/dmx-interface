@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DMX-Interface: ChaosDMX</title>
+    <title>ChaosDMX: ChaosDMX</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -118,9 +118,9 @@
               </td>
               <td id="projectalign" style="padding-left: 0.5em">
                 <div id="projectname">
-                  DMX-Interface
+                  ChaosDMX
                 </div>
-                <div id="projectbrief">ChaosDMX</div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
               </td>
             </tr>
           </tbody>
@@ -187,9 +187,9 @@ $(function(){initNavTree('index.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
-<p>ChaosDMX is a Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., QLC+) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.</p>
+<p>ChaosDMX is a Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., <a href="https://www.qlcplus.org/">QLC+</a>) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.</p>
 <p>The interface offers maximum connectivity by supporting industry-standard protocols like Art-Net, E1.31, and ESP-NOW and wireless technologies over both network and hardware interfaces. It is able to operate over a wired Ethernet connection or wirelessly over Wi-Fi. By providing a USB connection directly to a PC as a serial device, native plug and play compatibility with software is made possible.</p>
-<dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we are currently switching the Framework from <a href="https://www.arduino.cc/">Arduino</a> to <a href="https://developer.espressif.com/tags/esp-idf/">ESP-IDF</a> and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by <a class="el" href="#autotoc_md-contributing" title="🤝 Contributing">contributing</a> to the project!</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>This project is currently in a rewrite phase, we are currently switching the Framework from <a href="https://www.arduino.cc/">Arduino</a> to <a href="https://developer.espressif.com/tags/esp-idf/">ESP-IDF</a> and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by <a class="el" href="#autotoc_md-contributing" title="🤝 Contributing">contributing</a> to the project!</dd></dl>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
 🛒 Parts</h1>
@@ -342,9 +342,10 @@ Default config</h2>
 <h1 class="doxsection"><a class="anchor" id="‍-development"></a>
 🧑‍💻 Development</h1>
 <p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer. If you don't want to use Nix make sure you install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you're on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Under WSL further steps are required, needs research! USB usage etc (usbipd-win)</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Under WSL further steps are required, needs research! <a href="https://learn.microsoft.com/en-us/windows/wsl/connect-usb">USB usage</a> etc (usbipd-win)</dd></dl>
 <h2 class="doxsection"><a class="anchor" id="setup-nix"></a>
 Setup NIX</h2>
+<dl class="section warning"><dt>Warning</dt><dd>There is a nix installer that enables flakes by default, we should recommend this</dd></dl>
 <p>For usage of the development environment, you need to have the nix package manager installed on your system. In addition, you need to enable flakes support by adding the following lines to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
 <div class="fragment"><div class="line">experimental-features = nix-command flakes</div>
 </div><!-- fragment --><p>You can do this by running the following command that installs you nix and enables flakes support:</p>
