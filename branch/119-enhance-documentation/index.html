@@ -188,7 +188,7 @@ $(function(){initNavTree('index.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
 <p>Art-Net interface for controlling DMX devices via WiFi or Ethernet.</p>
-<dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we switched from Arduino to ESP-IDF and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by contributing to the project!</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>This project is currently in a rewrite phase, we are currently switching the Framework from <a href="https://www.arduino.cc/">Arduino</a> to <a href="https://developer.espressif.com/tags/esp-idf/">ESP-IDF</a> and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by <a class="el" href="#autotoc_md-contributing" title="🤝 Contributing">contributing</a> to the project!</dd></dl>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
 🛒 Parts</h1>
@@ -221,6 +221,7 @@ $(function(){initNavTree('index.html','',''); });
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-wiring"></a>
 🔌 Wiring</h1>
 <dl class="section important"><dt>Important</dt><dd>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.</dd></dl>
+<p>Have a look at the following diagram for how to wire the components together, the table below shows the pinout of the ESP32 and how to connect them to it.</p>
 <p><img src="assets/circuit/diagram.svg" alt="Circuit diagram" onerror="this.onerror=null; this.src=&apos;diagram.svg&apos;;" style="pointer-events: none;" class="inline"/></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -257,89 +258,40 @@ $(function(){initNavTree('index.html','',''); });
 <td class="markdownTableBodyNone">37  </td><td class="markdownTableBodyNone">SPI MISO  </td></tr>
 </table>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="autotoc_md-installation-esp-idf"></a>
-🚀 Installation (ESP-IDF)</h1>
-<p>This project uses <span class="tt">ESP-IDF</span> as the build system.</p>
-<ul>
-<li><p class="startli">Install <span class="tt">ESP-IDF</span> (<span class="tt">idf.py</span>) and <span class="tt">invoke</span>, or use the provided Nix shell:</p>
-<div class="fragment"><div class="line">nix develop</div>
-</div><!-- fragment --></li>
-<li>Connect your board.</li>
-<li><p class="startli">Build and flash the firmware:</p>
-<div class="fragment"><div class="line">inv flash</div>
-</div><!-- fragment --></li>
-<li><p class="startli">Open the serial monitor (optional):</p>
-<div class="fragment"><div class="line">inv monitor --port /dev/ttyUSB0</div>
-</div><!-- fragment --></li>
-</ul>
-<p>🏁 Done 🎉</p>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="‍-development"></a>
-🧑‍💻 Development</h1>
-<h2 class="doxsection"><a class="anchor" id="required-tools"></a>
-Required tools</h2>
-<ul>
-<li><span class="tt">ESP-IDF</span> (includes <span class="tt">idf.py</span>)</li>
-<li><span class="tt">invoke</span> (for project tasks)</li>
-<li>Optional but recommended for development:<ul>
-<li><span class="tt">pre-commit</span> (for code quality hooks)</li>
-<li><span class="tt">clang-format</span> (C/C++)</li>
-<li><span class="tt">prettier</span> (JavaScript/CSS/HTML/YAML)</li>
-<li><span class="tt">svgo</span> (SVG optimization)</li>
-<li><span class="tt">nixfmt</span> (Nix formatting)</li>
-</ul>
-</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="environment-setup"></a>
-Environment setup</h2>
-<p>This repository includes a <span class="tt">flake.nix</span> with a ready-to-use development shell.</p>
-<div class="fragment"><div class="line">nix develop</div>
-</div><!-- fragment --><p>Alternatively, you can use <span class="tt">direnv</span> to automatically enter the development shell when you <span class="tt">cd</span> into the project directory.</p>
-<p>If you are not using Nix, manually install the packages listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>.</p>
-<p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">inv --list</span> to see all available tasks.</p>
-<p>Examples:</p>
-<div class="fragment"><div class="line">inv flash</div>
-<div class="line">inv reset</div>
-<div class="line">inv config</div>
-<div class="line">inv docs</div>
-<div class="line">inv docs -o</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="pre-commit-hooks"></a>
-Pre-commit hooks</h2>
-<p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks.</p>
-<p><b>Setup:</b></p>
-<p>Enter the development shell and install the Git hooks via shellHook:</p>
-<div class="fragment"><div class="line">nix develop</div>
-</div><!-- fragment --><p>Run all configured checks:</p>
-<div class="fragment"><div class="line">nix flake check</div>
-</div><!-- fragment --><p>Or run only the pre-commit-style checks:</p>
-<div class="fragment"><div class="line">nix build .#checks.x86_64-linux.pre-commit-check</div>
-</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="documentation"></a>
-Documentation</h2>
-<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a></p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md-installation"></a>
+🚀 Installation</h1>
+<ol type="1">
+<li>Install <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html">ESP-IDF</a> (<span class="tt">idf.py</span>) on your system</li>
+<li>Connect the ESP32 to your computer via USB</li>
+<li>Flash the firmware by running <span class="tt">idf.py flash</span> or if you have <a href="https://www.pyinvoke.org/">invoke</a> installed: <span class="tt">inv flash</span> in the project folder</li>
+<li>(optional) Monitor the serial output using <span class="tt">idf.py monitor</span> or <span class="tt">inv monitor</span></li>
+</ol>
+<dl class="section remark"><dt>Remarks</dt><dd>If the ESP32 does not show up as a serial device, you might need to place it in bootloader mode.</dd></dl>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-case"></a>
 📦 Case</h1>
-<p>All print files (STL, STEP, X_T) can be found in the folder assets/case. Alternatively you can view the project on <a href="https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2">OnShape</a> where you can export the files in a format of your choice.</p>
+<p>All print files can be found in the folder <span class="tt">assets/case</span>. Alternatively, you can view the current case on <a href="https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2">OnShape</a> where you can export the files in a format of your choice. Feel free to design your own case (and maybe address the <a href="https://github.com/HendrikRauh/dmx-interface/issues/92">issues with the current one</a>) and share it with us!</p>
 <div class="image">
 <img src="Screenshot.png" alt=""/>
 <div class="caption">
 Prusa Slicer with case loaded</div></div>
-    <p>In addition to this print you will need:</p>
+    <p>In addition to the print you will need:</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Part  </th><th class="markdownTableHeadNone">Screw  </th><th class="markdownTableHeadNone">Count  </th></tr>
+<th class="markdownTableHeadNone">Count  </th><th class="markdownTableHeadNone">Part  </th><th class="markdownTableHeadNone">Location  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">Case lid  </td><td class="markdownTableBodyNone">M2x5  </td><td class="markdownTableBodyNone">4x  </td></tr>
+<td class="markdownTableBodyNone">6x  </td><td class="markdownTableBodyNone">M2x5 screw  </td><td class="markdownTableBodyNone">Case lid, ESP32  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">ESP32  </td><td class="markdownTableBodyNone">M2x5  </td><td class="markdownTableBodyNone">2x  </td></tr>
+<td class="markdownTableBodyNone">2x  </td><td class="markdownTableBodyNone">M2,5x5 screw  </td><td class="markdownTableBodyNone">W5500  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">W5500  </td><td class="markdownTableBodyNone">M2,5x5  </td><td class="markdownTableBodyNone">2x  </td></tr>
+<td class="markdownTableBodyNone">4x  </td><td class="markdownTableBodyNone">M3 screw  </td><td class="markdownTableBodyNone">XLR sockets  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">XLR sockets  </td><td class="markdownTableBodyNone">M3+Screw nuts  </td><td class="markdownTableBodyNone">4x  </td></tr>
+<td class="markdownTableBodyNone">4x  </td><td class="markdownTableBodyNone">M3 nut  </td><td class="markdownTableBodyNone">XLR sockets  </td></tr>
 </table>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-status-led"></a>
 💡 Status LED</h1>
+<p>We have a status LED-Button that shows the current state of the device.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">LED  </th><th class="markdownTableHeadNone">Description  </th></tr>
@@ -361,8 +313,11 @@ Prusa Slicer with case loaded</div></div>
 </td><td class="markdownTableBodyNone">resetting; error  </td></tr>
 </table>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="️-default-config"></a>
-⚙️ Default config</h1>
+<h1 class="doxsection"><a class="anchor" id="️-config"></a>
+⚙️ Config</h1>
+<p>You can configure the device by connecting to the WiFi network and accessing the web interface via the IP address configured or the default listed below.</p>
+<h2 class="doxsection"><a class="anchor" id="default-config"></a>
+Default config</h2>
 <p>To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED will flash slowly.</p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -372,7 +327,7 @@ Prusa Slicer with case loaded</div></div>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">SSID  </td><td class="markdownTableBodyNone">ChaosDMX-□□□□  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">PASSWORD  </td><td class="markdownTableBodyNone">mbgmbgmbg  </td></tr>
+<td class="markdownTableBodyNone">PASSWORD  </td><td class="markdownTableBodyNone">ChaosDMX  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">IP-Address  </td><td class="markdownTableBodyNone">192.168.4.1  </td></tr>
 <tr class="markdownTableRowOdd">
@@ -383,11 +338,48 @@ Prusa Slicer with case loaded</div></div>
 <td class="markdownTableBodyNone">LED Brightness  </td><td class="markdownTableBodyNone">10 %  </td></tr>
 </table>
 <hr  />
+<h1 class="doxsection"><a class="anchor" id="‍-development"></a>
+🧑‍💻 Development</h1>
+<p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer. If you don't want to use Nix make sure you install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you're on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Under WSL further steps are required, needs research! USB usage etc (usbipd-win)</dd></dl>
+<h2 class="doxsection"><a class="anchor" id="setup-nix"></a>
+Setup NIX</h2>
+<p>For usage of the development environment, you need to have the nix package manager installed on your system. In addition, you need to enable flakes support by adding the following lines to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
+<div class="fragment"><div class="line">experimental-features = nix-command flakes</div>
+</div><!-- fragment --><p>You can do this by running the following command that installs you nix and enables flakes support:</p>
+<div class="fragment"><div class="line">curl -L https://nixos.org/nix/install | sh</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="setup-direnv-optional"></a>
+Setup direnv (optional)</h2>
+<p>In addition you can use <a href="https://direnv.net/">direnv</a> to automatically enter the development environment when you navigate to the project folder. You can install it by following <a href="https://direnv.net/docs/installation.html">the instructions on their website</a>.</p>
+<p>The first time, you need to allow the <span class="tt">.envrc</span> file by running <span class="tt">direnv allow</span> in the project folder. After that, you can just navigate to the project folder and you will automatically enter the development environment.</p>
+<h2 class="doxsection"><a class="anchor" id="commands"></a>
+Commands</h2>
+<p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">inv --list</span> to see all available tasks or have a look at the <span class="tt"><a class="el" href="tasks_8py.html">tasks.py</a></span> file.</p>
+<p>Here is a small selection of the most common tasks:</p>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Command  </th><th class="markdownTableHeadNone">Description  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">inv build</span>  </td><td class="markdownTableBodyNone">Build the firmware using ESP-IDF  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">inv flash</span>  </td><td class="markdownTableBodyNone">Flash the firmware to the ESP32  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">inv monitor</span>  </td><td class="markdownTableBodyNone">Monitor the serial output  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">inv docs -o</span>  </td><td class="markdownTableBodyNone">Generate the documentation using Doxygen and open it in your browser  </td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="pre-commit-hooks"></a>
+Pre-commit hooks</h2>
+<p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks. When you use the dev-shell these run before your commit and format the code etc. If you're not using the dev-shell don't worry, the action runner does the check on the repo again and will check it for you.</p>
+<h2 class="doxsection"><a class="anchor" id="documentation"></a>
+Documentation</h2>
+<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a>. This uses <a href="https://www.doxygen.nl/">Doxygen</a> to generate the documentation from the source code, you can also generate it locally by running <span class="tt">inv docs</span> or <span class="tt">inv docs -o</span> to open it in your browser after generation. Functions, variables, and data structures should be documented using Doxygen comments, see the <a href="https://www.doxygen.nl/manual/docblocks.html">Doxygen manual</a> for more information on how to write these comments.</p>
+<p>The documentation for your branch will be automatically generated and published under <span class="tt"><a href="https://hendrikrauh.github.io/dmx-interface/branch/">https://hendrikrauh.github.io/dmx-interface/branch/</a>&lt;your-branch-name&gt;</span> when you push your changes.</p>
+<hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-contributing"></a>
 🤝 Contributing</h1>
-<p>Contributions, issues, and feature requests are welcome!<br  />
-Feel free to check the <a href="https://github.com/HendrikRauh/dmx-interface/issues">issues page</a>.</p>
-<p>Special thanks to all the contributors:</p>
+<p>Contributions, issues, and feature requests are welcome!</p>
+<p>Feel free to check the <a href="https://github.com/HendrikRauh/dmx-interface/issues">issues page</a> and the <a href="https://github.com/HendrikRauh/dmx-interface/pulls">pull requests</a> on GitHub. Thanks to all contributors who have helped make this project better!</p>
 <p><a href="https://github.com/HendrikRauh/dmx-interface/graphs/contributors"><img src="https://contrib.rocks/image?repo=HendrikRauh/dmx-interface" alt="Contributors listed with their avatars" class="inline"/> </a> </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>

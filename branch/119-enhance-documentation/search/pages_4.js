@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['idf_0',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]],
-  ['installation_20esp_20idf_1',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]],
-  ['interface_2',['DMX-Interface',['../index.html',1,'']]]
+  ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]]
 ];

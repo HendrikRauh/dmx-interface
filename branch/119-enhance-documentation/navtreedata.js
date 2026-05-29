@@ -27,16 +27,19 @@ var NAVTREE =
   [ "DMX-Interface", "index.html", [
     [ "🛒 Parts", "index.html#autotoc_md-parts", null ],
     [ "🔌 Wiring", "index.html#autotoc_md-wiring", null ],
-    [ "🚀 Installation (ESP-IDF)", "index.html#autotoc_md-installation-esp-idf", null ],
+    [ "🚀 Installation", "index.html#autotoc_md-installation", null ],
+    [ "📦 Case", "index.html#autotoc_md-case", null ],
+    [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
+    [ "⚙️ Config", "index.html#️-config", [
+      [ "Default config", "index.html#default-config", null ]
+    ] ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
-      [ "Required tools", "index.html#required-tools", null ],
-      [ "Environment setup", "index.html#environment-setup", null ],
+      [ "Setup NIX", "index.html#setup-nix", null ],
+      [ "Setup direnv (optional)", "index.html#setup-direnv-optional", null ],
+      [ "Commands", "index.html#commands", null ],
       [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ],
       [ "Documentation", "index.html#documentation", null ]
     ] ],
-    [ "📦 Case", "index.html#autotoc_md-case", null ],
-    [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
-    [ "⚙️ Default config", "index.html#️-default-config", null ],
     [ "🤝 Contributing", "index.html#autotoc_md-contributing", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],

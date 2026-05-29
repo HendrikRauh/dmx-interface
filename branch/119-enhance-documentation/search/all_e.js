@@ -1,7 +1,16 @@
 var searchData=
 [
-  ['task_5fpriority_0',['task_priority',['../structwebserver__config__t.html#a6bdb6be3162ed98d32358e1aa6efdf05',1,'webserver_config_t']]],
-  ['tasks_1',['tasks',['../namespacetasks.html',1,'']]],
-  ['tasks_2epy_2',['tasks.py',['../tasks_8py.html',1,'']]],
-  ['tools_3',['Required tools',['../index.html#required-tools',1,'']]]
+  ['s_5fserver_5fhandle_0',['s_server_handle',['../web__server_8c.html#abe7b45c4156b4291f93764735fc68c13',1,'web_server.c']]],
+  ['s_5fserver_5ftask_5fhandle_1',['s_server_task_handle',['../web__server_8c.html#a92afb04210a0a9bf80ea1c9f1c58fe2c',1,'web_server.c']]],
+  ['s_5fwifi_5fstarted_2',['s_wifi_started',['../wifi_8c.html#a67b8e77b6a1b5659b5a65f3537cd9a93',1,'wifi.c']]],
+  ['saveconfig_3',['saveconfig',['../namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1',1,'tasks']]],
+  ['setup_20direnv_20optional_4',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
+  ['setup_20nix_5',['Setup NIX',['../index.html#setup-nix',1,'']]],
+  ['stack_5fsize_6',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
+  ['static_5ffile_5fhandler_7',['static_file_handler',['../web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f',1,'web_server.c']]],
+  ['status_20led_8',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]],
+  ['storage_2ec_9',['storage.c',['../storage_8c.html',1,'']]],
+  ['storage_2eh_10',['storage.h',['../storage_8h.html',1,'']]],
+  ['storage_5fget_5fmount_5fpoint_11',['storage_get_mount_point',['../storage_8h.html#ac98b76bc834defb11025b066be4ab456',1,'storage_get_mount_point(void):&#160;storage.c'],['../storage_8c.html#ac98b76bc834defb11025b066be4ab456',1,'storage_get_mount_point(void):&#160;storage.c']]],
+  ['storage_5finit_12',['storage_init',['../storage_8h.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c'],['../storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c']]]
 ];

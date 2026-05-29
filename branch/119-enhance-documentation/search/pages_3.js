@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['hooks_0',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
+  ['installation_0',['🚀 Installation',['../index.html#autotoc_md-installation',1,'']]],
+  ['interface_1',['DMX-Interface',['../index.html',1,'']]]
 ];
