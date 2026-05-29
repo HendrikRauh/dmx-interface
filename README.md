@@ -1,7 +1,7 @@
 # ChaosDMX
 
 ChaosDMX is a Open-Source, multi-protocol DIY interface that acts as a versatile bridge between lighting
-control software (e.g., QLC+) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines.
+control software (e.g., [QLC+](https://www.qlcplus.org/)) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines.
 It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.
 
 The interface offers maximum connectivity by supporting industry-standard protocols like Art-Net, E1.31, and ESP-NOW
