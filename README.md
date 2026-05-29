@@ -9,7 +9,7 @@ and wireless technologies over both network and hardware interfaces.
 It is able to operate over a wired Ethernet connection or wirelessly over Wi-Fi.
 By providing a USB connection directly to a PC as a serial device, native plug and play compatibility with software is made possible.
 
-> [!NOTE]
+> [!WARNING]
 > This project is currently in a rewrite phase, we are currently switching the Framework from [Arduino](https://www.arduino.cc/) to [ESP-IDF](https://developer.espressif.com/tags/esp-idf/) and are reworking the codebase.
 > The current state is not stable, but you can check out the [legacy/arduino](https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino) branch.
 > Feel free to help us by [contributing](#-contributing) to the project!
