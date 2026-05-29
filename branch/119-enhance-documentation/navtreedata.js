@@ -31,6 +31,7 @@ var NAVTREE =
     [ "📦 Case", "index.html#autotoc_md-case", null ],
     [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
     [ "⚙️ Config", "index.html#️-config", [
+      [ "Project Overview: ChaosDMX", "index.html#project-overview-chaosdmx", null ],
       [ "Default config", "index.html#default-config", null ]
     ] ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
