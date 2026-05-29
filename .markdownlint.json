@@ -3,21 +3,21 @@
   "MD004": {
     "style": "dash"
   },
+  "MD012": {
+    "maximum": 2
+  },
   "MD013": {
     "line_length": 300,
     "tables": true,
     "code_blocks": true
   },
-  "MD033": false,
-  "MD012": {
-    "maximum": 2
+  "MD024": {
+    "siblings_only": false
   },
   "MD026": {
     "punctuation": ".,;:!"
   },
-  "MD024": {
-    "siblings_only": false
-  },
+  "MD033": false,
   "MD046": {
     "style": "fenced"
   },
