@@ -184,7 +184,7 @@ If you are not using the dev-shell, the action runner will do the check on the r
 
 ### Documentation
 
-Further documentation including data structures and code can be found [here](https://hendrikrauh.github.io/dmx-interface/).
+Further documentation including data structures and code can be found [hendrikrauh.github.io/dmx-interface](https://hendrikrauh.github.io/dmx-interface/).
 [Doxygen](https://www.doxygen.nl/) is used to generate the documentation from the source code, you can also generate it locally by running `inv docs` or `inv docs -o` to open it in your browser after generation.
 Functions, variables, and data structures should be documented using Doxygen comments, look at the [Doxygen manual](https://www.doxygen.nl/manual/docblocks.html) for more information on how to write these comments.
 
