@@ -43,6 +43,7 @@ partition_table/build/
 .pre-commit-config.yaml
 .cache
 .cspellcache
+.cspell
 
 # Python / virtualenvs
 __pycache__/

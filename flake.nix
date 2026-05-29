@@ -18,6 +18,22 @@
     pkgs = nixpkgs.legacyPackages.${system};
     system = "x86_64-linux";
 
+    germanDict = pkgs.stdenv.mkDerivation {
+      name = "cspell-dict-de";
+      src = pkgs.fetchurl {
+        url = "https://registry.npmjs.org/@cspell/dict-de-de/-/dict-de-de-4.1.2.tgz";
+        hash = "sha256-bikoewusguLv1UvP2x3k9/KpSfBfNP1H88Xfqa1zaUE=";
+      };
+
+      # cspell:ignore-words dont
+      dontBuild = true;
+      dontConfigure = true;
+      installPhase = ''
+        mkdir -p $out
+        cp -r * $out/
+      '';
+    };
+
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
@@ -160,7 +176,6 @@
     checks.${system}.pre-commit-check = pre-commit-check;
 
     devShells.${system}.default = pkgs.mkShell {
-      inherit (pre-commit-check) shellHook;
       buildInputs =
         pre-commit-check.enabledPackages
         ++ [
@@ -172,6 +187,13 @@
           pkgs.python3Packages.invoke
           pkgs.svgo
         ];
+      shellHook =
+        pre-commit-check.shellHook
+        + ''
+          # Set up cspell dictionary files
+          mkdir -p .cspell
+          ln -sfn ${germanDict} .cspell/dict-de-de
+        '';
     };
   };
 }
