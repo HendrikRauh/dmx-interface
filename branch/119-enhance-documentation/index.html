@@ -316,7 +316,7 @@ Prusa Slicer with case loaded</div></div>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="️-config"></a>
 ⚙️ Config</h1>
-<p>You can configure the device by connecting to the WiFi network and accessing the web interface via the IP address configured or the default listed below.</p>
+<p>You can configure the device by connecting to the WiFi network and accessing the web interface via the default (listed below) or configured IP address.</p>
 <h2 class="doxsection"><a class="anchor" id="default-config"></a>
 Default config</h2>
 <p>To reset the settings, hold down the button and connect the ESP to the power supply, the LED will flash rapidly. After 3 seconds the LED will turn solid and the settings are reset. If you release the button early, you will abort the reset and the LED will flash slowly.</p>
@@ -324,36 +324,36 @@ Default config</h2>
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone">Setting  </th><th class="markdownTableHeadNone">Value  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">TYPE  </td><td class="markdownTableBodyNone">WiFi AP  </td></tr>
+<td class="markdownTableBodyNone">Type  </td><td class="markdownTableBodyNone">WiFi AP  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">SSID  </td><td class="markdownTableBodyNone">ChaosDMX-□□□□  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">PASSWORD  </td><td class="markdownTableBodyNone">ChaosDMX  </td></tr>
+<td class="markdownTableBodyNone">Password  </td><td class="markdownTableBodyNone">ChaosDMX  </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">IP-Address  </td><td class="markdownTableBodyNone">192.168.4.1  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">DMX1 (Left)  </td><td class="markdownTableBodyNone">OUTPUT; Universe 1  </td></tr>
+<td class="markdownTableBodyNone">DMX0  </td><td class="markdownTableBodyNone">OUTPUT; Universe 1  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">DMX2 (Right)  </td><td class="markdownTableBodyNone">INPUT; Universe 2  </td></tr>
+<td class="markdownTableBodyNone">DMX1  </td><td class="markdownTableBodyNone">INPUT; Universe 2  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">LED Brightness  </td><td class="markdownTableBodyNone">10 %  </td></tr>
 </table>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="‍-development"></a>
 🧑‍💻 Development</h1>
-<p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer. If you don't want to use Nix make sure you install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you're on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Under WSL further steps are required, needs research! <a href="https://learn.microsoft.com/en-us/windows/wsl/connect-usb">USB usage</a> etc (usbipd-win)</dd></dl>
+<p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you are on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session.</p>
+<dl class="section warning"><dt>Warning</dt><dd>Under WSL, further steps are required, needs research! <a href="https://learn.microsoft.com/en-us/windows/wsl/connect-usb">USB usage</a> etc (usbipd-win)</dd></dl>
 <h2 class="doxsection"><a class="anchor" id="setup-nix"></a>
 Setup NIX</h2>
-<dl class="section warning"><dt>Warning</dt><dd>There is a nix installer that enables flakes by default, we should recommend this</dd></dl>
-<p>For usage of the development environment, you need to have the nix package manager installed on your system. In addition, you need to enable flakes support by adding the following lines to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
+<dl class="section warning"><dt>Warning</dt><dd>There is a nix installer that enables flakes by default, which we recommend</dd></dl>
+<p>For usage of the development environment, having the nix package manager installed on your system is required. In addition, you need to enable flakes support by adding the following lines to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
 <div class="fragment"><div class="line">experimental-features = nix-command flakes</div>
-</div><!-- fragment --><p>You can do this by running the following command that installs you nix and enables flakes support:</p>
+</div><!-- fragment --><p>You can do this by running the following command that installs nix and enables flakes support:</p>
 <div class="fragment"><div class="line">curl -L https://nixos.org/nix/install | sh</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="setup-direnv-optional"></a>
 Setup direnv (optional)</h2>
-<p>In addition you can use <a href="https://direnv.net/">direnv</a> to automatically enter the development environment when you navigate to the project folder. You can install it by following <a href="https://direnv.net/docs/installation.html">the instructions on their website</a>.</p>
-<p>The first time, you need to allow the <span class="tt">.envrc</span> file by running <span class="tt">direnv allow</span> in the project folder. After that, you can just navigate to the project folder and you will automatically enter the development environment.</p>
+<p>Optionally, you are able to use <a href="https://direnv.net/">direnv</a> to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on <a href="https://direnv.net/docs/installation.html">their website</a>.</p>
+<p>When using it for the first time, you need to allow the <span class="tt">.envrc</span> file by running <span class="tt">direnv allow</span> in the project folder. Afterwards, you can simply navigate to the project folder and you will automatically enter the development environment.</p>
 <h2 class="doxsection"><a class="anchor" id="commands"></a>
 Commands</h2>
 <p>This project uses <a href="https://www.pyinvoke.org/">invoke</a> to simplify running common commands. Run <span class="tt">inv --list</span> to see all available tasks or have a look at the <span class="tt"><a class="el" href="tasks_8py.html">tasks.py</a></span> file.</p>
@@ -372,10 +372,10 @@ Commands</h2>
 </table>
 <h2 class="doxsection"><a class="anchor" id="pre-commit-hooks"></a>
 Pre-commit hooks</h2>
-<p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks. When you use the dev-shell these run before your commit and format the code etc. If you're not using the dev-shell don't worry, the action runner does the check on the repo again and will check it for you.</p>
+<p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks. When using the dev-shell, these run before your commit and format the code etc. If you are not using the dev-shell, the action runner will do the check on the repository again and check it for you.</p>
 <h2 class="doxsection"><a class="anchor" id="documentation"></a>
 Documentation</h2>
-<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">DMX-Interface</a>. This uses <a href="https://www.doxygen.nl/">Doxygen</a> to generate the documentation from the source code, you can also generate it locally by running <span class="tt">inv docs</span> or <span class="tt">inv docs -o</span> to open it in your browser after generation. Functions, variables, and data structures should be documented using Doxygen comments, see the <a href="https://www.doxygen.nl/manual/docblocks.html">Doxygen manual</a> for more information on how to write these comments.</p>
+<p>Further documentation including data structures and code can be found <a href="https://hendrikrauh.github.io/dmx-interface/">here</a>. <a href="https://www.doxygen.nl/">Doxygen</a> is used to generate the documentation from the source code, you can also generate it locally by running <span class="tt">inv docs</span> or <span class="tt">inv docs -o</span> to open it in your browser after generation. Functions, variables, and data structures should be documented using Doxygen comments, look at the <a href="https://www.doxygen.nl/manual/docblocks.html">Doxygen manual</a> for more information on how to write these comments.</p>
 <p>The documentation for your branch will be automatically generated and published under <span class="tt"><a href="https://hendrikrauh.github.io/dmx-interface/branch/">https://hendrikrauh.github.io/dmx-interface/branch/</a>&lt;your-branch-name&gt;</span> when you push your changes.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-contributing"></a>
