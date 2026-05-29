@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📦_20case_0',['📦 Case',['../index.html#autotoc_md-case',1,'']]]
+  ['🚀_20installation_20esp_20idf_0',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md-installation-esp-idf',1,'']]]
 ];

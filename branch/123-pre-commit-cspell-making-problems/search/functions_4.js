@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['error_0',['ERROR',['../namespacedoxy-coverage.html#aeda91262d9b9ddafd6da649d613fa126',1,'doxy-coverage']]]
+  ['flash_0',['flash',['../namespacetasks.html#a778977f563d7853b4ecaa9ebdae16d6b',1,'tasks']]],
+  ['format_1',['format',['../namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17',1,'tasks']]]
 ];
