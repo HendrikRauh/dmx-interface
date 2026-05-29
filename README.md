@@ -137,9 +137,12 @@ We provide a ready-to-use development environment using Nix, but you can also se
 If you're on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session.
 
 > [!WARNING]
-> Under WSL further steps are required, needs research! USB usage etc (usbipd-win)
+> Under WSL further steps are required, needs research! [USB usage](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) etc (usbipd-win)
 
 ### Setup NIX
+
+> [!WARNING]
+> There is a nix installer that enables flakes by default, we should recommend this
 
 For usage of the development environment, you need to have the nix package manager installed on your system. In addition, you need to enable flakes support by adding the following lines to your `~/.config/nix/nix.conf`:
 
