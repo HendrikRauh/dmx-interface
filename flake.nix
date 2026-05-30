@@ -42,6 +42,8 @@
         pexpect
         filelock
       ];
+    };
+
     germanDict = pkgs.stdenv.mkDerivation {
       name = "cspell-dict-de";
       src = pkgs.fetchurl {
