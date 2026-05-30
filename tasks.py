@@ -119,4 +119,4 @@ def docs_coverage(c):
 @task
 def test(c):
     """Run all tests via pytest"""
-    c.run("pytest")
+    subprocess.run("pytest")
