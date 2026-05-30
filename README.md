@@ -8,8 +8,7 @@
 ChaosDMX is an open-source, multi-protocol DIY [DMX](https://en.wikipedia.org/wiki/DMX512) interface that acts as a versatile bridge between lighting
 control software (e.g., [QLC+](https://www.qlcplus.org/)) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines.
 It features two fully configurable ports that can be individually set up as either DMX-Input or DMX-Output.
-
-The interface supports [Art-Net](https://art-net.org.uk/) and [sACN / E1.31](https://entertainment.sundrax.com/blog/ultimate-guide-sacn-control-lighting-over-network). It is able to operate over an Ethernet connection or over Wi-Fi.
+The interface supports [Art-Net](https://art-net.org.uk/) and [sACN / E1.31](https://entertainment.sundrax.com/blog/ultimate-guide-sacn-control-lighting-over-network) and is able to operate over an Ethernet connection or over Wi-Fi.
 
 ______________________________________________________________________
 
@@ -39,7 +38,7 @@ ______________________________________________________________________
 > [!IMPORTANT]
 > You need to enable the termination resistor required for DMX for the first and last devices in the chain on your board. On the board we used (RS485 boards) we had to short-circuit `R0` to do so.
 
-Have a look at the following diagram for how to wire the components together, the table below shows the pinout of the ESP32 and how to connect them to it.
+The following diagram demonstrates how to wire the components together, in the table below you can see how to connect the pinout of the ESP32 with your project.
 
 <img src="assets/circuit/diagram.svg" onerror="this.onerror=null; this.src='diagram.svg';" alt="Circuit diagram">
 
