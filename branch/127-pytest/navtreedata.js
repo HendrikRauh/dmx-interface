@@ -41,7 +41,8 @@ var NAVTREE =
       [ "Setup direnv (optional)", "index.html#setup-direnv-optional", null ],
       [ "Commands", "index.html#commands", null ],
       [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ],
-      [ "Documentation", "index.html#documentation", null ]
+      [ "Documentation", "index.html#documentation", null ],
+      [ "Troubleshooting", "index.html#troubleshooting", null ]
     ] ],
     [ "🤝 Contributing", "index.html#autotoc_md-contributing", null ],
     [ "Namespaces", "namespaces.html", [
