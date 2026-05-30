@@ -18,6 +18,32 @@
     pkgs = nixpkgs.legacyPackages.${system};
     system = "x86_64-linux";
 
+    pytest-embedded = pkgs.python3Packages.buildPythonPackage rec {
+      # cspell:words pname
+      pname = "pytest-embedded";
+      version = "2.7.0";
+      format = "wheel";
+
+      src = pkgs.fetchurl {
+        url = "https://files.pythonhosted.org/packages/py3/p/pytest-embedded/pytest_embedded-2.7.0-py3-none-any.whl";
+        sha256 = "1dhyywz1hp7cx4hkxvkxv455mkgpijmav353x4mh5k3s0r2dfa02"; # cspell:disable-line
+      };
+
+      nativeBuildInputs = with pkgs.python3Packages; [
+        setuptools
+        wheel
+      ];
+
+      propagatedBuildInputs = with pkgs.python3Packages; [
+        pytest
+        pyyaml
+        pyserial
+        protobuf
+        pexpect
+        filelock
+      ];
+    };
+
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
@@ -164,6 +190,7 @@
           pkgs.graphviz
           pkgs.python3
           pkgs.python3Packages.invoke
+          pytest-embedded
           pkgs.svgo
         ];
     };

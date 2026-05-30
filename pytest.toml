@@ -1,0 +1,5 @@
+# cspell: enableCompoundWords
+[pytest]
+addopts = ["--import-mode=importlib"]
+testpaths = ["tests"]
+strict = true
