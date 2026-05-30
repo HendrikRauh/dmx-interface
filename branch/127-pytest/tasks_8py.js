@@ -12,5 +12,6 @@ var tasks_8py =
     [ "tasks.reset", "namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6", null ],
     [ "tasks.run", "namespacetasks.html#a3e2fb17663586732e0f6aa00520bcb4e", null ],
     [ "tasks.saveconfig", "namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1", null ],
+    [ "tasks.test", "namespacetasks.html#a061b616c30ba650e4a9abe2518d97535", null ],
     [ "tasks.update", "namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac", null ]
 ];
