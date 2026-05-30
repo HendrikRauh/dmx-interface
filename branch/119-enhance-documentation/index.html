@@ -186,8 +186,8 @@ $(function(){initNavTree('index.html','',''); });
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="md_README"></a></p>
 <dl class="section warning"><dt>Warning</dt><dd>This project is currently in a rewrite phase, we are currently switching the Framework from <a href="https://www.arduino.cc/">Arduino</a> to <a href="https://developer.espressif.com/tags/esp-idf/">ESP-IDF</a> and are reworking the codebase. The current state is not stable, but you can check out the <a href="https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino">legacy/arduino</a> branch. Feel free to help us by <a class="el" href="#autotoc_md-contributing" title="🤝 Contributing">contributing</a> to the project!</dd></dl>
-<p>ChaosDMX is an open-source, multi-protocol DIY interface that acts as a versatile bridge between lighting control software (e.g., <a href="https://www.qlcplus.org/">QLC+</a>) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features two fully configurable DMX ports that can be individually set up as either DMX Input or DMX Output.</p>
-<p>The interface offers maximum connectivity by supporting industry-standard protocols like Art-Net, E1.31, and ESP-NOW and wireless technologies over both network and hardware interfaces. It is able to operate over a wired Ethernet connection or wirelessly over Wi-Fi. By providing a USB connection directly to a PC as a serial device, native plug and play compatibility with software is made possible.</p>
+<p>ChaosDMX is an open-source, multi-protocol DIY <a href="https://en.wikipedia.org/wiki/DMX512">DMX</a> interface that acts as a versatile bridge between lighting control software (e.g., <a href="https://www.qlcplus.org/">QLC+</a>) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines. It features two fully configurable ports that can be individually set up as either DMX-Input or DMX-Output.</p>
+<p>The interface supports <a href="https://art-net.org.uk/">Art-Net</a> and <a href="https://entertainment.sundrax.com/blog/ultimate-guide-sacn-control-lighting-over-network">sACN / E1.31</a>. It is able to operate over an Ethernet connection or over Wi-Fi.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
 🛒 Parts</h1>
@@ -203,24 +203,24 @@ $(function(){initNavTree('index.html','',''); });
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">LED-Button  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♂️-DMX-socket  </td></tr>
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♂️-XLR-socket  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♀️-DMX-socket  </td></tr>
+<td class="markdownTableBodyNone">1x  </td><td class="markdownTableBodyNone">♀️-XLR-socket  </td></tr>
 </table>
 <p>Additionally, you need:</p>
 <ul>
 <li>some wires</li>
 <li>soldering equipment</li>
 <li>3D-printer</li>
-<li>small screws (see <a class="el" href="#autotoc_md-case" title="📦 Case">case</a>)</li>
+<li>some screws (see <a class="el" href="#autotoc_md-case" title="📦 Case">case</a>)</li>
 <li>heat shrink tubing</li>
-<li>hot glue gun</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-wiring"></a>
 🔌 Wiring</h1>
-<dl class="section important"><dt>Important</dt><dd>You have to short-circuit <span class="tt">R0</span> on the RS485 boards to enable the termination resistor required for DMX for the first and last devices in the chain.</dd></dl>
-<p>Have a look at the following diagram for how to wire the components together, the table below shows the pinout of the ESP32 and how to connect them to it.</p>
+<dl class="section important"><dt>Important</dt><dd>You need to enable the termination resistor required for DMX for the first and last devices in the chain on your board. On the board we used (RS485 boards) we had to short-circuit <span class="tt">R0</span> to do so. <br  />
+<br  />
+ Have a look at the following diagram for how to wire the components together, the table below shows the pinout of the ESP32 and how to connect them to it.</dd></dl>
 <p><img src="assets/circuit/diagram.svg" alt="Circuit diagram" onerror="this.onerror=null; this.src=&apos;diagram.svg&apos;;" style="pointer-events: none;" class="inline"/></p>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -373,7 +373,7 @@ Pre-commit hooks</h2>
 <p>This project uses <a href="https://github.com/cachix/git-hooks.nix">git-hooks.nix</a> to run code quality, formatting, and consistency checks. When using the dev-shell, these run before your commit and format the code etc. If you are not using the dev-shell, the action runner will do the check on the repository again and check it for you.</p>
 <h2 class="doxsection"><a class="anchor" id="documentation"></a>
 Documentation</h2>
-<p>Further documentation including data structures and code can be found <a href="https://hendrikrauh.github.io/dmx-interface/">hendrikrauh.github.io/dmx-interface</a>. <a href="https://www.doxygen.nl/">Doxygen</a> is used to generate the documentation from the source code, you can also generate it locally by running <span class="tt">inv docs</span> or <span class="tt">inv docs -o</span> to open it in your browser after generation. Functions, variables, and data structures should be documented using Doxygen comments, look at the <a href="https://www.doxygen.nl/manual/docblocks.html">Doxygen manual</a> for more information on how to write these comments.</p>
+<p>Further documentation including data structures and code can be found on <a href="https://hendrikrauh.github.io/dmx-interface/">hendrikrauh.github.io/dmx-interface</a>. <a href="https://www.doxygen.nl/">Doxygen</a> is used to generate the documentation from the source code, you can also generate it locally by running <span class="tt">inv docs</span> or <span class="tt">inv docs -o</span> to open it in your browser after generation. Functions, variables, and data structures should be documented using Doxygen comments, look at the <a href="https://www.doxygen.nl/manual/docblocks.html">Doxygen manual</a> for more information on how to write these comments.</p>
 <p>The documentation for your branch will be automatically generated and published under <span class="tt"><a href="https://hendrikrauh.github.io/dmx-interface/branch/">https://hendrikrauh.github.io/dmx-interface/branch/</a>&lt;your-branch-name&gt;</span> when you push your changes.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-contributing"></a>
