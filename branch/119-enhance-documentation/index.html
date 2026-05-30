@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>ChaosDMX: ChaosDMX</title>
+    <title>ChaosDMX</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -279,7 +279,7 @@ Prusa Slicer with case loaded</div></div>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">6x  </td><td class="markdownTableBodyNone">M2x5 screw  </td><td class="markdownTableBodyNone">Case lid, ESP32  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">2x  </td><td class="markdownTableBodyNone">M2,5x5 screw  </td><td class="markdownTableBodyNone">W5500  </td></tr>
+<td class="markdownTableBodyNone">2x  </td><td class="markdownTableBodyNone">M2.5x5 screw  </td><td class="markdownTableBodyNone">W5500  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone">4x  </td><td class="markdownTableBodyNone">M3 screw  </td><td class="markdownTableBodyNone">XLR sockets  </td></tr>
 <tr class="markdownTableRowEven">
@@ -338,17 +338,20 @@ Default config</h2>
 <h1 class="doxsection"><a class="anchor" id="‍-development"></a>
 🧑‍💻 Development</h1>
 <p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you are on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session.</p>
-<dl class="section warning"><dt>Warning</dt><dd>Under WSL, further steps are required, needs research! <a href="https://learn.microsoft.com/en-us/windows/wsl/connect-usb">USB usage</a> etc (usbipd-win)</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Under WSL, further steps are required, needs research! <a href="https://learn.microsoft.com/en-us/windows/wsl/connect-usb">USB usage</a> etc (usbipd-win)</dd></dl>
 <h2 class="doxsection"><a class="anchor" id="setup-nix"></a>
 Setup NIX</h2>
-<dl class="section warning"><dt>Warning</dt><dd>There is a nix installer that enables flakes by default, which we recommend</dd></dl>
-<p>For usage of the development environment, having the nix package manager installed on your system is required. In addition, you need to enable flakes support by adding the following lines to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
+<p>For usage of the development environment, having the nix package manager with flakes-support installed on your system is required. There are two main ways how you can install the nix package manager on your system.</p>
+<h3 class="doxsection"><a class="anchor" id="via-terminatesystems-recommended"></a>
+via terminate.systems (recommended)</h3>
+<p>Have a look at <a href="https://determinate.systems/nix-installer/">their website</a>, there is a single command to run, after this you may restart the system or log out.</p>
+<h3 class="doxsection"><a class="anchor" id="via-nixosorg"></a>
+via nixos.org</h3>
+<p>If you want to use the bare nix installer visit <a href="https://nixos.org/download/">nixos.org/download</a> and follow the steps there. If you are done with the installation of nix you need to enable flakes support by adding the following line to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
 <div class="fragment"><div class="line">experimental-features = nix-command flakes</div>
-</div><!-- fragment --><p>You can do this by running the following command that installs nix and enables flakes support:</p>
-<div class="fragment"><div class="line">curl -L https://nixos.org/nix/install | sh</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="setup-direnv-optional"></a>
 Setup direnv (optional)</h2>
-<p>Optionally, you are able to use <a href="https://direnv.net/">direnv</a> to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on <a href="https://direnv.net/docs/installation.html">their website</a>.</p>
+<p>Optionally, you are able to use direnv to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on <a href="https://direnv.net/docs/installation.html">their website</a>.</p>
 <p>When using it for the first time, you need to allow the <span class="tt">.envrc</span> file by running <span class="tt">direnv allow</span> in the project folder. Afterwards, you can simply navigate to the project folder and you will automatically enter the development environment.</p>
 <h2 class="doxsection"><a class="anchor" id="commands"></a>
 Commands</h2>

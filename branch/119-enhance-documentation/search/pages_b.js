@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['⚙️_20config_0',['⚙️ Config',['../index.html#️-config',1,'']]]
+  ['usage_0',['Usage',['../logger_8h.html#usage',1,'']]]
 ];

@@ -12,5 +12,6 @@ var searchData=
   ['storage_2ec_9',['storage.c',['../storage_8c.html',1,'']]],
   ['storage_2eh_10',['storage.h',['../storage_8h.html',1,'']]],
   ['storage_5fget_5fmount_5fpoint_11',['storage_get_mount_point',['../storage_8h.html#ac98b76bc834defb11025b066be4ab456',1,'storage_get_mount_point(void):&#160;storage.c'],['../storage_8c.html#ac98b76bc834defb11025b066be4ab456',1,'storage_get_mount_point(void):&#160;storage.c']]],
-  ['storage_5finit_12',['storage_init',['../storage_8h.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c'],['../storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c']]]
+  ['storage_5finit_12',['storage_init',['../storage_8h.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c'],['../storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e',1,'storage_init(void):&#160;storage.c']]],
+  ['systems_20recommended_13',['via terminate.systems (recommended)',['../index.html#via-terminatesystems-recommended',1,'']]]
 ];

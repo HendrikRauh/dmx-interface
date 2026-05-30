@@ -45,6 +45,8 @@ var NAVTREEINDEX0 =
 "index.html#pre-commit-hooks":[6,3],
 "index.html#setup-direnv-optional":[6,1],
 "index.html#setup-nix":[6,0],
+"index.html#via-nixosorg":[6,0,1],
+"index.html#via-terminatesystems-recommended":[6,0,0],
 "index.html#‍-development":[6],
 "index.html#️-config":[5],
 "logger_8h.html":[10,0,0,1,0,0],

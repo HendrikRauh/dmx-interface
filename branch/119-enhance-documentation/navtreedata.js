@@ -34,7 +34,10 @@ var NAVTREE =
       [ "Default config", "index.html#default-config", null ]
     ] ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
-      [ "Setup NIX", "index.html#setup-nix", null ],
+      [ "Setup NIX", "index.html#setup-nix", [
+        [ "via terminate.systems (recommended)", "index.html#via-terminatesystems-recommended", null ],
+        [ "via nixos.org", "index.html#via-nixosorg", null ]
+      ] ],
       [ "Setup direnv (optional)", "index.html#setup-direnv-optional", null ],
       [ "Commands", "index.html#commands", null ],
       [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ],
