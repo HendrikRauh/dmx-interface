@@ -87,7 +87,7 @@ In addition to the print you will need:
 | Count | Part | Location |
 | --- | --- | --- |
 | 6x | M2x5 screw | Case lid, ESP32 |
-| 2x | M2,5x5 screw | W5500 |
+| 2x | M2.5x5 screw | W5500 |
 | 4x | M3 screw | XLR sockets |
 | 4x | M3 nut | XLR sockets |
 
@@ -131,29 +131,29 @@ ______________________________________________________________________
 We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the `buildInputs` section in `flake.nix`.
 If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session.
 
-> [!WARNING]
+> [!NOTE]
 > Under WSL, further steps are required, needs research! [USB usage](https://learn.microsoft.com/en-us/windows/wsl/connect-usb) etc (usbipd-win)
 
 ### Setup NIX
 
-> [!WARNING]
-> There is a nix installer that enables flakes by default, which we recommend
+For usage of the development environment, having the nix package manager with flakes-support installed on your system is required.
+There are two main ways how you can install the nix package manager on your system.
 
-For usage of the development environment, having the nix package manager installed on your system is required. In addition, you need to enable flakes support by adding the following lines to your `~/.config/nix/nix.conf`:
+#### via terminate.systems (recommended)
+
+Have a look at [their website](https://determinate.systems/nix-installer/), there is a single command to run, after this you may restart the system or log out.
+
+#### via nixos.org
+
+If you want to use the bare nix installer visit [nixos.org/download](https://nixos.org/download/) and follow the steps there. If you are done with the installation of nix you need to enable flakes support by adding the following line to your `~/.config/nix/nix.conf`:
 
 ```conf
 experimental-features = nix-command flakes
 ```
 
-You can do this by running the following command that installs nix and enables flakes support:
-
-```bash
-curl -L https://nixos.org/nix/install | sh
-```
-
 ### Setup direnv (optional)
 
-Optionally, you are able to use [direnv](https://direnv.net/) to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on [their website](https://direnv.net/docs/installation.html).
+Optionally, you are able to use direnv to automatically enter the development environment whenever you navigate to the project folder. Further installation instructions can be found on [their website](https://direnv.net/docs/installation.html).
 
 When using it for the first time, you need to allow the `.envrc` file by running `direnv allow` in the project folder.
 Afterwards, you can simply navigate to the project folder and you will automatically enter the development environment.
