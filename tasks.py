@@ -114,3 +114,9 @@ def docs_coverage(c):
     subprocess.run(
         "python tools/doxy-coverage.py docs/doxygen/xml --no-error", shell=True
     )
+
+
+@task
+def test(c):
+    """Run all tests via pytest"""
+    c.run("pytest")
