@@ -1,7 +1,7 @@
 var namespaces_dup =
 [
-    [ "example_test", "namespaceexample__test.html", [
-      [ "test_basic_expect", "namespaceexample__test.html#a21bd7b8eb145d82c13cca7c385800323", null ]
+    [ "example", "namespaceexample.html", [
+      [ "test_basic_expect", "namespaceexample.html#a7f724845b6e9a4ae05e20af560cff2fa", null ]
     ] ],
     [ "tasks", "namespacetasks.html", [
       [ "build", "namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7", null ],

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>tests/example_test.py File Reference</title>
+    <title>tests/example.py Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -155,7 +155,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('example__test_8py.html','',''); });
+$(function(){initNavTree('example_8py_source.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -181,35 +181,35 @@ $(function(){initNavTree('example__test_8py.html','',''); });
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">example_test.py File Reference</div></div>
+  <div class="headertitle"><div class="title">example.py</div></div>
 </div><!--header-->
 <div class="contents">
-
-<p><a href="example__test_8py_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:example_5Ftest" id="r_example_5Ftest"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceexample__test.html">example_test</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a21bd7b8eb145d82c13cca7c385800323" id="r_a21bd7b8eb145d82c13cca7c385800323"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="namespaceexample__test.html#a21bd7b8eb145d82c13cca7c385800323">example_test.test_basic_expect</a> (redirect, Dut dut)</td></tr>
-</table>
-</div><!-- contents -->
+<a href="example_8py.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="namespaceexample.html">    1</a></span><span class="keyword">from</span> pytest_embedded <span class="keyword">import</span> Dut</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="foldopen" id="foldopen00004" data-start="" data-end="">
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="namespaceexample.html#a7f724845b6e9a4ae05e20af560cff2fa">    4</a></span><span class="keyword">def </span><a class="code hl_function" href="namespaceexample.html#a7f724845b6e9a4ae05e20af560cff2fa">test_basic_expect</a>(redirect, dut: Dut):</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="stringliteral">&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="stringliteral">    Example test showing the basic usage of expect and expect_exact and</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="stringliteral">    to verify that pytest is running properly.</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="stringliteral">    &quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">with</span> redirect():</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>        print(<span class="stringliteral">&quot;this would be redirected&quot;</span>)</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    dut.expect(<span class="stringliteral">&quot;this&quot;</span>)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    dut.expect_exact(<span class="stringliteral">&quot;would&quot;</span>)</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    dut.expect(<span class="stringliteral">&quot;[be]{2}&quot;</span>)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    dut.expect_exact(<span class="stringliteral">&quot;redirected&quot;</span>)</div>
+</div>
+<div class="ttc" id="anamespaceexample_html_a7f724845b6e9a4ae05e20af560cff2fa"><div class="ttname"><a href="namespaceexample.html#a7f724845b6e9a4ae05e20af560cff2fa">example.test_basic_expect</a></div><div class="ttdeci">test_basic_expect(redirect, Dut dut)</div><div class="ttdef"><b>Definition</b> <a href="#l00004">example.py:4</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div id="page-nav" class="page-nav-panel">
-<div id="page-nav-resize-handle"></div>
-<div id="page-nav-tree">
-<div id="page-nav-contents">
-</div><!-- page-nav-contents -->
-</div><!-- page-nav-tree -->
-</div><!-- page-nav -->
 </div><!-- container -->
 <!-- cspell: words: navpath -->
 <!-- HTML footer for doxygen 1.16.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><ul>
-    <li class="navelem"><a href="dir_59425e443f801f1f2fd8bbe4959a3ccf.html">tests</a></li><li class="navelem"><a href="example__test_8py.html">example_test.py</a></li>
+    <li class="navelem"><a href="dir_59425e443f801f1f2fd8bbe4959a3ccf.html">tests</a></li><li class="navelem"><a href="example_8py.html">example.py</a></li>
     <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
   </ul>
 </div>
