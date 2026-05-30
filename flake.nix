@@ -18,6 +18,22 @@
     pkgs = nixpkgs.legacyPackages.${system};
     system = "x86_64-linux";
 
+    germanDict = pkgs.stdenv.mkDerivation {
+      name = "cspell-dict-de";
+      src = pkgs.fetchurl {
+        url = "https://registry.npmjs.org/@cspell/dict-de-de/-/dict-de-de-4.1.2.tgz";
+        hash = "sha256-bikoewusguLv1UvP2x3k9/KpSfBfNP1H88Xfqa1zaUE=";
+      };
+
+      # cspell:ignore-words dont
+      dontBuild = true;
+      dontConfigure = true;
+      installPhase = ''
+        mkdir -p $out
+        cp -r * $out/
+      '';
+    };
+
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
@@ -102,12 +118,18 @@
           enable = true;
           name = "doxygen code coverage";
           entry = "tools/doxy-coverage.py docs/doxygen/xml --threshold=100 --generate-docs";
-          files = "\\.(c|h|cpp|hpp)$";
+          files = "\\.(c|cc|cxx|cxxm|cpp|cppm|ccm|c++|c++m|java|ii|ixx|ipp|i++|inl|idl|ddl|odl|h|hh|hxx|hpp|h++|l|cs|d|php|php4|php5|phtml|inc|m|markdown|md|mm|dox|py|pyw|f90|f95|f03|f08|f18|f|for|vhd|vhdl|ucf|qsf|ice)$"; # cspell:disable-line
           pass_filenames = false;
         };
         markdownlint.enable = true;
-        mdformat.enable = true;
-        cspell.enable = true;
+        mdformat = {
+          enable = true;
+          args = ["--number"];
+        };
+        cspell = {
+          enable = true;
+          args = ["--no-must-find-files"];
+        };
 
         # C/C++ & Build-Systems
         clang-format = {
@@ -154,7 +176,6 @@
     checks.${system}.pre-commit-check = pre-commit-check;
 
     devShells.${system}.default = pkgs.mkShell {
-      inherit (pre-commit-check) shellHook;
       buildInputs =
         pre-commit-check.enabledPackages
         ++ [
@@ -166,6 +187,13 @@
           pkgs.python3Packages.invoke
           pkgs.svgo
         ];
+      shellHook =
+        pre-commit-check.shellHook
+        + ''
+          # Set up cspell dictionary files
+          mkdir -p .cspell
+          ln -sfn ${germanDict} .cspell/dict-de-de
+        '';
     };
   };
 }
