@@ -37,8 +37,8 @@ ______________________________________________________________________
 ## 🔌 Wiring
 
 > [!IMPORTANT]
->  You need to enable the termination resistor required for DMX for the first and last devices in the chain on your board. On the board we used (RS485 boards) we had to short-circuit `R0` to do so.
-> 
+> You need to enable the termination resistor required for DMX for the first and last devices in the chain on your board. On the board we used (RS485 boards) we had to short-circuit `R0` to do so.
+
 Have a look at the following diagram for how to wire the components together, the table below shows the pinout of the ESP32 and how to connect them to it.
 
 <img src="assets/circuit/diagram.svg" onerror="this.onerror=null; this.src='diagram.svg';" alt="Circuit diagram">
