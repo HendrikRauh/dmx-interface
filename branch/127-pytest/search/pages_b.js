@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['setup_0',['Environment setup',['../index.html#autotoc_md7',1,'']]],
-  ['status_20led_1',['💡 Status LED',['../index.html#autotoc_md10',1,'']]]
+  ['usage_0',['Usage',['../logger_8h.html#usage',1,'']]]
 ];

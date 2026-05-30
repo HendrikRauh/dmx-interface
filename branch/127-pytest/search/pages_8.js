@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['microcontrollers_0',['📱 Implemented microcontrollers',['../index.html#autotoc_md2',1,'']]]
+  ['recommended_0',['via terminate.systems (recommended)',['../index.html#via-terminatesystems-recommended',1,'']]]
 ];

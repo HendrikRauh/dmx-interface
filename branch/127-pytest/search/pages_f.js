@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['⚙️_20default_20config_0',['⚙️ Default config',['../index.html#autotoc_md11',1,'']]]
+  ['💡_20status_20led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]]
 ];

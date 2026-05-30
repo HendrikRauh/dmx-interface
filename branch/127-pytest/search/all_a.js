@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['networks_2ejs_0',['networks.js',['../networks_8js.html',1,'']]]
+  ['max_5furi_5fhandlers_0',['max_uri_handlers',['../structwebserver__config__t.html#ab58318e6e968285ec7e44723369ac4f3',1,'webserver_config_t']]],
+  ['monitor_1',['monitor',['../namespacetasks.html#a04548314494b6270efa73e5b7cad6e60',1,'tasks']]]
 ];
