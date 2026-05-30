@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['parts_0',['🛒 Parts',['../index.html#autotoc_md1',1,'']]],
-  ['port_1',['port',['../structwebserver__config__t.html#ae62caeef1bff2fb47253b1ee0d1c509a',1,'webserver_config_t']]],
-  ['pre_20commit_20hooks_2',['Pre-commit hooks',['../index.html#autotoc_md8',1,'']]]
+  ['optional_0',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
+  ['org_1',['via nixos.org',['../index.html#via-nixosorg',1,'']]]
 ];

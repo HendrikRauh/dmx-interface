@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🚀_20installation_20esp_20idf_0',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md4',1,'']]]
+  ['🚀_20installation_0',['🚀 Installation',['../index.html#autotoc_md-installation',1,'']]]
 ];
