@@ -47,6 +47,8 @@
     "direnv",
     "Doxyfile",
     "envrc",
+    "ESPTOOL",
+    "esptool",
     "fetchurl",
     "filelock",
     "fullclean",

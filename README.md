@@ -182,6 +182,14 @@ Functions, variables, and data structures should be documented using Doxygen com
 
 The documentation for your branch will be automatically generated and published under `https://hendrikrauh.github.io/dmx-interface/branch/<your-branch-name>` when you push your changes.
 
+### Troubleshooting
+
+We had an issue that the `inv flash` fails with a protocol error, to fix it we put the ESP in bootloader-mode and flash directly
+
+```bash
+ESPTOOL_BEFORE=usb_reset esptool.py --chip esp32s2 -p /dev/ttyACM0 -b 460800 write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 build/bootloader/bootloader.bin 0x10000 build/dmx-interface.bin 0x8000 build/partition_table/partition-table.bin 0x110000 build/storage.bin
+```
+
 ______________________________________________________________________
 
 ## 🤝 Contributing
