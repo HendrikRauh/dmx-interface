@@ -14,3 +14,7 @@ sdkconfig.old
 *.svg
 # Ignore dependencies
 dependencies.lock
+
+# Ignore doxygen header / footer (unclosed / unopened div that is required)
+assets/doxygen/header.html
+assets/doxygen/footer.html

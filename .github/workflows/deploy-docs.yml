@@ -26,16 +26,7 @@ jobs:
           touch docs/doxygen/html/.nojekyll
         shell: bash
 
-      - name: Deploy Main Docs
-        if: github.ref == 'refs/heads/idf'
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages
-          folder: docs/doxygen/html
-          clean: false
-
-      - name: Deploy Feature Branch Docs
-        if: github.ref != 'refs/heads/idf'
+      - name: Deploy Branch Docs
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages

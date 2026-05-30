@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "import": ["https://cdn.jsdelivr.net/npm/@cspell/dict-de-de/cspell-ext.json"],
+  "import": [".cspell/dict-de-de/cspell-ext.json"],
   "ignorePaths": [
     ".cspell.json",
     ".git",
@@ -52,6 +52,7 @@
     "fullclean",
     "graphviz",
     "Hendrik",
+    "hendrikrauh",
     "joltwallet",
     "littlefs",
     "LOGD",
@@ -68,6 +69,7 @@
     "nixos",
     "nixpkgs",
     "pexpect",
+    "pinout",
     "pkgs",
     "Prusa",
     "psram",
@@ -87,6 +89,8 @@
     "shfmt",
     "someweisguy",
     "statix",
+    "stdenv",
+    "usbipd",
     "VBUS",
     "venv",
     "virtualenvs",
