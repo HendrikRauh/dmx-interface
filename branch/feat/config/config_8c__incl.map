@@ -1,0 +1,17 @@
+<map id="components/config/src/config.c" name="components/config/src/config.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="216,5,384,50"/>
+<area shape="rect" id="Node000002" href="$config_8h.html" title="Configuration management component utilizing NVS. Provides an abstraction layer to read,..." alt="" coords="216,98,288,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,52,270,86,265,83,285,49"/>
+<area shape="rect" id="Node000007" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="362,98,436,126"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="328,48,373,86,370,90,324,52"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,86,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="217,129,98,171,96,166,215,124"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="110,174,192,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="236,128,183,167,180,162,232,124"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="216,174,289,201"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="255,126,255,158,250,158,250,126"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="313,174,383,201"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="271,124,321,162,317,166,268,128"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="408,174,491,201"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="410,125,434,159,430,162,406,128"/>
+</map>

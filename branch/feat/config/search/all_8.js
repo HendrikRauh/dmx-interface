@@ -2,7 +2,7 @@ var searchData=
 [
   ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]],
   ['littlefs_5fmount_5fpoint_1',['LITTLEFS_MOUNT_POINT',['../storage_8c.html#a82a9ae0986f65cbf7f753091674034a9',1,'storage.c']]],
-  ['log_5ftag_2',['LOG_TAG',['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
+  ['log_5ftag_2',['LOG_TAG',['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
   ['logd_3',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
   ['loge_4',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
   ['logger_2eh_5',['logger.h',['../logger_8h.html',1,'']]],
