@@ -1,0 +1,7 @@
+<map id="health_check_handler" name="health_check_handler">
+<area shape="rect" id="Node000001" title="HTTP handler for API health check (GET /api/health)." alt="" coords="313,5,476,33"/>
+<area shape="rect" id="Node000002" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="139,5,265,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,22,265,22,265,16,297,16"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,22,91,22,91,16,123,16"/>
+</map>
