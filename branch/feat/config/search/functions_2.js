@@ -1,25 +1,4 @@
 var searchData=
 [
-  ['clean_0',['clean',['../namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4',1,'tasks']]],
-  ['cleanbuild_1',['cleanbuild',['../namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c',1,'tasks']]],
-  ['config_2',['config',['../namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1',1,'tasks']]],
-  ['config_5fget_5fconnection_3',['config_get_connection',['../config_8h.html#a6ac096d28ccd844ad0805e9199cae521',1,'config.h']]],
-  ['config_5fget_5fdmx_5fdirection_4',['config_get_dmx_direction',['../config_8h.html#a6bff9e6513073f020ea80a448ba91748',1,'config.h']]],
-  ['config_5fget_5fdmx_5funiverse_5',['config_get_dmx_universe',['../config_8h.html#a793ee6fb85596d53cb37451d283c2213',1,'config.h']]],
-  ['config_5fget_5fip_5fmethod_6',['config_get_ip_method',['../config_8h.html#a1f52726707a24c67fc1b23fecf5b548c',1,'config.h']]],
-  ['config_5fget_5fled_5fbrightness_7',['config_get_led_brightness',['../config_8h.html#a30bb8db7736fceae486f36005a411f5e',1,'config.h']]],
-  ['config_5fget_5fwifi_5fap_5fpassword_8',['config_get_wifi_ap_password',['../config_8h.html#a00b63aba2e008c5fc64964e49a308d9b',1,'config.h']]],
-  ['config_5fget_5fwifi_5fap_5fssid_9',['config_get_wifi_ap_ssid',['../config_8h.html#a8eb85ee1e5916e4c9ef149ff806e3795',1,'config.h']]],
-  ['config_5fget_5fwifi_5fsta_5fpassword_10',['config_get_wifi_sta_password',['../config_8h.html#acfd4c117f8c6d48cb637f37d663a2bba',1,'config.h']]],
-  ['config_5fget_5fwifi_5fsta_5fssid_11',['config_get_wifi_sta_ssid',['../config_8h.html#abc39d0969d3eabd28c5f8f3271ef644b',1,'config.h']]],
-  ['config_5finit_12',['config_init',['../config_8h.html#ace6647db1f20678900580f60562dea57',1,'config.h']]],
-  ['config_5freset_5fdefaults_13',['config_reset_defaults',['../config_8h.html#a19524afa3401ea2d7c375af232cf8f39',1,'config.h']]],
-  ['config_5fsave_14',['config_save',['../config_8h.html#adbf182647ef90017c070ed7a4d0504fb',1,'config.h']]],
-  ['config_5fset_5fconnection_15',['config_set_connection',['../config_8h.html#acf23a2850b1dc6112805708e41b6885c',1,'config.h']]],
-  ['config_5fset_5fdmx_5fdirection_16',['config_set_dmx_direction',['../config_8h.html#aa3dc55021718291541a7f7365a1e3b77',1,'config.h']]],
-  ['config_5fset_5fdmx_5funiverse_17',['config_set_dmx_universe',['../config_8h.html#a77ebd1978a4e2d0591e020597ac5f7f3',1,'config.h']]],
-  ['config_5fset_5fip_5fmethod_18',['config_set_ip_method',['../config_8h.html#a2dbc7956fb60b78f8bc2d96a74eeb764',1,'config.h']]],
-  ['config_5fset_5fled_5fbrightness_19',['config_set_led_brightness',['../config_8h.html#a0f49b78b8b22ac39ef5ed8a15597818b',1,'config.h']]],
-  ['config_5fset_5fwifi_5fap_5fcreds_20',['config_set_wifi_ap_creds',['../config_8h.html#a5ec3e63e11576ce1ee3fc460e1219d3f',1,'config.h']]],
-  ['config_5fset_5fwifi_5fsta_5fcreds_21',['config_set_wifi_sta_creds',['../config_8h.html#a290ef1d59e04e65c886af894c6814519',1,'config.h']]]
+  ['build_0',['build',['../namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7',1,'tasks']]]
 ];

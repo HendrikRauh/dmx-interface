@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['build_0',['build',['../namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7',1,'tasks']]]
+  ['app_5fmain_0',['app_main',['../dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70',1,'dmx-interface.c']]]
 ];
