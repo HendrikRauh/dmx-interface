@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 
+#include "dmx.h"
 #include "esp_err.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -33,6 +34,8 @@ void app_main(void) {
 
   LOGI("Web server started successfully");
   LOGI("Open http://192.168.4.1 in your browser");
+
+  init_dmx(DMX_NUM_1, 21, 33);
 
   // Keep the app running
   while (1) {
