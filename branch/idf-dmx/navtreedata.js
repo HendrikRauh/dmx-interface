@@ -24,37 +24,45 @@
 */
 var NAVTREE =
 [
-  [ "DMX-Interface", "index.html", [
-    [ "🛒 Parts", "index.html#autotoc_md1", null ],
-    [ "📱 Implemented microcontrollers", "index.html#autotoc_md2", null ],
-    [ "🔌 Wiring", "index.html#autotoc_md3", null ],
-    [ "🚀 Installation (ESP-IDF)", "index.html#autotoc_md4", null ],
-    [ "🧑‍💻 Development", "index.html#autotoc_md5", [
-      [ "Required tools", "index.html#autotoc_md6", null ],
-      [ "Environment setup", "index.html#autotoc_md7", null ],
-      [ "Pre-commit hooks", "index.html#autotoc_md8", null ]
+  [ "ChaosDMX", "index.html", [
+    [ "🛒 Parts", "index.html#autotoc_md-parts", null ],
+    [ "🔌 Wiring", "index.html#autotoc_md-wiring", null ],
+    [ "🚀 Installation", "index.html#autotoc_md-installation", null ],
+    [ "📦 Case", "index.html#autotoc_md-case", null ],
+    [ "💡 Status LED", "index.html#autotoc_md-status-led", null ],
+    [ "⚙️ Config", "index.html#️-config", [
+      [ "Default config", "index.html#default-config", null ]
     ] ],
-    [ "📦 Case", "index.html#autotoc_md9", null ],
-    [ "💡 Status LED", "index.html#autotoc_md10", null ],
-    [ "⚙️ Default config", "index.html#autotoc_md11", null ],
-    [ "🤝 Contributing", "index.html#autotoc_md12", null ],
-    [ "👥 Authors", "index.html#autotoc_md13", [
-      [ "<a href=\"https://chaostreff-backnang.de/\">Chaostreff Backnang</a>", "index.html#autotoc_md14", null ],
-      [ "<a href=\"https://github.com/HendrikRauh\">@HendrikRauh</a>", "index.html#autotoc_md15", null ],
-      [ "<a href=\"https://github.com/RaffaelW\">@RaffaelW</a>", "index.html#autotoc_md16", null ],
-      [ "<a href=\"https://github.com/psxde\">@psxde</a>", "index.html#autotoc_md17", null ]
+    [ "🧑‍💻 Development", "index.html#‍-development", [
+      [ "Setup NIX", "index.html#setup-nix", [
+        [ "via terminate.systems (recommended)", "index.html#via-terminatesystems-recommended", null ],
+        [ "via nixos.org", "index.html#via-nixosorg", null ]
+      ] ],
+      [ "Setup direnv (optional)", "index.html#setup-direnv-optional", null ],
+      [ "Commands", "index.html#commands", null ],
+      [ "Pre-commit hooks", "index.html#pre-commit-hooks", null ],
+      [ "Documentation", "index.html#documentation", null ],
+      [ "Troubleshooting", "index.html#troubleshooting", null ]
     ] ],
-    [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Members", "functions.html", [
+    [ "🤝 Contributing", "index.html#autotoc_md-contributing", null ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ]
+      ] ]
+    ] ],
+    [ "Data Structures", "annotated.html", [
+      [ "Data Structures", "annotated.html", "annotated_dup" ],
+      [ "Data Structure Index", "classes.html", null ],
+      [ "Data Fields", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
+      [ "Globals", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],

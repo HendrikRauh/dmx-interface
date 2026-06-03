@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['task_5fpriority_0',['task_priority',['../structwebserver__config__t.html#a6bdb6be3162ed98d32358e1aa6efdf05',1,'webserver_config_t']]],
-  ['tools_1',['Required tools',['../index.html#autotoc_md6',1,'']]]
+  ['readme_2emd_0',['README.md',['../README_8md.html',1,'']]],
+  ['recommended_1',['via terminate.systems (recommended)',['../index.html#via-terminatesystems-recommended',1,'']]],
+  ['reset_2',['reset',['../namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6',1,'tasks']]]
 ];

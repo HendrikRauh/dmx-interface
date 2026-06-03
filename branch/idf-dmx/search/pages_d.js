@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usage_0',['Usage',['../logger_8h.html#usage',1,'']]]
+  ['wiring_0',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
 ];

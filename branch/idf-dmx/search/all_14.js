@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📦_20case_0',['📦 Case',['../index.html#autotoc_md9',1,'']]]
+  ['⚙️_20config_0',['⚙️ Config',['../index.html#️-config',1,'']]]
 ];

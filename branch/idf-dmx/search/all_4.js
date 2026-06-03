@@ -1,5 +1,13 @@
 var searchData=
 [
-  ['environment_20setup_0',['Environment setup',['../index.html#autotoc_md7',1,'']]],
-  ['esp_20idf_1',['🚀 Installation (ESP-IDF)',['../index.html#autotoc_md4',1,'']]]
+  ['default_20config_0',['Default config',['../index.html#default-config',1,'']]],
+  ['development_1',['🧑‍💻 Development',['../index.html#‍-development',1,'']]],
+  ['direnv_20optional_2',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
+  ['dmx_2dinterface_2ec_3',['dmx-interface.c',['../dmx-interface_8c.html',1,'']]],
+  ['dmx_2ec_4',['dmx.c',['../dmx_8c.html',1,'']]],
+  ['dmx_2eh_5',['dmx.h',['../dmx_8h.html',1,'']]],
+  ['dmx_5fsender_5ftask_6',['dmx_sender_task',['../dmx_8c.html#a37ff8430c1cb1a31097b574fa0289924',1,'dmx.c']]],
+  ['docs_7',['docs',['../namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56',1,'tasks']]],
+  ['docs_5fcoverage_8',['docs_coverage',['../namespacetasks.html#aa328785601148775faf61b4a721045c0',1,'tasks']]],
+  ['documentation_9',['Documentation',['../index.html#documentation',1,'']]]
 ];
