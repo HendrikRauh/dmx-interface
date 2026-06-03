@@ -1,105 +1,114 @@
+# cspell:ignore: JTAG UART FTDI Espressif
+
 from invoke import task
 from invoke.exceptions import Exit
 import os
+import serial.tools.list_ports
 import shutil
-import subprocess
 import webbrowser
+
+
+def _find_esp_port():
+    """Finds the first matching USB port based on known ESP VIDs/PIDs."""
+    # Known IDs for ESP boards and common USB-UART bridges
+    ESP_IDENTIFIERS = [
+        (0x303A, None),  # Espressif (e.g., ESP32-S3/C3 native USB-JTAG-Serial)
+        (0x10C4, 0xEA60),  # Silicon Labs CP210x (very common on ESP32)
+        (0x1A86, 0x7523),  # WCH CH340 (common on budget ESP boards)
+        (0x0403, 0x6001),  # FTDI FT232R
+    ]
+
+    ports = serial.tools.list_ports.comports()
+
+    for port in ports:
+        # Check if VID/PID match
+        for vid, pid in ESP_IDENTIFIERS:
+            if port.vid == vid and (pid is None or port.pid == pid):
+                return port.device
+
+    # Fallback to default if no matching device is found
+    return "/dev/ttyUSB0"
 
 
 @task
 def cleanbuild(c):
     """Clean build: fullclean and build the project"""
-    c.run("idf.py fullclean")
-    c.run("idf.py build")
+    c.run("idf.py fullclean", pty=True)
+    c.run("idf.py build", pty=True)
 
 
 @task
 def build(c):
     """Build the project"""
-    c.run("idf.py build")
+    c.run("idf.py build", pty=True)
 
 
 @task
-def flash(c):
+def flash(c, port=None):
     """Flash the project to device"""
-    c.run("idf.py flash")
+    target_port = port if port else _find_esp_port()
+    print(f"-> Using serial port for flashing: {target_port}")
+    c.run(f"idf.py -p {target_port} flash", pty=True)
 
 
 @task
-def monitor(c, port="/dev/ttyUSB0"):
+def monitor(c, port=None):
     """Monitor serial output from device"""
-    c.run(f"idf.py monitor -p {port}")
-
-
-@task
-def run(c, port="/dev/ttyUSB0"):
-    """Build, flash, and monitor in sequence"""
-    build(c)
-    flash(c)
-    monitor(c, port)
+    target_port = port if port else _find_esp_port()
+    print(f"-> Using serial port: {target_port}")
+    c.run(f"idf.py monitor -p {target_port}", pty=True)
 
 
 @task
 def clean(c):
     """Clean build artifacts"""
-    c.run("idf.py fullclean")
+    c.run("idf.py fullclean", pty=True)
 
 
 @task
 def config(c):
     """Open menuconfig to edit project settings"""
-    is_windows = os.name == "nt"
-    if is_windows:
-        # Windows doesn't provide a POSIX pty, not sure how to open menuconfig interactive
-        print(
-            "Please run 'idf.py menuconfig' directly in the terminal to edit project settings. This option is not supported in the invoke task on Windows."
-        )
-    else:
-        c.run("idf.py menuconfig --color-scheme=monochrome", pty=True)
+    c.run("idf.py menuconfig", pty=True)
 
 
 @task
 def saveconfig(c):
     """Save current config as sdkconfig.defaults"""
-    c.run("idf.py save-defconfig")
+    c.run("idf.py save-defconfig", pty=True)
 
 
 @task
 def update(c):
     """Update project dependencies"""
-    c.run("idf.py update-dependencies")
+    c.run("idf.py update-dependencies", pty=True)
 
 
 @task
 def reset(c):
     """Reset project to clean state: remove build, config, and managed components"""
-    if os.path.exists("sdkconfig"):
-        os.remove("sdkconfig")
-    if os.path.exists("sdkconfig.old"):
-        os.remove("sdkconfig.old")
-    if os.path.exists("build"):
-        shutil.rmtree("build")
-    if os.path.exists("managed_components"):
-        shutil.rmtree("managed_components")
+    files_to_remove = ["sdkconfig", "sdkconfig.old"]
+    dirs_to_remove = ["build", "managed_components"]
+
+    for f in files_to_remove:
+        if os.path.exists(f):
+            os.remove(f)
+
+    for d in dirs_to_remove:
+        if os.path.exists(d):
+            shutil.rmtree(d)
 
 
 @task
 def format(c):
     """Format all source files using pre-commit hooks"""
-
-    is_windows = os.name == "nt"
-    if is_windows:
-        # Windows doesn't provide a POSIX pty
-        c.run("pre-commit run --all-files")
-    else:
-        c.run("pre-commit run --all-files", pty=True)
+    c.run("pre-commit run --all-files", pty=True)
 
 
 @task(help={"o": "Open documentation in the default browser after generation."})
 def docs(c, o=False):
     """Generate Doxygen documentation."""
-    proc = subprocess.run("doxygen Doxyfile", shell=True)
-    if proc.returncode == 0:
+    result = c.run("doxygen Doxyfile", warn=True)
+    if result.ok:
         path = "docs/doxygen/html/index.html"
         print(f"\n✓ Documentation generated in {path}")
         if o:
@@ -111,6 +120,4 @@ def docs(c, o=False):
 @task
 def docs_coverage(c):
     """List doxygen coverage of documentation."""
-    subprocess.run(
-        "python tools/doxy-coverage.py docs/doxygen/xml --no-error", shell=True
-    )
+    c.run("python tools/doxy-coverage.py docs/doxygen/xml --no-error", pty=True)
