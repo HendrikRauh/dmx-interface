@@ -1,9 +1,0 @@
-<map id="tasks.run" name="tasks.run">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,57,87,85"/>
-<area shape="rect" id="Node000002" href="$namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7" title=" " alt="" coords="144,5,236,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="86,54,134,36,136,41,88,59"/>
-<area shape="rect" id="Node000003" href="$namespacetasks.html#a778977f563d7853b4ecaa9ebdae16d6b" title=" " alt="" coords="145,57,236,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="87,68,129,68,129,74,87,74"/>
-<area shape="rect" id="Node000004" href="$namespacetasks.html#a04548314494b6270efa73e5b7cad6e60" title=" " alt="" coords="135,109,246,137"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="88,83,136,101,134,106,86,88"/>
-</map>

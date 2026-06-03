@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['default_20config_0',['Default config',['../index.html#default-config',1,'']]],
-  ['development_1',['🧑‍💻 Development',['../index.html#‍-development',1,'']]],
-  ['direnv_20optional_2',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
-  ['dmx_2dinterface_2ec_3',['dmx-interface.c',['../dmx-interface_8c.html',1,'']]],
-  ['dmx_2ec_4',['dmx.c',['../dmx_8c.html',1,'']]],
-  ['dmx_2eh_5',['dmx.h',['../dmx_8h.html',1,'']]],
-  ['docs_6',['docs',['../namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56',1,'tasks']]],
-  ['docs_5fcoverage_7',['docs_coverage',['../namespacetasks.html#aa328785601148775faf61b4a721045c0',1,'tasks']]],
-  ['documentation_8',['Documentation',['../index.html#documentation',1,'']]]
+  ['case_0',['📦 Case',['../index.html#autotoc_md-case',1,'']]],
+  ['chaosdmx_1',['ChaosDMX',['../index.html',1,'']]],
+  ['clean_2',['clean',['../namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4',1,'tasks']]],
+  ['cleanbuild_3',['cleanbuild',['../namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c',1,'tasks']]],
+  ['commands_4',['Commands',['../index.html#commands',1,'']]],
+  ['commit_20hooks_5',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]],
+  ['config_6',['⚙️ Config',['../index.html#️-config',1,'']]],
+  ['config_7',['config',['../namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1',1,'tasks.config()'],['../index.html#default-config',1,'Default config']]],
+  ['contributing_8',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]]
 ];

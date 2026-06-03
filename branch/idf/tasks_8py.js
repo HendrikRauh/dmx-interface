@@ -1,16 +1,16 @@
 var tasks_8py =
 [
+    [ "tasks._find_esp_port", "namespacetasks.html#a7e34b2c5d3cc2f921141ed7eef89b001", null ],
     [ "tasks.build", "namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7", null ],
     [ "tasks.clean", "namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4", null ],
     [ "tasks.cleanbuild", "namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c", null ],
     [ "tasks.config", "namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1", null ],
     [ "tasks.docs", "namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56", null ],
     [ "tasks.docs_coverage", "namespacetasks.html#aa328785601148775faf61b4a721045c0", null ],
-    [ "tasks.flash", "namespacetasks.html#a778977f563d7853b4ecaa9ebdae16d6b", null ],
+    [ "tasks.flash", "namespacetasks.html#af1556e714853d8c36ec135da4ca3d9dc", null ],
     [ "tasks.format", "namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17", null ],
-    [ "tasks.monitor", "namespacetasks.html#a04548314494b6270efa73e5b7cad6e60", null ],
+    [ "tasks.monitor", "namespacetasks.html#a83c7344f678f37244547be5fc808c74a", null ],
     [ "tasks.reset", "namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6", null ],
-    [ "tasks.run", "namespacetasks.html#a3e2fb17663586732e0f6aa00520bcb4e", null ],
     [ "tasks.saveconfig", "namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1", null ],
     [ "tasks.update", "namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac", null ]
 ];

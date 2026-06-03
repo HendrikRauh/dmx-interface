@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['docs_0',['docs',['../namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56',1,'tasks']]],
-  ['docs_5fcoverage_1',['docs_coverage',['../namespacetasks.html#aa328785601148775faf61b4a721045c0',1,'tasks']]]
+  ['clean_0',['clean',['../namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4',1,'tasks']]],
+  ['cleanbuild_1',['cleanbuild',['../namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c',1,'tasks']]],
+  ['config_2',['config',['../namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1',1,'tasks']]]
 ];
