@@ -1,0 +1,5 @@
+<map id="led_generator_task" name="led_generator_task">
+<area shape="rect" id="Node000001" title="Generic asynchronous generator for LED effects." alt="" coords="5,5,152,33"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="200,5,316,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="152,16,184,16,184,22,152,22"/>
+</map>

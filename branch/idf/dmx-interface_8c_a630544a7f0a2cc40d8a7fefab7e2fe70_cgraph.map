@@ -1,19 +1,40 @@
 <map id="app_main" name="app_main">
-<area shape="rect" id="Node000001" title="Main entry point for the DMX Interface application." alt="" coords="5,111,91,138"/>
-<area shape="rect" id="Node000002" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="139,84,265,112"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="91,115,123,109,124,114,92,120"/>
-<area shape="rect" id="Node000009" href="$wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc" title="Start WiFi Access Point (AP) mode." alt="" coords="150,136,254,164"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="91,129,135,136,134,141,91,134"/>
-<area shape="rect" id="Node000003" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="313,5,476,33"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="230,81,312,43,331,36,333,41,314,48,232,86"/>
-<area shape="rect" id="Node000004" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="324,57,465,85"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="265,86,309,80,310,86,266,92"/>
-<area shape="rect" id="Node000007" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="346,109,444,137"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="266,103,331,112,330,117,265,109"/>
-<area shape="rect" id="Node000008" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="332,161,457,189"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="238,110,266,122,314,146,333,153,331,158,312,151,264,127,236,115"/>
-<area shape="rect" id="Node000005" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="556,32,680,60"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="465,61,541,52,541,57,466,66"/>
-<area shape="rect" id="Node000006" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="524,84,712,112"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="466,77,509,82,509,87,465,82"/>
+<area shape="rect" id="Node000001" title="Main entry point for the DMX Interface application." alt="" coords="5,159,91,186"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#a30bb8db7736fceae486f36005a411f5e" title="Gets the current status LED brightness level." alt="" coords="139,5,329,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="53,157,83,102,108,71,137,44,146,38,149,42,140,48,112,74,88,105,58,160"/>
+<area shape="rect" id="Node000003" href="$config_8c.html#ace6647db1f20678900580f60562dea57" title="Initializes the configuration component." alt="" coords="190,57,278,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="62,157,95,129,137,101,174,85,176,90,140,106,99,133,66,161"/>
+<area shape="rect" id="Node000005" href="$led_8c.html#aa976cc2095f7fc9974208fde3db3ca5e" title="Initializes the LEDC peripheral for the status LED." alt="" coords="647,107,717,134"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="90,160,138,151,278,136,417,126,631,118,632,124,417,132,279,141,139,156,91,165"/>
+<area shape="rect" id="Node000007" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="610,159,754,186"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="91,170,595,170,595,175,91,175"/>
+<area shape="rect" id="Node000008" href="$led_8c.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4" title="Sets the current operational mode of the LED." alt="" coords="178,209,290,237"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="92,181,166,202,165,207,90,187"/>
+<area shape="rect" id="Node000011" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="171,355,297,382"/>
+<area shape="poly" id="edge13_Node000001_Node000011" title=" " alt="" coords="64,185,210,341,207,345,61,188"/>
+<area shape="rect" id="Node000018" href="$wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc" title="Start WiFi Access Point (AP) mode." alt="" coords="182,407,286,434"/>
+<area shape="poly" id="edge20_Node000001_Node000018" title=" " alt="" coords="53,186,60,227,75,283,101,341,119,368,140,392,168,408,165,412,137,396,115,372,96,344,70,284,55,228,48,187"/>
+<area shape="rect" id="Node000004" href="$config_8c.html#ae211c3834b90a3f0d253ae52051471e0" title="Restores all configuration fields to their factory&#45;defined values in RAM." alt="" coords="378,57,540,85"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="279,68,362,68,362,74,279,74"/>
+<area shape="rect" id="Node000006" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="824,184,940,212"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="718,126,777,145,842,174,840,179,775,150,716,131"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="754,179,808,186,808,191,754,184"/>
+<area shape="poly" id="edge9_Node000008_Node000006" title=" " alt="" coords="290,218,808,198,808,203,290,224"/>
+<area shape="rect" id="Node000009" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="377,261,540,306"/>
+<area shape="poly" id="edge10_Node000008_Node000009" title=" " alt="" coords="289,235,363,255,361,260,288,240"/>
+<area shape="rect" id="Node000010" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="609,264,755,292"/>
+<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="541,279,593,277,594,283,541,284"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="720,261,775,239,832,216,834,221,777,244,722,266"/>
+<area shape="rect" id="Node000012" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="377,329,540,357"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="297,359,361,351,362,357,298,364"/>
+<area shape="rect" id="Node000013" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="388,381,529,409"/>
+<area shape="poly" id="edge15_Node000011_Node000013" title=" " alt="" coords="298,373,373,382,372,388,297,379"/>
+<area shape="rect" id="Node000016" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="410,433,508,461"/>
+<area shape="poly" id="edge18_Node000011_Node000016" title=" " alt="" coords="294,380,330,393,378,418,396,425,394,430,376,423,328,398,293,386"/>
+<area shape="rect" id="Node000017" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="396,485,521,513"/>
+<area shape="poly" id="edge19_Node000011_Node000017" title=" " alt="" coords="298,377,331,393,348,413,356,433,363,452,379,471,386,475,383,480,375,474,358,455,351,435,343,415,327,397,296,382"/>
+<area shape="rect" id="Node000014" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="620,356,744,384"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="529,385,605,376,605,381,530,390"/>
+<area shape="rect" id="Node000015" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="588,408,776,436"/>
+<area shape="poly" id="edge17_Node000013_Node000015" title=" " alt="" coords="530,401,573,406,573,411,529,406"/>
 </map>

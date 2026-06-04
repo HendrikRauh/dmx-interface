@@ -185,16 +185,19 @@ $(function(){initNavTree('dmx-interface_8c.html','',''); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;stdio.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
 <code>#include &quot;esp_err.h&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;freertos/task.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="logger_8h_source.html">logger.h</a>&quot;</code><br />
+<code>#include &quot;nvs_flash.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="web__server_8h_source.html">web_server.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="wifi_8h_source.html">wifi.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for dmx-interface.c:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmx-interface_8c__incl.svg" width="100%" height="442"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmx-interface_8c__incl.svg" width="100%" height="499"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="dmx-interface_8c_source.html">Go to the source code of this file.</a></p>
@@ -247,13 +250,13 @@ Functions</h2></td></tr>
 <p>Main entry point for the DMX Interface application. </p>
 <p>Initializes WiFi Access Point and starts the web server. Keeps the application running indefinitely. </p>
 
-<p class="definition">Definition at line <a class="el" href="dmx-interface_8c_source.html#l00018">18</a> of file <a class="el" href="dmx-interface_8c_source.html">dmx-interface.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="dmx-interface_8c_source.html#l00021">21</a> of file <a class="el" href="dmx-interface_8c_source.html">dmx-interface.c</a>.</p>
 
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, and <a class="el" href="wifi_8c_source.html#l00029">wifi_start_ap()</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00280">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00126">config_init()</a>, <a class="el" href="led_8c_source.html#l00117">led_init()</a>, <a class="el" href="led_8h_source.html#l00026">LED_MODE_BOOT_BREATHING</a>, <a class="el" href="led_8h_source.html#l00027">LED_MODE_NORMAL</a>, <a class="el" href="led_8c_source.html#l00178">led_set_brightness()</a>, <a class="el" href="led_8c_source.html#l00141">led_set_mode()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, and <a class="el" href="wifi_8c_source.html#l00029">wifi_start_ap()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmx-interface_8c_a630544a7f0a2cc40d8a7fefab7e2fe70_cgraph.svg" width="100%" height="446"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="dmx-interface_8c_a630544a7f0a2cc40d8a7fefab7e2fe70_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

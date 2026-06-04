@@ -1,0 +1,20 @@
+<map id="set_pwm_duty" name="set_pwm_duty">
+<area shape="rect" id="Node000001" title="Updates the physical LEDC duty cycle." alt="" coords="731,99,847,127"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="536,19,683,47"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="741,95,641,50,644,45,743,90"/>
+<area shape="rect" id="Node000004" href="$led_8c.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4" title="Sets the current operational mode of the LED." alt="" coords="139,72,251,100"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="715,111,683,109,252,91,252,86,683,104,715,106"/>
+<area shape="rect" id="Node000006" href="$led_8c.html#aa976cc2095f7fc9974208fde3db3ca5e" title="Initializes the LEDC peripheral for the status LED." alt="" coords="160,124,230,152"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="715,119,230,140,230,134,715,113"/>
+<area shape="rect" id="Node000007" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="538,175,681,203"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="741,136,645,177,643,172,739,131"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="312,5,475,50"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="521,33,476,32,476,27,521,28"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="302,57,245,74,244,69,301,52"/>
+<area shape="rect" id="Node000005" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,124,91,152"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="140,108,90,126,88,121,138,103"/>
+<area shape="poly" id="edge6_Node000006_Node000005" title=" " alt="" coords="144,141,91,141,91,136,144,136"/>
+<area shape="poly" id="edge8_Node000007_Node000005" title=" " alt="" coords="522,193,344,188,241,180,138,166,91,155,92,150,139,161,241,174,345,182,522,187"/>
+<area shape="rect" id="Node000008" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="299,226,488,254"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="533,210,456,228,455,223,532,204"/>
+</map>
