@@ -1,0 +1,15 @@
+<map id="components/storage/src/storage.c" name="components/storage/src/storage.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="145,5,300,50"/>
+<area shape="rect" id="Node000002" href="$storage_8h.html" title=" " alt="" coords="5,98,88,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="177,53,90,94,87,89,175,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="111,98,216,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="209,52,184,87,180,83,205,49"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="241,98,324,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="240,49,266,84,262,87,236,52"/>
+<area shape="rect" id="Node000006" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="348,98,422,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="267,48,347,88,344,93,264,53"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="6,174,87,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="49,126,49,158,44,158,44,126"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="344,174,427,201"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="388,126,388,158,382,158,382,126"/>
+</map>
