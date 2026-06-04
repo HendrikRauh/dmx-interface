@@ -33,6 +33,7 @@ def _find_esp_port():
 @task
 def build(c):
     """Build the project"""
+    c.run("cd web && npm run build")
     c.run("idf.py build", pty=True)
 
 
@@ -56,6 +57,10 @@ def monitor(c, port=None):
 def clean(c):
     """Clean build artifacts"""
     c.run("idf.py fullclean", pty=True)
+
+    path = "web/dist"
+    if os.path.exists(path):
+        shutil.rmtree(path)
 
 
 @task
