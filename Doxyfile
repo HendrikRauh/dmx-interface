@@ -1082,7 +1082,9 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE               = docs/external/ \
-                        tools/doxy-coverage.py
+                        tools/doxy-coverage.py \
+                        web/dist/ \
+                        web/node_modules/
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
