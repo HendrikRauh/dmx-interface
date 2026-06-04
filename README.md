@@ -103,7 +103,8 @@ We have a status LED-Button that shows the current state of the device.
 | ![static](/assets/led/static.svg) | powered on; normal |
 | ![boot](/assets/led/boot.svg) | startup |
 | ![slow](/assets/led/slow.svg) | warning |
-| ![fast](/assets/led/fast.svg) | resetting; error |
+| ![reset](/assets/led/reset.svg) | resetting |
+| ![fast](/assets/led/fast.svg) | error |
 
 ______________________________________________________________________
 

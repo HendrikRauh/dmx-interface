@@ -156,6 +156,11 @@ void led_set_mode(led_mode_t mode) {
     update_led_generator_unsafe(1000, true);
     break;
 
+  case LED_MODE_RESET:
+    s_active_max_brightness = 255;
+    update_led_generator_unsafe(300, true);
+    break;
+
   case LED_MODE_ERROR:
     s_active_max_brightness = 255;
     update_led_generator_unsafe(300, false);
@@ -168,6 +173,11 @@ void led_set_mode(led_mode_t mode) {
 
   case LED_MODE_NORMAL:
     s_active_max_brightness = s_config_brightness;
+    set_pwm_duty(s_active_max_brightness);
+    break;
+
+  case LED_MODE_OFF:
+    s_active_max_brightness = 0;
     set_pwm_duty(s_active_max_brightness);
     break;
   }

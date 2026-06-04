@@ -1,34 +1,54 @@
 /**
  * @file config.h
- * @brief Thread-safe configuration management component utilizing NVS.
- * Provides an abstraction layer to read, write, and validate application
- * settings without exposing internal storage structures.
+ * @brief Thread-safe configuration component utilizing NVS for ESP32.
+ *
+ * This header defines the public application configuration interface, including
+ * Wi-Fi credentials, DMX port settings, and system-wide parameters like
+ * LED brightness and button actions.
  */
 
 #pragma once
 
 #include "esp_err.h"
-#include "esp_wifi_types.h"
+#include "esp_wifi.h"
 #include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* --- System Constants --- */
+/**
+ * @brief Total number of physical DMX ports supported by the hardware.
+ */
+#define APP_CONFIG_DMX_PORT_COUNT 1
 
-#define APP_CONFIG_DMX_PORT_COUNT                                              \
-  2 /**< Number of physical DMX ports on the device */
+/**
+ * @brief Error/Invalid indicator for DMX universe.
+ */
+#define APP_CONFIG_INVALID_UNIVERSE 0xFFFF
 
-#define APP_CONFIG_WIFI_SSID_MAX_LEN                                           \
-  32 /**< Maximum length of Wi-Fi SSID including null-terminator */
-#define APP_CONFIG_WIFI_PASS_MAX_LEN                                           \
-  64 /**< Maximum length of Wi-Fi password including null-terminator */
+/**
+ * @brief Supported button event types that can be configured in the system.
+ */
+typedef enum {
+  APP_BUTTON_EVENT_SINGLE_CLICK,   /**< Triggered on a single short press */
+  APP_BUTTON_EVENT_DOUBLE_CLICK,   /**< Triggered on a rapid double press */
+  APP_BUTTON_EVENT_MULTIPLE_CLICK, /**< Triggered on multiple rapid presses */
+  APP_BUTTON_EVENT_LONG_HOLD, /**< Triggered once long-press duration is reached
+                               */
+  APP_BUTTON_EVENT_MAX
+} app_button_event_t;
 
-#define APP_CONFIG_INVALID_UNIVERSE                                            \
-  0xFFFF /**< Error/Invalid indicator for DMX universe */
+/**
+ * @brief Actions that can be dynamically assigned to button events.
+ */
+typedef enum {
+  APP_BUTTON_ACTION_NONE = 0,   /**< Do nothing */
+  APP_BUTTON_ACTION_TOGGLE_LED, /**< Toggle status LEDs or change brightness */
+  APP_BUTTON_ACTION_REBOOT,     /**< Restart only the Web Server / Wi-Fi */
+  APP_BUTTON_ACTION_MAX
+} config_button_action_t;
 
 /**
  * @brief IP assignment method configurations.
@@ -81,6 +101,13 @@ typedef enum {
   APP_CONFIG_DIR_OUTPUT /**< Fallback direction for all DMX ports */
 #define APP_CONFIG_DEFAULT_START_UNIVERSE                                      \
   1 /**< First port starts at universe X, increments per port */
+
+#define APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT                                    \
+  APP_BUTTON_ACTION_TOGGLE_LED /**< Default action for single click */
+#define APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT                                    \
+  APP_BUTTON_ACTION_NONE /**< Default action for double click */
+#define APP_CONFIG_DEFAULT_MULTI_CLICK_ACT                                     \
+  APP_BUTTON_ACTION_REBOOT /**< Default action for multi click */
 /** @} */
 
 /* --- Lifecycle Functions --- */
@@ -163,6 +190,22 @@ uint8_t config_get_led_brightness(void);
  * unchanged.
  */
 bool config_set_led_brightness(uint8_t brightness);
+
+/**
+ * @brief Retrieves the action assigned to a specific button event.
+ * @param[in] event The button event to query.
+ * @return The assigned @ref config_button_action_t.
+ */
+config_button_action_t config_get_button_action(app_button_event_t event);
+
+/**
+ * @brief Assigns a new action to a specific button event in RAM.
+ * @param[in] event The button event to modify.
+ * @param[in] action The @ref config_button_action_t to assign.
+ * @return true if updated, false if uninitialized, unchanged, or invalid.
+ */
+bool config_set_button_action(app_button_event_t event,
+                              config_button_action_t action);
 
 /* --- DMX Port Settings Get/Set --- */
 
