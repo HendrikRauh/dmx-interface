@@ -1,0 +1,558 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>web/node_modules/baseline-browser-mapping Directory Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_1df9bda78ae4eb535d9fbca59cdf1601.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">baseline-browser-mapping Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Directory dependency graph for baseline-browser-mapping:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dir_1df9bda78ae4eb535d9fbca59cdf1601_dep.svg" width="248" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="baseline-browser-mappinghttpsgithubcomweb-platform-dxweb-featurespackagesbaseline-browser-mapping"></a>
+[`baseline-browser-mapping`](<a href="https://github.com/web-platform-dx/web-features/packages/baseline-browser-mapping">https://github.com/web-platform-dx/web-features/packages/baseline-browser-mapping</a>)</h1>
+<p>By the <a href="https://www.w3.org/community/webdx/">W3C WebDX Community Group</a> and contributors.</p>
+<p><span class="tt">baseline-browser-mapping</span> provides:</p>
+<ul>
+<li>An <span class="tt">Array</span> of browsers compatible with Baseline Widely available and Baseline year feature sets via the <a class="el" href="#get-baseline-widely-available-browser-versions-or-baseline-year-browser-versions" title="Get Baseline Widely available browser versions or Baseline year browser versions">`getCompatibleVersions()` function</a>.</li>
+<li>An <span class="tt">Array</span>, <span class="tt">Object</span> or <span class="tt">CSV</span> as a string describing the Baseline feature set support of all browser versions included in the module's data set via the <a class="el" href="#get-data-for-all-browser-versions" title="Get data for all browser versions">`getAllVersions()` function</a>.</li>
+</ul>
+<p>You can use <span class="tt">baseline-browser-mapping</span> to help you determine minimum browser version support for your chosen Baseline feature set; or to analyse the level of support for different Baseline feature sets in your site's traffic by joining the data with your analytics data.</p>
+<h1 class="doxsection"><a class="anchor" id="install-for-local-development"></a>
+Install for local development</h1>
+<p>To install the package, run:</p>
+<p><span class="tt">npm install --save-dev baseline-browser-mapping</span></p>
+<p>The minimum supported NodeJS version for <span class="tt">baseline-browser-mapping</span> is v8 in alignment with <span class="tt">browserslist</span>. For NodeJS versions earlier than v13.2, the <a href="https://nodejs.org/api/modules.html#requireid"><span class="tt">require('baseline-browser-mapping')</span></a> syntax should be used to import the module.</p>
+<h1 class="doxsection"><a class="anchor" id="keeping-baseline-browser-mapping-up-to-date"></a>
+Keeping <span class="tt">baseline-browser-mapping</span> up to date</h1>
+<p><span class="tt">baseline-browser-mapping</span> depends on <span class="tt">web-features</span> and <span class="tt">@mdn/browser-compat-data</span> for core browser version selection, but the data is pre-packaged and minified. This package checks for updates to those modules and the supported <a class="el" href="#downstream-browsers" title="Downstream browsers">downstream browsers</a> on a daily basis and is updated frequently.</p>
+<p>If you are only using this module to generate minimum browser versions for Baseline Widely available or Baseline year feature sets, you don't need to update this module frequently, as the backward looking data is reasonably stable.</p>
+<p>However, if you are targeting Newly available, using the <a class="el" href="#get-data-for-all-browser-versions" title="Get data for all browser versions">`getAllVersions()`</a> function or heavily relying on the data for downstream browsers, you should update this module more frequently. If you target a feature cut off date within the last two months and your installed version of <span class="tt">baseline-browser-mapping</span> has data that is more than 2 months old, you will receive a console warning advising you to update to the latest version when you call <span class="tt">getCompatibleVersions()</span> or <span class="tt">getAllVersions()</span>.</p>
+<p>If you want to suppress the console warnings mentioned above you can use the <span class="tt">suppressWarnings: true</span> option in the configuration object passed to <span class="tt">getCompatibleVersions()</span> or <span class="tt">getAllVersions()</span>. Alternatively, you can use the <span class="tt">BASELINE_BROWSER_MAPPING_IGNORE_OLD_DATA=true</span> environment variable when running your build process. This module also respects the <span class="tt">BROWSERSLIST_IGNORE_OLD_DATA=true</span> environment variable. Environment variables can also be provided in a <span class="tt">.env</span> file from Node 20 onwards; however, this module does not load .env files automatically to avoid conflicts with other libraries with different requirements. You will need to use <span class="tt">process.loadEnvFile()</span> or a library like <span class="tt">dotenv</span> to load .env files before <span class="tt">baseline-browser-mapping</span> is called.</p>
+<p>If you're building a tool that uses this module, consider suppressing the warnings but building a process into your tool that automatically updates this module. See, for example, <a href="https://github.com/browserslist/browserslist/blob/main/node.js#L471"><span class="tt">browserslist</span></a> and its <a href="https://github.com/browserslist/update-db"><span class="tt">update-browserslist-db</span></a> package.</p>
+<p>If you're implementing <span class="tt">baseline-browser-mapping</span> directly, you should add a script to your <span class="tt">package.json</span> to update <span class="tt">baseline-browser-mapping</span> and use it as part of your build process to ensure your data is as up to date as possible. For example, if you are using NPM for package management:</p>
+<div class="fragment"><div class="line">&quot;scripts&quot;: [</div>
+<div class="line">  &quot;refresh-baseline-browser-mapping&quot;: &quot;npm i baseline-browser-mapping@latest -D&quot;</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>If you want to ensure <a href="https://www.wikiwand.com/en/articles/Reproducible_builds">reproducible builds</a>, we strongly recommend using the <span class="tt">widelyAvailableOnDate</span> option to fix the Widely available date on a per build basis to ensure dependent tools provide the same output and you do not produce data staleness warnings. If you are using <a href="https://github.com/browserslist/browserslist"><span class="tt">browserslist</span></a> to target Baseline Widely available, consider automatically updating your <span class="tt">browserslist</span> configuration in <span class="tt">package.json</span> or <span class="tt">.browserslistrc</span> to <span class="tt">baseline widely available on {YYYY-MM-DD}</span> as part of your build process to ensure the same or sufficiently similar list of minimum browsers is reproduced for historical builds.</p>
+<h1 class="doxsection"><a class="anchor" id="importing-baseline-browser-mapping"></a>
+Importing <span class="tt">baseline-browser-mapping</span></h1>
+<p>This module exposes two functions: <span class="tt">getCompatibleVersions()</span> and <span class="tt">getAllVersions()</span>, both which can be imported directly from <span class="tt">baseline-browser-mapping</span>:</p>
+<div class="fragment"><div class="line">import {</div>
+<div class="line">  getCompatibleVersions,</div>
+<div class="line">  getAllVersions,</div>
+<div class="line">} from &quot;baseline-browser-mapping&quot;;</div>
+</div><!-- fragment --><p>If you want to load the script and data directly in a web page without hosting it yourself, consider using a CDN:</p>
+<div class="fragment"><div class="line">&lt;script type=&quot;module&quot;&gt;</div>
+<div class="line">  import {</div>
+<div class="line">    getCompatibleVersions,</div>
+<div class="line">    getAllVersions,</div>
+<div class="line">  } from &quot;https://cdn.jsdelivr.net/npm/baseline-browser-mapping&quot;;</div>
+<div class="line">&lt;/script&gt;</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="get-baseline-widely-available-browser-versions-or-baseline-year-browser-versions"></a>
+Get Baseline Widely available browser versions or Baseline year browser versions</h1>
+<p>To get the current list of minimum browser versions compatible with Baseline Widely available features from the core browser set, call the <span class="tt">getCompatibleVersions()</span> function:</p>
+<div class="fragment"><div class="line">getCompatibleVersions();</div>
+</div><!-- fragment --><p>Executed on 7th March 2025, the above code returns the following browser versions:</p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  { browser: &quot;chrome&quot;, version: &quot;105&quot;, release_date: &quot;2022-09-02&quot; },</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;chrome_android&quot;,</div>
+<div class="line">    version: &quot;105&quot;,</div>
+<div class="line">    release_date: &quot;2022-09-02&quot;,</div>
+<div class="line">  },</div>
+<div class="line">  { browser: &quot;edge&quot;, version: &quot;105&quot;, release_date: &quot;2022-09-02&quot; },</div>
+<div class="line">  { browser: &quot;firefox&quot;, version: &quot;104&quot;, release_date: &quot;2022-08-23&quot; },</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;firefox_android&quot;,</div>
+<div class="line">    version: &quot;104&quot;,</div>
+<div class="line">    release_date: &quot;2022-08-23&quot;,</div>
+<div class="line">  },</div>
+<div class="line">  { browser: &quot;safari&quot;, version: &quot;15.6&quot;, release_date: &quot;2022-09-02&quot; },</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;safari_ios&quot;,</div>
+<div class="line">    version: &quot;15.6&quot;,</div>
+<div class="line">    release_date: &quot;2022-09-02&quot;,</div>
+<div class="line">  },</div>
+<div class="line">];</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The minimum versions of each browser are not necessarily the final release before the Widely available cutoff date of <span class="tt">TODAY - 30 MONTHS</span>. Some earlier versions will have supported the full Widely available feature set.</dd></dl>
+<h2 class="doxsection"><a class="anchor" id="getcompatibleversions-configuration-options"></a>
+<span class="tt">getCompatibleVersions()</span> configuration options</h2>
+<p><span class="tt">getCompatibleVersions()</span> accepts an <span class="tt">Object</span> as an argument with configuration options. The defaults are as follows:</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  targetYear: undefined,</div>
+<div class="line">  widelyAvailableOnDate: undefined,</div>
+<div class="line">  includeDownstreamBrowsers: false,</div>
+<div class="line">  listAllCompatibleVersions: false,</div>
+<div class="line">  suppressWarnings: false</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="targetyear"></a>
+<span class="tt">targetYear</span></h3>
+<p>The <span class="tt">targetYear</span> option returns the minimum browser versions compatible with all <b>Baseline Newly available</b> features at the end of the specified calendar year. For example, calling:</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  targetYear: 2020,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>Returns the following versions:</p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  { browser: &quot;chrome&quot;, version: &quot;87&quot;, release_date: &quot;2020-11-19&quot; },</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;chrome_android&quot;,</div>
+<div class="line">    version: &quot;87&quot;,</div>
+<div class="line">    release_date: &quot;2020-11-19&quot;,</div>
+<div class="line">  },</div>
+<div class="line">  { browser: &quot;edge&quot;, version: &quot;87&quot;, release_date: &quot;2020-11-19&quot; },</div>
+<div class="line">  { browser: &quot;firefox&quot;, version: &quot;83&quot;, release_date: &quot;2020-11-17&quot; },</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;firefox_android&quot;,</div>
+<div class="line">    version: &quot;83&quot;,</div>
+<div class="line">    release_date: &quot;2020-11-17&quot;,</div>
+<div class="line">  },</div>
+<div class="line">  { browser: &quot;safari&quot;, version: &quot;14&quot;, release_date: &quot;2020-09-16&quot; },</div>
+<div class="line">  { browser: &quot;safari_ios&quot;, version: &quot;14&quot;, release_date: &quot;2020-09-16&quot; },</div>
+<div class="line">];</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The minimum version of each browser is not necessarily the final version released in that calendar year. In the above example, Firefox 84 was the final version released in 2020; however Firefox 83 supported all of the features that were interoperable at the end of 2020. [!WARNING] You cannot use <span class="tt">targetYear</span> and <span class="tt">widelyAavailableDate</span> together. Please only use one of these options at a time.</dd></dl>
+<h3 class="doxsection"><a class="anchor" id="widelyavailableondate"></a>
+<span class="tt">widelyAvailableOnDate</span></h3>
+<p>The <span class="tt">widelyAvailableOnDate</span> option returns the minimum versions compatible with Baseline Widely available on a specified date in the format <span class="tt">YYYY-MM-DD</span>:</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  widelyAvailableOnDate: `2023-04-05`,</div>
+<div class="line">});</div>
+</div><!-- fragment --><dl class="section remark"><dt>Remarks</dt><dd>This option is useful if you provide a versioned library that targets Baseline Widely available on each version's release date and you need to provide a statement on minimum supported browser versions in your documentation.</dd></dl>
+<h3 class="doxsection"><a class="anchor" id="includedownstreambrowsers"></a>
+<span class="tt">includeDownstreamBrowsers</span></h3>
+<p>Setting <span class="tt">includeDownstreamBrowsers</span> to <span class="tt">true</span> will include browsers outside of the Baseline core browser set where it is possible to map those browsers to an upstream Chromium or Gecko version:</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  includeDownstreamBrowsers: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>For more information on downstream browsers, see <a class="el" href="#downstream-browsers" title="Downstream browsers">the section on downstream browsers</a> below.</p>
+<h3 class="doxsection"><a class="anchor" id="includekaios"></a>
+<span class="tt">includeKaiOS</span></h3>
+<p>KaiOS is an operating system and app framework based on the Gecko engine from Firefox. KaiOS is based on the Gecko engine and feature support can be derived from the upstream Gecko version that each KaiOS version implements. However KaiOS requires other considerations beyond feature compatibility to ensure a good user experience as it runs on device types that do not have either mouse and keyboard or touch screen input in the way that all the other browsers supported by this module do.</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  includeDownstreamBrowsers: true,</div>
+<div class="line">  includeKaiOS: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>Including KaiOS requires you to include all downstream browsers using the <span class="tt">includeDownstreamBrowsers</span> option.</dd></dl>
+<h3 class="doxsection"><a class="anchor" id="listallcompatibleversions"></a>
+<span class="tt">listAllCompatibleVersions</span></h3>
+<p>Setting <span class="tt">listAllCompatibleVersions</span> to true will include the minimum versions of each compatible browser, and all the subsequent versions:</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  listAllCompatibleVersions: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="suppresswarnings"></a>
+<span class="tt">suppressWarnings</span></h3>
+<p>Setting <span class="tt">suppressWarnings</span> to <span class="tt">true</span> will suppress the console warning about old data:</p>
+<div class="fragment"><div class="line">getCompatibleVersions({</div>
+<div class="line">  suppressWarnings: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="get-data-for-all-browser-versions"></a>
+Get data for all browser versions</h1>
+<p>You may want to obtain data on all the browser versions available in this module for use in an analytics solution or dashboard. To get details of each browser version's level of Baseline support, call the <span class="tt">getAllVersions()</span> function:</p>
+<div class="fragment"><div class="line">import { getAllVersions } from &quot;baseline-browser-mapping&quot;;</div>
+<div class="line"> </div>
+<div class="line">getAllVersions();</div>
+</div><!-- fragment --><p>By default, this function returns an <span class="tt">Array</span> of <span class="tt">Objects</span> and excludes downstream browsers:</p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  ...</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;firefox_android&quot;, // Browser name</div>
+<div class="line">    version: &quot;125&quot;, // Browser version</div>
+<div class="line">    release_date: &quot;2024-04-16&quot;, // Release date</div>
+<div class="line">    year: 2023, // Baseline year feature set the version supports</div>
+<div class="line">    wa_compatible: true // Whether the browser version supports Widely available</div>
+<div class="line">  },</div>
+<div class="line">  ...</div>
+<div class="line">]</div>
+</div><!-- fragment --><p>For browser versions in <span class="tt">@mdn/browser-compat-data</span> that were released before Baseline can be defined, i.e. Baseline 2015, the <span class="tt">year</span> property is always the string: <span class="tt">"pre_baseline"</span>.</p>
+<h2 class="doxsection"><a class="anchor" id="understanding-which-browsers-support-newly-available-features"></a>
+Understanding which browsers support Newly available features</h2>
+<p>You may want to understand which recent browser versions support all Newly available features. You can replace the <span class="tt">wa_compatible</span> property with a <span class="tt">supports</span> property using the <span class="tt">useSupport</span> option:</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  useSupports: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>The <span class="tt">supports</span> property is optional and has two possible values:</p>
+<ul>
+<li><span class="tt">widely</span> for browser versions that support all Widely available features.</li>
+<li><span class="tt">newly</span> for browser versions that support all Newly available features.</li>
+</ul>
+<p>Browser versions that do not support Widely or Newly available will not include the <span class="tt">support</span> property in the <span class="tt">array</span> or <span class="tt">object</span> outputs, and in the CSV output, the <span class="tt">support</span> column will contain an empty string. Browser versions that support all Newly available features also support all Widely available features.</p>
+<h2 class="doxsection"><a class="anchor" id="getallversions-configuration-options"></a>
+<span class="tt">getAllVersions()</span> Configuration options</h2>
+<p><span class="tt">getAllVersions()</span> accepts an <span class="tt">Object</span> as an argument with configuration options. The defaults are as follows:</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  includeDownstreamBrowsers: false,</div>
+<div class="line">  outputFormat: &quot;array&quot;,</div>
+<div class="line">  suppressWarnings: false</div>
+<div class="line">}</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="includedownstreambrowsers-in-getallversions-output"></a>
+<span class="tt">includeDownstreamBrowsers</span> (in <span class="tt">getAllVersions()</span> output)</h3>
+<p>As with <span class="tt">getCompatibleVersions()</span>, you can set <span class="tt">includeDownstreamBrowsers</span> to <span class="tt">true</span> to include the Chromium and Gecko downstream browsers <a class="el" href="#list-of-downstream-browsers" title="List of downstream browsers">listed below</a>.</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  includeDownstreamBrowsers: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>Downstream browsers include the same properties as core browsers, as well as the <span class="tt">engine</span>they use and <span class="tt">engine_version</span>, for example:</p>
+<div class="fragment"><div class="line">[</div>
+<div class="line">  ...</div>
+<div class="line">  {</div>
+<div class="line">    browser: &quot;samsunginternet_android&quot;,</div>
+<div class="line">    version: &quot;27.0&quot;,</div>
+<div class="line">    release_date: &quot;2024-11-06&quot;,</div>
+<div class="line">    engine: &quot;Blink&quot;,</div>
+<div class="line">    engine_version: &quot;125&quot;,</div>
+<div class="line">    year: 2023,</div>
+<div class="line">    supports: &quot;widely&quot;</div>
+<div class="line">  },</div>
+<div class="line">  ...</div>
+<div class="line">]</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="includekaios-in-getallversions-output"></a>
+<span class="tt">includeKaiOS</span> (in <span class="tt">getAllVersions()</span> output)</h3>
+<p>As with <span class="tt">getCompatibleVersions()</span> you can include KaiOS in your output. The same requirement to have <span class="tt">includeDownstreamBrowsers: true</span> applies.</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  includeDownstreamBrowsers: true,</div>
+<div class="line">  includeKaiOS: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="suppresswarnings-in-getallversions-output"></a>
+<span class="tt">suppressWarnings</span> (in <span class="tt">getAllVersions()</span> output)</h3>
+<p>As with <span class="tt">getCompatibleVersions()</span>, you can set <span class="tt">suppressWarnings</span> to <span class="tt">true</span> to suppress the console warning about old data:</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  suppressWarnings: true,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="outputformat"></a>
+<span class="tt">outputFormat</span></h3>
+<p>By default, this function returns an <span class="tt">Array</span> of <span class="tt">Objects</span> which can be manipulated in Javascript or output to JSON.</p>
+<p>To return an <span class="tt">Object</span> that nests keys , set <span class="tt">outputFormat</span> to <span class="tt">object</span>:</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  outputFormat: &quot;object&quot;,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p>In thise case, <span class="tt">getAllVersions()</span> returns a nested object with the browser <a class="el" href="#list-of-downstream-browsers" title="List of downstream browsers">IDs listed below</a> as keys, and versions as keys within them:</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  &quot;chrome&quot;: {</div>
+<div class="line">    &quot;53&quot;: {</div>
+<div class="line">      &quot;year&quot;: 2016,</div>
+<div class="line">      &quot;release_date&quot;: &quot;2016-09-07&quot;</div>
+<div class="line">    },</div>
+<div class="line">    ...</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Downstream browsers will include extra fields for <span class="tt">engine</span> and <span class="tt">engine_versions</span></p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  ...</div>
+<div class="line">  &quot;webview_android&quot;: {</div>
+<div class="line">    &quot;53&quot;: {</div>
+<div class="line">      &quot;year&quot;: 2016,</div>
+<div class="line">      &quot;release_date&quot;: &quot;2016-09-07&quot;,</div>
+<div class="line">      &quot;engine&quot;: &quot;Blink&quot;,</div>
+<div class="line">      &quot;engine_version&quot;: &quot;53&quot;</div>
+<div class="line">    },</div>
+<div class="line">  ...</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>To return a <span class="tt">String</span> in CSV format, set <span class="tt">outputFormat</span> to <span class="tt">csv</span>:</p>
+<div class="fragment"><div class="line">getAllVersions({</div>
+<div class="line">  outputFormat: &quot;csv&quot;,</div>
+<div class="line">});</div>
+</div><!-- fragment --><p><span class="tt">getAllVersions</span> returns a <span class="tt">String</span> with a header row and comma-separated values for each browser version that you can write to a file or pass to another service. Core browsers will have "NULL" as the value for their <span class="tt">engine</span> and <span class="tt">engine_version</span>:</p>
+<div class="fragment"><div class="line">&quot;browser&quot;,&quot;version&quot;,&quot;year&quot;,&quot;supports&quot;,&quot;release_date&quot;,&quot;engine&quot;,&quot;engine_version&quot;</div>
+<div class="line">...</div>
+<div class="line">&quot;chrome&quot;,&quot;24&quot;,&quot;pre_baseline&quot;,&quot;&quot;,&quot;2013-01-10&quot;,&quot;NULL&quot;,&quot;NULL&quot;</div>
+<div class="line">...</div>
+<div class="line">&quot;chrome&quot;,&quot;53&quot;,&quot;2016&quot;,&quot;&quot;,&quot;2016-09-07&quot;,&quot;NULL&quot;,&quot;NULL&quot;</div>
+<div class="line">...</div>
+<div class="line">&quot;firefox&quot;,&quot;135&quot;,&quot;2024&quot;,&quot;widely&quot;,&quot;2025-02-04&quot;,&quot;NULL&quot;,&quot;NULL&quot;</div>
+<div class="line">&quot;firefox&quot;,&quot;136&quot;,&quot;2024&quot;,&quot;newly&quot;,&quot;2025-03-04&quot;,&quot;NULL&quot;,&quot;NULL&quot;</div>
+<div class="line">...</div>
+<div class="line">&quot;ya_android&quot;,&quot;20.12&quot;,&quot;2020&quot;,&quot;year_only&quot;,&quot;2020-12-20&quot;,&quot;Blink&quot;,&quot;87&quot;</div>
+<div class="line">...</div>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>The above example uses <span class="tt">"includeDownstreamBrowsers": true</span></dd></dl>
+<h2 class="doxsection"><a class="anchor" id="static-resources"></a>
+Static resources</h2>
+<p>The outputs of <span class="tt">getAllVersions()</span> are available as JSON or CSV files generated on a daily basis and hosted on GitHub pages:</p>
+<ul>
+<li>Core browsers only<ul>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions_array.json">Array</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions_object.json">Object</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions.csv">CSV</a></li>
+</ul>
+</li>
+<li>Core browsers only, with <span class="tt">supports</span> property<ul>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions_array_with_supports.json">Array</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions_object_with_supports.json">Object</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/all_versions_with_supports.csv">CSV</a></li>
+</ul>
+</li>
+<li>Including downstream browsers<ul>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions_array.json">Array</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions_object.json">Object</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions.csv">CSV</a></li>
+</ul>
+</li>
+<li>Including downstream browsers with <span class="tt">supports</span> property<ul>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions_array_with_supports.json">Array</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions_object_with_supports.json">Object</a></li>
+<li><a href="https://web-platform-dx.github.io/baseline-browser-mapping/with_downstream/all_versions_with_supports.csv">CSV</a></li>
+</ul>
+</li>
+</ul>
+<p>These files are updated on a daily basis.</p>
+<h1 class="doxsection"><a class="anchor" id="cli"></a>
+CLI</h1>
+<p><span class="tt">baseline-browser-mapping</span> includes a command line interface that exposes the same data and options as the <span class="tt">getCompatibleVersions()</span> function. To learn more about using the CLI, run:</p>
+<div class="fragment"><div class="line">npx baseline-browser-mapping --help</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="downstream-browsers"></a>
+Downstream browsers</h1>
+<h2 class="doxsection"><a class="anchor" id="limitations"></a>
+Limitations</h2>
+<p>The browser versions in this module come from two different sources:</p>
+<ul>
+<li>MDN's <span class="tt">browser-compat-data</span> module.</li>
+<li>Parsed user agent strings provided by <a href="https://useragents.io/">useragents.io</a></li>
+</ul>
+<p>MDN <span class="tt">browser-compat-data</span> is an authoritative source of information for the browsers it contains. The release dates for the Baseline core browser set and the mapping of downstream browsers to Chromium versions should be considered accurate.</p>
+<p>Browser mappings from useragents.io are provided on a best effort basis. They assume that browser vendors are accurately stating the Chromium version they have implemented. The initial set of version mappings was derived from a bulk export in November 2024. This version was iterated over with a Regex match looking for a major Chrome version and a corresponding version of the browser in question, e.g.:</p>
+<p><span class="tt">Mozilla/5.0 (Linux; U; Android 10; en-US; STK-L21 Build/HUAWEISTK-L21) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/100.0.4896.58 UCBrowser/13.8.2.1324 Mobile Safari/537.36</span></p>
+<p>Shows UC Browser Mobile 13.8 implementing Chromium 100, and:</p>
+<p><span class="tt">Mozilla/5.0 (Linux; arm_64; Android 11; Redmi Note 8 Pro) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.6613.123 YaBrowser/24.10.2.123.00 SA/3 Mobile Safari/537.36</span></p>
+<p>Shows Yandex Browser Mobile 24.10 implementing Chromium 128. The Chromium version from this string is mapped to the corresponding Chrome version from MDN <span class="tt">browser-compat-data</span>.</p>
+<dl class="section note"><dt>Note</dt><dd>Where possible, approximate release dates have been included based on useragents.io "first seen" data. useragents.io does not have "first seen" dates prior to June 2020. However, these browsers' Baseline compatibility is determined by their Chromium or Gecko version, so their release dates are more informative than critical.</dd></dl>
+<p>This data is updated on a daily basis using a <a href="https://github.com/web-platform-dx/web-features/tree/main/scripts/refresh-downstream.ts">script</a> triggered by a GitHub <a href="https://github.com/web-platform-dx/web-features/tree/main/.github/workflows/refresh_downstream.yml">action</a>. Useragents.io provides a private API for this module which exposes the last 7 days of newly seen user agents for the currently tracked browsers. If a new major version of one of the tracked browsers is encountered with a Chromium version that meets or exceeds the previous latest version of that browser, it is added to the <a href="src/data/downstream-browsers.json">src/data/downstream-browsers.json</a> file with the date it was first seen by useragents.io as its release date.</p>
+<p>KaiOS is an exception - its upstream version mappings are handled separately from the other browsers because they happen very infrequently.</p>
+<h2 class="doxsection"><a class="anchor" id="list-of-downstream-browsers"></a>
+List of downstream browsers</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Browser  </th><th class="markdownTableHeadNone">ID  </th><th class="markdownTableHeadNone">Core  </th><th class="markdownTableHeadNone">Source  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Chrome  </td><td class="markdownTableBodyNone"><span class="tt">chrome</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Chrome for Android  </td><td class="markdownTableBodyNone"><span class="tt">chrome_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Edge  </td><td class="markdownTableBodyNone"><span class="tt">edge</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Firefox  </td><td class="markdownTableBodyNone"><span class="tt">firefox</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Firefox for Android  </td><td class="markdownTableBodyNone"><span class="tt">firefox_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Safari  </td><td class="markdownTableBodyNone"><span class="tt">safari</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Safari on iOS  </td><td class="markdownTableBodyNone"><span class="tt">safari_ios</span>  </td><td class="markdownTableBodyNone"><span class="tt">true</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Opera  </td><td class="markdownTableBodyNone"><span class="tt">opera</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Opera Android  </td><td class="markdownTableBodyNone"><span class="tt">opera_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Samsung Internet  </td><td class="markdownTableBodyNone"><span class="tt">samsunginternet_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">WebView Android  </td><td class="markdownTableBodyNone"><span class="tt">webview_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">MDN <span class="tt">browser-compat-data</span>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">QQ Browser Mobile  </td><td class="markdownTableBodyNone"><span class="tt">qq_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">useragents.io  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">UC Browser Mobile  </td><td class="markdownTableBodyNone"><span class="tt">uc_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">useragents.io  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Yandex Browser Mobile  </td><td class="markdownTableBodyNone"><span class="tt">ya_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">useragents.io  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">KaiOS  </td><td class="markdownTableBodyNone"><span class="tt">kai_os</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">Manual  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Facebook for Android  </td><td class="markdownTableBodyNone"><span class="tt">facebook_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">useragents.io  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Instagram for Android  </td><td class="markdownTableBodyNone"><span class="tt">instagram_android</span>  </td><td class="markdownTableBodyNone"><span class="tt">false</span>  </td><td class="markdownTableBodyNone">useragents.io  </td></tr>
+</table>
+<dl class="section note"><dt>Note</dt><dd>All the non-core browsers currently included implement Chromium or Gecko. Their inclusion in any of the above methods is based on the Baseline feature set supported by the Chromium or Gecko version they implement, not their release date. </dd></dl>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_562abdcd8625d4bf7bad2fe6fe01354c.html">web</a></li><li class="navelem"><a href="dir_ae152192ca76e4ee75647a37130a2ec0.html">node_modules</a></li><li class="navelem"><a href="dir_1df9bda78ae4eb535d9fbca59cdf1601.html">baseline-browser-mapping</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

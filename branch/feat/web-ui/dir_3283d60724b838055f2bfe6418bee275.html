@@ -1,0 +1,417 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>web/node_modules/@jridgewell/gen-mapping Directory Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_3283d60724b838055f2bfe6418bee275.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">gen-mapping Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Directory dependency graph for gen-mapping:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dir_3283d60724b838055f2bfe6418bee275_dep.svg" width="160" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="jridgewellgen-mapping"></a>
+@jridgewell/gen-mapping</h1>
+<blockquote class="doxtable">
+<p>Generate source maps </p>
+</blockquote>
+<p><span class="tt">gen-mapping</span> allows you to generate a source map during transpilation or minification. With a source map, you're able to trace the original location in the source file, either in Chrome's DevTools or using a library like <a href="https://github.com/jridgewell/sourcemaps/tree/main/packages/trace-mapping"><span class="tt">@jridgewell/trace-mapping</span></a>.</p>
+<p>You may already be familiar with the <a href="https://www.npmjs.com/package/source-map"><span class="tt">source-map</span></a> package's <span class="tt">SourceMapGenerator</span>. This provides the same <span class="tt">addMapping</span> and <span class="tt">setSourceContent</span> API.</p>
+<h1 class="doxsection"><a class="anchor" id="installation"></a>
+Installation</h1>
+<div class="fragment"><div class="line">npm install @jridgewell/gen-mapping</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="usage"></a>
+Usage</h1>
+<div class="fragment"><div class="line">import { GenMapping, addMapping, setSourceContent, toEncodedMap, toDecodedMap } from &#39;@jridgewell/gen-mapping&#39;;</div>
+<div class="line"> </div>
+<div class="line">const map = new GenMapping({</div>
+<div class="line">  file: &#39;output.js&#39;,</div>
+<div class="line">  sourceRoot: &#39;https://example.com/&#39;,</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">setSourceContent(map, &#39;input.js&#39;, `function foo() {}`);</div>
+<div class="line"> </div>
+<div class="line">addMapping(map, {</div>
+<div class="line">  // Lines start at line 1, columns at column 0.</div>
+<div class="line">  generated: { line: 1, column: 0 },</div>
+<div class="line">  source: &#39;input.js&#39;,</div>
+<div class="line">  original: { line: 1, column: 0 },</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">addMapping(map, {</div>
+<div class="line">  generated: { line: 1, column: 9 },</div>
+<div class="line">  source: &#39;input.js&#39;,</div>
+<div class="line">  original: { line: 1, column: 9 },</div>
+<div class="line">  name: &#39;foo&#39;,</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">assert.deepEqual(toDecodedMap(map), {</div>
+<div class="line">  version: 3,</div>
+<div class="line">  file: &#39;output.js&#39;,</div>
+<div class="line">  names: [&#39;foo&#39;],</div>
+<div class="line">  sourceRoot: &#39;https://example.com/&#39;,</div>
+<div class="line">  sources: [&#39;input.js&#39;],</div>
+<div class="line">  sourcesContent: [&#39;function foo() {}&#39;],</div>
+<div class="line">  mappings: [</div>
+<div class="line">    [ [0, 0, 0, 0], [9, 0, 0, 9, 0] ]</div>
+<div class="line">  ],</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">assert.deepEqual(toEncodedMap(map), {</div>
+<div class="line">  version: 3,</div>
+<div class="line">  file: &#39;output.js&#39;,</div>
+<div class="line">  names: [&#39;foo&#39;],</div>
+<div class="line">  sourceRoot: &#39;https://example.com/&#39;,</div>
+<div class="line">  sources: [&#39;input.js&#39;],</div>
+<div class="line">  sourcesContent: [&#39;function foo() {}&#39;],</div>
+<div class="line">  mappings: &#39;AAAA,SAASA&#39;,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="smaller-sourcemaps"></a>
+Smaller Sourcemaps</h2>
+<p>Not everything needs to be added to a sourcemap, and needless markings can cause signficantly larger file sizes. <span class="tt">gen-mapping</span> exposes <span class="tt">maybeAddSegment</span>/<span class="tt">maybeAddMapping</span> APIs that will intelligently determine if this marking adds useful information. If not, the marking will be skipped.</p>
+<div class="fragment"><div class="line">import { maybeAddMapping } from &#39;@jridgewell/gen-mapping&#39;;</div>
+<div class="line"> </div>
+<div class="line">const map = new GenMapping();</div>
+<div class="line"> </div>
+<div class="line">// Adding a sourceless marking at the beginning of a line isn&#39;t useful.</div>
+<div class="line">maybeAddMapping(map, {</div>
+<div class="line">  generated: { line: 1, column: 0 },</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">// Adding a new source marking is useful.</div>
+<div class="line">maybeAddMapping(map, {</div>
+<div class="line">  generated: { line: 1, column: 0 },</div>
+<div class="line">  source: &#39;input.js&#39;,</div>
+<div class="line">  original: { line: 1, column: 0 },</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">// But adding another marking pointing to the exact same original location isn&#39;t, even if the</div>
+<div class="line">// generated column changed.</div>
+<div class="line">maybeAddMapping(map, {</div>
+<div class="line">  generated: { line: 1, column: 9 },</div>
+<div class="line">  source: &#39;input.js&#39;,</div>
+<div class="line">  original: { line: 1, column: 0 },</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">assert.deepEqual(toEncodedMap(map), {</div>
+<div class="line">  version: 3,</div>
+<div class="line">  names: [],</div>
+<div class="line">  sources: [&#39;input.js&#39;],</div>
+<div class="line">  sourcesContent: [null],</div>
+<div class="line">  mappings: &#39;AAAA&#39;,</div>
+<div class="line">});</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="benchmarks"></a>
+Benchmarks</h1>
+<div class="fragment"><div class="line">node v18.0.0</div>
+<div class="line"> </div>
+<div class="line">amp.js.map</div>
+<div class="line">Memory Usage:</div>
+<div class="line">gen-mapping: addSegment      5852872 bytes</div>
+<div class="line">gen-mapping: addMapping      7716042 bytes</div>
+<div class="line">source-map-js                6143250 bytes</div>
+<div class="line">source-map-0.6.1             6124102 bytes</div>
+<div class="line">source-map-0.8.0             6121173 bytes</div>
+<div class="line">Smallest memory usage is gen-mapping: addSegment</div>
+<div class="line"> </div>
+<div class="line">Adding speed:</div>
+<div class="line">gen-mapping:      addSegment x 441 ops/sec ±2.07% (90 runs sampled)</div>
+<div class="line">gen-mapping:      addMapping x 350 ops/sec ±2.40% (86 runs sampled)</div>
+<div class="line">source-map-js:    addMapping x 169 ops/sec ±2.42% (80 runs sampled)</div>
+<div class="line">source-map-0.6.1: addMapping x 167 ops/sec ±2.56% (80 runs sampled)</div>
+<div class="line">source-map-0.8.0: addMapping x 168 ops/sec ±2.52% (80 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      addSegment</div>
+<div class="line"> </div>
+<div class="line">Generate speed:</div>
+<div class="line">gen-mapping:      decoded output x 150,824,370 ops/sec ±0.07% (102 runs sampled)</div>
+<div class="line">gen-mapping:      encoded output x 663 ops/sec ±0.22% (98 runs sampled)</div>
+<div class="line">source-map-js:    encoded output x 197 ops/sec ±0.45% (84 runs sampled)</div>
+<div class="line">source-map-0.6.1: encoded output x 198 ops/sec ±0.33% (85 runs sampled)</div>
+<div class="line">source-map-0.8.0: encoded output x 197 ops/sec ±0.06% (93 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      decoded output</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">babel.min.js.map</div>
+<div class="line">Memory Usage:</div>
+<div class="line">gen-mapping: addSegment     37578063 bytes</div>
+<div class="line">gen-mapping: addMapping     37212897 bytes</div>
+<div class="line">source-map-js               47638527 bytes</div>
+<div class="line">source-map-0.6.1            47690503 bytes</div>
+<div class="line">source-map-0.8.0            47470188 bytes</div>
+<div class="line">Smallest memory usage is gen-mapping: addMapping</div>
+<div class="line"> </div>
+<div class="line">Adding speed:</div>
+<div class="line">gen-mapping:      addSegment x 31.05 ops/sec ±8.31% (43 runs sampled)</div>
+<div class="line">gen-mapping:      addMapping x 29.83 ops/sec ±7.36% (51 runs sampled)</div>
+<div class="line">source-map-js:    addMapping x 20.73 ops/sec ±6.22% (38 runs sampled)</div>
+<div class="line">source-map-0.6.1: addMapping x 20.03 ops/sec ±10.51% (38 runs sampled)</div>
+<div class="line">source-map-0.8.0: addMapping x 19.30 ops/sec ±8.27% (37 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      addSegment</div>
+<div class="line"> </div>
+<div class="line">Generate speed:</div>
+<div class="line">gen-mapping:      decoded output x 381,379,234 ops/sec ±0.29% (96 runs sampled)</div>
+<div class="line">gen-mapping:      encoded output x 95.15 ops/sec ±2.98% (72 runs sampled)</div>
+<div class="line">source-map-js:    encoded output x 15.20 ops/sec ±7.41% (33 runs sampled)</div>
+<div class="line">source-map-0.6.1: encoded output x 16.36 ops/sec ±10.46% (31 runs sampled)</div>
+<div class="line">source-map-0.8.0: encoded output x 16.06 ops/sec ±6.45% (31 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      decoded output</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">preact.js.map</div>
+<div class="line">Memory Usage:</div>
+<div class="line">gen-mapping: addSegment       416247 bytes</div>
+<div class="line">gen-mapping: addMapping       419824 bytes</div>
+<div class="line">source-map-js                1024619 bytes</div>
+<div class="line">source-map-0.6.1             1146004 bytes</div>
+<div class="line">source-map-0.8.0             1113250 bytes</div>
+<div class="line">Smallest memory usage is gen-mapping: addSegment</div>
+<div class="line"> </div>
+<div class="line">Adding speed:</div>
+<div class="line">gen-mapping:      addSegment x 13,755 ops/sec ±0.15% (98 runs sampled)</div>
+<div class="line">gen-mapping:      addMapping x 13,013 ops/sec ±0.11% (101 runs sampled)</div>
+<div class="line">source-map-js:    addMapping x 4,564 ops/sec ±0.21% (98 runs sampled)</div>
+<div class="line">source-map-0.6.1: addMapping x 4,562 ops/sec ±0.11% (99 runs sampled)</div>
+<div class="line">source-map-0.8.0: addMapping x 4,593 ops/sec ±0.11% (100 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      addSegment</div>
+<div class="line"> </div>
+<div class="line">Generate speed:</div>
+<div class="line">gen-mapping:      decoded output x 379,864,020 ops/sec ±0.23% (93 runs sampled)</div>
+<div class="line">gen-mapping:      encoded output x 14,368 ops/sec ±4.07% (82 runs sampled)</div>
+<div class="line">source-map-js:    encoded output x 5,261 ops/sec ±0.21% (99 runs sampled)</div>
+<div class="line">source-map-0.6.1: encoded output x 5,124 ops/sec ±0.58% (99 runs sampled)</div>
+<div class="line">source-map-0.8.0: encoded output x 5,434 ops/sec ±0.33% (96 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      decoded output</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">react.js.map</div>
+<div class="line">Memory Usage:</div>
+<div class="line">gen-mapping: addSegment       975096 bytes</div>
+<div class="line">gen-mapping: addMapping      1102981 bytes</div>
+<div class="line">source-map-js                2918836 bytes</div>
+<div class="line">source-map-0.6.1             2885435 bytes</div>
+<div class="line">source-map-0.8.0             2874336 bytes</div>
+<div class="line">Smallest memory usage is gen-mapping: addSegment</div>
+<div class="line"> </div>
+<div class="line">Adding speed:</div>
+<div class="line">gen-mapping:      addSegment x 4,772 ops/sec ±0.15% (100 runs sampled)</div>
+<div class="line">gen-mapping:      addMapping x 4,456 ops/sec ±0.13% (97 runs sampled)</div>
+<div class="line">source-map-js:    addMapping x 1,618 ops/sec ±0.24% (97 runs sampled)</div>
+<div class="line">source-map-0.6.1: addMapping x 1,622 ops/sec ±0.12% (99 runs sampled)</div>
+<div class="line">source-map-0.8.0: addMapping x 1,631 ops/sec ±0.12% (100 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      addSegment</div>
+<div class="line"> </div>
+<div class="line">Generate speed:</div>
+<div class="line">gen-mapping:      decoded output x 379,107,695 ops/sec ±0.07% (99 runs sampled)</div>
+<div class="line">gen-mapping:      encoded output x 5,421 ops/sec ±1.60% (89 runs sampled)</div>
+<div class="line">source-map-js:    encoded output x 2,113 ops/sec ±1.81% (98 runs sampled)</div>
+<div class="line">source-map-0.6.1: encoded output x 2,126 ops/sec ±0.10% (100 runs sampled)</div>
+<div class="line">source-map-0.8.0: encoded output x 2,176 ops/sec ±0.39% (98 runs sampled)</div>
+<div class="line">Fastest is gen-mapping:      decoded output</div>
+</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_562abdcd8625d4bf7bad2fe6fe01354c.html">web</a></li><li class="navelem"><a href="dir_ae152192ca76e4ee75647a37130a2ec0.html">node_modules</a></li><li class="navelem"><a href="dir_80aa4cdde0efe69ce2cc6007e55a7d6d.html">@jridgewell</a></li><li class="navelem"><a href="dir_3283d60724b838055f2bfe6418bee275.html">gen-mapping</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

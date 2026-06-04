@@ -1,0 +1,472 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>web/node_modules/to-regex-range Directory Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_f259f32cfa9af5e4e996582c62a14e0f.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">to-regex-range Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Directory dependency graph for to-regex-range:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dir_f259f32cfa9af5e4e996582c62a14e0f_dep.svg" width="171" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="to-regex-range-donatehttpsimgshieldsiobadgedonate-paypal-greensvghttpswwwpaypalcomcgi-binwebscrcmd_s-xclickhosted_button_idw8yfz425knd68-npm-versionhttpsimgshieldsionpmvto-regex-rangesvgstyleflathttpswwwnpmjscompackageto-regex-range-npm-monthly-downloadshttpsimgshieldsionpmdmto-regex-rangesvgstyleflathttpsnpmjsorgpackageto-regex-range-npm-total-downloadshttpsimgshieldsionpmdtto-regex-rangesvgstyleflathttpsnpmjsorgpackageto-regex-range-linux-build-statushttpsimgshieldsiotravismicromatchto-regex-rangesvgstyleflatlabeltravishttpstravis-ciorgmicromatchto-regex-range"></a>
+to-regex-range [![Donate](<a href="https://img.shields.io/badge/Donate-PayPal-green.svg">https://img.shields.io/badge/Donate-PayPal-green.svg</a>)](<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=W8YFZ425KND68">https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=W8YFZ425KND68</a>) [![NPM version](<a href="https://img.shields.io/npm/v/to-regex-range.svg?style=flat">https://img.shields.io/npm/v/to-regex-range.svg?style=flat</a>)](<a href="https://www.npmjs.com/package/to-regex-range">https://www.npmjs.com/package/to-regex-range</a>) [![NPM monthly downloads](<a href="https://img.shields.io/npm/dm/to-regex-range.svg?style=flat">https://img.shields.io/npm/dm/to-regex-range.svg?style=flat</a>)](<a href="https://npmjs.org/package/to-regex-range">https://npmjs.org/package/to-regex-range</a>) [![NPM total downloads](<a href="https://img.shields.io/npm/dt/to-regex-range.svg?style=flat">https://img.shields.io/npm/dt/to-regex-range.svg?style=flat</a>)](<a href="https://npmjs.org/package/to-regex-range">https://npmjs.org/package/to-regex-range</a>) [![Linux Build Status](<a href="https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&amp;label=Travis">https://img.shields.io/travis/micromatch/to-regex-range.svg?style=flat&amp;label=Travis</a>)](<a href="https://travis-ci.org/micromatch/to-regex-range">https://travis-ci.org/micromatch/to-regex-range</a>)</h1>
+<blockquote class="doxtable">
+<p>Pass two numbers, get a regex-compatible source string for matching ranges. Validated against more than 2.78 million test assertions. </p>
+</blockquote>
+<p>Please consider following this project's author, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>, and consider starring the project to show your :heart: and support.</p>
+<h1 class="doxsection"><a class="anchor" id="install-35"></a>
+Install</h1>
+<p>Install with <a href="https://www.npmjs.com/">npm</a>:</p>
+<div class="fragment"><div class="line">$ npm install --save to-regex-range</div>
+</div><!-- fragment --><details >
+<summary >
+<b>What does this do?</b></summary>
+<p></p>
+<p><br  />
+</p>
+<p>This libary generates the <span class="tt">source</span> string to be passed to <span class="tt">new RegExp()</span> for matching a range of numbers.</p>
+<p><b>Example</b></p>
+<div class="fragment"><div class="line">const toRegexRange = require(&#39;to-regex-range&#39;);</div>
+<div class="line">const regex = new RegExp(toRegexRange(&#39;15&#39;, &#39;95&#39;));</div>
+</div><!-- fragment --><p>A string is returned so that you can do whatever you need with it before passing it to <span class="tt">new RegExp()</span> (like adding <span class="tt">^</span> or <span class="tt">$</span> boundaries, defining flags, or combining it another string).</p>
+<p><br  />
+</p>
+<p></p>
+</details>
+<details >
+<summary >
+<b>Why use this library?</b></summary>
+<p></p>
+<p><br  />
+</p>
+<p></p>
+</details>
+<h2 class="doxsection"><a class="anchor" id="convenience"></a>
+Convenience</h2>
+<p>Creating regular expressions for matching numbers gets deceptively complicated pretty fast.</p>
+<p>For example, let's say you need a validation regex for matching part of a user-id, postal code, social security number, tax id, etc:</p>
+<ul>
+<li>regex for matching <span class="tt">1</span> =&gt; <span class="tt">/1/</span> (easy enough)</li>
+<li>regex for matching <span class="tt">1</span> through <span class="tt">5</span> =&gt; <span class="tt">/[1-5]/</span> (not bad...)</li>
+<li>regex for matching <span class="tt">1</span> or <span class="tt">5</span> =&gt; <span class="tt">/(1|5)/</span> (still easy...)</li>
+<li>regex for matching <span class="tt">1</span> through <span class="tt">50</span> =&gt; <span class="tt">/([1-9]|[1-4][0-9]|50)/</span> (uh-oh...)</li>
+<li>regex for matching <span class="tt">1</span> through <span class="tt">55</span> =&gt; <span class="tt">/([1-9]|[1-4][0-9]|5[0-5])/</span> (no prob, I can do this...)</li>
+<li>regex for matching <span class="tt">1</span> through <span class="tt">555</span> =&gt; <span class="tt">/([1-9]|[1-9][0-9]|[1-4][0-9]{2}|5[0-4][0-9]|55[0-5])/</span> (maybe not...)</li>
+<li>regex for matching <span class="tt">0001</span> through <span class="tt">5555</span> =&gt; <span class="tt">/(0{3}[1-9]|0{2}[1-9][0-9]|0[1-9][0-9]{2}|[1-4][0-9]{3}|5[0-4][0-9]{2}|55[0-4][0-9]|555[0-5])/</span> (okay, I get the point!)</li>
+</ul>
+<p>The numbers are contrived, but they're also really basic. In the real world you might need to generate a regex on-the-fly for validation.</p>
+<p><b>Learn more</b></p>
+<p>If you're interested in learning more about <a href="http://www.regular-expressions.info/charclass.html">character classes</a> and other regex features, I personally have always found <a href="http://www.regular-expressions.info/charclass.html">regular-expressions.info</a> to be pretty useful.</p>
+<h2 class="doxsection"><a class="anchor" id="heavily-tested"></a>
+Heavily tested</h2>
+<p>As of April 07, 2019, this library runs <a href="./test/test.js">&gt;1m test assertions</a> against generated regex-ranges to provide brute-force verification that results are correct.</p>
+<p>Tests run in ~280ms on my MacBook Pro, 2.5 GHz Intel Core i7.</p>
+<h2 class="doxsection"><a class="anchor" id="optimized"></a>
+Optimized</h2>
+<p>Generated regular expressions are optimized:</p>
+<ul>
+<li>duplicate sequences and character classes are reduced using quantifiers</li>
+<li>smart enough to use <span class="tt">?</span> conditionals when number(s) or range(s) can be positive or negative</li>
+<li>uses fragment caching to avoid processing the same exact string more than once</li>
+</ul>
+<p><br  />
+</p>
+<h1 class="doxsection"><a class="anchor" id="usage-43"></a>
+Usage</h1>
+<p>Add this library to your javascript application with the following line of code</p>
+<div class="fragment"><div class="line">const toRegexRange = require(&#39;to-regex-range&#39;);</div>
+</div><!-- fragment --><p>The main export is a function that takes two integers: the <span class="tt">min</span> value and <span class="tt">max</span> value (formatted as strings or numbers).</p>
+<div class="fragment"><div class="line">const source = toRegexRange(&#39;15&#39;, &#39;95&#39;);</div>
+<div class="line">//=&gt; 1[5-9]|[2-8][0-9]|9[0-5]</div>
+<div class="line"> </div>
+<div class="line">const regex = new RegExp(`^${source}$`);</div>
+<div class="line">console.log(regex.test(&#39;14&#39;)); //=&gt; false</div>
+<div class="line">console.log(regex.test(&#39;50&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;94&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;96&#39;)); //=&gt; false</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="options-16"></a>
+Options</h1>
+<h2 class="doxsection"><a class="anchor" id="optionscapture"></a>
+options.capture</h2>
+<p><b>Type</b>: <span class="tt">boolean</span></p>
+<p><b>Deafault</b>: <span class="tt">undefined</span></p>
+<p>Wrap the returned value in parentheses when there is more than one regex condition. Useful when you're dynamically generating ranges.</p>
+<div class="fragment"><div class="line">console.log(toRegexRange(&#39;-10&#39;, &#39;10&#39;));</div>
+<div class="line">//=&gt; -[1-9]|-?10|[0-9]</div>
+<div class="line"> </div>
+<div class="line">console.log(toRegexRange(&#39;-10&#39;, &#39;10&#39;, { capture: true }));</div>
+<div class="line">//=&gt; (-[1-9]|-?10|[0-9])</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="optionsshorthand"></a>
+options.shorthand</h2>
+<p><b>Type</b>: <span class="tt">boolean</span></p>
+<p><b>Deafault</b>: <span class="tt">undefined</span></p>
+<p>Use the regex shorthand for <span class="tt">[0-9]</span>:</p>
+<div class="fragment"><div class="line">console.log(toRegexRange(&#39;0&#39;, &#39;999999&#39;));</div>
+<div class="line">//=&gt; [0-9]|[1-9][0-9]{1,5}</div>
+<div class="line"> </div>
+<div class="line">console.log(toRegexRange(&#39;0&#39;, &#39;999999&#39;, { shorthand: true }));</div>
+<div class="line">//=&gt; \d|[1-9]\d{1,5}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="optionsrelaxzeros"></a>
+options.relaxZeros</h2>
+<p><b>Type</b>: <span class="tt">boolean</span></p>
+<p><b>Default</b>: <span class="tt">true</span></p>
+<p>This option relaxes matching for leading zeros when when ranges are zero-padded.</p>
+<div class="fragment"><div class="line">const source = toRegexRange(&#39;-0010&#39;, &#39;0010&#39;);</div>
+<div class="line">const regex = new RegExp(`^${source}$`);</div>
+<div class="line">console.log(regex.test(&#39;-10&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;-010&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;-0010&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;10&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;010&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;0010&#39;)); //=&gt; true</div>
+</div><!-- fragment --><p>When <span class="tt">relaxZeros</span> is false, matching is strict:</p>
+<div class="fragment"><div class="line">const source = toRegexRange(&#39;-0010&#39;, &#39;0010&#39;, { relaxZeros: false });</div>
+<div class="line">const regex = new RegExp(`^${source}$`);</div>
+<div class="line">console.log(regex.test(&#39;-10&#39;)); //=&gt; false</div>
+<div class="line">console.log(regex.test(&#39;-010&#39;)); //=&gt; false</div>
+<div class="line">console.log(regex.test(&#39;-0010&#39;)); //=&gt; true</div>
+<div class="line">console.log(regex.test(&#39;10&#39;)); //=&gt; false</div>
+<div class="line">console.log(regex.test(&#39;010&#39;)); //=&gt; false</div>
+<div class="line">console.log(regex.test(&#39;0010&#39;)); //=&gt; true</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="examples-5"></a>
+Examples</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"><b>Range</b>  </th><th class="markdownTableHeadNone"><b>Result</b>  </th><th class="markdownTableHeadNone"><b>Compile time</b>  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(-10, 10)</span>  </td><td class="markdownTableBodyNone"><span class="tt">-[1-9]\|-?10\|[0-9]</span>  </td><td class="markdownTableBodyNone"><em>132μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(-100, -10)</span>  </td><td class="markdownTableBodyNone"><span class="tt">-1[0-9]\|-[2-9][0-9]\|-100</span>  </td><td class="markdownTableBodyNone"><em>50μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(-100, 100)</span>  </td><td class="markdownTableBodyNone"><span class="tt">-[1-9]\|-?[1-9][0-9]\|-?100\|[0-9]</span>  </td><td class="markdownTableBodyNone"><em>42μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(001, 100)</span>  </td><td class="markdownTableBodyNone"><span class="tt">0{0,2}[1-9]\|0?[1-9][0-9]\|100</span>  </td><td class="markdownTableBodyNone"><em>109μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(001, 555)</span>  </td><td class="markdownTableBodyNone"><span class="tt">0{0,2}[1-9]\|0?[1-9][0-9]\|[1-4][0-9]{2}\|5[0-4][0-9]\|55[0-5]</span>  </td><td class="markdownTableBodyNone"><em>51μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(0010, 1000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">0{0,2}1[0-9]\|0{0,2}[2-9][0-9]\|0?[1-9][0-9]{2}\|1000</span>  </td><td class="markdownTableBodyNone"><em>31μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 50)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-4][0-9]\|50</span>  </td><td class="markdownTableBodyNone"><em>24μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 55)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-4][0-9]\|5[0-5]</span>  </td><td class="markdownTableBodyNone"><em>23μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 555)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]\|[1-4][0-9]{2}\|5[0-4][0-9]\|55[0-5]</span>  </td><td class="markdownTableBodyNone"><em>30μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 5555)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,2}\|[1-4][0-9]{3}\|5[0-4][0-9]{2}\|55[0-4][0-9]\|555[0-5]</span>  </td><td class="markdownTableBodyNone"><em>43μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(111, 555)</span>  </td><td class="markdownTableBodyNone"><span class="tt">11[1-9]\|1[2-9][0-9]\|[2-4][0-9]{2}\|5[0-4][0-9]\|55[0-5]</span>  </td><td class="markdownTableBodyNone"><em>38μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(29, 51)</span>  </td><td class="markdownTableBodyNone"><span class="tt">29\|[34][0-9]\|5[01]</span>  </td><td class="markdownTableBodyNone"><em>24μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(31, 877)</span>  </td><td class="markdownTableBodyNone"><span class="tt">3[1-9]\|[4-9][0-9]\|[1-7][0-9]{2}\|8[0-6][0-9]\|87[0-7]</span>  </td><td class="markdownTableBodyNone"><em>32μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(5, 5)</span>  </td><td class="markdownTableBodyNone"><span class="tt">5</span>  </td><td class="markdownTableBodyNone"><em>8μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(5, 6)</span>  </td><td class="markdownTableBodyNone"><span class="tt">5\|6</span>  </td><td class="markdownTableBodyNone"><em>11μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 2)</span>  </td><td class="markdownTableBodyNone"><span class="tt">1\|2</span>  </td><td class="markdownTableBodyNone"><em>6μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 5)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-5]</span>  </td><td class="markdownTableBodyNone"><em>15μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 10)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|10</span>  </td><td class="markdownTableBodyNone"><em>22μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 100)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]\|100</span>  </td><td class="markdownTableBodyNone"><em>25μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 1000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,2}\|1000</span>  </td><td class="markdownTableBodyNone"><em>31μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 10000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,3}\|10000</span>  </td><td class="markdownTableBodyNone"><em>34μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 100000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,4}\|100000</span>  </td><td class="markdownTableBodyNone"><em>36μs</em>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 1000000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,5}\|1000000</span>  </td><td class="markdownTableBodyNone"><em>42μs</em>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone"><span class="tt">toRegexRange(1, 10000000)</span>  </td><td class="markdownTableBodyNone"><span class="tt">[1-9]\|[1-9][0-9]{1,6}\|10000000</span>  </td><td class="markdownTableBodyNone"><em>42μs</em>  </td></tr>
+</table>
+<h1 class="doxsection"><a class="anchor" id="heads-up"></a>
+Heads up!</h1>
+<p><b>Order of arguments</b></p>
+<p>When the <span class="tt">min</span> is larger than the <span class="tt">max</span>, values will be flipped to create a valid range:</p>
+<div class="fragment"><div class="line">toRegexRange(&#39;51&#39;, &#39;29&#39;);</div>
+</div><!-- fragment --><p>Is effectively flipped to:</p>
+<div class="fragment"><div class="line">toRegexRange(&#39;29&#39;, &#39;51&#39;);</div>
+<div class="line">//=&gt; 29|[3-4][0-9]|5[0-1]</div>
+</div><!-- fragment --><p><b>Steps / increments</b></p>
+<p>This library does not support steps (increments). A pr to add support would be welcome.</p>
+<h1 class="doxsection"><a class="anchor" id="history"></a>
+History</h1>
+<h2 class="doxsection"><a class="anchor" id="v200---2017-04-21"></a>
+v2.0.0 - 2017-04-21</h2>
+<p><b>New features</b></p>
+<p>Adds support for zero-padding!</p>
+<h2 class="doxsection"><a class="anchor" id="v100"></a>
+v1.0.0</h2>
+<p><b>Optimizations</b></p>
+<p>Repeating ranges are now grouped using quantifiers. rocessing time is roughly the same, but the generated regex is much smaller, which should result in faster matching.</p>
+<h1 class="doxsection"><a class="anchor" id="attribution"></a>
+Attribution</h1>
+<p>Inspired by the python library <a href="https://github.com/dimka665/range-regex">range-regex</a>.</p>
+<h1 class="doxsection"><a class="anchor" id="about-8"></a>
+About</h1>
+<details >
+<summary >
+<b>Contributing</b></summary>
+<p></p>
+<p>Pull requests and stars are always welcome. For bugs and feature requests, <a href="../../issues/new">please create an issue</a>.</p>
+<p></p>
+</details>
+<details >
+<summary >
+<b>Running Tests</b></summary>
+<p></p>
+<p>Running and reviewing unit tests is a great way to get familiarized with a library and its API. You can install dependencies and run tests with the following command:</p>
+<div class="fragment"><div class="line">$ npm install &amp;&amp; npm test</div>
+</div><!-- fragment --><p></p>
+</details>
+<details >
+<summary >
+<b>Building docs</b></summary>
+<p></p>
+<p><em>(This project's readme.md is generated by <a href="https://github.com/verbose/verb-generate-readme">verb</a>, please don't edit the readme directly. Any changes to the readme must be made in the .verb.md readme template.)</em></p>
+<p>To generate the readme, run the following command:</p>
+<div class="fragment"><div class="line">$ npm install -g verbose/verb#dev verb-generate-readme &amp;&amp; verb</div>
+</div><!-- fragment --><p></p>
+</details>
+<h2 class="doxsection"><a class="anchor" id="related-projects-2"></a>
+Related projects</h2>
+<p>You might also be interested in these projects:</p>
+<ul>
+<li><a href="https://www.npmjs.com/package/expand-range">expand-range</a>: Fast, bash-like range expansion. Expand a range of numbers or letters, uppercase or lowercase. Used… <a href="https://github.com/jonschlinkert/expand-range">more</a> | <a href="https://github.com/jonschlinkert/expand-range" title="Fast, bash-like range expansion. Expand a range of numbers or letters, uppercase or lowercase. Used by micromatch.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/fill-range">fill-range</a>: Fill in a range of numbers or letters, optionally passing an increment or <span class="tt">step</span> to… <a href="https://github.com/jonschlinkert/fill-range">more</a> | <a href="https://github.com/jonschlinkert/fill-range" title="Fill in a range of numbers or letters, optionally passing an increment or `step` to use, or create a regex-compatible range with `options.toRegex`">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/micromatch">micromatch</a>: Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch. | <a href="https://github.com/micromatch/micromatch" title="Glob matching for javascript/node.js. A drop-in replacement and faster alternative to minimatch and multimatch.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/repeat-element">repeat-element</a>: Create an array by repeating the given value n times. | <a href="https://github.com/jonschlinkert/repeat-element" title="Create an array by repeating the given value n times.">homepage</a></li>
+<li><a href="https://www.npmjs.com/package/repeat-string">repeat-string</a>: Repeat the given string n times. Fastest implementation for repeating a string. | <a href="https://github.com/jonschlinkert/repeat-string" title="Repeat the given string n times. Fastest implementation for repeating a string.">homepage</a></li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="contributors-5"></a>
+Contributors</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone"><b>Commits</b>  </th><th class="markdownTableHeadNone"><b>Contributor</b>  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">63  </td><td class="markdownTableBodyNone"><a href="https://github.com/jonschlinkert">jonschlinkert</a>  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">3  </td><td class="markdownTableBodyNone"><a href="https://github.com/doowb">doowb</a>  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">2  </td><td class="markdownTableBodyNone"><a href="https://github.com/realityking">realityking</a>  </td></tr>
+</table>
+<h2 class="doxsection"><a class="anchor" id="author-9"></a>
+Author</h2>
+<p><b>Jon Schlinkert</b></p>
+<ul>
+<li><a href="https://github.com/jonschlinkert">GitHub Profile</a></li>
+<li><a href="https://twitter.com/jonschlinkert">Twitter Profile</a></li>
+<li><a href="https://linkedin.com/in/jonschlinkert">LinkedIn Profile</a></li>
+</ul>
+<p>Please consider supporting me on Patreon, or <a href="https://patreon.com/invite/bxpbvm">start your own Patreon page</a>!</p>
+<p><a href="https://www.patreon.com/jonschlinkert"><img src="https://c5.patreon.com/external/logo/become_a_patron_button@2x.png" alt="" height="50" class="inline"/> </a></p>
+<h2 class="doxsection"><a class="anchor" id="license-24"></a>
+License</h2>
+<p>Copyright © 2019, <a href="https://github.com/jonschlinkert">Jon Schlinkert</a>. Released under the [MIT License](LICENSE).</p>
+<hr  />
+<p><em>This file was generated by <a href="https://github.com/verbose/verb-generate-readme">verb-generate-readme</a>, v0.8.0, on April 07, 2019.</em> </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_562abdcd8625d4bf7bad2fe6fe01354c.html">web</a></li><li class="navelem"><a href="dir_ae152192ca76e4ee75647a37130a2ec0.html">node_modules</a></li><li class="navelem"><a href="dir_f259f32cfa9af5e4e996582c62a14e0f.html">to-regex-range</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

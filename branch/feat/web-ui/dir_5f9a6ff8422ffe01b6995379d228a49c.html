@@ -1,0 +1,461 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>web/node_modules/@jridgewell/sourcemap-codec Directory Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_5f9a6ff8422ffe01b6995379d228a49c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">sourcemap-codec Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Directory dependency graph for sourcemap-codec:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dir_5f9a6ff8422ffe01b6995379d228a49c_dep.svg" width="190" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="jridgewellsourcemap-codec"></a>
+@jridgewell/sourcemap-codec</h1>
+<p>Encode/decode the <span class="tt">mappings</span> property of a <a href="https://docs.google.com/document/d/1U1RGAehQwRypUTovF1KRlpiOFze0b-_2gc6fAH0KY0k/edit">sourcemap</a>.</p>
+<h1 class="doxsection"><a class="anchor" id="why"></a>
+Why?</h1>
+<p>Sourcemaps are difficult to generate and manipulate, because the <span class="tt">mappings</span> property – the part that actually links the generated code back to the original source – is encoded using an obscure method called <a href="https://en.wikipedia.org/wiki/Variable-length_quantity">Variable-length quantity</a>. On top of that, each segment in the mapping contains offsets rather than absolute indices, which means that you can't look at a segment in isolation – you have to understand the whole sourcemap.</p>
+<p>This package makes the process slightly easier.</p>
+<h1 class="doxsection"><a class="anchor" id="installation-3"></a>
+Installation</h1>
+<div class="fragment"><div class="line">npm install @jridgewell/sourcemap-codec</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="usage-3"></a>
+Usage</h1>
+<div class="fragment"><div class="line">import { encode, decode } from &#39;@jridgewell/sourcemap-codec&#39;;</div>
+<div class="line"> </div>
+<div class="line">var decoded = decode( &#39;;EAEEA,EAAE,EAAC,CAAE;ECQY,UACC&#39; );</div>
+<div class="line"> </div>
+<div class="line">assert.deepEqual( decoded, [</div>
+<div class="line">    // the first line (of the generated code) has no mappings,</div>
+<div class="line">    // as shown by the starting semi-colon (which separates lines)</div>
+<div class="line">    [],</div>
+<div class="line"> </div>
+<div class="line">    // the second line contains four (comma-separated) segments</div>
+<div class="line">    [</div>
+<div class="line">        // segments are encoded as you&#39;d expect:</div>
+<div class="line">        // [ generatedCodeColumn, sourceIndex, sourceCodeLine, sourceCodeColumn, nameIndex ]</div>
+<div class="line"> </div>
+<div class="line">        // i.e. the first segment begins at column 2, and maps back to the second column</div>
+<div class="line">        // of the second line (both zero-based) of the 0th source, and uses the 0th</div>
+<div class="line">        // name in the `map.names` array</div>
+<div class="line">        [ 2, 0, 2, 2, 0 ],</div>
+<div class="line"> </div>
+<div class="line">        // the remaining segments are 4-length rather than 5-length,</div>
+<div class="line">        // because they don&#39;t map a name</div>
+<div class="line">        [ 4, 0, 2, 4 ],</div>
+<div class="line">        [ 6, 0, 2, 5 ],</div>
+<div class="line">        [ 7, 0, 2, 7 ]</div>
+<div class="line">    ],</div>
+<div class="line"> </div>
+<div class="line">    // the final line contains two segments</div>
+<div class="line">    [</div>
+<div class="line">        [ 2, 1, 10, 19 ],</div>
+<div class="line">        [ 12, 1, 11, 20 ]</div>
+<div class="line">    ]</div>
+<div class="line">]);</div>
+<div class="line"> </div>
+<div class="line">var encoded = encode( decoded );</div>
+<div class="line">assert.equal( encoded, &#39;;EAEEA,EAAE,EAAC,CAAE;ECQY,UACC&#39; );</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="benchmarks-1"></a>
+Benchmarks</h1>
+<div class="fragment"><div class="line">node v20.10.0</div>
+<div class="line"> </div>
+<div class="line">amp.js.map - 45120 segments</div>
+<div class="line"> </div>
+<div class="line">Decode Memory Usage:</div>
+<div class="line">local code                             5815135 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15     5868160 bytes</div>
+<div class="line">sourcemap-codec                        5492584 bytes</div>
+<div class="line">source-map-0.6.1                      13569984 bytes</div>
+<div class="line">source-map-0.8.0                       6390584 bytes</div>
+<div class="line">chrome dev tools                       8011136 bytes</div>
+<div class="line">Smallest memory usage is sourcemap-codec</div>
+<div class="line"> </div>
+<div class="line">Decode speed:</div>
+<div class="line">decode: local code x 492 ops/sec ±1.22% (90 runs sampled)</div>
+<div class="line">decode: @jridgewell/sourcemap-codec 1.4.15 x 499 ops/sec ±1.16% (89 runs sampled)</div>
+<div class="line">decode: sourcemap-codec x 376 ops/sec ±1.66% (89 runs sampled)</div>
+<div class="line">decode: source-map-0.6.1 x 34.99 ops/sec ±0.94% (48 runs sampled)</div>
+<div class="line">decode: source-map-0.8.0 x 351 ops/sec ±0.07% (95 runs sampled)</div>
+<div class="line">chrome dev tools x 165 ops/sec ±0.91% (86 runs sampled)</div>
+<div class="line">Fastest is decode: @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line">Encode Memory Usage:</div>
+<div class="line">local code                              444248 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15      623024 bytes</div>
+<div class="line">sourcemap-codec                        8696280 bytes</div>
+<div class="line">source-map-0.6.1                       8745176 bytes</div>
+<div class="line">source-map-0.8.0                       8736624 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Encode speed:</div>
+<div class="line">encode: local code x 796 ops/sec ±0.11% (97 runs sampled)</div>
+<div class="line">encode: @jridgewell/sourcemap-codec 1.4.15 x 795 ops/sec ±0.25% (98 runs sampled)</div>
+<div class="line">encode: sourcemap-codec x 231 ops/sec ±0.83% (86 runs sampled)</div>
+<div class="line">encode: source-map-0.6.1 x 166 ops/sec ±0.57% (86 runs sampled)</div>
+<div class="line">encode: source-map-0.8.0 x 203 ops/sec ±0.45% (88 runs sampled)</div>
+<div class="line">Fastest is encode: local code,encode: @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">babel.min.js.map - 347793 segments</div>
+<div class="line"> </div>
+<div class="line">Decode Memory Usage:</div>
+<div class="line">local code                            35424960 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15    35424696 bytes</div>
+<div class="line">sourcemap-codec                       36033464 bytes</div>
+<div class="line">source-map-0.6.1                      62253704 bytes</div>
+<div class="line">source-map-0.8.0                      43843920 bytes</div>
+<div class="line">chrome dev tools                      45111400 bytes</div>
+<div class="line">Smallest memory usage is @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line">Decode speed:</div>
+<div class="line">decode: local code x 38.18 ops/sec ±5.44% (52 runs sampled)</div>
+<div class="line">decode: @jridgewell/sourcemap-codec 1.4.15 x 38.36 ops/sec ±5.02% (52 runs sampled)</div>
+<div class="line">decode: sourcemap-codec x 34.05 ops/sec ±4.45% (47 runs sampled)</div>
+<div class="line">decode: source-map-0.6.1 x 4.31 ops/sec ±2.76% (15 runs sampled)</div>
+<div class="line">decode: source-map-0.8.0 x 55.60 ops/sec ±0.13% (73 runs sampled)</div>
+<div class="line">chrome dev tools x 16.94 ops/sec ±3.78% (46 runs sampled)</div>
+<div class="line">Fastest is decode: source-map-0.8.0</div>
+<div class="line"> </div>
+<div class="line">Encode Memory Usage:</div>
+<div class="line">local code                             2606016 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15     2626440 bytes</div>
+<div class="line">sourcemap-codec                       21152576 bytes</div>
+<div class="line">source-map-0.6.1                      25023928 bytes</div>
+<div class="line">source-map-0.8.0                      25256448 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Encode speed:</div>
+<div class="line">encode: local code x 127 ops/sec ±0.18% (83 runs sampled)</div>
+<div class="line">encode: @jridgewell/sourcemap-codec 1.4.15 x 128 ops/sec ±0.26% (83 runs sampled)</div>
+<div class="line">encode: sourcemap-codec x 29.31 ops/sec ±2.55% (53 runs sampled)</div>
+<div class="line">encode: source-map-0.6.1 x 18.85 ops/sec ±3.19% (36 runs sampled)</div>
+<div class="line">encode: source-map-0.8.0 x 19.34 ops/sec ±1.97% (36 runs sampled)</div>
+<div class="line">Fastest is encode: @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">preact.js.map - 1992 segments</div>
+<div class="line"> </div>
+<div class="line">Decode Memory Usage:</div>
+<div class="line">local code                              261696 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15      244296 bytes</div>
+<div class="line">sourcemap-codec                         302816 bytes</div>
+<div class="line">source-map-0.6.1                        939176 bytes</div>
+<div class="line">source-map-0.8.0                           336 bytes</div>
+<div class="line">chrome dev tools                        587368 bytes</div>
+<div class="line">Smallest memory usage is source-map-0.8.0</div>
+<div class="line"> </div>
+<div class="line">Decode speed:</div>
+<div class="line">decode: local code x 17,782 ops/sec ±0.32% (97 runs sampled)</div>
+<div class="line">decode: @jridgewell/sourcemap-codec 1.4.15 x 17,863 ops/sec ±0.40% (100 runs sampled)</div>
+<div class="line">decode: sourcemap-codec x 12,453 ops/sec ±0.27% (101 runs sampled)</div>
+<div class="line">decode: source-map-0.6.1 x 1,288 ops/sec ±1.05% (96 runs sampled)</div>
+<div class="line">decode: source-map-0.8.0 x 9,289 ops/sec ±0.27% (101 runs sampled)</div>
+<div class="line">chrome dev tools x 4,769 ops/sec ±0.18% (100 runs sampled)</div>
+<div class="line">Fastest is decode: @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line">Encode Memory Usage:</div>
+<div class="line">local code                              262944 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15       25544 bytes</div>
+<div class="line">sourcemap-codec                         323048 bytes</div>
+<div class="line">source-map-0.6.1                        507808 bytes</div>
+<div class="line">source-map-0.8.0                        507480 bytes</div>
+<div class="line">Smallest memory usage is @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line">Encode speed:</div>
+<div class="line">encode: local code x 24,207 ops/sec ±0.79% (95 runs sampled)</div>
+<div class="line">encode: @jridgewell/sourcemap-codec 1.4.15 x 24,288 ops/sec ±0.48% (96 runs sampled)</div>
+<div class="line">encode: sourcemap-codec x 6,761 ops/sec ±0.21% (100 runs sampled)</div>
+<div class="line">encode: source-map-0.6.1 x 5,374 ops/sec ±0.17% (99 runs sampled)</div>
+<div class="line">encode: source-map-0.8.0 x 5,633 ops/sec ±0.32% (99 runs sampled)</div>
+<div class="line">Fastest is encode: @jridgewell/sourcemap-codec 1.4.15,encode: local code</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">react.js.map - 5726 segments</div>
+<div class="line"> </div>
+<div class="line">Decode Memory Usage:</div>
+<div class="line">local code                              678816 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15      678816 bytes</div>
+<div class="line">sourcemap-codec                         816400 bytes</div>
+<div class="line">source-map-0.6.1                       2288864 bytes</div>
+<div class="line">source-map-0.8.0                        721360 bytes</div>
+<div class="line">chrome dev tools                       1012512 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Decode speed:</div>
+<div class="line">decode: local code x 6,178 ops/sec ±0.19% (98 runs sampled)</div>
+<div class="line">decode: @jridgewell/sourcemap-codec 1.4.15 x 6,261 ops/sec ±0.22% (100 runs sampled)</div>
+<div class="line">decode: sourcemap-codec x 4,472 ops/sec ±0.90% (99 runs sampled)</div>
+<div class="line">decode: source-map-0.6.1 x 449 ops/sec ±0.31% (95 runs sampled)</div>
+<div class="line">decode: source-map-0.8.0 x 3,219 ops/sec ±0.13% (100 runs sampled)</div>
+<div class="line">chrome dev tools x 1,743 ops/sec ±0.20% (99 runs sampled)</div>
+<div class="line">Fastest is decode: @jridgewell/sourcemap-codec 1.4.15</div>
+<div class="line"> </div>
+<div class="line">Encode Memory Usage:</div>
+<div class="line">local code                              140960 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15      159808 bytes</div>
+<div class="line">sourcemap-codec                         969304 bytes</div>
+<div class="line">source-map-0.6.1                        930520 bytes</div>
+<div class="line">source-map-0.8.0                        930248 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Encode speed:</div>
+<div class="line">encode: local code x 8,013 ops/sec ±0.19% (100 runs sampled)</div>
+<div class="line">encode: @jridgewell/sourcemap-codec 1.4.15 x 7,989 ops/sec ±0.20% (101 runs sampled)</div>
+<div class="line">encode: sourcemap-codec x 2,472 ops/sec ±0.21% (99 runs sampled)</div>
+<div class="line">encode: source-map-0.6.1 x 2,200 ops/sec ±0.17% (99 runs sampled)</div>
+<div class="line">encode: source-map-0.8.0 x 2,220 ops/sec ±0.37% (99 runs sampled)</div>
+<div class="line">Fastest is encode: local code</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">***</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">vscode.map - 2141001 segments</div>
+<div class="line"> </div>
+<div class="line">Decode Memory Usage:</div>
+<div class="line">local code                           198955264 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15   199175352 bytes</div>
+<div class="line">sourcemap-codec                      199102688 bytes</div>
+<div class="line">source-map-0.6.1                     386323432 bytes</div>
+<div class="line">source-map-0.8.0                     244116432 bytes</div>
+<div class="line">chrome dev tools                     293734280 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Decode speed:</div>
+<div class="line">decode: local code x 3.90 ops/sec ±22.21% (15 runs sampled)</div>
+<div class="line">decode: @jridgewell/sourcemap-codec 1.4.15 x 3.95 ops/sec ±23.53% (15 runs sampled)</div>
+<div class="line">decode: sourcemap-codec x 3.82 ops/sec ±17.94% (14 runs sampled)</div>
+<div class="line">decode: source-map-0.6.1 x 0.61 ops/sec ±7.81% (6 runs sampled)</div>
+<div class="line">decode: source-map-0.8.0 x 9.54 ops/sec ±0.28% (28 runs sampled)</div>
+<div class="line">chrome dev tools x 2.18 ops/sec ±10.58% (10 runs sampled)</div>
+<div class="line">Fastest is decode: source-map-0.8.0</div>
+<div class="line"> </div>
+<div class="line">Encode Memory Usage:</div>
+<div class="line">local code                            13509880 bytes</div>
+<div class="line">@jridgewell/sourcemap-codec 1.4.15    13537648 bytes</div>
+<div class="line">sourcemap-codec                       32540104 bytes</div>
+<div class="line">source-map-0.6.1                     127531040 bytes</div>
+<div class="line">source-map-0.8.0                     127535312 bytes</div>
+<div class="line">Smallest memory usage is local code</div>
+<div class="line"> </div>
+<div class="line">Encode speed:</div>
+<div class="line">encode: local code x 20.10 ops/sec ±0.19% (38 runs sampled)</div>
+<div class="line">encode: @jridgewell/sourcemap-codec 1.4.15 x 20.26 ops/sec ±0.32% (38 runs sampled)</div>
+<div class="line">encode: sourcemap-codec x 5.44 ops/sec ±1.64% (18 runs sampled)</div>
+<div class="line">encode: source-map-0.6.1 x 2.30 ops/sec ±4.79% (10 runs sampled)</div>
+<div class="line">encode: source-map-0.8.0 x 2.46 ops/sec ±6.53% (10 runs sampled)</div>
+<div class="line">Fastest is encode: @jridgewell/sourcemap-codec 1.4.15</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="license"></a>
+License</h1>
+<p>MIT </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_562abdcd8625d4bf7bad2fe6fe01354c.html">web</a></li><li class="navelem"><a href="dir_ae152192ca76e4ee75647a37130a2ec0.html">node_modules</a></li><li class="navelem"><a href="dir_80aa4cdde0efe69ce2cc6007e55a7d6d.html">@jridgewell</a></li><li class="navelem"><a href="dir_5f9a6ff8422ffe01b6995379d228a49c.html">sourcemap-codec</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

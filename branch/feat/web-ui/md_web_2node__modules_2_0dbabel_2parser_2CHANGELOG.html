@@ -1,0 +1,1035 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Changelog</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('md_web_2node__modules_2_0dbabel_2parser_2CHANGELOG.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">Changelog </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="changelog"></a></p>
+<blockquote class="doxtable">
+<p><b>Tags:</b></p><ul>
+<li>:boom: [Breaking Change]</li>
+<li>:eyeglasses: [Spec Compliance]</li>
+<li>:rocket: [New Feature]</li>
+<li>:bug: [Bug Fix]</li>
+<li>:memo: [Documentation]</li>
+<li>:house: [Internal]</li>
+<li>:nail_care: [Polish] </li>
+</ul>
+</blockquote>
+<blockquote class="doxtable">
+<p>Semver Policy: <a href="https://github.com/babel/babel/tree/main/packages/babel-parser#semver">https://github.com/babel/babel/tree/main/packages/babel-parser#semver</a> </p>
+</blockquote>
+<p><em>Note: Gaps between patch versions are faulty, broken or test releases.</em></p>
+<p>See the <a href="https://github.com/babel/babel/blob/main/CHANGELOG.md">Babel Changelog</a> for the pre-6.8.0 version Changelog.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6171-2017-05-10"></a>
+6.17.1 (2017-05-10)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-bug-fix"></a>
+:bug: Bug Fix</h2>
+<ul>
+<li>Fix typo in flow spread operator error (Brian Ng)</li>
+<li>Fixed invalid number literal parsing (<a href="https://github.com/babel/babylon/pull/473">#473</a>) (Alex Kuzmenko)</li>
+<li>Fix number parser (<a href="https://github.com/babel/babylon/pull/433">#433</a>) (Alex Kuzmenko)</li>
+<li>Ensure non pattern shorthand props are checked for reserved words (<a href="https://github.com/babel/babylon/pull/479">#479</a>) (Brian Ng)</li>
+<li>Remove jsx context when parsing arrow functions (<a href="https://github.com/babel/babylon/pull/475">#475</a>) (Brian Ng)</li>
+<li>Allow super in class properties (<a href="https://github.com/babel/babylon/pull/499">#499</a>) (Brian Ng)</li>
+<li>Allow flow class field to be named constructor (<a href="https://github.com/babel/babylon/pull/510">#510</a>) (Brian Ng)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6170-2017-04-20"></a>
+6.17.0 (2017-04-20)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-bug-fix-1"></a>
+:bug: Bug Fix</h2>
+<ul>
+<li>Cherry-pick #418 to 6.x (<a href="https://github.com/babel/babylon/pull/476">#476</a>) (Sebastian McKenzie)</li>
+<li>Add support for invalid escapes in tagged templates (<a href="https://github.com/babel/babylon/pull/274">#274</a>) (Kevin Gibbons)</li>
+<li>Throw error if new.target is used outside of a function (<a href="https://github.com/babel/babylon/pull/402">#402</a>) (Brian Ng)</li>
+<li>Fix parsing of class properties (<a href="https://github.com/babel/babylon/pull/351">#351</a>) (Kevin Gibbons)</li>
+<li>Fix parsing yield with dynamicImport (<a href="https://github.com/babel/babylon/pull/383">#383</a>) (Brian Ng)</li>
+<li>Ensure consistent start args for parseParenItem (<a href="https://github.com/babel/babylon/pull/386">#386</a>) (Brian Ng)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta8-2017-04-04"></a>
+7.0.0-beta.8 (2017-04-04)</h1>
+<h2 class="doxsection"><a class="anchor" id="new-feature"></a>
+New Feature</h2>
+<ul>
+<li>Add support for flow type spread (#418) (Conrad Buck)</li>
+<li>Allow statics in flow interfaces (#427) (Brian Ng)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="bug-fix"></a>
+Bug Fix</h2>
+<ul>
+<li>Fix predicate attachment to match flow parser (#428) (Brian Ng)</li>
+<li>Add extra.raw back to JSXText and JSXAttribute (#344) (Alex Rattray)</li>
+<li>Fix rest parameters with array and objects (#424) (Brian Ng)</li>
+<li>Fix number parser (#433) (Alex Kuzmenko)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="docs"></a>
+Docs</h2>
+<ul>
+<li>Fix CONTRIBUTING.md [skip ci] (#432) (Alex Kuzmenko)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="internal"></a>
+Internal</h2>
+<ul>
+<li>Use babel-register script when running babel smoke tests (#442) (Brian Ng)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta7-2017-03-22"></a>
+7.0.0-beta.7 (2017-03-22)</h1>
+<h2 class="doxsection"><a class="anchor" id="spec-compliance"></a>
+Spec Compliance</h2>
+<ul>
+<li>Remove babylon plugin for template revision since it's stage-4 (#426) (Henry Zhu)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="bug-fix-1"></a>
+Bug Fix</h2>
+<ul>
+<li>Fix push-pop logic in flow (#405) (Daniel Tschinder)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta6-2017-03-21"></a>
+7.0.0-beta.6 (2017-03-21)</h1>
+<h2 class="doxsection"><a class="anchor" id="new-feature-1"></a>
+New Feature</h2>
+<ul>
+<li>Add support for invalid escapes in tagged templates (#274) (Kevin Gibbons)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="polish"></a>
+Polish</h2>
+<ul>
+<li>Improves error message when super is called outside of constructor (#408) (Arshabh Kumar Agarwal)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="docs-1"></a>
+Docs</h2>
+<ul>
+<li>[7.0] Moved value field in spec from ObjectMember to ObjectProperty as ObjectMethod's don't have it (#415) [skip ci] (James Browning)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta5-2017-03-21"></a>
+7.0.0-beta.5 (2017-03-21)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fix-2"></a>
+Bug Fix</h2>
+<ul>
+<li>Throw error if new.target is used outside of a function (#402) (Brian Ng)</li>
+<li>Fix parsing of class properties (#351) (Kevin Gibbons)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="other"></a>
+Other</h2>
+<ul>
+<li>Test runner: Detect extra property in 'actual' but not in 'expected'. (#407) (Andy)</li>
+<li>Optimize travis builds (#419) (Daniel Tschinder)</li>
+<li>Update codecov to 2.0 (#412) (Daniel Tschinder)</li>
+<li>Fix spec for ClassMethod: It doesn't have a function, it <em>is</em> a function. (#406) [skip ci] (Andy)</li>
+<li>Changed Non-existent RestPattern to RestElement which is what is actually parsed (#409) [skip ci] (James Browning)</li>
+<li>Upgrade flow to 0.41 (Daniel Tschinder)</li>
+<li>Fix watch command (#403) (Brian Ng)</li>
+<li>Update yarn lock (Daniel Tschinder)</li>
+<li>Fix watch command (#403) (Brian Ng)</li>
+<li>chore(package): update flow-bin to version 0.41.0 (#395) (greenkeeper[bot])</li>
+<li>Add estree test for correct order of directives (Daniel Tschinder)</li>
+<li>Add DoExpression to spec (#364) (Alex Kuzmenko)</li>
+<li>Mention cloning of repository in CONTRIBUTING.md (#391) [skip ci] (Sumedh Nimkarde)</li>
+<li>Explain how to run only one test (#389) [skip ci] (Aaron Ang)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta4-2017-03-01"></a>
+7.0.0-beta.4 (2017-03-01)</h1>
+<ul>
+<li>Don't consume async when checking for async func decl (#377) (Brian Ng)</li>
+<li>add <span class="tt">ranges</span> option [skip ci] (Henry Zhu)</li>
+<li>Don't parse class properties without initializers when classProperties is disabled and Flow is enabled (#300) (Andrew Levine)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta3-2017-02-28"></a>
+7.0.0-beta.3 (2017-02-28)</h1>
+<ul>
+<li>[7.0] Change RestProperty/SpreadProperty to RestElement/SpreadElement (#384)</li>
+<li>Merge changes from 6.x</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta2-2017-02-20"></a>
+7.0.0-beta.2 (2017-02-20)</h1>
+<ul>
+<li>estree: correctly change literals in all cases (#368) (Daniel Tschinder)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta1-2017-02-20"></a>
+7.0.0-beta.1 (2017-02-20)</h1>
+<ul>
+<li>Fix negative number literal typeannotations (#366) (Daniel Tschinder)</li>
+<li>Update contributing with more test info [skip ci] (#355) (Brian Ng)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md700-beta0-2017-02-15"></a>
+7.0.0-beta.0 (2017-02-15)</h1>
+<ul>
+<li>Reintroduce Variance node (#333) (Daniel Tschinder)</li>
+<li>Rename NumericLiteralTypeAnnotation to NumberLiteralTypeAnnotation (#332) (Charles Pick)</li>
+<li>[7.0] Remove ForAwaitStatement, add await flag to ForOfStatement (#349) (Brandon Dail)</li>
+<li>chore(package): update ava to version 0.18.0 (#345) (greenkeeper[bot])</li>
+<li>chore(package): update babel-plugin-istanbul to version 4.0.0 (#350) (greenkeeper[bot])</li>
+<li>Change location of ObjectTypeIndexer to match flow (#228) (Daniel Tschinder)</li>
+<li>Rename flow AST Type ExistentialTypeParam to ExistsTypeAnnotation (#322) (Toru Kobayashi)</li>
+<li>Revert "Temporary rollback for erroring on trailing comma with spread (#154)" (#290) (Daniel Tschinder)</li>
+<li>Remove classConstructorCall plugin (#291) (Brian Ng)</li>
+<li>Update yarn.lock (Daniel Tschinder)</li>
+<li>Update cross-env to 3.x (Daniel Tschinder)</li>
+<li>[7.0] Remove node 0.10, 0.12 and 5 from Travis (#284) (Sergey Rubanov)</li>
+<li>Remove <span class="tt">String.fromCodePoint</span> shim (#279) (Mathias Bynens)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6161-2017-02-23"></a>
+6.16.1 (2017-02-23)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-regression"></a>
+:bug: Regression</h2>
+<ul>
+<li>Revert "Fix export default async function to be FunctionDeclaration" (<a href="https://github.com/babel/babylon/pull/375">#375</a>)</li>
+</ul>
+<p>Need to modify Babel for this AST node change, so moving to 7.0.</p>
+<ul>
+<li>Revert "Don't parse class properties without initializers when classProperties plugin is disabled, and Flow is enabled" (<a href="https://github.com/babel/babylon/pull/376">#376</a>)</li>
+</ul>
+<p><a href="https://github.com/facebook/react-native/issues/12542">react-native</a> broke with this so we reverted.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6160-2017-02-23"></a>
+6.16.0 (2017-02-23)</h1>
+<h2 class="doxsection"><a class="anchor" id="rocket-new-feature"></a>
+:rocket: New Feature</h2>
+<p><em><b>ESTree</b></em> compatibility as plugin (<a href="https://github.com/babel/babylon/pull/277">#277</a>) (Daniel Tschinder)</p>
+<p>We finally introduce a new compatibility layer for ESTree. To put babylon into ESTree-compatible mode the new plugin <span class="tt">estree</span> can be enabled. In this mode the parser will output an AST that is compliant to the specs of <a href="https://github.com/estree/estree/">ESTree</a></p>
+<p>We highly recommend everyone who uses babylon outside of babel to use this plugin. This will make it much easier for users to switch between different ESTree-compatible parsers. We so far tested several projects with different parsers and exchanged their parser to babylon and in nearly all cases it worked out of the box. Some other estree-compatible parsers include <span class="tt">acorn</span>, <span class="tt">esprima</span>, <span class="tt">espree</span>, <span class="tt">flow-parser</span>, etc.</p>
+<p>To enable <span class="tt">estree</span> mode simply add the plugin in the config: </p><div class="fragment"><div class="line">{</div>
+<div class="line">  &quot;plugins&quot;: [ &quot;estree&quot; ]</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>If you want to migrate your project from non-ESTree mode to ESTree, have a look at our <a href="https://github.com/babel/babylon/#output">Readme</a>, where all deviations are mentioned.</p>
+<p>Add a parseExpression public method (<a href="https://github.com/babel/babylon/pull/213">#213</a>) (jeromew)</p>
+<p>Babylon exports a new function to parse a single expression</p>
+<div class="fragment"><div class="line">import { parseExpression } from &#39;babylon&#39;;</div>
+<div class="line"> </div>
+<div class="line">const ast = parseExpression(&#39;x || y &amp;&amp; z&#39;, options);</div>
+</div><!-- fragment --><p>The returned AST will only consist of the expression. The options are the same as for <span class="tt">parse()</span></p>
+<p>Add startLine option (<a href="https://github.com/babel/babylon/pull/346">#346</a>) (Raphael Mu)</p>
+<p>A new option was added to babylon allowing to change the initial linenumber for the first line which is usually <span class="tt">1</span>. Changing this for example to <span class="tt">100</span> will make line <span class="tt">1</span> of the input source to be marked as line <span class="tt">100</span>, line <span class="tt">2</span> as <span class="tt">101</span>, line <span class="tt">3</span> as <span class="tt">102</span>, ...</p>
+<p>Function predicate declaration (<a href="https://github.com/babel/babylon/pull/103">#103</a>) (Panagiotis Vekris)</p>
+<p>Added support for function predicates which flow introduced in version 0.33.0</p>
+<div class="fragment"><div class="line">declare function is_number(x: mixed): boolean %checks(typeof x === &quot;number&quot;);</div>
+</div><!-- fragment --><p>Allow imports in declare module (<a href="https://github.com/babel/babylon/pull/315">#315</a>) (Daniel Tschinder)</p>
+<p>Added support for imports within module declarations which flow introduced in version 0.37.0</p>
+<div class="fragment"><div class="line">declare module &quot;C&quot; {</div>
+<div class="line">  import type { DT } from &quot;D&quot;;</div>
+<div class="line">  declare export type CT = { D: DT };</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Forbid semicolons after decorators in classes (<a href="https://github.com/babel/babylon/pull/352">#352</a>) (Kevin Gibbons)</p>
+<p>This example now correctly throws an error when there is a semicolon after the decorator:</p>
+<div class="fragment"><div class="line">class A {</div>
+<div class="line">@a;</div>
+<div class="line">foo(){}</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Keywords are not allowed as local specifier (<a href="https://github.com/babel/babylon/pull/307">#307</a>) (Daniel Tschinder)</p>
+<p>Using keywords in imports is not allowed anymore:</p>
+<div class="fragment"><div class="line">import { default } from &quot;foo&quot;;</div>
+<div class="line">import { a as debugger } from &quot;foo&quot;;</div>
+</div><!-- fragment --><p>Do not allow overwritting of primitive types (<a href="https://github.com/babel/babylon/pull/314">#314</a>) (Daniel Tschinder)</p>
+<p>In flow it is now forbidden to overwrite the primitive types <span class="tt">"any"</span>, <span class="tt">"mixed"</span>, <span class="tt">"empty"</span>, <span class="tt">"bool"</span>, <span class="tt">"boolean"</span>, <span class="tt">"number"</span>, <span class="tt">"string"</span>, <span class="tt">"void"</span> and <span class="tt">"null"</span> with your own type declaration.</p>
+<p>Disallow import type { type a } from … (<a href="https://github.com/babel/babylon/pull/305">#305</a>) (Daniel Tschinder)</p>
+<p>The following code now correctly throws an error</p>
+<div class="fragment"><div class="line">import type { type a } from &quot;foo&quot;;</div>
+</div><!-- fragment --><p>Don't parse class properties without initializers when classProperties is disabled and Flow is enabled (<a href="https://github.com/babel/babylon/pull/300">#300</a>) (Andrew Levine)</p>
+<p>Ensure that you enable the <span class="tt">classProperties</span> plugin in order to enable correct parsing of class properties. Prior to this version it was possible to parse them by enabling the <span class="tt">flow</span> plugin but this was not intended the behaviour.</p>
+<p>If you enable the flow plugin you can only define the type of the class properties, but not initialize them.</p>
+<p>Fix export default async function to be FunctionDeclaration (<a href="https://github.com/babel/babylon/pull/324">#324</a>) (Daniel Tschinder)</p>
+<p>Parsing the following code now returns a <span class="tt">FunctionDeclaration</span> AST node instead of <span class="tt">FunctionExpression</span>.</p>
+<div class="fragment"><div class="line">export default async function bar() {};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="nail_care-polish"></a>
+:nail_care: Polish</h2>
+<p>Improve error message on attempt to destructure named import (<a href="https://github.com/babel/babylon/pull/288">#288</a>) (Brian Ng)</p>
+<h2 class="doxsection"><a class="anchor" id="bug-bug-fix-2"></a>
+:bug: Bug Fix</h2>
+<p>Fix negative number literal typeannotations (<a href="https://github.com/babel/babylon/pull/366">#366</a>) (Daniel Tschinder)</p>
+<p>Ensure takeDecorators is called on exported class (<a href="https://github.com/babel/babylon/pull/358">#358</a>) (Brian Ng)</p>
+<p>ESTree: correctly change literals in all cases (<a href="https://github.com/babel/babylon/pull/368">#368</a>) (Daniel Tschinder)</p>
+<p>Correctly convert RestProperty to Assignable (<a href="https://github.com/babel/babylon/pull/339">#339</a>) (Daniel Tschinder)</p>
+<p>Fix #321 by allowing question marks in type params (<a href="https://github.com/babel/babylon/pull/338">#338</a>) (Daniel Tschinder)</p>
+<p>Fix #336 by correctly setting arrow-param (<a href="https://github.com/babel/babylon/pull/337">#337</a>) (Daniel Tschinder)</p>
+<p>Fix parse error when destructuring <span class="tt">set</span> with default value (<a href="https://github.com/babel/babylon/pull/317">#317</a>) (Brian Ng)</p>
+<p>Fix ObjectTypeCallProperty static (<a href="https://github.com/babel/babylon/pull/298">#298</a>) (Dan Harper)</p>
+<h2 class="doxsection"><a class="anchor" id="house-internal"></a>
+:house: Internal</h2>
+<p>Fix generator-method-with-computed-name spec (<a href="https://github.com/babel/babylon/pull/360">#360</a>) (Alex Rattray)</p>
+<p>Fix flow type-parameter-declaration test with unintended semantic (<a href="https://github.com/babel/babylon/pull/361">#361</a>) (Alex Rattray)</p>
+<p>Cleanup and splitup parser functions (<a href="https://github.com/babel/babylon/pull/295">#295</a>) (Daniel Tschinder)</p>
+<p>chore(package): update flow-bin to version 0.38.0 (<a href="https://github.com/babel/babylon/pull/313">#313</a>) (greenkeeper[bot])</p>
+<p>Call inner function instead of 1:1 copy to plugin (<a href="https://github.com/babel/babylon/pull/294">#294</a>) (Daniel Tschinder)</p>
+<p>Update eslint-config-babel to the latest version 🚀 (<a href="https://github.com/babel/babylon/pull/299">#299</a>) (greenkeeper[bot])</p>
+<p>Update eslint-config-babel to the latest version 🚀 (<a href="https://github.com/babel/babylon/pull/293">#293</a>) (greenkeeper[bot])</p>
+<p>devDeps: remove eslint-plugin-babel (<a href="https://github.com/babel/babylon/pull/292">#292</a>) (Kai Cataldo)</p>
+<p>Correct indent eslint rule config (<a href="https://github.com/babel/babylon/pull/276">#276</a>) (Daniel Tschinder)</p>
+<p>Fail tests that have expected.json and throws-option (<a href="https://github.com/babel/babylon/pull/285">#285</a>) (Daniel Tschinder)</p>
+<h2 class="doxsection"><a class="anchor" id="memo-documentation"></a>
+:memo: Documentation</h2>
+<p>Update contributing with more test info [skip ci] (<a href="https://github.com/babel/babylon/pull/355">#355</a>) (Brian Ng)</p>
+<p>Update API documentation (<a href="https://github.com/babel/babylon/pull/330">#330</a>) (Timothy Gu)</p>
+<p>Added keywords to package.json (<a href="https://github.com/babel/babylon/pull/323">#323</a>) (Dmytro)</p>
+<p>AST spec: fix casing of <span class="tt">RegExpLiteral</span> (<a href="https://github.com/babel/babylon/pull/318">#318</a>) (Mathias Bynens)</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6150-2017-01-10"></a>
+6.15.0 (2017-01-10)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-1"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Add support for Flow shorthand import type (<a href="https://github.com/babel/babylon/pull/267">#267</a>) (Jeff Morrison)</p>
+<p>This change implements flows new shorthand import syntax and where previously you had to write this code:</p>
+<div class="fragment"><div class="line">import {someValue} from &quot;blah&quot;;</div>
+<div class="line">import type {someType} from &quot;blah&quot;;</div>
+<div class="line">import typeof {someOtherValue} from &quot;blah&quot;;</div>
+</div><!-- fragment --><p>you can now write it like this:</p>
+<div class="fragment"><div class="line">import {</div>
+<div class="line">  someValue,</div>
+<div class="line">  type someType,</div>
+<div class="line">  typeof someOtherValue,</div>
+<div class="line">} from &quot;blah&quot;;</div>
+</div><!-- fragment --><p>For more information look at <a href="https://github.com/facebook/flow/pull/2890">this</a> pull request.</p>
+<p>flow: allow leading pipes in all positions (<a href="https://github.com/babel/babylon/pull/256">#256</a>) (Vladimir Kurchatkin)</p>
+<p>This change now allows a leading pipe everywhere types can be used: </p><div class="fragment"><div class="line">var f = (x): | 1 | 2 =&gt; 1;</div>
+</div><!-- fragment --><p>Throw error when exporting non-declaration (<a href="https://github.com/babel/babylon/pull/241">#241</a>) (Kai Cataldo)</p>
+<p>Previously babylon parsed the following exports, although they are not valid: </p><div class="fragment"><div class="line">export typeof foo;</div>
+<div class="line">export new Foo();</div>
+<div class="line">export function() {};</div>
+<div class="line">export for (;;);</div>
+<div class="line">export while(foo);</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-bug-fix-3"></a>
+:bug: Bug Fix</h2>
+<p>Don't set inType flag when parsing property names (<a href="https://github.com/babel/babylon/pull/266">#266</a>) (Vladimir Kurchatkin)</p>
+<p>This fixes parsing of this case:</p>
+<div class="fragment"><div class="line">const map = {</div>
+<div class="line">  [age &lt;= 17] : &#39;Too young&#39;</div>
+<div class="line">};</div>
+</div><!-- fragment --><p>Fix source location for JSXEmptyExpression nodes (fixes #248) (<a href="https://github.com/babel/babylon/pull/249">#249</a>) (James Long)</p>
+<p>The following case produced an invalid AST </p><div class="fragment"><div class="line">&lt;div&gt;{/* foo */}&lt;/div&gt;</div>
+</div><!-- fragment --><p>Use fromCodePoint to convert high value unicode entities (<a href="https://github.com/babel/babylon/pull/243">#243</a>) (Ryan Duffy)</p>
+<p>When high value unicode entities (e.g. 💩) were used in the input source code they are now correctly encoded in the resulting AST.</p>
+<p>Rename folder to avoid Windows-illegal characters (<a href="https://github.com/babel/babylon/pull/281">#281</a>) (Ryan Plant)</p>
+<p>Allow this.state.clone() when parsing decorators (<a href="https://github.com/babel/babylon/pull/262">#262</a>) (Alex Rattray)</p>
+<h2 class="doxsection"><a class="anchor" id="house-internal-1"></a>
+:house: Internal</h2>
+<p>User external-helpers (<a href="https://github.com/babel/babylon/pull/254">#254</a>) (Daniel Tschinder)</p>
+<p>Add watch script for dev (<a href="https://github.com/babel/babylon/pull/234">#234</a>) (Kai Cataldo)</p>
+<p>Freeze current plugins list for "*" option, and remove from README.md (<a href="https://github.com/babel/babylon/pull/245">#245</a>) (Andrew Levine)</p>
+<p>Prepare tests for multiple fixture runners. (<a href="https://github.com/babel/babylon/pull/240">#240</a>) (Daniel Tschinder)</p>
+<p>Add some test coverage for decorators stage-0 plugin (<a href="https://github.com/babel/babylon/pull/250">#250</a>) (Andrew Levine)</p>
+<p>Refactor tokenizer types file (<a href="https://github.com/babel/babylon/pull/263">#263</a>) (Sven SAULEAU)</p>
+<p>Update eslint-config-babel to the latest version 🚀 (<a href="https://github.com/babel/babylon/pull/273">#273</a>) (greenkeeper[bot])</p>
+<p>chore(package): update rollup to version 0.41.0 (<a href="https://github.com/babel/babylon/pull/272">#272</a>) (greenkeeper[bot])</p>
+<p>chore(package): update flow-bin to version 0.37.0 (<a href="https://github.com/babel/babylon/pull/255">#255</a>) (greenkeeper[bot])</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6141-2016-11-17"></a>
+6.14.1 (2016-11-17)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-bug-fix-4"></a>
+:bug: Bug Fix</h2>
+<p>Allow <span class="tt">"plugins": ["*"]</span> (<a href="https://github.com/babel/babylon/pull/229">#229</a>) (Daniel Tschinder)</p>
+<div class="fragment"><div class="line">{</div>
+<div class="line">  &quot;plugins&quot;: [&quot;*&quot;]</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Will include all parser plugins instead of specifying each one individually. Useful for tools like babel-eslint, jscodeshift, and ast-explorer.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6140-2016-11-16"></a>
+6.14.0 (2016-11-16)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-2"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Throw error for reserved words <span class="tt">enum</span> and <span class="tt">await</span> (<a href="https://github.com/babel/babylon/pull/195">#195</a>) (Kai Cataldo)</p>
+<p><a href="http://www.ecma-international.org/ecma-262/6.0/#sec-future-reserved-words">11.6.2.2 Future Reserved Words</a></p>
+<p>Babylon will throw for more reserved words such as <span class="tt">enum</span> or <span class="tt">await</span> (in strict mode).</p>
+<div class="fragment"><div class="line">class enum {} // throws</div>
+<div class="line">class await {} // throws in strict mode (module)</div>
+</div><!-- fragment --><p>Optional names for function types and object type indexers (<a href="https://github.com/babel/babylon/pull/197">#197</a>) (Gabe Levi)</p>
+<p>So where you used to have to write</p>
+<div class="fragment"><div class="line">type A = (x: string, y: boolean) =&gt; number;</div>
+<div class="line">type B = (z: string) =&gt; number;</div>
+<div class="line">type C = { [key: string]: number };</div>
+</div><!-- fragment --><p>you can now write (with flow 0.34.0)</p>
+<div class="fragment"><div class="line">type A = (string, boolean) =&gt; number;</div>
+<div class="line">type B = string =&gt; number;</div>
+<div class="line">type C = { [string]: number };</div>
+</div><!-- fragment --><p>Parse flow nested array type annotations like <span class="tt">number[][]</span> (<a href="https://github.com/babel/babylon/pull/219">#219</a>) (Bernhard Häussner)</p>
+<p>Supports these form now of specifying array types:</p>
+<div class="fragment"><div class="line">var a: number[][][][];</div>
+<div class="line">var b: string[][];</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-bug-fix-5"></a>
+:bug: Bug Fix</h2>
+<p>Correctly eat semicolon at the end of <span class="tt">DelcareModuleExports</span> (<a href="https://github.com/babel/babylon/pull/223">#223</a>) (Daniel Tschinder)</p>
+<div class="fragment"><div class="line">declare module &quot;foo&quot; { declare module.exports: number }</div>
+<div class="line">declare module &quot;foo&quot; { declare module.exports: number; }  // also allowed now</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="house-internal-2"></a>
+:house: Internal</h2>
+<ul>
+<li>Count Babel tests towards Babylon code coverage (<a href="https://github.com/babel/babylon/pull/182">#182</a>) (Moti Zilberman)</li>
+<li>Fix strange line endings (<a href="https://github.com/babel/babylon/pull/214">#214</a>) (Thomas Grainger)</li>
+<li>Add node 7 (Daniel Tschinder)</li>
+<li>chore(package): update flow-bin to version 0.34.0 (<a href="https://github.com/babel/babylon/pull/204">#204</a>) (Greenkeeper)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v6131-2016-10-26"></a>
+v6.13.1 (2016-10-26)</h1>
+<h2 class="doxsection"><a class="anchor" id="nail_care-polish-1"></a>
+:nail_care: Polish</h2>
+<ul>
+<li>Use rollup for bundling to speed up startup time (<a href="https://github.com/babel/babylon/pull/190">#190</a>) (<a href="https://github.com/DrewML">@drewml</a>)</li>
+</ul>
+<div class="fragment"><div class="line">const babylon = require(&#39;babylon&#39;);</div>
+<div class="line">const ast = babylon.parse(&#39;var foo = &quot;lol&quot;;&#39;);</div>
+</div><!-- fragment --><p>With that test case, there was a ~95ms savings by removing the need for node to build/traverse the dependency graph.</p>
+<p><b>Without bundling</b> <img src="https://cloud.githubusercontent.com/assets/5233399/19420264/3133497e-93ad-11e6-9a6a-2da59c4f5c13.png" alt="image" class="inline"/></p>
+<p><b>With bundling</b> <img src="https://cloud.githubusercontent.com/assets/5233399/19420267/388f556e-93ad-11e6-813e-7c5c396be322.png" alt="image" class="inline"/></p>
+<ul>
+<li>add clean command [skip ci] (<a href="https://github.com/babel/babylon/pull/201">#201</a>) (Henry Zhu)</li>
+<li>add ForAwaitStatement (async generator already added) [skip ci] (<a href="https://github.com/babel/babylon/pull/196">#196</a>) (Henry Zhu)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v6130-2016-10-21"></a>
+v6.13.0 (2016-10-21)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-3"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Property variance type annotations for Flow plugin (<a href="https://github.com/babel/babylon/pull/161">#161</a>) (Sam Goldman)</p>
+<blockquote class="doxtable">
+<p>See <a href="https://flowtype.org/docs/variance.html">https://flowtype.org/docs/variance.html</a> for more information </p>
+</blockquote>
+<div class="fragment"><div class="line">type T = { +p: T };</div>
+<div class="line">interface T { -p: T };</div>
+<div class="line">declare class T { +[k:K]: V };</div>
+<div class="line">class T { -[k:K]: V };</div>
+<div class="line">class C2 { +p: T = e };</div>
+</div><!-- fragment --><p>Raise error on duplicate definition of <b>proto</b> (<a href="https://github.com/babel/babylon/pull/183">#183</a>) (Moti Zilberman)</p>
+<div class="fragment"><div class="line">({ __proto__: 1, __proto__: 2 }) // Throws an error now</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-bug-fix-6"></a>
+:bug: Bug Fix</h2>
+<p>Flow: Allow class properties to be named <span class="tt">static</span> (<a href="https://github.com/babel/babylon/pull/184">#184</a>) (Moti Zilberman)</p>
+<div class="fragment"><div class="line">declare class A {</div>
+<div class="line">  static: T;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Allow "async" as identifier for object literal property shorthand (<a href="https://github.com/babel/babylon/pull/187">#187</a>) (Andrew Levine)</p>
+<div class="fragment"><div class="line">var foo = { async, bar };</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="nail_care-polish-2"></a>
+:nail_care: Polish</h2>
+<p>Fix flowtype and add inType to state (<a href="https://github.com/babel/babylon/pull/189">#189</a>) (Daniel Tschinder)</p>
+<blockquote class="doxtable">
+<p>This improves the performance slightly (because of hidden classes) </p>
+</blockquote>
+<h2 class="doxsection"><a class="anchor" id="house-internal-3"></a>
+:house: Internal</h2>
+<p>Fix .gitattributes line ending setting (<a href="https://github.com/babel/babylon/pull/191">#191</a>) (Moti Zilberman)</p>
+<p>Increase test coverage (<a href="https://github.com/babel/babylon/pull/175">#175</a> (Moti Zilberman)</p>
+<p>Readd missin .eslinignore for IDEs (Daniel Tschinder)</p>
+<p>Error on missing expected.json fixture in CI (<a href="https://github.com/babel/babylon/pull/188">#188</a>) (Moti Zilberman)</p>
+<p>Add .gitattributes and .editorconfig for LF line endings (<a href="https://github.com/babel/babylon/pull/179">#179</a>) (Moti Zilberman)</p>
+<p>Fixes two tests that are failing after the merge of #172 (<a href="https://github.com/babel/babylon/pull/177">#177</a>) (Moti Zilberman)</p>
+<h1 class="doxsection"><a class="anchor" id="v6120-2016-10-14"></a>
+v6.12.0 (2016-10-14)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-4"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Implement import() syntax (<a href="https://github.com/babel/babylon/pull/163">#163</a>) (Jordan Gensler)</p>
+<h3 class="doxsection"><a class="anchor" id="dynamic-import"></a>
+Dynamic Import</h3>
+<ul>
+<li>Proposal Repo: <a href="https://github.com/domenic/proposal-dynamic-import">https://github.com/domenic/proposal-dynamic-import</a></li>
+<li>Championed by <a href="https://github.com/domenic">@domenic</a></li>
+<li>stage-2</li>
+<li><a href="https://github.com/rwaldron/tc39-notes/blob/master/es7/2016-09/sept-28.md#113a-import">sept-28 tc39 notes</a></li>
+</ul>
+<blockquote class="doxtable">
+<p>This repository contains a proposal for adding a "function-like" import() module loading syntactic form to JavaScript </p>
+</blockquote>
+<div class="fragment"><div class="line">import(`./section-modules/${link.dataset.entryModule}.js`)</div>
+<div class="line">.then(module =&gt; {</div>
+<div class="line">  module.loadPageInto(main);</div>
+<div class="line">})</div>
+</div><!-- fragment --><p>Add EmptyTypeAnnotation (<a href="https://github.com/babel/babylon/pull/171">#171</a>) (Sam Goldman)</p>
+<h3 class="doxsection"><a class="anchor" id="emptytypeannotation"></a>
+EmptyTypeAnnotation</h3>
+<p>Just wasn't covered before.</p>
+<div class="fragment"><div class="line">type T = empty;</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-bug-fix-7"></a>
+:bug: Bug Fix</h2>
+<p>Fix crash when exporting with destructuring and sparse array (<a href="https://github.com/babel/babylon/pull/170">#170</a>) (Jeroen Engels)</p>
+<div class="fragment"><div class="line">// was failing due to sparse array</div>
+<div class="line">export const { foo: [ ,, qux7 ] } = bar;</div>
+</div><!-- fragment --><p>Allow keyword in Flow object declaration property names with type parameters (<a href="https://github.com/babel/babylon/pull/146">#146</a>) (Dan Harper)</p>
+<div class="fragment"><div class="line">declare class X {</div>
+<div class="line">  foobar&lt;T&gt;(): void;</div>
+<div class="line">  static foobar&lt;T&gt;(): void;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Allow keyword in object/class property names with Flow type parameters (<a href="https://github.com/babel/babylon/pull/145">#145</a>) (Dan Harper)</p>
+<div class="fragment"><div class="line">class Foo {</div>
+<div class="line">  delete&lt;T&gt;(item: T): T {</div>
+<div class="line">    return item;</div>
+<div class="line">  }</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>Allow typeAnnotations for yield expressions (<a href="https://github.com/babel/babylon/pull/174">#174</a>)) (Daniel Tschinder)</p>
+<div class="fragment"><div class="line">function *foo() {</div>
+<div class="line">  const x = (yield 5: any);</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="nail_care-polish-3"></a>
+:nail_care: Polish</h2>
+<p>Annotate more errors with expected token (<a href="https://github.com/babel/babylon/pull/172">#172</a>)) (Moti Zilberman)</p>
+<div class="fragment"><div class="line">// Unexpected token, expected ; (1:6)</div>
+<div class="line">{ set 1 }</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="house-internal-4"></a>
+:house: Internal</h2>
+<p>Remove kcheck (<a href="https://github.com/babel/babylon/pull/173">#173</a>)) (Daniel Tschinder)</p>
+<p>Also run flow, linting, babel tests on separate instances (add back node 0.10)</p>
+<h1 class="doxsection"><a class="anchor" id="v6116-2016-10-12"></a>
+v6.11.6 (2016-10-12)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-bug-fixregression"></a>
+:bug: Bug Fix/Regression</h2>
+<p>Fix crash when exporting with destructuring and sparse array (<a href="https://github.com/babel/babylon/pull/170">#170</a>) (Jeroen Engels)</p>
+<div class="fragment"><div class="line">// was failing with `Cannot read property &#39;type&#39; of null` because of null identifiers</div>
+<div class="line">export const { foo: [ ,, qux7 ] } = bar;</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="v6115-2016-10-12"></a>
+v6.11.5 (2016-10-12)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-5"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Fix: Check for duplicate named exports in exported destructuring assignments (<a href="https://github.com/babel/babylon/pull/144">#144</a>) (Kai Cataldo)</p>
+<div class="fragment"><div class="line">// `foo` has already been exported. Exported identifiers must be unique. (2:20)</div>
+<div class="line">export function foo() {};</div>
+<div class="line">export const { a: [{foo}] } = bar;</div>
+</div><!-- fragment --><p>Fix: Check for duplicate named exports in exported rest elements/properties (<a href="https://github.com/babel/babylon/pull/164">#164</a>) (Kai Cataldo)</p>
+<div class="fragment"><div class="line">// `foo` has already been exported. Exported identifiers must be unique. (2:22)</div>
+<div class="line">export const foo = 1;</div>
+<div class="line">export const [bar, ...foo] = baz;</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-bug-fix-8"></a>
+:bug: Bug Fix</h2>
+<p>Fix: Allow identifier <span class="tt">async</span> for default param in arrow expression (<a href="https://github.com/babel/babylon/pull/165">#165</a>) (Kai Cataldo)</p>
+<div class="fragment"><div class="line">// this is ok now</div>
+<div class="line">const test = ({async = true}) =&gt; {};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="nail_care-polish-4"></a>
+:nail_care: Polish</h2>
+<p>Babylon will now print out the token it's expecting if there's a <span class="tt">SyntaxError</span> (<a href="https://github.com/babel/babylon/pull/150">#150</a>) (Daniel Tschinder)</p>
+<div class="fragment"><div class="line"># So in the case of a missing ending curly (`}`)</div>
+<div class="line">Module build failed: SyntaxError: Unexpected token, expected } (30:0)</div>
+<div class="line">  28 |   }</div>
+<div class="line">  29 |</div>
+<div class="line">&gt; 30 |</div>
+<div class="line">     | ^</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="v6114-2016-10-03"></a>
+v6.11.4 (2016-10-03)</h1>
+<p>Temporary rollback for erroring on trailing comma with spread (#154) (Henry Zhu)</p>
+<h1 class="doxsection"><a class="anchor" id="v6113-2016-10-01"></a>
+v6.11.3 (2016-10-01)</h1>
+<h2 class="doxsection"><a class="anchor" id="eyeglasses-spec-compliance-6"></a>
+:eyeglasses: Spec Compliance</h2>
+<p>Add static errors for object rest (#149) (<a href="https://github.com/danez">@danez</a>)</p>
+<blockquote class="doxtable">
+<p><a href="https://github.com/sebmarkbage/ecmascript-rest-spread">https://github.com/sebmarkbage/ecmascript-rest-spread</a> </p>
+</blockquote>
+<p>Object rest copies the <em>rest</em> of properties from the right hand side <span class="tt">obj</span> starting from the left to right.</p>
+<div class="fragment"><div class="line">let { x, y, ...z } =  { x: 1, y: 2, z: 3 };</div>
+<div class="line">// x = 1</div>
+<div class="line">// y = 2</div>
+<div class="line">// z = { z: 3 }</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="new-syntax-errors"></a>
+New Syntax Errors:</h3>
+<p><b>SyntaxError</b>: The rest element has to be the last element when destructuring (1:10) </p><div class="fragment"><div class="line">&gt; 1 | let { ...x, y, z } = { x: 1, y: 2, z: 3};</div>
+<div class="line">    |           ^</div>
+<div class="line"># Previous behavior:</div>
+<div class="line"># x = { x: 1, y: 2, z: 3 }</div>
+<div class="line"># y = 2</div>
+<div class="line"># z = 3</div>
+</div><!-- fragment --><p>Before, this was just a more verbose way of shallow copying <span class="tt">obj</span> since it doesn't actually do what you think.</p>
+<p><b>SyntaxError</b>: Cannot have multiple rest elements when destructuring (1:13)</p>
+<div class="fragment"><div class="line">&gt; 1 | let { x, ...y, ...z } = { x: 1, y: 2, z: 3};</div>
+<div class="line">    |              ^</div>
+<div class="line"># Previous behavior:</div>
+<div class="line"># x = 1</div>
+<div class="line"># y = { y: 2, z: 3 }</div>
+<div class="line"># z = { y: 2, z: 3 }</div>
+</div><!-- fragment --><p>Before y and z would just be the same value anyway so there is no reason to need to have both.</p>
+<p><b>SyntaxError</b>: A trailing comma is not permitted after the rest element (1:16)</p>
+<div class="fragment"><div class="line">let { x, y, ...z, } = obj;</div>
+</div><!-- fragment --><p>The rationale for this is that the use case for trailing comma is that you can add something at the end without affecting the line above. Since a RestProperty always has to be the last property it doesn't make sense.</p>
+<hr  />
+<p>get / set are valid property names in default assignment (#142) (<a href="https://github.com/jezell">@jezell</a>)</p>
+<div class="fragment"><div class="line">// valid</div>
+<div class="line">function something({ set = null, get = null }) {}</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="v6112-2016-09-23"></a>
+v6.11.2 (2016-09-23)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fix-3"></a>
+Bug Fix</h2>
+<ul>
+<li><a href="https://github.com/babel/babylon/issues/139">#139</a> Don't do the duplicate check if not an identifier (#140) @hzoo</li>
+</ul>
+<div class="fragment"><div class="line">// regression with duplicate export check</div>
+<div class="line">SyntaxError: ./typography.js: `undefined` has already been exported. Exported identifiers must be unique. (22:13)</div>
+<div class="line">  20 |</div>
+<div class="line">  21 | export const { rhythm } = typography;</div>
+<div class="line">&gt; 22 | export const { TypographyStyle } = typography</div>
+</div><!-- fragment --><p>Bail out for now, and make a change to account for destructuring in the next release.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6111-2016-09-22"></a>
+6.11.1 (2016-09-22)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fix-4"></a>
+Bug Fix</h2>
+<ul>
+<li><a href="https://github.com/babel/babylon/pull/137">#137</a> - Fix a regression with duplicate exports - it was erroring on all keys in <span class="tt">Object.prototype</span>. @danez</li>
+</ul>
+<div class="fragment"><div class="line">export toString from &#39;./toString&#39;;</div>
+</div><!-- fragment --><div class="fragment"><div class="line">`toString` has already been exported. Exported identifiers must be unique. (1:7)</div>
+<div class="line">&gt; 1 | export toString from &#39;./toString&#39;;</div>
+<div class="line">    |        ^</div>
+<div class="line">  2 |</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md6110-2016-09-22"></a>
+6.11.0 (2016-09-22)</h1>
+<h2 class="doxsection"><a class="anchor" id="spec-compliance-will-break-ci"></a>
+Spec Compliance (will break CI)</h2>
+<ul>
+<li>Disallow duplicate named exports (<a href="https://github.com/babel/babylon/pull/107">#107</a>) @kaicataldo</li>
+</ul>
+<div class="fragment"><div class="line">// Only one default export allowed per module. (2:9)</div>
+<div class="line">export default function() {};</div>
+<div class="line">export { foo as default };</div>
+<div class="line"> </div>
+<div class="line">// Only one default export allowed per module. (2:0)</div>
+<div class="line">export default {};</div>
+<div class="line">export default function() {};</div>
+<div class="line"> </div>
+<div class="line">// `Foo` has already been exported. Exported identifiers must be unique. (2:0)</div>
+<div class="line">export { Foo };</div>
+<div class="line">export class Foo {};</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="new-feature-syntax"></a>
+New Feature (Syntax)</h2>
+<ul>
+<li>Add support for computed class property names (<a href="https://github.com/babel/babylon/pull/121">#121</a>) @motiz88</li>
+</ul>
+<div class="fragment"><div class="line">// AST</div>
+<div class="line">interface ClassProperty &lt;: Node {</div>
+<div class="line">  type: &quot;ClassProperty&quot;;</div>
+<div class="line">  key: Identifier;</div>
+<div class="line">  value: Expression;</div>
+<div class="line">  computed: boolean; // added</div>
+<div class="line">}</div>
+</div><!-- fragment --><div class="fragment"><div class="line">// with &quot;plugins&quot;: [&quot;classProperties&quot;]</div>
+<div class="line">class Foo {</div>
+<div class="line">  [x]</div>
+<div class="line">  [&#39;y&#39;]</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">class Bar {</div>
+<div class="line">  [p]</div>
+<div class="line">  [m] () {}</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-fix-5"></a>
+Bug Fix</h2>
+<ul>
+<li>Fix <span class="tt">static</span> property falling through in the declare class Flow AST (<a href="https://github.com/babel/babylon/pull/135">#135</a>) @danharper</li>
+</ul>
+<div class="fragment"><div class="line">declare class X {</div>
+<div class="line">    a: number;</div>
+<div class="line">    static b: number; // static</div>
+<div class="line">    c: number; // this was being marked as static in the AST as well</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="polish-1"></a>
+Polish</h2>
+<ul>
+<li>Rephrase "assigning/binding to rvalue" errors to include context (<a href="https://github.com/babel/babylon/pull/119">#119</a>) @motiz88</li>
+</ul>
+<div class="fragment"><div class="line">// Used to error with:</div>
+<div class="line">// SyntaxError: Assigning to rvalue (1:0)</div>
+<div class="line"> </div>
+<div class="line">// Now:</div>
+<div class="line">// Invalid left-hand side in assignment expression (1:0)</div>
+<div class="line">3 = 4</div>
+<div class="line"> </div>
+<div class="line">// Invalid left-hand side in for-in statement (1:5)</div>
+<div class="line">for (+i in {});</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="internal-1"></a>
+Internal</h2>
+<ul>
+<li>Fix call to <span class="tt">this.parseMaybeAssign</span> with correct arguments (<a href="https://github.com/babel/babylon/pull/133">#133</a>) @danez</li>
+<li>Add semver note to changelog (<a href="https://github.com/babel/babylon/pull/131">#131</a>) @hzoo</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md6100-2016-09-19"></a>
+6.10.0 (2016-09-19)</h1>
+<blockquote class="doxtable">
+<p>We plan to include some spec compliance bugs in patch versions. An example was the multiple default exports issue. </p>
+</blockquote>
+<h2 class="doxsection"><a class="anchor" id="spec-compliance-1"></a>
+Spec Compliance</h2>
+<ul>
+<li>Implement ES2016 check for simple parameter list in strict mode (<a href="https://github.com/babel/babylon/pull/106">#106</a>) (Timothy Gu)</li>
+</ul>
+<blockquote class="doxtable">
+<p>It is a Syntax Error if ContainsUseStrict of FunctionBody is true and IsSimpleParameterList of FormalParameters is false. <a href="https://tc39.github.io/ecma262/2016/#sec-function-definitions-static-semantics-early-errors">https://tc39.github.io/ecma262/2016/#sec-function-definitions-static-semantics-early-errors</a> </p>
+</blockquote>
+<p>More Context: <a href="https://github.com/rwaldron/tc39-notes/blob/master/es7/2015-07/july-29.md#611-the-scope-of-use-strict-with-respect-to-destructuring-in-parameter-lists">tc39-notes</a></p>
+<p>For example:</p>
+<div class="fragment"><div class="line">// this errors because it uses destructuring and default parameters</div>
+<div class="line">// in a function with a &quot;use strict&quot; directive</div>
+<div class="line">function a([ option1, option2 ] = []) {</div>
+<div class="line">  &quot;use strict&quot;;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p>The solution would be to use a top level "use strict" or to remove the destructuring or default parameters when using a function + "use strict" or to.</p>
+<h2 class="doxsection"><a class="anchor" id="new-feature-2"></a>
+New Feature</h2>
+<ul>
+<li>Exact object type annotations for Flow plugin (<a href="https://github.com/babel/babylon/pull/104">#104</a>) (Basil Hosmer)</li>
+</ul>
+<p>Added to flow in <a href="https://github.com/facebook/flow/commit/c710c40aa2a115435098d6c0dfeaadb023cd39b8">https://github.com/facebook/flow/commit/c710c40aa2a115435098d6c0dfeaadb023cd39b8</a></p>
+<p>Looks like:</p>
+<div class="fragment"><div class="line">var a : {| x: number, y: string |} = { x: 0, y: &#39;foo&#39; };</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="bug-fixes"></a>
+Bug Fixes</h2>
+<ul>
+<li>Include <span class="tt">typeParameter</span> location in <span class="tt">ArrowFunctionExpression</span> (<a href="https://github.com/babel/babylon/pull/126">#126</a>) (Daniel Tschinder)</li>
+<li>Error on invalid flow type annotation with default assignment (<a href="https://github.com/babel/babylon/pull/122">#122</a>) (Dan Harper)</li>
+<li>Fix Flow return types on arrow functions (<a href="https://github.com/babel/babylon/pull/124">#124</a>) (Dan Harper)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="misc"></a>
+Misc</h2>
+<ul>
+<li>Add tests for export extensions (<a href="https://github.com/babel/babylon/pull/127">#127</a>) (Daniel Tschinder)</li>
+<li>Fix Contributing guidelines [skip ci] (Daniel Tschinder)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md692-2016-09-09"></a>
+6.9.2 (2016-09-09)</h1>
+<p>The only change is to remove the <span class="tt">babel-runtime</span> dependency by compiling with Babel's ES2015 loose mode. So using babylon standalone should be smaller.</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md691-2016-08-23"></a>
+6.9.1 (2016-08-23)</h1>
+<p>This release contains mainly small bugfixes but also updates babylons default mode to es2017. The features for <span class="tt">exponentiationOperator</span>, <span class="tt">asyncFunctions</span> and <span class="tt">trailingFunctionCommas</span> which previously needed to be activated via plugin are now enabled by default and the plugins are now no-ops.</p>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-1"></a>
+Bug Fixes</h2>
+<ul>
+<li>Fix issues with default object params in async functions (<a href="https://github.com/babel/babylon/pull/96">#96</a>) @danez</li>
+<li>Fix issues with flow-types and async function (<a href="https://github.com/babel/babylon/pull/95">#95</a>) @danez</li>
+<li>Fix arrow functions with destructuring, types &amp; default value (<a href="https://github.com/babel/babylon/pull/94">#94</a>) @danharper</li>
+<li>Fix declare class with qualified type identifier (<a href="https://github.com/babel/babylon/pull/97">#97</a>) @danez</li>
+<li>Remove exponentiationOperator, asyncFunctions, trailingFunctionCommas plugins and enable them by default (<a href="https://github.com/babel/babylon/pull/98">#98</a>) @danez</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md690-2016-08-16"></a>
+6.9.0 (2016-08-16)</h1>
+<h2 class="doxsection"><a class="anchor" id="new-syntax-support"></a>
+New syntax support</h2>
+<ul>
+<li>Add JSX spread children (<a href="https://github.com/babel/babylon/pull/42">#42</a>) @calebmer</li>
+</ul>
+<p>(Be aware that React is not going to support this syntax)</p>
+<div class="fragment"><div class="line">&lt;div&gt;</div>
+<div class="line">  {...todos.map(todo =&gt; &lt;Todo key={todo.id} todo={todo}/&gt;)}</div>
+<div class="line">&lt;/div&gt;</div>
+</div><!-- fragment --><ul>
+<li>Add support for declare module.exports (<a href="https://github.com/babel/babylon/pull/72">#72</a>) @danez</li>
+</ul>
+<div class="fragment"><div class="line">declare module &quot;foo&quot; {</div>
+<div class="line">  declare module.exports: {}</div>
+<div class="line">}</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="new-features"></a>
+New Features</h2>
+<ul>
+<li>If supplied, attach filename property to comment node loc. (<a href="https://github.com/babel/babylon/pull/80">#80</a>) @divmain</li>
+<li>Add identifier name to node loc field (<a href="https://github.com/babel/babylon/pull/90">#90</a>) @kittens</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-2"></a>
+Bug Fixes</h2>
+<ul>
+<li>Fix exponential operator to behave according to spec (<a href="https://github.com/babel/babylon/pull/75">#75</a>) @danez</li>
+<li>Fix lookahead to not add comments to arrays which are not cloned (<a href="https://github.com/babel/babylon/pull/76">#76</a>) @danez</li>
+<li>Fix accidental fall-through in Flow type parsing. (<a href="https://github.com/babel/babylon/pull/82">#82</a>) @xiemaisi</li>
+<li>Only allow declares inside declare module (<a href="https://github.com/babel/babylon/pull/73">#73</a>) @danez</li>
+<li>Small fix for parsing type parameter declarations (<a href="https://github.com/babel/babylon/pull/83">#83</a>) @gabelevi</li>
+<li>Fix arrow param locations with flow types (<a href="https://github.com/babel/babylon/pull/57">#57</a>) @danez</li>
+<li>Fixes SyntaxError position with flow optional type (<a href="https://github.com/babel/babylon/pull/65">#65</a>) @danez</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="internal-2"></a>
+Internal</h2>
+<ul>
+<li>Add codecoverage to tests @danez</li>
+<li>Fix tests to not save expected output if we expect the test to fail @danez</li>
+<li>Make a shallow clone of babel for testing @danez</li>
+<li>chore(package): update cross-env to version 2.0.0 (<a href="https://github.com/babel/babylon/pull/77">#77</a>) @greenkeeperio-bot</li>
+<li>chore(package): update ava to version 0.16.0 (<a href="https://github.com/babel/babylon/pull/86">#86</a>) @greenkeeperio-bot</li>
+<li>chore(package): update babel-plugin-istanbul to version 2.0.0 (<a href="https://github.com/babel/babylon/pull/89">#89</a>) @greenkeeperio-bot</li>
+<li>chore(package): update nyc to version 8.0.0 (<a href="https://github.com/babel/babylon/pull/88">#88</a>) @greenkeeperio-bot</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md684-2016-07-06"></a>
+6.8.4 (2016-07-06)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-3"></a>
+Bug Fixes</h2>
+<ul>
+<li>Fix the location of params, when flow and default value used (<a href="https://github.com/babel/babylon/pull/68">#68</a>) @danez</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md683-2016-07-02"></a>
+6.8.3 (2016-07-02)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-4"></a>
+Bug Fixes</h2>
+<ul>
+<li>Fix performance regression introduced in 6.8.2 with conditionals (<a href="https://github.com/babel/babylon/pull/63">#63</a>) @danez</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md682-2016-06-24"></a>
+6.8.2 (2016-06-24)</h1>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-5"></a>
+Bug Fixes</h2>
+<ul>
+<li>Fix parse error with yielding jsx elements in generators <span class="tt">function* it() { yield &lt;a&gt;&lt;/a&gt;; }</span> (<a href="https://github.com/babel/babylon/pull/31">#31</a>) @eldereal</li>
+<li>When cloning nodes do not clone its comments (<a href="https://github.com/babel/babylon/pull/24">#24</a>) @danez</li>
+<li>Fix parse errors when using arrow functions with an spread element and return type <span class="tt">(...props): void =&gt; {}</span> (<a href="https://github.com/babel/babylon/pull/10">#10</a>) @danez</li>
+<li>Fix leading comments added from previous node (<a href="https://github.com/babel/babylon/pull/23">#23</a>) @danez</li>
+<li>Fix parse errors with flow's optional arguments <span class="tt">(arg?) =&gt; {}</span> (<a href="https://github.com/babel/babylon/pull/19">#19</a>) @danez</li>
+<li>Support negative numeric type literals @kittens</li>
+<li>Remove line terminator restriction after await keyword @kittens</li>
+<li>Remove grouped type arrow restriction as it seems flow no longer has it @kittens</li>
+<li>Fix parse error with generic methods that have the name <span class="tt">get</span> or <span class="tt">set</span> <span class="tt">class foo { get() {} }</span> (<a href="https://github.com/babel/babylon/pull/55">#55</a>) @vkurchatkin</li>
+<li>Fix parse error with arrow functions that have flow type parameter declarations <span class="tt">&lt;T&gt;(x: T): T =&gt; x;</span> (<a href="https://github.com/babel/babylon/pull/54">#54</a>) @gabelevi</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="documentation-1"></a>
+Documentation</h2>
+<ul>
+<li>Document AST differences from ESTree (<a href="https://github.com/babel/babylon/pull/41">#41</a>) @nene</li>
+<li>Move ast spec from babel/babel (<a href="https://github.com/babel/babylon/pull/46">#46</a>) @hzoo</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="internal-3"></a>
+Internal</h2>
+<ul>
+<li>Enable skipped tests (<a href="https://github.com/babel/babylon/pull/16">#16</a>) @danez</li>
+<li>Add script to test latest version of babylon with babel (<a href="https://github.com/babel/babylon/pull/21">#21</a>) @danez</li>
+<li>Upgrade test runner ava @kittens</li>
+<li>Add missing generate-identifier-regex script @kittens</li>
+<li>Rename parser context types @kittens</li>
+<li>Add node v6 to travis testing @hzoo</li>
+<li>Update to Unicode v9 (<a href="https://github.com/babel/babylon/pull/45">#45</a>) @mathiasbynens</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md681-2016-06-06"></a>
+6.8.1 (2016-06-06)</h1>
+<h2 class="doxsection"><a class="anchor" id="new-feature-3"></a>
+New Feature</h2>
+<ul>
+<li>Parse type parameter declarations with defaults like <span class="tt">type Foo&lt;T = string&gt; = T</span></li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="bug-fixes-6"></a>
+Bug Fixes</h2>
+<ul>
+<li>Type parameter declarations need 1 or more type parameters.</li>
+<li>The existential type <span class="tt">*</span> is not a valid type parameter.</li>
+<li>The existential type <span class="tt">*</span> is a primary type</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="spec-compliance-2"></a>
+Spec Compliance</h2>
+<ul>
+<li>The param list for type parameter declarations now consists of <span class="tt">TypeParameter</span> nodes</li>
+<li>New <span class="tt">TypeParameter</span> AST Node (replaces using the <span class="tt">Identifier</span> node before)</li>
+</ul>
+<div class="fragment"><div class="line">interface TypeParameter &lt;: Node {</div>
+<div class="line">  bound: TypeAnnotation;</div>
+<div class="line">  default: TypeAnnotation;</div>
+<div class="line">  name: string;</div>
+<div class="line">  variance: &quot;plus&quot; | &quot;minus&quot;;</div>
+<div class="line">}</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="autotoc_md680-2016-05-02"></a>
+6.8.0 (2016-05-02)</h1>
+<h3 class="doxsection"><a class="anchor" id="new-feature-4"></a>
+New Feature</h3>
+<h4 class="doxsection"><a class="anchor" id="parse-method-parameter-decorators-12httpsgithubcombabelbabylonpull12"></a>
+Parse Method Parameter Decorators (<a href="https://github.com/babel/babylon/pull/12">#12</a>)</h4>
+<blockquote class="doxtable">
+<p><a href="https://goo.gl/8MmCMG">Method Parameter Decorators</a> is now a TC39 <a href="https://github.com/tc39/ecma262/blob/master/stage0.md">stage 0 proposal</a>. </p>
+</blockquote>
+<p>Examples:</p>
+<div class="fragment"><div class="line">class Foo {</div>
+<div class="line">  constructor(@foo() x, @bar({ a: 123 }) @baz() y) {}</div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line">export default function func(@foo() x, @bar({ a: 123 }) @baz() y) {}</div>
+<div class="line"> </div>
+<div class="line">var obj = {</div>
+<div class="line">  method(@foo() x, @bar({ a: 123 }) @baz() y) {}</div>
+<div class="line">};</div>
+</div><!-- fragment --><h4 class="doxsection"><a class="anchor" id="parse-for-await-statements-w-asyncgenerators-plugin-17httpsgithubcombabelbabylonpull17"></a>
+Parse for-await statements (w/ <span class="tt">asyncGenerators</span> plugin) (<a href="https://github.com/babel/babylon/pull/17">#17</a>)</h4>
+<p>There is also a new node type, <span class="tt">ForAwaitStatement</span>.</p>
+<blockquote class="doxtable">
+<p><a href="https://github.com/tc39/proposal-async-iteration">Async generators and for-await</a> are now a <a href="https://github.com/tc39/ecma262#current-proposals">stage 2 proposal</a>. </p>
+</blockquote>
+<p>Example:</p>
+<div class="fragment"><div class="line">async function f() {</div>
+<div class="line">  for await (let x of y);</div>
+<div class="line">}</div>
+</div><!-- fragment --> </div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

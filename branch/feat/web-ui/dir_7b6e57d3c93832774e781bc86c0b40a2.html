@@ -1,0 +1,381 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>web/node_modules/@jridgewell/remapping Directory Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('dir_7b6e57d3c93832774e781bc86c0b40a2.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">remapping Directory Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="dynheader">
+Directory dependency graph for remapping:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="dir_7b6e57d3c93832774e781bc86c0b40a2_dep.svg" width="144" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><h1 class="doxsection"><a class="anchor" id="jridgewellremapping"></a>
+@jridgewell/remapping</h1>
+<blockquote class="doxtable">
+<p>Remap sequential sourcemaps through transformations to point at the original source code </p>
+</blockquote>
+<p>Remapping allows you to take the sourcemaps generated through transforming your code and "remap" them to the original source locations. Think "my minified code, transformed with babel and bundled
+with webpack", all pointing to the correct location in your original source code.</p>
+<p>With remapping, none of your source code transformations need to be aware of the input's sourcemap, they only need to generate an output sourcemap. This greatly simplifies building custom transformations (think a find-and-replace).</p>
+<h1 class="doxsection"><a class="anchor" id="installation-1"></a>
+Installation</h1>
+<div class="fragment"><div class="line">npm install @jridgewell/remapping</div>
+</div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="usage-1"></a>
+Usage</h1>
+<div class="fragment"><div class="line">function remapping(</div>
+<div class="line">  map: SourceMap | SourceMap[],</div>
+<div class="line">  loader: (file: string, ctx: LoaderContext) =&gt; (SourceMap | null | undefined),</div>
+<div class="line">  options?: { excludeContent: boolean, decodedMappings: boolean }</div>
+<div class="line">): SourceMap;</div>
+<div class="line"> </div>
+<div class="line">// LoaderContext gives the loader the importing sourcemap, tree depth, the ability to override the</div>
+<div class="line">// &quot;source&quot; location (where child sources are resolved relative to, or the location of original</div>
+<div class="line">// source), and the ability to override the &quot;content&quot; of an original source for inclusion in the</div>
+<div class="line">// output sourcemap.</div>
+<div class="line">type LoaderContext = {</div>
+<div class="line"> readonly importer: string;</div>
+<div class="line"> readonly depth: number;</div>
+<div class="line"> source: string;</div>
+<div class="line"> content: string | null | undefined;</div>
+<div class="line">}</div>
+</div><!-- fragment --><p><span class="tt">remapping</span> takes the final output sourcemap, and a <span class="tt">loader</span> function. For every source file pointer in the sourcemap, the <span class="tt">loader</span> will be called with the resolved path. If the path itself represents a transformed file (it has a sourcmap associated with it), then the <span class="tt">loader</span> should return that sourcemap. If not, the path will be treated as an original, untransformed source code.</p>
+<div class="fragment"><div class="line">// Babel transformed &quot;helloworld.js&quot; into &quot;transformed.js&quot;</div>
+<div class="line">const transformedMap = JSON.stringify({</div>
+<div class="line">  file: &#39;transformed.js&#39;,</div>
+<div class="line">  // 1st column of 2nd line of output file translates into the 1st source</div>
+<div class="line">  // file, line 3, column 2</div>
+<div class="line">  mappings: &#39;;CAEE&#39;,</div>
+<div class="line">  sources: [&#39;helloworld.js&#39;],</div>
+<div class="line">  version: 3,</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">// Uglify minified &quot;transformed.js&quot; into &quot;transformed.min.js&quot;</div>
+<div class="line">const minifiedTransformedMap = JSON.stringify({</div>
+<div class="line">  file: &#39;transformed.min.js&#39;,</div>
+<div class="line">  // 0th column of 1st line of output file translates into the 1st source</div>
+<div class="line">  // file, line 2, column 1.</div>
+<div class="line">  mappings: &#39;AACC&#39;,</div>
+<div class="line">  names: [],</div>
+<div class="line">  sources: [&#39;transformed.js&#39;],</div>
+<div class="line">  version: 3,</div>
+<div class="line">});</div>
+<div class="line"> </div>
+<div class="line">const remapped = remapping(</div>
+<div class="line">  minifiedTransformedMap,</div>
+<div class="line">  (file, ctx) =&gt; {</div>
+<div class="line"> </div>
+<div class="line">    // The &quot;transformed.js&quot; file is an transformed file.</div>
+<div class="line">    if (file === &#39;transformed.js&#39;) {</div>
+<div class="line">      // The root importer is empty.</div>
+<div class="line">      console.assert(ctx.importer === &#39;&#39;);</div>
+<div class="line">      // The depth in the sourcemap tree we&#39;re currently loading.</div>
+<div class="line">      // The root `minifiedTransformedMap` is depth 0, and its source children are depth 1, etc.</div>
+<div class="line">      console.assert(ctx.depth === 1);</div>
+<div class="line"> </div>
+<div class="line">      return transformedMap;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    // Loader will be called to load transformedMap&#39;s source file pointers as well.</div>
+<div class="line">    console.assert(file === &#39;helloworld.js&#39;);</div>
+<div class="line">    // `transformed.js`&#39;s sourcemap points into `helloworld.js`.</div>
+<div class="line">    console.assert(ctx.importer === &#39;transformed.js&#39;);</div>
+<div class="line">    // This is a source child of `transformed`, which is a source child of `minifiedTransformedMap`.</div>
+<div class="line">    console.assert(ctx.depth === 2);</div>
+<div class="line">    return null;</div>
+<div class="line">  }</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line">console.log(remapped);</div>
+<div class="line">// {</div>
+<div class="line">//   file: &#39;transpiled.min.js&#39;,</div>
+<div class="line">//   mappings: &#39;AAEE&#39;,</div>
+<div class="line">//   sources: [&#39;helloworld.js&#39;],</div>
+<div class="line">//   version: 3,</div>
+<div class="line">// };</div>
+</div><!-- fragment --><p>In this example, <span class="tt">loader</span> will be called twice:</p>
+<ol type="1">
+<li><span class="tt">"transformed.js"</span>, the first source file pointer in the <span class="tt">minifiedTransformedMap</span>. We return the associated sourcemap for it (its a transformed file, after all) so that sourcemap locations can be traced through it into the source files it represents.</li>
+<li><span class="tt">"helloworld.js"</span>, our original, unmodified source code. This file does not have a sourcemap, so we return <span class="tt">null</span>.</li>
+</ol>
+<p>The <span class="tt">remapped</span> sourcemap now points from <span class="tt">transformed.min.js</span> into locations in <span class="tt">helloworld.js</span>. If you were to read the <span class="tt">mappings</span>, it says "0th column of the first line output line points to the 1st
+column of the 2nd line of the file `helloworld.js`".</p>
+<h2 class="doxsection"><a class="anchor" id="multiple-transformations-of-a-file"></a>
+Multiple transformations of a file</h2>
+<p>As a convenience, if you have multiple single-source transformations of a file, you may pass an array of sourcemap files in the order of most-recent transformation sourcemap first. Note that this changes the <span class="tt">importer</span> and <span class="tt">depth</span> of each call to our loader. So our above example could have been written as:</p>
+<div class="fragment"><div class="line">const remapped = remapping(</div>
+<div class="line">  [minifiedTransformedMap, transformedMap],</div>
+<div class="line">  () =&gt; null</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line">console.log(remapped);</div>
+<div class="line">// {</div>
+<div class="line">//   file: &#39;transpiled.min.js&#39;,</div>
+<div class="line">//   mappings: &#39;AAEE&#39;,</div>
+<div class="line">//   sources: [&#39;helloworld.js&#39;],</div>
+<div class="line">//   version: 3,</div>
+<div class="line">// };</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="advanced-control-of-the-loading-graph"></a>
+Advanced control of the loading graph</h2>
+<h3 class="doxsection"><a class="anchor" id="source"></a>
+<span class="tt">source</span></h3>
+<p>The <span class="tt">source</span> property can overridden to any value to change the location of the current load. Eg, for an original source file, it allows us to change the location to the original source regardless of what the sourcemap source entry says. And for transformed files, it allows us to change the relative resolving location for child sources of the loaded sourcemap.</p>
+<div class="fragment"><div class="line">const remapped = remapping(</div>
+<div class="line">  minifiedTransformedMap,</div>
+<div class="line">  (file, ctx) =&gt; {</div>
+<div class="line"> </div>
+<div class="line">    if (file === &#39;transformed.js&#39;) {</div>
+<div class="line">      // We pretend the transformed.js file actually exists in the &#39;src/&#39; directory. When the nested</div>
+<div class="line">      // source files are loaded, they will now be relative to `src/`.</div>
+<div class="line">      ctx.source = &#39;src/transformed.js&#39;;</div>
+<div class="line">      return transformedMap;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    console.assert(file === &#39;src/helloworld.js&#39;);</div>
+<div class="line">    // We could futher change the source of this original file, eg, to be inside a nested directory</div>
+<div class="line">    // itself. This will be reflected in the remapped sourcemap.</div>
+<div class="line">    ctx.source = &#39;src/nested/transformed.js&#39;;</div>
+<div class="line">    return null;</div>
+<div class="line">  }</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line">console.log(remapped);</div>
+<div class="line">// {</div>
+<div class="line">//   …,</div>
+<div class="line">//   sources: [&#39;src/nested/helloworld.js&#39;],</div>
+<div class="line">// };</div>
+</div><!-- fragment --><h3 class="doxsection"><a class="anchor" id="content"></a>
+<span class="tt">content</span></h3>
+<p>The <span class="tt">content</span> property can be overridden when we encounter an original source file. Eg, this allows you to manually provide the source content of the original file regardless of whether the <span class="tt">sourcesContent</span> field is present in the parent sourcemap. It can also be set to <span class="tt">null</span> to remove the source content.</p>
+<div class="fragment"><div class="line">const remapped = remapping(</div>
+<div class="line">  minifiedTransformedMap,</div>
+<div class="line">  (file, ctx) =&gt; {</div>
+<div class="line"> </div>
+<div class="line">    if (file === &#39;transformed.js&#39;) {</div>
+<div class="line">      // transformedMap does not include a `sourcesContent` field, so usually the remapped sourcemap</div>
+<div class="line">      // would not include any `sourcesContent` values.</div>
+<div class="line">      return transformedMap;</div>
+<div class="line">    }</div>
+<div class="line"> </div>
+<div class="line">    console.assert(file === &#39;helloworld.js&#39;);</div>
+<div class="line">    // We can read the file to provide the source content.</div>
+<div class="line">    ctx.content = fs.readFileSync(file, &#39;utf8&#39;);</div>
+<div class="line">    return null;</div>
+<div class="line">  }</div>
+<div class="line">);</div>
+<div class="line"> </div>
+<div class="line">console.log(remapped);</div>
+<div class="line">// {</div>
+<div class="line">//   …,</div>
+<div class="line">//   sourcesContent: [</div>
+<div class="line">//     &#39;console.log(&quot;Hello world!&quot;)&#39;,</div>
+<div class="line">//   ],</div>
+<div class="line">// };</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="options"></a>
+Options</h2>
+<h3 class="doxsection"><a class="anchor" id="excludecontent"></a>
+excludeContent</h3>
+<p>By default, <span class="tt">excludeContent</span> is <span class="tt">false</span>. Passing <span class="tt">{ excludeContent: true }</span> will exclude the <span class="tt">sourcesContent</span> field from the returned sourcemap. This is mainly useful when you want to reduce the size out the sourcemap.</p>
+<h3 class="doxsection"><a class="anchor" id="decodedmappings"></a>
+decodedMappings</h3>
+<p>By default, <span class="tt">decodedMappings</span> is <span class="tt">false</span>. Passing <span class="tt">{ decodedMappings: true }</span> will leave the <span class="tt">mappings</span> field in a <a href="https://github.com/rich-harris/sourcemap-codec">decoded state</a> instead of encoding into a VLQ string. </p>
+</div></div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_562abdcd8625d4bf7bad2fe6fe01354c.html">web</a></li><li class="navelem"><a href="dir_ae152192ca76e4ee75647a37130a2ec0.html">node_modules</a></li><li class="navelem"><a href="dir_80aa4cdde0efe69ce2cc6007e55a7d6d.html">@jridgewell</a></li><li class="navelem"><a href="dir_7b6e57d3c93832774e781bc86c0b40a2.html">remapping</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

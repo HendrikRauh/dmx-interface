@@ -1,0 +1,606 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@rollup/pluginutils ChangeLog</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('md_web_2node__modules_2_0dprefresh_2vite_2node__modules_2_0drollup_2pluginutils_2CHANGELOG.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div><div class="header">
+  <div class="headertitle"><div class="title">@rollup/pluginutils ChangeLog </div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><p><a class="anchor" id="rolluppluginutils-changelog"></a></p>
+<h1 class="doxsection"><a class="anchor" id="v421"></a>
+v4.2.1</h1>
+<p><em>2022-04-13</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: fix path normalisation for createFilter on absolute and * paths (#1161)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v420"></a>
+v4.2.0</h1>
+<p><em>2022-03-07</em></p>
+<h2 class="doxsection"><a class="anchor" id="features"></a>
+Features</h2>
+<ul>
+<li>feat: support bigint and symbol in dataToEsm (#1047)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v412"></a>
+v4.1.2</h1>
+<p><em>2021-12-13</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-1"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: correct minimatch to picomatch in TSDoc (#1057)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v411"></a>
+v4.1.1</h1>
+<p><em>2021-07-16</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-2"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: remove extraneous peer dependency requirement (#845)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v410"></a>
+v4.1.0</h1>
+<p><em>2020-10-27</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-3"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: attach scope object to for-loop (#616)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="features-1"></a>
+Features</h2>
+<ul>
+<li>feat: normalizePath (#550)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates"></a>
+Updates</h2>
+<ul>
+<li>refactor: improve readability of attachScopes test (#551)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v400"></a>
+v4.0.0</h1>
+<p><em>2020-08-13</em></p>
+<h2 class="doxsection"><a class="anchor" id="breaking-changes"></a>
+Breaking Changes</h2>
+<ul>
+<li>fix!: don't add cwd to absolute or patterns that start with a glob (#517)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-4"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="features-2"></a>
+Features</h2>
+<ul>
+<li>feat: add native node es modules support (#419)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-1"></a>
+Updates</h2>
+<ul>
+<li>docs: Correct minimatch to picomatch (#525)</li>
+<li>chore: update dependencies (9f56d37)</li>
+<li>refactor: replace micromatch with picomatch. (#306)</li>
+<li>chore: Don't bundle micromatch (#220)</li>
+<li>chore: add missing typescript devDep (238b140)</li>
+<li>chore: Use readonly arrays, add TSDoc (#187)</li>
+<li>chore: Use typechecking (2ae08eb)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v310"></a>
+v3.1.0</h1>
+<p><em>2020-06-05</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-5"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="features-3"></a>
+Features</h2>
+<ul>
+<li>feat: add native node es modules support (#419)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-2"></a>
+Updates</h2>
+<ul>
+<li>refactor: replace micromatch with picomatch. (#306)</li>
+<li>chore: Don't bundle micromatch (#220)</li>
+<li>chore: add missing typescript devDep (238b140)</li>
+<li>chore: Use readonly arrays, add TSDoc (#187)</li>
+<li>chore: Use typechecking (2ae08eb)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v3010"></a>
+v3.0.10</h1>
+<p><em>2020-05-02</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-6"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-3"></a>
+Updates</h2>
+<ul>
+<li>refactor: replace micromatch with picomatch. (#306)</li>
+<li>chore: Don't bundle micromatch (#220)</li>
+<li>chore: add missing typescript devDep (238b140)</li>
+<li>chore: Use readonly arrays, add TSDoc (#187)</li>
+<li>chore: Use typechecking (2ae08eb)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v309"></a>
+v3.0.9</h1>
+<p><em>2020-04-12</em></p>
+<h2 class="doxsection"><a class="anchor" id="updates-4"></a>
+Updates</h2>
+<ul>
+<li>chore: support Rollup v2</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v308"></a>
+v3.0.8</h1>
+<p><em>2020-02-01</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-7"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-5"></a>
+Updates</h2>
+<ul>
+<li>chore: add missing typescript devDep (238b140)</li>
+<li>chore: Use readonly arrays, add TSDoc (#187)</li>
+<li>chore: Use typechecking (2ae08eb)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v307"></a>
+v3.0.7</h1>
+<p><em>2020-02-01</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-8"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-6"></a>
+Updates</h2>
+<ul>
+<li>chore: Use readonly arrays, add TSDoc (#187)</li>
+<li>chore: Use typechecking (2ae08eb)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v306"></a>
+v3.0.6</h1>
+<p><em>2020-01-27</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-9"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: resolve relative paths starting with "./" (#180)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v305"></a>
+v3.0.5</h1>
+<p><em>2020-01-25</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-10"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: bring back named exports (#176)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v304"></a>
+v3.0.4</h1>
+<p><em>2020-01-10</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-11"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: keep for(const..) out of scope (#151)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v303"></a>
+v3.0.3</h1>
+<p><em>2020-01-07</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-12"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: createFilter Windows regression (#141)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-7"></a>
+Updates</h2>
+<ul>
+<li>test: fix windows path failure (0a0de65)</li>
+<li>chore: fix test script (5eae320)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="v302"></a>
+v3.0.2</h1>
+<p><em>2020-01-04</em></p>
+<h2 class="doxsection"><a class="anchor" id="bugfixes-13"></a>
+Bugfixes</h2>
+<ul>
+<li>fix: makeLegalIdentifier - potentially unsafe input for blacklisted identifier (#116)</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="updates-8"></a>
+Updates</h2>
+<ul>
+<li>docs: Fix documented type of createFilter's include/exclude (#123)</li>
+<li>chore: update minor linting correction (bcbf9d2)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md301"></a>
+3.0.1</h1>
+<ul>
+<li>fix: Escape glob characters in folder (#84)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md300"></a>
+3.0.0</h1>
+<p><em>2019-11-25</em></p>
+<ul>
+<li><b>Breaking:</b> Minimum compatible Rollup version is 1.20.0</li>
+<li><b>Breaking:</b> Minimum supported Node version is 8.0.0</li>
+<li>Published as @rollup/plugins-image</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md282"></a>
+2.8.2</h1>
+<p><em>2019-09-13</em></p>
+<ul>
+<li>Handle optional catch parameter in attachScopes (<a href="https://github.com/rollup/rollup-pluginutils/pulls/70">#70</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md281"></a>
+2.8.1</h1>
+<p><em>2019-06-04</em></p>
+<ul>
+<li>Support serialization of many edge cases (<a href="https://github.com/rollup/rollup-pluginutils/issues/64">#64</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md280"></a>
+2.8.0</h1>
+<p><em>2019-05-30</em></p>
+<ul>
+<li>Bundle updated micromatch dependency (<a href="https://github.com/rollup/rollup-pluginutils/issues/60">#60</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md271"></a>
+2.7.1</h1>
+<p><em>2019-05-17</em></p>
+<ul>
+<li>Do not ignore files with a leading "." in createFilter (<a href="https://github.com/rollup/rollup-pluginutils/issues/62">#62</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md270"></a>
+2.7.0</h1>
+<p><em>2019-05-15</em></p>
+<ul>
+<li>Add <span class="tt">resolve</span> option to createFilter (<a href="https://github.com/rollup/rollup-pluginutils/issues/59">#59</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md260"></a>
+2.6.0</h1>
+<p><em>2019-04-04</em></p>
+<ul>
+<li>Add <span class="tt">extractAssignedNames</span> (<a href="https://github.com/rollup/rollup-pluginutils/issues/59">#59</a>)</li>
+<li>Provide dedicated TypeScript typings file (<a href="https://github.com/rollup/rollup-pluginutils/issues/58">#58</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md250"></a>
+2.5.0</h1>
+<p><em>2019-03-18</em></p>
+<ul>
+<li>Generalize dataToEsm type (<a href="https://github.com/rollup/rollup-pluginutils/issues/55">#55</a>)</li>
+<li>Handle empty keys in dataToEsm (<a href="https://github.com/rollup/rollup-pluginutils/issues/56">#56</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md241"></a>
+2.4.1</h1>
+<p><em>2019-02-16</em></p>
+<ul>
+<li>Remove unnecessary dependency</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md240"></a>
+2.4.0</h1>
+<p><em>2019-02-16</em> Update dependencies to solve micromatch vulnerability (<a href="https://github.com/rollup/rollup-pluginutils/issues/53">#53</a>)</p>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md233"></a>
+2.3.3</h1>
+<p><em>2018-09-19</em></p>
+<ul>
+<li>Revert micromatch update (<a href="https://github.com/rollup/rollup-pluginutils/issues/43">#43</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md232"></a>
+2.3.2</h1>
+<p><em>2018-09-18</em></p>
+<ul>
+<li>Bumb micromatch dependency (<a href="https://github.com/rollup/rollup-pluginutils/issues/36">#36</a>)</li>
+<li>Bumb dependencies (<a href="https://github.com/rollup/rollup-pluginutils/issues/41">#41</a>)</li>
+<li>Split up tests (<a href="https://github.com/rollup/rollup-pluginutils/issues/40">#40</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md231"></a>
+2.3.1</h1>
+<p><em>2018-08-06</em></p>
+<ul>
+<li>Fixed ObjectPattern scope in attachScopes to recognise { ...rest } syntax (<a href="https://github.com/rollup/rollup-pluginutils/issues/37">#37</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md230"></a>
+2.3.0</h1>
+<p><em>2018-05-21</em></p>
+<ul>
+<li>Add option to not generate named exports (<a href="https://github.com/rollup/rollup-pluginutils/issues/32">#32</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md221"></a>
+2.2.1</h1>
+<p><em>2018-05-21</em></p>
+<ul>
+<li>Support <span class="tt">null</span> serialization (<a href="https://github.com/rollup/rollup-pluginutils/issues/34">#34</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md220"></a>
+2.2.0</h1>
+<p><em>2018-05-11</em></p>
+<ul>
+<li>Improve white-space handling in <span class="tt">dataToEsm</span> and add <span class="tt">prepare</span> script (<a href="https://github.com/rollup/rollup-pluginutils/issues/31">#31</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md211"></a>
+2.1.1</h1>
+<p><em>2018-05-09</em></p>
+<ul>
+<li>Update dependencies</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md210"></a>
+2.1.0</h1>
+<p><em>2018-05-08</em></p>
+<ul>
+<li>Add <span class="tt">dataToEsm</span> helper to create named exports from objects (<a href="https://github.com/rollup/rollup-pluginutils/issues/29">#29</a>)</li>
+<li>Support literal keys in object patterns (<a href="https://github.com/rollup/rollup-pluginutils/issues/27">#27</a>)</li>
+<li>Support function declarations without id in <span class="tt">attachScopes</span> (<a href="https://github.com/rollup/rollup-pluginutils/issues/28">#28</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md201"></a>
+2.0.1</h1>
+<p><em>2017-01-03</em></p>
+<ul>
+<li>Don't add extension to file with trailing dot (<a href="https://github.com/rollup/rollup-pluginutils/issues/14">#14</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md200"></a>
+2.0.0</h1>
+<p><em>2017-01-03</em></p>
+<ul>
+<li>Use <span class="tt">micromatch</span> instead of <span class="tt">minimatch</span> (<a href="https://github.com/rollup/rollup-pluginutils/issues/19">#19</a>)</li>
+<li>Allow <span class="tt">createFilter</span> to take regexes (<a href="https://github.com/rollup/rollup-pluginutils/issues/5">#5</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md152-1"></a>
+1.5.2</h1>
+<p><em>2016-08-29</em></p>
+<ul>
+<li>Treat <span class="tt">arguments</span> as a reserved word (<a href="https://github.com/rollup/rollup-pluginutils/issues/10">#10</a>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md151-1"></a>
+1.5.1</h1>
+<p><em>2016-06-24</em></p>
+<ul>
+<li>Add all declarators in a var declaration to scope, not just the first</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md150-1"></a>
+1.5.0</h1>
+<p><em>2016-06-07</em></p>
+<ul>
+<li>Exclude IDs with null character (<span class="tt">\0</span>)</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md140-1"></a>
+1.4.0</h1>
+<p><em>2016-06-07</em></p>
+<ul>
+<li>Workaround minimatch issue (<a href="https://github.com/rollup/rollup-pluginutils/pull/6">#6</a>)</li>
+<li>Exclude non-string IDs in <span class="tt">createFilter</span></li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md131-1"></a>
+1.3.1</h1>
+<p><em>2015-12-16</em></p>
+<ul>
+<li>Build with Rollup directly, rather than via Gobble</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md130-1"></a>
+1.3.0</h1>
+<p><em>2015-12-16</em></p>
+<ul>
+<li>Use correct path separator on Windows</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md120-2"></a>
+1.2.0</h1>
+<p><em>2015-11-02</em></p>
+<ul>
+<li>Add <span class="tt">attachScopes</span> and <span class="tt">makeLegalIdentifier</span></li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md110-2"></a>
+1.1.0</h1>
+<p>2015-10-24*</p>
+<ul>
+<li>Add <span class="tt">addExtension</span> function</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md101"></a>
+1.0.1</h1>
+<p><em>2015-10-24</em></p>
+<ul>
+<li>Include dist files in package</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md100-2"></a>
+1.0.0</h1>
+<p><em>2015-10-24</em></p>
+<ul>
+<li>First release </li>
+</ul>
+</div></div><!-- contents -->
+</div><!-- PageDoc -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>
