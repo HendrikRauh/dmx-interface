@@ -20,7 +20,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="config_8c.html#ace6647db1f20678900580f60562dea57" target="_top" xlink:title="Initializes the configuration component. Sets up internal mutexes and initializes the underlying NVS ...">
+<g id="a_Node000002"><a xlink:href="config_8c.html#ace6647db1f20678900580f60562dea57" target="_top" xlink:title="Initializes the configuration component.">
 <polygon fill="white" stroke="#666666" points="193.25,-59.75 127,-59.75 127,-39 193.25,-39 193.25,-59.75"/>
 <text text-anchor="middle" x="160.12" y="-46.25" font-family="Helvetica,sans-Serif" font-size="10.00">config_init</text>
 </a>
