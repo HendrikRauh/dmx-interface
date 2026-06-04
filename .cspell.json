@@ -5,6 +5,7 @@
   "ignorePaths": [
     ".cspell.json",
     ".git",
+    ".vscode/extensions.json",
     "assets/case/",
     "assets/circuit/diagram.svg",
     "docs/external/",

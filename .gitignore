@@ -32,7 +32,9 @@ components/**/build/
 partition_table/build/
 
 # IDEs / editors / OS
-.vscode/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 .idea/
 *.swp
 *~
