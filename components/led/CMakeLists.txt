@@ -1,10 +1,8 @@
 idf_component_register(
   SRCS
-  "dmx-interface.c"
+  "src/led.c"
   INCLUDE_DIRS
-  "."
+  "include"
   REQUIRES
-  config
-  led
-  web_server
+  driver
   logger)
