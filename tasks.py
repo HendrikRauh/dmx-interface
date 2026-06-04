@@ -74,6 +74,7 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies", pty=True)
+    c.run("cd web && npm update", pty=True)
     c.run("nix flake update", pty=True)
 
 
@@ -93,6 +94,8 @@ def reset(c):
         "build",
         "docs/doxygen",
         "managed_components",
+        "web/dist",
+        "web/node_modules",
     ]
 
     for f in files_to_remove:
