@@ -57,8 +57,8 @@
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" target="_top" xlink:title="Main entry point for the DMX Interface application.">
-<polygon fill="white" stroke="#666666" points="64,-59.75 0,-59.75 0,-39 64,-39 64,-59.75"/>
-<text text-anchor="middle" x="32" y="-46.25" font-family="Helvetica,sans-Serif" font-size="10.00">app_main</text>
+<polygon fill="white" stroke="#666666" points="64,-39.75 0,-39.75 0,-19 64,-19 64,-39.75"/>
+<text text-anchor="middle" x="32" y="-26.25" font-family="Helvetica,sans-Serif" font-size="10.00">app_main</text>
 </a>
 </g>
 </g>
@@ -66,8 +66,17 @@
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M115.43,-49.38C98.67,-49.38 79.9,-49.38 64.5,-49.38"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="115.13,-52.88 125.13,-49.38 115.13,-45.88 115.13,-52.88"/>
+<path fill="none" stroke="#63b8ff" d="M115.43,-42.45C98.67,-39.79 79.9,-36.81 64.5,-34.37"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="114.73,-45.88 125.15,-43.99 115.82,-38.96 114.73,-45.88"/>
+</a>
+</g>
+</g>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge4_Node000004_Node000003" class="edge">
+<title>Node4&#45;&gt;Node3</title>
+<g id="a_edge4_Node000004_Node000003"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M88.54,-21.01C80.05,-22.29 71.75,-23.54 64.26,-24.67"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="88.89,-24.49 98.26,-19.54 87.85,-17.57 88.89,-24.49"/>
 </a>
 </g>
 </g>

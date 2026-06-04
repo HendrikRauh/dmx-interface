@@ -185,7 +185,7 @@ $(function(){initNavTree('config_8c.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Thread-safe configuration component utilizing NVS for ESP32. Implements the private storage structures, mutex protection mechanisms, and input validation logic defined in <a class="el" href="config_8h.html" title="Thread-safe configuration management component utilizing NVS. Provides an abstraction layer to read,...">config.h</a>.  
+<p>Thread-safe configuration component utilizing NVS for ESP32. Implements the private storage structures, mutex protection mechanisms, and input validation logic defined in <a class="el" href="config_8h.html" title="Thread-safe configuration component utilizing NVS for ESP32.">config.h</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
@@ -219,7 +219,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a2ba04455f5520c37f2c2e20396838f52" id="r_a2ba04455f5520c37f2c2e20396838f52"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2ba04455f5520c37f2c2e20396838f52">NVS_BLOB_KEY</a>&#160;&#160;&#160;&quot;config_blob&quot;</td></tr>
 <tr class="memdesc:a2ba04455f5520c37f2c2e20396838f52"><td class="mdescLeft">&#160;</td><td class="mdescRight">Key under which the entire config blob is stored in NVS.  <br /></td></tr>
 <tr class="memitem:aea0a66f4bdc7a4a2f837024fe55c8567" id="r_aea0a66f4bdc7a4a2f837024fe55c8567"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aea0a66f4bdc7a4a2f837024fe55c8567">APP_CONFIG_MAGIC</a>&#160;&#160;&#160;0x43444D58</td></tr>
-<tr class="memitem:ab49cfbb693d17f7996a155add59c7ee4" id="r_ab49cfbb693d17f7996a155add59c7ee4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab49cfbb693d17f7996a155add59c7ee4">APP_CONFIG_VERSION</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:ab49cfbb693d17f7996a155add59c7ee4" id="r_ab49cfbb693d17f7996a155add59c7ee4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab49cfbb693d17f7996a155add59c7ee4">APP_CONFIG_VERSION</a>&#160;&#160;&#160;3</td></tr>
 <tr class="memitem:aefb7db7456a848e7cefe90816a5aaa88" id="r_aefb7db7456a848e7cefe90816a5aaa88"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aefb7db7456a848e7cefe90816a5aaa88">LOCK</a>()</td></tr>
 <tr class="memdesc:aefb7db7456a848e7cefe90816a5aaa88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Locks the configuration mutex for exclusive access.  <br /></td></tr>
 <tr class="memitem:a19b1665d85404627bdc076a60e21d926" id="r_a19b1665d85404627bdc076a60e21d926"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a19b1665d85404627bdc076a60e21d926">UNLOCK</a>()</td></tr>
@@ -263,6 +263,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:abfdfc4d5c9822deaee11814d31bc7fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Wi-Fi Access Point mode configuration.  <br /></td></tr>
 <tr class="memitem:a5d25d27dd5fd25d16752bbfa8d9e632b" id="r_a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d25d27dd5fd25d16752bbfa8d9e632b">config_set_wifi_ap_config</a> (const wifi_config_t *src)</td></tr>
 <tr class="memdesc:a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Wi-Fi Access Point mode configuration in RAM.  <br /></td></tr>
+<tr class="memitem:abb979e0618588e5b4316d13bfd7e77fb" id="r_abb979e0618588e5b4316d13bfd7e77fb"><td class="memItemLeft"><a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abb979e0618588e5b4316d13bfd7e77fb">config_get_button_action</a> (<a class="el" href="config_8h.html#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a> event)</td></tr>
+<tr class="memdesc:abb979e0618588e5b4316d13bfd7e77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the action assigned to a specific button event.  <br /></td></tr>
+<tr class="memitem:aeae7812ca9f66115b7958b8adc311d8e" id="r_aeae7812ca9f66115b7958b8adc311d8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeae7812ca9f66115b7958b8adc311d8e">config_set_button_action</a> (<a class="el" href="config_8h.html#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a> event, <a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a> action)</td></tr>
+<tr class="memdesc:aeae7812ca9f66115b7958b8adc311d8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a new action to a specific button event in RAM.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -276,7 +280,7 @@ Variables</h2></td></tr>
 <tr class="memdesc:a2d43871dcf1c3652057d980300d323b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set to true if any RAM values diverge from the persisted flash storage state.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Thread-safe configuration component utilizing NVS for ESP32. Implements the private storage structures, mutex protection mechanisms, and input validation logic defined in <a class="el" href="config_8h.html" title="Thread-safe configuration management component utilizing NVS. Provides an abstraction layer to read,...">config.h</a>. </p>
+<div class="textblock"><p>Thread-safe configuration component utilizing NVS for ESP32. Implements the private storage structures, mutex protection mechanisms, and input validation logic defined in <a class="el" href="config_8h.html" title="Thread-safe configuration component utilizing NVS for ESP32.">config.h</a>. </p>
 
 <p class="definition">Definition in file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
@@ -295,7 +299,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00028">28</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, and <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
@@ -306,7 +310,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APP_CONFIG_VERSION&#160;&#160;&#160;2</td>
+          <td class="memname">#define APP_CONFIG_VERSION&#160;&#160;&#160;3</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -314,7 +318,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00029">29</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, and <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
@@ -335,13 +339,13 @@ Variables</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">xSemaphoreTake(                                                              \</div>
 <div class="line">    <a class="code hl_variable" href="#aff85db3a742d550fef5f0c3ea3159146">s_config_mutex</a>,                                                          \</div>
 <div class="line">    portMAX_DELAY)</div>
-<div class="ttc" id="aconfig_8c_html_aff85db3a742d550fef5f0c3ea3159146"><div class="ttname"><a href="#aff85db3a742d550fef5f0c3ea3159146">s_config_mutex</a></div><div class="ttdeci">static SemaphoreHandle_t s_config_mutex</div><div class="ttdoc">Mutex guard ensuring thread-safe operations on the shared configuration context.</div><div class="ttdef"><b>Definition</b> <a href="config_8c_source.html#l00065">config.c:65</a></div></div>
+<div class="ttc" id="aconfig_8c_html_aff85db3a742d550fef5f0c3ea3159146"><div class="ttname"><a href="#aff85db3a742d550fef5f0c3ea3159146">s_config_mutex</a></div><div class="ttdeci">static SemaphoreHandle_t s_config_mutex</div><div class="ttdoc">Mutex guard ensuring thread-safe operations on the shared configuration context.</div><div class="ttdef"><b>Definition</b> <a href="config_8c_source.html#l00071">config.c:71</a></div></div>
 </div><!-- fragment -->
 <p>Locks the configuration mutex for exclusive access. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00080">80</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00086">86</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00233">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00332">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00308">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00257">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00280">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00394">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00357">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00184">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00194">config_save()</a>, <a class="el" href="config_8c_source.html#l00242">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00341">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00317">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00266">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00405">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00369">config_set_wifi_sta_config()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00447">config_get_button_action()</a>, <a class="el" href="config_8c_source.html#l00243">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00267">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00290">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00404">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00367">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00194">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00204">config_save()</a>, <a class="el" href="config_8c_source.html#l00469">config_set_button_action()</a>, <a class="el" href="config_8c_source.html#l00252">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00276">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00415">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00379">config_set_wifi_sta_config()</a>.</p>
 
 </div>
 </div>
@@ -379,7 +383,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00024">24</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, and <a class="el" href="config_8c_source.html#l00194">config_save()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, and <a class="el" href="config_8c_source.html#l00204">config_save()</a>.</p>
 
 </div>
 </div>
@@ -399,7 +403,7 @@ Variables</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00023">23</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, and <a class="el" href="config_8c_source.html#l00194">config_save()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, and <a class="el" href="config_8c_source.html#l00204">config_save()</a>.</p>
 
 </div>
 </div>
@@ -422,13 +426,50 @@ Variables</h2></td></tr>
 </div><!-- fragment -->
 <p>Unlocks the configuration mutex after access. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00084">84</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00090">90</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00233">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00332">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00308">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00257">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00280">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00394">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00357">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00184">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00194">config_save()</a>, <a class="el" href="config_8c_source.html#l00242">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00341">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00317">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00266">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00405">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00369">config_set_wifi_sta_config()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00447">config_get_button_action()</a>, <a class="el" href="config_8c_source.html#l00243">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00267">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00290">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00404">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00367">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00194">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00204">config_save()</a>, <a class="el" href="config_8c_source.html#l00469">config_set_button_action()</a>, <a class="el" href="config_8c_source.html#l00252">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00276">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00415">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00379">config_set_wifi_sta_config()</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abb979e0618588e5b4316d13bfd7e77fb" name="abb979e0618588e5b4316d13bfd7e77fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb979e0618588e5b4316d13bfd7e77fb">&#9670;&#160;</a></span>config_get_button_action()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a> config_get_button_action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the action assigned to a specific button event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to query. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a> assigned to the event, or APP_BUTTON_ACTION_NONE if uninitialized or invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00447">447</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00047">APP_BUTTON_ACTION_NONE</a>, <a class="el" href="config_8h_source.html#l00036">APP_BUTTON_EVENT_DOUBLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00037">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00035">APP_BUTTON_EVENT_SINGLE_CLICK</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="button__actions_8c_source.html#l00101">iot_button_double_click_cb()</a>, <a class="el" href="button__actions_8c_source.html#l00112">iot_button_multiple_click_cb()</a>, and <a class="el" href="button__actions_8c_source.html#l00090">iot_button_single_click_cb()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_abb979e0618588e5b4316d13bfd7e77fb_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
 <a id="a6ac096d28ccd844ad0805e9199cae521" name="a6ac096d28ccd844ad0805e9199cae521"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6ac096d28ccd844ad0805e9199cae521">&#9670;&#160;</a></span>config_get_connection()</h2>
 
@@ -447,9 +488,9 @@ Variables</h2></td></tr>
 <p>Gets the current network connection type. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current connection mode as <a class="el" href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446" title="Network connection medium types.">config_connection_t</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00233">233</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00243">243</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00063">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00083">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -477,9 +518,9 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Configuration direction (Defaults to OUTPUT if index invalid). </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00332">332</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00342">342</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00080">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00022">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00100">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -507,9 +548,9 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Universe number (0-32768), or APP_CONFIG_INVALID_UNIVERSE if port_index is invalid. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00308">308</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00318">318</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00022">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00030">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -531,9 +572,9 @@ Variables</h2></td></tr>
 <p>Gets the current IP allocation method. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current IP method as <a class="el" href="config_8h.html#ac91b5e170b401c2efe0577b14d40f766" title="IP assignment method configurations.">config_ip_method_t</a>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00257">257</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00267">267</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00065">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00085">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -555,15 +596,15 @@ Variables</h2></td></tr>
 <p>Gets the current status LED brightness level. </p>
 <dl class="section return"><dt>Returns</dt><dd>Brightness value ranging from 0 to 255. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00280">280</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00290">290</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00067">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00087">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00021">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>, and <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a30bb8db7736fceae486f36005a411f5e_icgraph.svg" width="335" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a30bb8db7736fceae486f36005a411f5e_icgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -591,9 +632,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00394">394</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00404">404</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -620,9 +661,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00357">357</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00367">367</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -651,11 +692,11 @@ Here is the caller graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00126">126</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00136">136</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00028">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00029">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00065">s_config_mutex</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, and <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00028">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00029">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_config_mutex</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, and <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00021">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -692,13 +733,20 @@ Here is the caller graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00184">184</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00194">194</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a19524afa3401ea2d7c375af232cf8f39_cgraph.svg" width="382" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a19524afa3401ea2d7c375af232cf8f39_icgraph.svg" width="304" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -727,9 +775,51 @@ Here is the call graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00194">194</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00204">204</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>, and <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_adbf182647ef90017c070ed7a4d0504fb_icgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aeae7812ca9f66115b7958b8adc311d8e" name="aeae7812ca9f66115b7958b8adc311d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeae7812ca9f66115b7958b8adc311d8e">&#9670;&#160;</a></span>config_set_button_action()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_button_action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="config_8h.html#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigns a new action to a specific button event in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to modify. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">action</td><td>The <a class="el" href="config_8h.html#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a> to assign. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the configuration was updated, false if uninitialized, unchanged, or arguments were invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00469">469</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00050">APP_BUTTON_ACTION_MAX</a>, <a class="el" href="config_8h_source.html#l00036">APP_BUTTON_EVENT_DOUBLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00037">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00035">APP_BUTTON_EVENT_SINGLE_CLICK</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -757,9 +847,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if it was identical or invalid. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00242">242</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00252">252</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00048">APP_CONFIG_CONN_ETHERNET</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00068">APP_CONFIG_CONN_ETHERNET</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -792,9 +882,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00341">341</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00351">351</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00056">APP_CONFIG_DIR_INPUT</a>, <a class="el" href="config_8h_source.html#l00022">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00076">APP_CONFIG_DIR_INPUT</a>, <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -827,9 +917,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00317">317</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00327">327</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00022">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00030">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -857,9 +947,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if identical or invalid. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00266">266</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00276">276</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00038">APP_CONFIG_IP_DHCP</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00058">APP_CONFIG_IP_DHCP</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -887,13 +977,20 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if value was updated, false if invalid (out of bounds) or unchanged. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00289">289</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00299">299</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="led_8c_source.html#l00178">led_set_brightness()</a>, <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="led_8c_source.html#l00188">led_set_brightness()</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a0f49b78b8b22ac39ef5ed8a15597818b_cgraph.svg" width="556" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8c_a0f49b78b8b22ac39ef5ed8a15597818b_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -922,9 +1019,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00405">405</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00415">415</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -952,9 +1049,9 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00369">369</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00379">379</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8c_source.html#l00080">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00071">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00084">UNLOCK</a>.</p>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -984,11 +1081,11 @@ Here is the call graph for this function:</div>
 <p>Restores all configuration fields to their factory-defined values in RAM. </p>
 <p>Sets the magic number, version, and all functional parameters (Wi-Fi, DMX, LED). Marks the configuration as dirty to trigger a save on next <a class="el" href="#adbf182647ef90017c070ed7a4d0504fb" title="Flushes all staged RAM changes permanently to the non-volatile storage.">config_save()</a> call. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00096">96</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00102">102</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00075">APP_CONFIG_DEFAULT_AP_PASSWORD</a>, <a class="el" href="config_8h_source.html#l00077">APP_CONFIG_DEFAULT_AP_SSID_PREFIX</a>, <a class="el" href="config_8h_source.html#l00063">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8h_source.html#l00080">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00065">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8h_source.html#l00067">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8h_source.html#l00071">APP_CONFIG_DEFAULT_STA_PASSWORD</a>, <a class="el" href="config_8h_source.html#l00070">APP_CONFIG_DEFAULT_STA_SSID</a>, <a class="el" href="config_8h_source.html#l00082">APP_CONFIG_DEFAULT_START_UNIVERSE</a>, <a class="el" href="config_8h_source.html#l00022">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00028">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00029">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00059">s_config</a>, and <a class="el" href="config_8c_source.html#l00077">s_is_dirty</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00095">APP_CONFIG_DEFAULT_AP_PASSWORD</a>, <a class="el" href="config_8h_source.html#l00097">APP_CONFIG_DEFAULT_AP_SSID_PREFIX</a>, <a class="el" href="config_8h_source.html#l00083">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8h_source.html#l00100">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00107">APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT</a>, <a class="el" href="config_8h_source.html#l00085">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8h_source.html#l00087">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8h_source.html#l00109">APP_CONFIG_DEFAULT_MULTI_CLICK_ACT</a>, <a class="el" href="config_8h_source.html#l00105">APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT</a>, <a class="el" href="config_8h_source.html#l00091">APP_CONFIG_DEFAULT_STA_PASSWORD</a>, <a class="el" href="config_8h_source.html#l00090">APP_CONFIG_DEFAULT_STA_SSID</a>, <a class="el" href="config_8h_source.html#l00102">APP_CONFIG_DEFAULT_START_UNIVERSE</a>, <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00028">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00029">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, and <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, and <a class="el" href="config_8c_source.html#l00184">config_reset_defaults()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, and <a class="el" href="config_8c_source.html#l00194">config_reset_defaults()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1020,9 +1117,9 @@ Here is the caller graph for this function:</div>
 
 <p>Private runtime memory footprint of the active configuration. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00059">59</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00065">65</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00233">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00332">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00308">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00257">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00280">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00394">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00357">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00126">config_init()</a>, <a class="el" href="config_8c_source.html#l00194">config_save()</a>, <a class="el" href="config_8c_source.html#l00242">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00341">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00317">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00266">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00405">config_set_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00369">config_set_wifi_sta_config()</a>, and <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00447">config_get_button_action()</a>, <a class="el" href="config_8c_source.html#l00243">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00267">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00290">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00404">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00367">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00136">config_init()</a>, <a class="el" href="config_8c_source.html#l00204">config_save()</a>, <a class="el" href="config_8c_source.html#l00469">config_set_button_action()</a>, <a class="el" href="config_8c_source.html#l00252">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00276">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00415">config_set_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00379">config_set_wifi_sta_config()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
@@ -1048,9 +1145,9 @@ Here is the caller graph for this function:</div>
 
 <p>Mutex guard ensuring thread-safe operations on the shared configuration context. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00065">65</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00071">71</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>.</p>
 
 </div>
 </div>
@@ -1076,9 +1173,9 @@ Here is the caller graph for this function:</div>
 
 <p>Set to true if any RAM values diverge from the persisted flash storage state. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00077">77</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00083">83</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00126">config_init()</a>, <a class="el" href="config_8c_source.html#l00194">config_save()</a>, <a class="el" href="config_8c_source.html#l00242">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00341">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00317">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00266">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00405">config_set_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00369">config_set_wifi_sta_config()</a>, and <a class="el" href="config_8c_source.html#l00096">load_factory_defaults()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00136">config_init()</a>, <a class="el" href="config_8c_source.html#l00204">config_save()</a>, <a class="el" href="config_8c_source.html#l00469">config_set_button_action()</a>, <a class="el" href="config_8c_source.html#l00252">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00276">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00415">config_set_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00379">config_set_wifi_sta_config()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
@@ -1104,9 +1201,9 @@ Here is the caller graph for this function:</div>
 
 <p>Tracks if the configuration component has been successfully initialized. </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00071">71</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00077">77</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00233">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00332">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00308">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00257">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00280">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00394">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00357">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00126">config_init()</a>, <a class="el" href="config_8c_source.html#l00184">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00194">config_save()</a>, <a class="el" href="config_8c_source.html#l00242">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00341">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00317">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00266">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00405">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00369">config_set_wifi_sta_config()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00447">config_get_button_action()</a>, <a class="el" href="config_8c_source.html#l00243">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00267">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00290">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00404">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00367">config_get_wifi_sta_config()</a>, <a class="el" href="config_8c_source.html#l00136">config_init()</a>, <a class="el" href="config_8c_source.html#l00194">config_reset_defaults()</a>, <a class="el" href="config_8c_source.html#l00204">config_save()</a>, <a class="el" href="config_8c_source.html#l00469">config_set_button_action()</a>, <a class="el" href="config_8c_source.html#l00252">config_set_connection()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00276">config_set_ip_method()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00415">config_set_wifi_ap_config()</a>, and <a class="el" href="config_8c_source.html#l00379">config_set_wifi_sta_config()</a>.</p>
 
 </div>
 </div>

@@ -1,22 +1,21 @@
 <map id="components/led/include/led.h" name="components/led/include/led.h">
-<area shape="rect" id="Node000001" title="LED control component with flexible blinking and breathing modes." alt="" coords="442,5,618,50"/>
+<area shape="rect" id="Node000001" title="LED control component with flexible blinking and breathing modes." alt="" coords="467,5,643,50"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="5,98,108,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="442,46,124,100,123,95,441,41"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="467,45,124,100,123,95,466,40"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="132,98,213,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="442,52,228,100,227,95,440,47"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="483,174,566,201"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="442,44,342,66,302,82,277,100,268,121,273,138,291,152,319,163,393,177,468,183,467,188,392,182,318,168,289,157,269,141,262,121,273,96,299,77,341,61,441,39"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="287,98,437,126"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="486,53,404,93,401,88,484,48"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="462,98,598,126"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="532,50,532,82,527,82,527,50"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="622,98,739,126"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="571,48,645,88,642,93,569,53"/>
-<area shape="rect" id="Node000008" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="762,98,836,126"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="602,48,749,92,747,97,601,53"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="860,98,928,126"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="619,44,846,95,845,100,618,49"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="952,98,1022,126"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="619,39,764,62,937,95,936,100,763,67,618,44"/>
-<area shape="poly" id="edge8_Node000008_Node000004" title=" " alt="" coords="763,126,582,174,581,168,761,120"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="467,50,229,100,228,95,466,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="237,98,388,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="492,53,367,95,365,90,490,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="412,98,549,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="538,52,505,88,501,84,534,49"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="573,98,689,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="577,49,611,85,607,88,573,52"/>
+<area shape="rect" id="Node000007" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="713,98,786,126"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="608,48,706,89,704,94,606,53"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="811,98,878,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="633,48,797,94,795,99,631,53"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="903,98,973,126"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="644,43,888,95,887,100,643,49"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="708,174,792,201"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="752,126,752,158,747,158,747,126"/>
 </map>

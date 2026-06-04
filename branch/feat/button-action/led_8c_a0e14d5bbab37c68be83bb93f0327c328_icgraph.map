@@ -1,7 +1,20 @@
 <map id="led_set_brightness" name="led_set_brightness">
-<area shape="rect" id="Node000001" title="Dynamically updates the LED maximum brightness." alt="" coords="243,32,386,60"/>
-<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="57,5,143,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,38,143,27,143,22,228,32"/>
-<area shape="rect" id="Node000003" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="5,57,195,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="228,59,196,63,195,57,227,53"/>
+<area shape="rect" id="Node000001" title="Dynamically updates the LED maximum brightness." alt="" coords="977,46,1120,74"/>
+<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,46,91,74"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="962,46,798,21,704,12,609,8,375,8,296,12,218,23,92,51,91,46,217,18,296,7,375,3,609,3,704,6,799,15,962,40"/>
+<area shape="rect" id="Node000003" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="740,72,929,99"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="962,73,930,77,929,71,961,68"/>
+<area shape="rect" id="Node000004" href="$button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" title="Executes the action compiled into the configuration for the triggered event." alt="" coords="523,88,692,115"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="724,96,692,98,692,93,724,90"/>
+<area shape="rect" id="Node000005" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="278,42,475,70"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="518,87,450,73,451,68,519,81"/>
+<area shape="rect" id="Node000007" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="302,94,451,138"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="508,110,451,114,451,109,508,105"/>
+<area shape="rect" id="Node000008" href="$button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" title="Callback for single click events." alt="" coords="280,162,473,190"/>
+<area shape="poly" id="edge9_Node000004_Node000008" title=" " alt="" coords="558,124,476,153,438,164,437,159,475,148,556,119"/>
+<area shape="rect" id="Node000006" href="$button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,72,230,99"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="267,75,231,81,230,76,266,70"/>
+<area shape="poly" id="edge6_Node000006_Node000002" title=" " alt="" coords="123,77,91,71,92,65,124,71"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="287,104,230,95,231,90,288,99"/>
+<area shape="poly" id="edge10_Node000008_Node000006" title=" " alt="" coords="292,159,277,153,234,128,200,101,203,97,237,123,279,148,294,154"/>
 </map>
