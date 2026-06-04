@@ -13,7 +13,9 @@ var searchData=
   ['webserver_5ftask_10',['webserver_task',['../web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06',1,'web_server.c']]],
   ['wifi_2ec_11',['wifi.c',['../wifi_8c.html',1,'']]],
   ['wifi_2eh_12',['wifi.h',['../wifi_8h.html',1,'']]],
-  ['wifi_5fstart_5fap_13',['wifi_start_ap',['../wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c'],['../wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c']]],
-  ['wifi_5fstop_5fap_14',['wifi_stop_ap',['../wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c'],['../wifi_8c.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c']]],
-  ['wiring_15',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
+  ['wifi_5fap_13',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
+  ['wifi_5fsta_14',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]],
+  ['wifi_5fstart_5fap_15',['wifi_start_ap',['../wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c'],['../wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c']]],
+  ['wifi_5fstop_5fap_16',['wifi_stop_ap',['../wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c'],['../wifi_8c.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c']]],
+  ['wiring_17',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
 ];

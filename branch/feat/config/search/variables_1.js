@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['max_5furi_5fhandlers_0',['max_uri_handlers',['../structwebserver__config__t.html#ab58318e6e968285ec7e44723369ac4f3',1,'webserver_config_t']]]
+  ['dmx_5fdirections_0',['dmx_directions',['../struct____attribute____.html#a1c00a6c544abf7c410ede396fd8a0875',1,'__attribute__']]],
+  ['dmx_5funiverses_1',['dmx_universes',['../struct____attribute____.html#a1f3d7369612b747597c5ec31b24ee6e8',1,'__attribute__']]]
 ];

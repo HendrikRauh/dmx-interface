@@ -185,55 +185,63 @@ $(function(){initNavTree('config_8h.html','',''); });
 </div><!--header-->
 <div class="contents">
 
-<p>Configuration management component utilizing NVS. Provides an abstraction layer to read, write, and validate application settings without exposing internal storage structures.  
+<p>Thread-safe configuration management component utilizing NVS. Provides an abstraction layer to read, write, and validate application settings without exposing internal storage structures.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;esp_err.h&quot;</code><br />
+<code>#include &quot;esp_wifi_types.h&quot;</code><br />
+<code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
+<code>#include &quot;freertos/semphr.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="led_8h_source.html">led.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="logger_8h_source.html">logger.h</a>&quot;</code><br />
+<code>#include &quot;nvs.h&quot;</code><br />
+<code>#include &quot;nvs_flash.h&quot;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;stddef.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
+<code>#include &lt;string.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for config.h:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__incl.svg" width="390" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__incl.svg" width="100%" height="512"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__dep__incl.svg" width="207" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__dep__incl.svg" width="363" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 <p><a href="config_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a9cd7473445037e80548392182ebe9560" id="r_a9cd7473445037e80548392182ebe9560"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9cd7473445037e80548392182ebe9560">CONFIG_DMX_PORT_COUNT</a>&#160;&#160;&#160;2</td></tr>
-<tr class="memitem:ae6cc232df4d6ba0afe96f8d939978f01" id="r_ae6cc232df4d6ba0afe96f8d939978f01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae6cc232df4d6ba0afe96f8d939978f01">CONFIG_WIFI_SSID_MAX_LEN</a>&#160;&#160;&#160;32</td></tr>
-<tr class="memitem:a551a7eaa41fa888b6c52b72c6b2f9097" id="r_a551a7eaa41fa888b6c52b72c6b2f9097"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a551a7eaa41fa888b6c52b72c6b2f9097">CONFIG_WIFI_PASS_MAX_LEN</a>&#160;&#160;&#160;64</td></tr>
-<tr class="memitem:a6c8101e672cad31a615dcd5932e994a3" id="r_a6c8101e672cad31a615dcd5932e994a3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6c8101e672cad31a615dcd5932e994a3">CONFIG_INVALID_UNIVERSE</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memitem:adcbd84cc91f7afef3e2cfe7a0d3e327f" id="r_adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">APP_CONFIG_DMX_PORT_COUNT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memitem:a20f90bc9fb0433ae6531932e189234a3" id="r_a20f90bc9fb0433ae6531932e189234a3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a20f90bc9fb0433ae6531932e189234a3">APP_CONFIG_WIFI_SSID_MAX_LEN</a>&#160;&#160;&#160;32</td></tr>
+<tr class="memitem:ae59a61ce0e3e8979b74fd1142f4ebafb" id="r_ae59a61ce0e3e8979b74fd1142f4ebafb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae59a61ce0e3e8979b74fd1142f4ebafb">APP_CONFIG_WIFI_PASS_MAX_LEN</a>&#160;&#160;&#160;64</td></tr>
+<tr class="memitem:a5c48372c1b5a9cf28d2204dc3421ece7" id="r_a5c48372c1b5a9cf28d2204dc3421ece7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5c48372c1b5a9cf28d2204dc3421ece7">APP_CONFIG_INVALID_UNIVERSE</a>&#160;&#160;&#160;0xFFFF</td></tr>
 <tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Compile-time Factory Defaults</div></td></tr>
-<tr class="memitem:a0f23e27aca90880e56e4dd29c81728b1" id="r_a0f23e27aca90880e56e4dd29c81728b1"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0f23e27aca90880e56e4dd29c81728b1">CONFIG_DEFAULT_CONNECTION</a>&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af4b3927b2a94583b700193d620d9eac1">CONFIG_CONN_WIFI_AP</a></td></tr>
-<tr class="memitem:af44065d0f684049fe3ad9e9091e00414" id="r_af44065d0f684049fe3ad9e9091e00414"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#af44065d0f684049fe3ad9e9091e00414">CONFIG_DEFAULT_IP_METHOD</a>&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766ad139101f0bfb8a69430096533d9a179a">CONFIG_IP_DHCP</a></td></tr>
-<tr class="memitem:a3c5cbecdff735097535078f09fa0204f" id="r_a3c5cbecdff735097535078f09fa0204f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a3c5cbecdff735097535078f09fa0204f">CONFIG_DEFAULT_LED_BRIGHTNESS</a>&#160;&#160;&#160;50</td></tr>
-<tr class="memitem:a4659aa09b74e7325b9c88bf4e896842f" id="r_a4659aa09b74e7325b9c88bf4e896842f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4659aa09b74e7325b9c88bf4e896842f">CONFIG_DEFAULT_STA_SSID</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
-<tr class="memitem:aeb8f02e5e928185cf66553cb562784d9" id="r_aeb8f02e5e928185cf66553cb562784d9"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aeb8f02e5e928185cf66553cb562784d9">CONFIG_DEFAULT_STA_PASSWORD</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
-<tr class="memitem:a428fcca1ecfe3f5f943999f1f6e2999b" id="r_a428fcca1ecfe3f5f943999f1f6e2999b"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a428fcca1ecfe3f5f943999f1f6e2999b">CONFIG_DEFAULT_AP_PASSWORD</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
-<tr class="memitem:a7a9abc312650338f27d06e3c9e5f24fc" id="r_a7a9abc312650338f27d06e3c9e5f24fc"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7a9abc312650338f27d06e3c9e5f24fc">CONFIG_DEFAULT_AP_SSID_PREFIX</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
-<tr class="memitem:a6cc569ad71df7a1df3b0f75e11a677d3" id="r_a6cc569ad71df7a1df3b0f75e11a677d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6cc569ad71df7a1df3b0f75e11a677d3">CONFIG_DEFAULT_DMX_DIR</a>&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a23bfd5fc341dfc9d7384baa51111f285">CONFIG_DIR_OUTPUT</a></td></tr>
-<tr class="memitem:a97286a5649876c29707b2f469d9681b2" id="r_a97286a5649876c29707b2f469d9681b2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a97286a5649876c29707b2f469d9681b2">CONFIG_DEFAULT_START_UNIVERSE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a83eeba0a53c30a61824369b6aee279bd" id="r_a83eeba0a53c30a61824369b6aee279bd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a83eeba0a53c30a61824369b6aee279bd">APP_CONFIG_DEFAULT_CONNECTION</a>&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a></td></tr>
+<tr class="memitem:a23a56dc4e1b35b5f1ce78b5e145c4730" id="r_a23a56dc4e1b35b5f1ce78b5e145c4730"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a23a56dc4e1b35b5f1ce78b5e145c4730">APP_CONFIG_DEFAULT_IP_METHOD</a>&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a></td></tr>
+<tr class="memitem:a04d5a17876742e02dd655dcd7068d4e4" id="r_a04d5a17876742e02dd655dcd7068d4e4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a04d5a17876742e02dd655dcd7068d4e4">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memitem:aa32b08dd0f742d53364e0ba8c9e343da" id="r_aa32b08dd0f742d53364e0ba8c9e343da"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa32b08dd0f742d53364e0ba8c9e343da">APP_CONFIG_DEFAULT_STA_SSID</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
+<tr class="memitem:a46c5266ddf41ed921eab38df4b145a11" id="r_a46c5266ddf41ed921eab38df4b145a11"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a46c5266ddf41ed921eab38df4b145a11">APP_CONFIG_DEFAULT_STA_PASSWORD</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
+<tr class="memitem:abda41d7016a6bc9d5599c3382949b970" id="r_abda41d7016a6bc9d5599c3382949b970"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abda41d7016a6bc9d5599c3382949b970">APP_CONFIG_DEFAULT_AP_PASSWORD</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
+<tr class="memitem:a73e764efdfac1104909b8138528d75a8" id="r_a73e764efdfac1104909b8138528d75a8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a73e764efdfac1104909b8138528d75a8">APP_CONFIG_DEFAULT_AP_SSID_PREFIX</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
+<tr class="memitem:a419d0944d7731ba591086c5b191f6fa0" id="r_a419d0944d7731ba591086c5b191f6fa0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a419d0944d7731ba591086c5b191f6fa0">APP_CONFIG_DEFAULT_DMX_DIR</a>&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a></td></tr>
+<tr class="memitem:a9d86e6896ee7a828fac2c433286e3f3d" id="r_a9d86e6896ee7a828fac2c433286e3f3d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9d86e6896ee7a828fac2c433286e3f3d">APP_CONFIG_DEFAULT_START_UNIVERSE</a>&#160;&#160;&#160;1</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ac91b5e170b401c2efe0577b14d40f766" id="r_ac91b5e170b401c2efe0577b14d40f766"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a> { <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a4674f5054425280c0a9da5a867743db9">CONFIG_IP_STATIC</a> = 0
-, <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766ad139101f0bfb8a69430096533d9a179a">CONFIG_IP_DHCP</a>
+<tr class="memitem:ac91b5e170b401c2efe0577b14d40f766" id="r_ac91b5e170b401c2efe0577b14d40f766"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a> { <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b">APP_CONFIG_IP_STATIC</a> = 0
+, <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a>
  }</td></tr>
 <tr class="memdesc:ac91b5e170b401c2efe0577b14d40f766"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP assignment method configurations.  <a href="#ac91b5e170b401c2efe0577b14d40f766">More...</a><br /></td></tr>
-<tr class="memitem:a8cc32e542cd74f87507fab832c4a9446" id="r_a8cc32e542cd74f87507fab832c4a9446"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> { <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af4b3927b2a94583b700193d620d9eac1">CONFIG_CONN_WIFI_AP</a> = 0
-, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446ab7c8816e88e357c796a91971d133e8e0">CONFIG_CONN_WIFI_STA</a>
-, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446ada5a860f58deb871b8aef9a18c0a6c6a">CONFIG_CONN_ETHERNET</a>
+<tr class="memitem:a8cc32e542cd74f87507fab832c4a9446" id="r_a8cc32e542cd74f87507fab832c4a9446"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> { <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a> = 0
+, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22">APP_CONFIG_CONN_WIFI_STA</a>
+, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a">APP_CONFIG_CONN_ETHERNET</a>
  }</td></tr>
 <tr class="memdesc:a8cc32e542cd74f87507fab832c4a9446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network connection medium types.  <a href="#a8cc32e542cd74f87507fab832c4a9446">More...</a><br /></td></tr>
-<tr class="memitem:aa73151f76d6bfc44d0ae222bf31b81d0" id="r_aa73151f76d6bfc44d0ae222bf31b81d0"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> { <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a23bfd5fc341dfc9d7384baa51111f285">CONFIG_DIR_OUTPUT</a> = 0
-, <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0ae8a9ea7beb6ca953622128253e0083dc">CONFIG_DIR_INPUT</a>
+<tr class="memitem:aa73151f76d6bfc44d0ae222bf31b81d0" id="r_aa73151f76d6bfc44d0ae222bf31b81d0"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> { <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a> = 0
+, <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8">APP_CONFIG_DIR_INPUT</a>
  }</td></tr>
 <tr class="memdesc:aa73151f76d6bfc44d0ae222bf31b81d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data direction for dmx-port.  <a href="#aa73151f76d6bfc44d0ae222bf31b81d0">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -265,242 +273,260 @@ Functions</h2></td></tr>
 <tr class="memdesc:a6bff9e6513073f020ea80a448ba91748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data direction for a specific port.  <br /></td></tr>
 <tr class="memitem:aa3dc55021718291541a7f7365a1e3b77" id="r_aa3dc55021718291541a7f7365a1e3b77"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa3dc55021718291541a7f7365a1e3b77">config_set_dmx_direction</a> (uint8_t port_index, <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> direction)</td></tr>
 <tr class="memdesc:aa3dc55021718291541a7f7365a1e3b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data direction for a specific port in RAM.  <br /></td></tr>
-<tr class="memitem:abc39d0969d3eabd28c5f8f3271ef644b" id="r_abc39d0969d3eabd28c5f8f3271ef644b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abc39d0969d3eabd28c5f8f3271ef644b">config_get_wifi_sta_ssid</a> (char *dest, size_t max_len)</td></tr>
-<tr class="memdesc:abc39d0969d3eabd28c5f8f3271ef644b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely retrieves the currently configured Wi-Fi Station SSID.  <br /></td></tr>
-<tr class="memitem:acfd4c117f8c6d48cb637f37d663a2bba" id="r_acfd4c117f8c6d48cb637f37d663a2bba"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#acfd4c117f8c6d48cb637f37d663a2bba">config_get_wifi_sta_password</a> (char *dest, size_t max_len)</td></tr>
-<tr class="memdesc:acfd4c117f8c6d48cb637f37d663a2bba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely retrieves the currently configured Wi-Fi Station password.  <br /></td></tr>
-<tr class="memitem:a290ef1d59e04e65c886af894c6814519" id="r_a290ef1d59e04e65c886af894c6814519"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a290ef1d59e04e65c886af894c6814519">config_set_wifi_sta_creds</a> (const char *ssid, const char *password)</td></tr>
-<tr class="memdesc:a290ef1d59e04e65c886af894c6814519"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates Wi-Fi Station credentials in RAM.  <br /></td></tr>
-<tr class="memitem:a8eb85ee1e5916e4c9ef149ff806e3795" id="r_a8eb85ee1e5916e4c9ef149ff806e3795"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8eb85ee1e5916e4c9ef149ff806e3795">config_get_wifi_ap_ssid</a> (char *dest, size_t max_len)</td></tr>
-<tr class="memdesc:a8eb85ee1e5916e4c9ef149ff806e3795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely retrieves the currently configured Wi-Fi Access Point SSID.  <br /></td></tr>
-<tr class="memitem:a00b63aba2e008c5fc64964e49a308d9b" id="r_a00b63aba2e008c5fc64964e49a308d9b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a00b63aba2e008c5fc64964e49a308d9b">config_get_wifi_ap_password</a> (char *dest, size_t max_len)</td></tr>
-<tr class="memdesc:a00b63aba2e008c5fc64964e49a308d9b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Safely retrieves the currently configured Wi-Fi Access Point password.  <br /></td></tr>
-<tr class="memitem:a5ec3e63e11576ce1ee3fc460e1219d3f" id="r_a5ec3e63e11576ce1ee3fc460e1219d3f"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5ec3e63e11576ce1ee3fc460e1219d3f">config_set_wifi_ap_creds</a> (const char *ssid, const char *password)</td></tr>
-<tr class="memdesc:a5ec3e63e11576ce1ee3fc460e1219d3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates Wi-Fi Access Point credentials in RAM.  <br /></td></tr>
+<tr class="memitem:a80e66713206a22a0ebaf9e5e36714695" id="r_a80e66713206a22a0ebaf9e5e36714695"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80e66713206a22a0ebaf9e5e36714695">config_get_wifi_sta_config</a> (wifi_config_t *dest)</td></tr>
+<tr class="memdesc:a80e66713206a22a0ebaf9e5e36714695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Wi-Fi Station mode configuration.  <br /></td></tr>
+<tr class="memitem:ada200c44c416b41fe4af32a4eec9c7ed" id="r_ada200c44c416b41fe4af32a4eec9c7ed"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ada200c44c416b41fe4af32a4eec9c7ed">config_set_wifi_sta_config</a> (const wifi_config_t *src)</td></tr>
+<tr class="memdesc:ada200c44c416b41fe4af32a4eec9c7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Wi-Fi Station mode configuration in RAM.  <br /></td></tr>
+<tr class="memitem:abfdfc4d5c9822deaee11814d31bc7fd8" id="r_abfdfc4d5c9822deaee11814d31bc7fd8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abfdfc4d5c9822deaee11814d31bc7fd8">config_get_wifi_ap_config</a> (wifi_config_t *dest)</td></tr>
+<tr class="memdesc:abfdfc4d5c9822deaee11814d31bc7fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Wi-Fi Access Point mode configuration.  <br /></td></tr>
+<tr class="memitem:a5d25d27dd5fd25d16752bbfa8d9e632b" id="r_a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d25d27dd5fd25d16752bbfa8d9e632b">config_set_wifi_ap_config</a> (const wifi_config_t *src)</td></tr>
+<tr class="memdesc:a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Wi-Fi Access Point mode configuration in RAM.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Configuration management component utilizing NVS. Provides an abstraction layer to read, write, and validate application settings without exposing internal storage structures. </p>
+<div class="textblock"><p>Thread-safe configuration management component utilizing NVS. Provides an abstraction layer to read, write, and validate application settings without exposing internal storage structures. </p>
 
 <p class="definition">Definition in file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 </div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="a428fcca1ecfe3f5f943999f1f6e2999b" name="a428fcca1ecfe3f5f943999f1f6e2999b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a428fcca1ecfe3f5f943999f1f6e2999b">&#9670;&#160;</a></span>CONFIG_DEFAULT_AP_PASSWORD</h2>
+<a id="abda41d7016a6bc9d5599c3382949b970" name="abda41d7016a6bc9d5599c3382949b970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda41d7016a6bc9d5599c3382949b970">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_AP_PASSWORD</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_AP_PASSWORD&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_AP_PASSWORD&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Factory default AP password </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00070">70</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00082">82</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a7a9abc312650338f27d06e3c9e5f24fc" name="a7a9abc312650338f27d06e3c9e5f24fc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7a9abc312650338f27d06e3c9e5f24fc">&#9670;&#160;</a></span>CONFIG_DEFAULT_AP_SSID_PREFIX</h2>
+<a id="a73e764efdfac1104909b8138528d75a8" name="a73e764efdfac1104909b8138528d75a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e764efdfac1104909b8138528d75a8">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_AP_SSID_PREFIX</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_AP_SSID_PREFIX&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_AP_SSID_PREFIX&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Prefix for runtime generated AP SSID </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00072">72</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00084">84</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a0f23e27aca90880e56e4dd29c81728b1" name="a0f23e27aca90880e56e4dd29c81728b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f23e27aca90880e56e4dd29c81728b1">&#9670;&#160;</a></span>CONFIG_DEFAULT_CONNECTION</h2>
+<a id="a83eeba0a53c30a61824369b6aee279bd" name="a83eeba0a53c30a61824369b6aee279bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83eeba0a53c30a61824369b6aee279bd">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_CONNECTION</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_CONNECTION&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af4b3927b2a94583b700193d620d9eac1">CONFIG_CONN_WIFI_AP</a></td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_CONNECTION&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Default connection mode </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00061">61</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00070">70</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00217">config_get_connection()</a>, and <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a6cc569ad71df7a1df3b0f75e11a677d3" name="a6cc569ad71df7a1df3b0f75e11a677d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cc569ad71df7a1df3b0f75e11a677d3">&#9670;&#160;</a></span>CONFIG_DEFAULT_DMX_DIR</h2>
+<a id="a419d0944d7731ba591086c5b191f6fa0" name="a419d0944d7731ba591086c5b191f6fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a419d0944d7731ba591086c5b191f6fa0">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_DMX_DIR</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_DMX_DIR&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a23bfd5fc341dfc9d7384baa51111f285">CONFIG_DIR_OUTPUT</a></td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_DMX_DIR&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Fallback direction for all DMX ports </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00075">75</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00087">87</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00314">config_get_dmx_direction()</a>, and <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="af44065d0f684049fe3ad9e9091e00414" name="af44065d0f684049fe3ad9e9091e00414"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af44065d0f684049fe3ad9e9091e00414">&#9670;&#160;</a></span>CONFIG_DEFAULT_IP_METHOD</h2>
+<a id="a23a56dc4e1b35b5f1ce78b5e145c4730" name="a23a56dc4e1b35b5f1ce78b5e145c4730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a56dc4e1b35b5f1ce78b5e145c4730">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_IP_METHOD</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_IP_METHOD&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766ad139101f0bfb8a69430096533d9a179a">CONFIG_IP_DHCP</a></td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_IP_METHOD&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Default IP assignment </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00063">63</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00072">72</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00241">config_get_ip_method()</a>, and <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a3c5cbecdff735097535078f09fa0204f" name="a3c5cbecdff735097535078f09fa0204f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c5cbecdff735097535078f09fa0204f">&#9670;&#160;</a></span>CONFIG_DEFAULT_LED_BRIGHTNESS</h2>
+<a id="a04d5a17876742e02dd655dcd7068d4e4" name="a04d5a17876742e02dd655dcd7068d4e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d5a17876742e02dd655dcd7068d4e4">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_LED_BRIGHTNESS</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_LED_BRIGHTNESS&#160;&#160;&#160;50</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_LED_BRIGHTNESS&#160;&#160;&#160;128</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Default status LED brightness (0-100%) </p>
+<p>Default status LED brightness (0-255) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00064">64</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00074">74</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00264">config_get_led_brightness()</a>, and <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="aeb8f02e5e928185cf66553cb562784d9" name="aeb8f02e5e928185cf66553cb562784d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb8f02e5e928185cf66553cb562784d9">&#9670;&#160;</a></span>CONFIG_DEFAULT_STA_PASSWORD</h2>
+<a id="a46c5266ddf41ed921eab38df4b145a11" name="a46c5266ddf41ed921eab38df4b145a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c5266ddf41ed921eab38df4b145a11">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_STA_PASSWORD</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_STA_PASSWORD&#160;&#160;&#160;&quot;&quot;</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_STA_PASSWORD&#160;&#160;&#160;&quot;&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Default STA Password (empty) </p>
+<p>Default STA Password (empty) \ </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00068">68</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00078">78</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a4659aa09b74e7325b9c88bf4e896842f" name="a4659aa09b74e7325b9c88bf4e896842f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4659aa09b74e7325b9c88bf4e896842f">&#9670;&#160;</a></span>CONFIG_DEFAULT_STA_SSID</h2>
+<a id="aa32b08dd0f742d53364e0ba8c9e343da" name="aa32b08dd0f742d53364e0ba8c9e343da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32b08dd0f742d53364e0ba8c9e343da">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_STA_SSID</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_STA_SSID&#160;&#160;&#160;&quot;&quot;</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_STA_SSID&#160;&#160;&#160;&quot;&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Default STA SSID (empty) </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00067">67</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00077">77</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a97286a5649876c29707b2f469d9681b2" name="a97286a5649876c29707b2f469d9681b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97286a5649876c29707b2f469d9681b2">&#9670;&#160;</a></span>CONFIG_DEFAULT_START_UNIVERSE</h2>
+<a id="a9d86e6896ee7a828fac2c433286e3f3d" name="a9d86e6896ee7a828fac2c433286e3f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d86e6896ee7a828fac2c433286e3f3d">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_START_UNIVERSE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DEFAULT_START_UNIVERSE&#160;&#160;&#160;1</td>
+          <td class="memname">#define APP_CONFIG_DEFAULT_START_UNIVERSE&#160;&#160;&#160;1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>First port starts at universe X, increments per port </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00077">77</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00089">89</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a9cd7473445037e80548392182ebe9560" name="a9cd7473445037e80548392182ebe9560"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9cd7473445037e80548392182ebe9560">&#9670;&#160;</a></span>CONFIG_DMX_PORT_COUNT</h2>
+<a id="adcbd84cc91f7afef3e2cfe7a0d3e327f" name="adcbd84cc91f7afef3e2cfe7a0d3e327f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">&#9670;&#160;</a></span>APP_CONFIG_DMX_PORT_COUNT</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_DMX_PORT_COUNT&#160;&#160;&#160;2</td>
+          <td class="memname">#define APP_CONFIG_DMX_PORT_COUNT&#160;&#160;&#160;2</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Number of physical DMX ports on the device </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00021">21</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00029">29</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00314">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00290">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00323">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00299">config_set_dmx_universe()</a>, and <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>.</p>
 
 </div>
 </div>
-<a id="a6c8101e672cad31a615dcd5932e994a3" name="a6c8101e672cad31a615dcd5932e994a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c8101e672cad31a615dcd5932e994a3">&#9670;&#160;</a></span>CONFIG_INVALID_UNIVERSE</h2>
+<a id="a5c48372c1b5a9cf28d2204dc3421ece7" name="a5c48372c1b5a9cf28d2204dc3421ece7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c48372c1b5a9cf28d2204dc3421ece7">&#9670;&#160;</a></span>APP_CONFIG_INVALID_UNIVERSE</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_INVALID_UNIVERSE&#160;&#160;&#160;0xFFFF</td>
+          <td class="memname">#define APP_CONFIG_INVALID_UNIVERSE&#160;&#160;&#160;0xFFFF</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Error/Invalid indicator for DMX universe </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00029">29</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00037">37</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00290">config_get_dmx_universe()</a>, and <a class="el" href="config_8c_source.html#l00299">config_set_dmx_universe()</a>.</p>
 
 </div>
 </div>
-<a id="a551a7eaa41fa888b6c52b72c6b2f9097" name="a551a7eaa41fa888b6c52b72c6b2f9097"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a551a7eaa41fa888b6c52b72c6b2f9097">&#9670;&#160;</a></span>CONFIG_WIFI_PASS_MAX_LEN</h2>
+<a id="ae59a61ce0e3e8979b74fd1142f4ebafb" name="ae59a61ce0e3e8979b74fd1142f4ebafb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae59a61ce0e3e8979b74fd1142f4ebafb">&#9670;&#160;</a></span>APP_CONFIG_WIFI_PASS_MAX_LEN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_WIFI_PASS_MAX_LEN&#160;&#160;&#160;64</td>
+          <td class="memname">#define APP_CONFIG_WIFI_PASS_MAX_LEN&#160;&#160;&#160;64</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Maximum length of Wi-Fi password including null-terminator </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00026">26</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00034">34</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
-<a id="ae6cc232df4d6ba0afe96f8d939978f01" name="ae6cc232df4d6ba0afe96f8d939978f01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6cc232df4d6ba0afe96f8d939978f01">&#9670;&#160;</a></span>CONFIG_WIFI_SSID_MAX_LEN</h2>
+<a id="a20f90bc9fb0433ae6531932e189234a3" name="a20f90bc9fb0433ae6531932e189234a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f90bc9fb0433ae6531932e189234a3">&#9670;&#160;</a></span>APP_CONFIG_WIFI_SSID_MAX_LEN</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define CONFIG_WIFI_SSID_MAX_LEN&#160;&#160;&#160;32</td>
+          <td class="memname">#define APP_CONFIG_WIFI_SSID_MAX_LEN&#160;&#160;&#160;32</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>Maximum length of Wi-Fi SSID including null-terminator </p>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00024">24</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00032">32</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -519,15 +545,15 @@ Functions</h2></td></tr>
 
 <p>Network connection medium types. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446af4b3927b2a94583b700193d620d9eac1" name="a8cc32e542cd74f87507fab832c4a9446af4b3927b2a94583b700193d620d9eac1"></a>CONFIG_CONN_WIFI_AP&#160;</td><td class="fielddoc"><p>Act as a Wi-Fi Access Point </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6" name="a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6"></a>APP_CONFIG_CONN_WIFI_AP&#160;</td><td class="fielddoc"><p>Act as a Wi-Fi Access Point </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446ab7c8816e88e357c796a91971d133e8e0" name="a8cc32e542cd74f87507fab832c4a9446ab7c8816e88e357c796a91971d133e8e0"></a>CONFIG_CONN_WIFI_STA&#160;</td><td class="fielddoc"><p>Connect to an existing Wi-Fi network (Station) </p>
+<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22" name="a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22"></a>APP_CONFIG_CONN_WIFI_STA&#160;</td><td class="fielddoc"><p>Connect to an existing Wi-Fi network (Station) </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446ada5a860f58deb871b8aef9a18c0a6c6a" name="a8cc32e542cd74f87507fab832c4a9446ada5a860f58deb871b8aef9a18c0a6c6a"></a>CONFIG_CONN_ETHERNET&#160;</td><td class="fielddoc"><p>Wired Ethernet connection </p>
+<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a" name="a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a"></a>APP_CONFIG_CONN_ETHERNET&#160;</td><td class="fielddoc"><p>Wired Ethernet connection </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00043">43</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00051">51</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -545,13 +571,13 @@ Functions</h2></td></tr>
 
 <p>Data direction for dmx-port. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0a23bfd5fc341dfc9d7384baa51111f285" name="aa73151f76d6bfc44d0ae222bf31b81d0a23bfd5fc341dfc9d7384baa51111f285"></a>CONFIG_DIR_OUTPUT&#160;</td><td class="fielddoc"><p>Port acts as an output </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf" name="aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf"></a>APP_CONFIG_DIR_OUTPUT&#160;</td><td class="fielddoc"><p>Port acts as an output </p>
 </td></tr>
-<tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0ae8a9ea7beb6ca953622128253e0083dc" name="aa73151f76d6bfc44d0ae222bf31b81d0ae8a9ea7beb6ca953622128253e0083dc"></a>CONFIG_DIR_INPUT&#160;</td><td class="fielddoc"><p>Port acts as an input </p>
+<tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8" name="aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8"></a>APP_CONFIG_DIR_INPUT&#160;</td><td class="fielddoc"><p>Port acts as an input </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00052">52</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00061">61</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -569,13 +595,13 @@ Functions</h2></td></tr>
 
 <p>IP assignment method configurations. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766a4674f5054425280c0a9da5a867743db9" name="ac91b5e170b401c2efe0577b14d40f766a4674f5054425280c0a9da5a867743db9"></a>CONFIG_IP_STATIC&#160;</td><td class="fielddoc"><p>Use a static IP address config </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b" name="ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b"></a>APP_CONFIG_IP_STATIC&#160;</td><td class="fielddoc"><p>Use a static IP address config </p>
 </td></tr>
-<tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766ad139101f0bfb8a69430096533d9a179a" name="ac91b5e170b401c2efe0577b14d40f766ad139101f0bfb8a69430096533d9a179a"></a>CONFIG_IP_DHCP&#160;</td><td class="fielddoc"><p>Obtain IP address via DHCP </p>
+<tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931" name="ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931"></a>APP_CONFIG_IP_DHCP&#160;</td><td class="fielddoc"><p>Obtain IP address via DHCP </p>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00035">35</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00043">43</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
 
 </div>
 </div>
@@ -598,6 +624,10 @@ Functions</h2></td></tr>
 <p>Gets the current network connection type. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current connection mode as <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446" title="Network connection medium types.">config_connection_t</a>. </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00217">217</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00070">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
 <a id="a6bff9e6513073f020ea80a448ba91748" name="a6bff9e6513073f020ea80a448ba91748"></a>
@@ -618,11 +648,15 @@ Functions</h2></td></tr>
 <p>Gets the data direction for a specific port. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Configuration direction (Defaults to OUTPUT if index invalid). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00314">314</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00087">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -644,11 +678,15 @@ Functions</h2></td></tr>
 <p>Gets the configured DMX universe for a specific port. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Universe number (0-32768), or <a class="el" href="#a6c8101e672cad31a615dcd5932e994a3">CONFIG_INVALID_UNIVERSE</a> if port_index is invalid. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Universe number (0-32768), or APP_CONFIG_INVALID_UNIVERSE if port_index is invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00290">290</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00037">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -670,6 +708,10 @@ Functions</h2></td></tr>
 <p>Gets the current IP allocation method. </p>
 <dl class="section return"><dt>Returns</dt><dd>Current IP method as <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766" title="IP assignment method configurations.">config_ip_method_t</a>. </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00241">241</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00072">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
 <a id="a30bb8db7736fceae486f36005a411f5e" name="a30bb8db7736fceae486f36005a411f5e"></a>
@@ -688,127 +730,76 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Gets the current status LED brightness level. </p>
-<dl class="section return"><dt>Returns</dt><dd>Brightness value ranging from 0 to 100. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Brightness value ranging from 0 to 255. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00264">264</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00074">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00020">app_main()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a30bb8db7736fceae486f36005a411f5e_icgraph.svg" width="335" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
-<a id="a00b63aba2e008c5fc64964e49a308d9b" name="a00b63aba2e008c5fc64964e49a308d9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00b63aba2e008c5fc64964e49a308d9b">&#9670;&#160;</a></span>config_get_wifi_ap_password()</h2>
+<a id="abfdfc4d5c9822deaee11814d31bc7fd8" name="abfdfc4d5c9822deaee11814d31bc7fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfdfc4d5c9822deaee11814d31bc7fd8">&#9670;&#160;</a></span>config_get_wifi_ap_config()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void config_get_wifi_ap_password </td>
+          <td class="memname">void config_get_wifi_ap_config </td>
           <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Safely retrieves the currently configured Wi-Fi Access Point password. </p>
+<p>Gets the Wi-Fi Access Point mode configuration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to the destination buffer where the AP password string will be copied. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_len</td><td>Maximum capacity of the destination buffer. Recommended: <a class="el" href="#a551a7eaa41fa888b6c52b72c6b2f9097">CONFIG_WIFI_PASS_MAX_LEN</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to a wifi_config_t struct to receive the data. </td></tr>
   </table>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00376">376</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
-<a id="a8eb85ee1e5916e4c9ef149ff806e3795" name="a8eb85ee1e5916e4c9ef149ff806e3795"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8eb85ee1e5916e4c9ef149ff806e3795">&#9670;&#160;</a></span>config_get_wifi_ap_ssid()</h2>
+<a id="a80e66713206a22a0ebaf9e5e36714695" name="a80e66713206a22a0ebaf9e5e36714695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80e66713206a22a0ebaf9e5e36714695">&#9670;&#160;</a></span>config_get_wifi_sta_config()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void config_get_wifi_ap_ssid </td>
+          <td class="memname">void config_get_wifi_sta_config </td>
           <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Safely retrieves the currently configured Wi-Fi Access Point SSID. </p>
+<p>Gets the Wi-Fi Station mode configuration. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to the destination buffer where the AP SSID string will be copied. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_len</td><td>Maximum capacity of the destination buffer. Recommended: <a class="el" href="#ae6cc232df4d6ba0afe96f8d939978f01">CONFIG_WIFI_SSID_MAX_LEN</a>. </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to a wifi_config_t struct to receive the data. </td></tr>
   </table>
   </dd>
 </dl>
 
-</div>
-</div>
-<a id="acfd4c117f8c6d48cb637f37d663a2bba" name="acfd4c117f8c6d48cb637f37d663a2bba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfd4c117f8c6d48cb637f37d663a2bba">&#9670;&#160;</a></span>config_get_wifi_sta_password()</h2>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00339">339</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void config_get_wifi_sta_password </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Safely retrieves the currently configured Wi-Fi Station password. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to the destination buffer where the password string will be copied. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_len</td><td>Maximum capacity of the destination buffer. Recommended: <a class="el" href="#a551a7eaa41fa888b6c52b72c6b2f9097">CONFIG_WIFI_PASS_MAX_LEN</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="abc39d0969d3eabd28c5f8f3271ef644b" name="abc39d0969d3eabd28c5f8f3271ef644b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abc39d0969d3eabd28c5f8f3271ef644b">&#9670;&#160;</a></span>config_get_wifi_sta_ssid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void config_get_wifi_sta_ssid </td>
-          <td>(</td>
-          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>&#160;)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Safely retrieves the currently configured Wi-Fi Station SSID. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to the destination buffer where the SSID string will be copied. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">max_len</td><td>Maximum capacity of the destination buffer. Recommended: <a class="el" href="#ae6cc232df4d6ba0afe96f8d939978f01">CONFIG_WIFI_SSID_MAX_LEN</a>. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="reference">References <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -835,6 +826,22 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00118">118</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00020">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00021">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config_8c_source.html#l00016">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00015">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00057">s_config_mutex</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, and <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00020">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_ace6647db1f20678900580f60562dea57_cgraph.svg" width="310" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_ace6647db1f20678900580f60562dea57_icgraph.svg" width="232" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
 <a id="a19524afa3401ea2d7c375af232cf8f39" name="a19524afa3401ea2d7c375af232cf8f39"></a>
@@ -859,6 +866,15 @@ Functions</h2></td></tr>
 <li>ESP_FAIL if memory or initialization state is invalid </li>
 </ul>
 </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00168">168</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00088">load_factory_defaults()</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a19524afa3401ea2d7c375af232cf8f39_cgraph.svg" width="382" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -886,6 +902,10 @@ Functions</h2></td></tr>
 </ul>
 </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00178">178</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00016">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00015">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
 <a id="acf23a2850b1dc6112805708e41b6885c" name="acf23a2850b1dc6112805708e41b6885c"></a>
@@ -912,6 +932,10 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if it was identical or invalid. </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00226">226</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00055">APP_CONFIG_CONN_ETHERNET</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
 <a id="aa3dc55021718291541a7f7365a1e3b77" name="aa3dc55021718291541a7f7365a1e3b77"></a>
@@ -936,12 +960,16 @@ Functions</h2></td></tr>
 <p>Sets the data direction for a specific port in RAM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">direction</td><td>New direction (Input/Output). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00323">323</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00063">APP_CONFIG_DIR_INPUT</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -967,12 +995,16 @@ Functions</h2></td></tr>
 <p>Sets the DMX universe for a specific port in RAM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
     <tr><td class="paramdir">[in]</td><td class="paramname">universe</td><td>DMX Universe number (typically 0 - 32768). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00299">299</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00037">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
@@ -1000,6 +1032,10 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if identical or invalid. </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00250">250</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00045">APP_CONFIG_IP_DHCP</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+
 </div>
 </div>
 <a id="a0f49b78b8b22ac39ef5ed8a15597818b" name="a0f49b78b8b22ac39ef5ed8a15597818b"></a>
@@ -1020,73 +1056,80 @@ Functions</h2></td></tr>
 <p>Sets the status LED brightness level in RAM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">brightness</td><td>Desired brightness percentage (0 - 100). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">brightness</td><td>Desired brightness (0 - 255). </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if value was updated, false if invalid (out of bounds) or unchanged. </dd></dl>
 
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00273">273</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="led_8c_source.html#l00174">led_set_brightness()</a>, <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a0f49b78b8b22ac39ef5ed8a15597818b_cgraph.svg" width="556" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
 </div>
 </div>
-<a id="a5ec3e63e11576ce1ee3fc460e1219d3f" name="a5ec3e63e11576ce1ee3fc460e1219d3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5ec3e63e11576ce1ee3fc460e1219d3f">&#9670;&#160;</a></span>config_set_wifi_ap_creds()</h2>
+<a id="a5d25d27dd5fd25d16752bbfa8d9e632b" name="a5d25d27dd5fd25d16752bbfa8d9e632b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d25d27dd5fd25d16752bbfa8d9e632b">&#9670;&#160;</a></span>config_set_wifi_ap_config()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool config_set_wifi_ap_creds </td>
+          <td class="memname">bool config_set_wifi_ap_config </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ssid</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>src</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates Wi-Fi Access Point credentials in RAM. </p>
+<p>Sets the Wi-Fi Access Point mode configuration in RAM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ssid</td><td>Pointer to the new null-terminated SSID string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">password</td><td>Pointer to the new null-terminated password string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Pointer to a wifi_config_t struct containing the new config. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if credentials were changed and valid, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00387">387</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>
-<a id="a290ef1d59e04e65c886af894c6814519" name="a290ef1d59e04e65c886af894c6814519"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a290ef1d59e04e65c886af894c6814519">&#9670;&#160;</a></span>config_set_wifi_sta_creds()</h2>
+<a id="ada200c44c416b41fe4af32a4eec9c7ed" name="ada200c44c416b41fe4af32a4eec9c7ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada200c44c416b41fe4af32a4eec9c7ed">&#9670;&#160;</a></span>config_set_wifi_sta_config()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool config_set_wifi_sta_creds </td>
+          <td class="memname">bool config_set_wifi_sta_config </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ssid</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>src</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Updates Wi-Fi Station credentials in RAM. </p>
+<p>Sets the Wi-Fi Station mode configuration in RAM. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">ssid</td><td>Pointer to the new null-terminated SSID string. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">password</td><td>Pointer to the new null-terminated password string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Pointer to a wifi_config_t struct containing the new config. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>true if credentials were changed and valid, false otherwise. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00351">351</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00072">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00051">s_config</a>, <a class="el" href="config_8c_source.html#l00069">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00063">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00076">UNLOCK</a>.</p>
 
 </div>
 </div>

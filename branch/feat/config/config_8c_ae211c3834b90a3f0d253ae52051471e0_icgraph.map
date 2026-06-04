@@ -1,0 +1,9 @@
+<map id="load_factory_defaults" name="load_factory_defaults">
+<area shape="rect" id="Node000001" title="Restores all configuration fields to their factory&#45;defined values in RAM." alt="" coords="347,32,509,60"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#ace6647db1f20678900580f60562dea57" title="Initializes the configuration component. Sets up internal mutexes and initializes the underlying NVS ..." alt="" coords="175,5,263,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="331,36,263,27,264,22,332,31"/>
+<area shape="rect" id="Node000004" href="$config_8c.html#a19524afa3401ea2d7c375af232cf8f39" title="Resets all configuration settings back to factory defaults." alt="" coords="139,57,299,85"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="332,60,300,64,299,59,331,55"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="159,22,91,22,91,16,159,16"/>
+</map>

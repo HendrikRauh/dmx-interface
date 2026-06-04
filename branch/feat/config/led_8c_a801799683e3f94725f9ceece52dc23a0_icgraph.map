@@ -1,0 +1,9 @@
+<map id="led_generator_task" name="led_generator_task">
+<area shape="rect" id="Node000001" title="Generic asynchronous generator for LED effects." alt="" coords="510,14,657,42"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="299,5,462,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="495,30,463,30,463,25,495,25"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4" title="Sets the current operational mode of the LED." alt="" coords="139,14,251,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="283,30,251,30,251,25,283,25"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,14,91,42"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="123,30,91,30,91,25,123,25"/>
+</map>
