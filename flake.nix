@@ -147,8 +147,6 @@
         prettier = {
           enable = true;
           types_or = [
-            "javascript"
-            "jsx"
             "json"
             "css"
             "scss"
@@ -160,6 +158,19 @@
             "--write"
             "--ignore-unknown"
           ];
+        };
+        html-tidy = {
+          enable = true;
+          files = "\\.(html|htm)$";
+          excludes = ["^assets/doxygen/.*$"];
+        };
+        oxfmt = {
+          enable = true;
+          args = ["--config" "web/.oxfmtrc.json"];
+        };
+        oxlint = {
+          enable = true;
+          args = ["--config" "web/.oxlintrc.json"];
         };
 
         # Nix
@@ -187,14 +198,21 @@
           pkgs.python3
           pkgs.python3Packages.invoke
           pkgs.svgo
+          pkgs.nodejs
         ];
       shellHook =
         pre-commit-check.shellHook
         + ''
           export ESPTOOL_BEFORE=usb_reset
+          export PATH="$PWD/web/node_modules/.bin:$PATH"
+
           # Set up cspell dictionary files
           mkdir -p .cspell
           ln -sfn ${germanDict} .cspell/dict-de-de
+
+          # TODO: move to build hook
+          # Install packages from package.json in a sub shell
+          (cd web && npm install)
         '';
     };
   };

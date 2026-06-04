@@ -10,6 +10,6 @@ project(dmx-interface)
 
 # Enable LittleFS filesystem image creation for web assets
 if(COMMAND littlefs_create_partition_image)
-  littlefs_create_partition_image(storage ${CMAKE_SOURCE_DIR}/data
+  littlefs_create_partition_image(storage ${CMAKE_SOURCE_DIR}/web/dist
                                   FLASH_IN_PROJECT)
 endif()
