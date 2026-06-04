@@ -9,6 +9,14 @@
 
 #include "config.h"
 
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
+#include "led.h"
+#include "logger.h"
+#include "nvs.h"
+#include <stdio.h>
+#include <string.h>
+
 /**
  * @brief NVS storage namespace for configuration data.
  */
@@ -130,8 +138,16 @@ esp_err_t config_init(void) {
   nvs_handle_t handle;
   esp_err_t err = nvs_open(NVS_NAMESPACE, NVS_READWRITE, &handle);
   if (err != ESP_OK) {
-    LOGW("NVS namespace missing. Staging factory defaults.");
-    load_factory_defaults();
+    if (err == ESP_ERR_NVS_NOT_FOUND) {
+      LOGW("NVS namespace missing. Staging factory defaults.");
+      load_factory_defaults();
+    } else {
+      LOGE("Failed to open NVS namespace '%s': %s", NVS_NAMESPACE,
+           esp_err_to_name(err));
+      vSemaphoreDelete(s_config_mutex);
+      s_config_mutex = NULL;
+      return err;
+    }
   } else {
     size_t size = sizeof(config_storage_t);
     err = nvs_get_blob(handle, NVS_BLOB_KEY, &s_config, &size);
@@ -271,6 +287,8 @@ uint8_t config_get_led_brightness(void) {
 }
 
 bool config_set_led_brightness(uint8_t brightness) {
+  if (!s_is_initialized)
+    return false;
   LOGI("Setting LED brightness to %u", (unsigned int)brightness);
   LOCK();
   if (s_config.led_brightness == brightness) {

@@ -8,6 +8,7 @@
 #include "freertos/task.h"
 #include "led.h"
 #include "logger.h"
+#include "nvs_flash.h"
 #include "web_server.h"
 #include "wifi.h"
 

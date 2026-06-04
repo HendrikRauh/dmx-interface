@@ -103,8 +103,12 @@ static void update_led_generator_unsafe(uint32_t period_ms, bool breathing) {
   s_param_breathing = breathing;
 
   if (s_generator_task_handle == NULL) {
-    xTaskCreate(led_generator_task, "led_gen", 2048, NULL, 2,
-                &s_generator_task_handle);
+    BaseType_t res = xTaskCreate(led_generator_task, "led_gen", 2048, NULL, 2,
+                                 &s_generator_task_handle);
+    if (res != pdPASS) {
+      LOGE("Failed to create LED generator task");
+      s_generator_task_handle = NULL;
+    }
   }
 }
 

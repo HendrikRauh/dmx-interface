@@ -9,16 +9,9 @@
 
 #include "esp_err.h"
 #include "esp_wifi_types.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/semphr.h"
-#include "led.h"
-#include "logger.h"
-#include "nvs.h"
-#include "nvs_flash.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
-#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -94,13 +87,16 @@ typedef enum {
 
 /**
  * @brief Initializes the configuration component.
- * Sets up internal mutexes and initializes the underlying NVS flash storage.
- * If no configuration is present in flash, default values are automatically
- * loaded.
+ *
+ * Sets up internal mutexes and loads the persisted configuration blob from NVS.
+ *
+ * @note The NVS flash subsystem must be initialized (via `nvs_flash_init()`)
+ * before calling this function.
+ *
  * @return
- * - ESP_OK on success
- * - ESP_ERR_NO_MEM if mutex creation failed
- * - Other underlying flash error codes from nvs_flash_init
+ *  - ESP_OK on success.
+ *  - ESP_ERR_NO_MEM if mutex creation failed.
+ *  - Other NVS-related error codes if loading fails.
  */
 esp_err_t config_init(void);
 
