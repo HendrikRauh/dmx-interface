@@ -1,6 +1,6 @@
 /**
  * @file config.h
- * @brief Configuration management component utilizing NVS.
+ * @brief Thread-safe configuration management component utilizing NVS.
  * Provides an abstraction layer to read, write, and validate application
  * settings without exposing internal storage structures.
  */
@@ -8,9 +8,17 @@
 #pragma once
 
 #include "esp_err.h"
+#include "esp_wifi_types.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/semphr.h"
+#include "led.h"
+#include "logger.h"
+#include "nvs.h"
+#include "nvs_flash.h"
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <string.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,63 +26,67 @@ extern "C" {
 
 /* --- System Constants --- */
 
-#define CONFIG_DMX_PORT_COUNT                                                  \
+#define APP_CONFIG_DMX_PORT_COUNT                                              \
   2 /**< Number of physical DMX ports on the device */
 
-#define CONFIG_WIFI_SSID_MAX_LEN                                               \
+#define APP_CONFIG_WIFI_SSID_MAX_LEN                                           \
   32 /**< Maximum length of Wi-Fi SSID including null-terminator */
-#define CONFIG_WIFI_PASS_MAX_LEN                                               \
+#define APP_CONFIG_WIFI_PASS_MAX_LEN                                           \
   64 /**< Maximum length of Wi-Fi password including null-terminator */
 
-#define CONFIG_INVALID_UNIVERSE                                                \
+#define APP_CONFIG_INVALID_UNIVERSE                                            \
   0xFFFF /**< Error/Invalid indicator for DMX universe */
 
 /**
  * @brief IP assignment method configurations.
  */
 typedef enum {
-  CONFIG_IP_STATIC = 0, /**< Use a static IP address config */
-  CONFIG_IP_DHCP        /**< Obtain IP address via DHCP */
+  APP_CONFIG_IP_STATIC = 0, /**< Use a static IP address config */
+  APP_CONFIG_IP_DHCP        /**< Obtain IP address via DHCP */
 } config_ip_method_t;
 
 /**
  * @brief Network connection medium types.
  */
 typedef enum {
-  CONFIG_CONN_WIFI_AP = 0, /**< Act as a Wi-Fi Access Point */
-  CONFIG_CONN_WIFI_STA, /**< Connect to an existing Wi-Fi network (Station) */
-  CONFIG_CONN_ETHERNET  /**< Wired Ethernet connection */
+  APP_CONFIG_CONN_WIFI_AP = 0, /**< Act as a Wi-Fi Access Point */
+  APP_CONFIG_CONN_WIFI_STA, /**< Connect to an existing Wi-Fi network (Station)
+                             */
+  APP_CONFIG_CONN_ETHERNET  /**< Wired Ethernet connection */
 } config_connection_t;
 
 /**
  * @brief Data direction for dmx-port.
  */
 typedef enum {
-  CONFIG_DIR_OUTPUT = 0, /**< Port acts as an output */
-  CONFIG_DIR_INPUT       /**< Port acts as an input */
+  APP_CONFIG_DIR_OUTPUT = 0, /**< Port acts as an output */
+  APP_CONFIG_DIR_INPUT       /**< Port acts as an input */
 } config_direction_t;
 
 /**
  * @name Compile-time Factory Defaults
  * @{
  */
-#define CONFIG_DEFAULT_CONNECTION                                              \
-  CONFIG_CONN_WIFI_AP                           /**< Default connection mode */
-#define CONFIG_DEFAULT_IP_METHOD CONFIG_IP_DHCP /**< Default IP assignment */
-#define CONFIG_DEFAULT_LED_BRIGHTNESS                                          \
-  50 /**< Default status LED brightness (0-100%) */
+#define APP_CONFIG_DEFAULT_CONNECTION                                          \
+  APP_CONFIG_CONN_WIFI_AP /**< Default connection mode */
+#define APP_CONFIG_DEFAULT_IP_METHOD                                           \
+  APP_CONFIG_IP_DHCP /**< Default IP assignment */
+#define APP_CONFIG_DEFAULT_LED_BRIGHTNESS                                      \
+  128 /**< Default status LED brightness (0-255) */
 
-#define CONFIG_DEFAULT_STA_SSID ""     /**< Default STA SSID (empty) */
-#define CONFIG_DEFAULT_STA_PASSWORD "" /**< Default STA Password (empty) */
+#define APP_CONFIG_DEFAULT_STA_SSID "" /**< Default STA SSID (empty) */
+#define APP_CONFIG_DEFAULT_STA_PASSWORD                                        \
+  "" /**< Default STA Password (empty)                                         \
+      */
 
-#define CONFIG_DEFAULT_AP_PASSWORD                                             \
+#define APP_CONFIG_DEFAULT_AP_PASSWORD                                         \
   "ChaosDMX" /**< Factory default AP password */
-#define CONFIG_DEFAULT_AP_SSID_PREFIX                                          \
+#define APP_CONFIG_DEFAULT_AP_SSID_PREFIX                                      \
   "ChaosDMX" /**< Prefix for runtime generated AP SSID */
 
-#define CONFIG_DEFAULT_DMX_DIR                                                 \
-  CONFIG_DIR_OUTPUT /**< Fallback direction for all DMX ports */
-#define CONFIG_DEFAULT_START_UNIVERSE                                          \
+#define APP_CONFIG_DEFAULT_DMX_DIR                                             \
+  APP_CONFIG_DIR_OUTPUT /**< Fallback direction for all DMX ports */
+#define APP_CONFIG_DEFAULT_START_UNIVERSE                                      \
   1 /**< First port starts at universe X, increments per port */
 /** @} */
 
@@ -144,13 +156,13 @@ bool config_set_ip_method(config_ip_method_t method);
 
 /**
  * @brief Gets the current status LED brightness level.
- * @return Brightness value ranging from 0 to 100.
+ * @return Brightness value ranging from 0 to 255.
  */
 uint8_t config_get_led_brightness(void);
 
 /**
  * @brief Sets the status LED brightness level in RAM.
- * @param[in] brightness Desired brightness percentage (0 - 100).
+ * @param[in] brightness Desired brightness (0 - 255).
  * @return true if value was updated, false if invalid (out of bounds) or
  * unchanged.
  */
@@ -160,15 +172,15 @@ bool config_set_led_brightness(uint8_t brightness);
 
 /**
  * @brief Gets the configured DMX universe for a specific port.
- * @param[in] port_index Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1).
- * @return Universe number (0-32768), or #CONFIG_INVALID_UNIVERSE if port_index
- * is invalid.
+ * @param[in] port_index Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1).
+ * @return Universe number (0-32768), or APP_CONFIG_INVALID_UNIVERSE if
+ * port_index is invalid.
  */
 uint16_t config_get_dmx_universe(uint8_t port_index);
 
 /**
  * @brief Sets the DMX universe for a specific port in RAM.
- * @param[in] port_index Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1).
+ * @param[in] port_index Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1).
  * @param[in] universe DMX Universe number (typically 0 - 32768).
  * @return true if updated, false if index invalid or unchanged.
  */
@@ -176,72 +188,45 @@ bool config_set_dmx_universe(uint8_t port_index, uint16_t universe);
 
 /**
  * @brief Gets the data direction for a specific port.
- * @param[in] port_index Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1).
+ * @param[in] port_index Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1).
  * @return Configuration direction (Defaults to OUTPUT if index invalid).
  */
 config_direction_t config_get_dmx_direction(uint8_t port_index);
 
 /**
  * @brief Sets the data direction for a specific port in RAM.
- * @param[in] port_index Index of the port (0 to CONFIG_DMX_PORT_COUNT - 1).
+ * @param[in] port_index Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1).
  * @param[in] direction New direction (Input/Output).
  * @return true if updated, false if index invalid or unchanged.
  */
 bool config_set_dmx_direction(uint8_t port_index, config_direction_t direction);
 
-/* --- Wi-Fi Credentials Get/Set --- */
+/**
+ * @brief Gets the Wi-Fi Station mode configuration.
+ * @param[out] dest Pointer to a wifi_config_t struct to receive the data.
+ */
+void config_get_wifi_sta_config(wifi_config_t *dest);
 
 /**
- * @brief Safely retrieves the currently configured Wi-Fi Station SSID.
- * @param[out] dest Pointer to the destination buffer where the SSID string will
- * be copied.
- * @param[in] max_len Maximum capacity of the destination buffer. Recommended:
- * #CONFIG_WIFI_SSID_MAX_LEN.
+ * @brief Sets the Wi-Fi Station mode configuration in RAM.
+ * @param[in] src Pointer to a wifi_config_t struct containing the new config.
+ * @return true if updated, false if invalid or unchanged.
  */
-void config_get_wifi_sta_ssid(char *dest, size_t max_len);
+bool config_set_wifi_sta_config(const wifi_config_t *src);
 
 /**
- * @brief Safely retrieves the currently configured Wi-Fi Station password.
- * @param[out] dest Pointer to the destination buffer where the password string
- * will be copied.
- * @param[in] max_len Maximum capacity of the destination buffer. Recommended:
- * #CONFIG_WIFI_PASS_MAX_LEN.
+ * @brief Gets the Wi-Fi Access Point mode configuration.
+ * @param[out] dest Pointer to a wifi_config_t struct to receive the data.
  */
-void config_get_wifi_sta_password(char *dest, size_t max_len);
+void config_get_wifi_ap_config(wifi_config_t *dest);
 
 /**
- * @brief Updates Wi-Fi Station credentials in RAM.
- * @param[in] ssid Pointer to the new null-terminated SSID string.
- * @param[in] password Pointer to the new null-terminated password string.
- * @return true if credentials were changed and valid, false otherwise.
+ * @brief Sets the Wi-Fi Access Point mode configuration in RAM.
+ * @param[in] src Pointer to a wifi_config_t struct containing the new config.
+ * @return true if updated, false if invalid or unchanged.
  */
-bool config_set_wifi_sta_creds(const char *ssid, const char *password);
+bool config_set_wifi_ap_config(const wifi_config_t *src);
 
-/**
- * @brief Safely retrieves the currently configured Wi-Fi Access Point SSID.
- * @param[out] dest Pointer to the destination buffer where the AP SSID string
- * will be copied.
- * @param[in] max_len Maximum capacity of the destination buffer. Recommended:
- * #CONFIG_WIFI_SSID_MAX_LEN.
- */
-void config_get_wifi_ap_ssid(char *dest, size_t max_len);
-
-/**
- * @brief Safely retrieves the currently configured Wi-Fi Access Point password.
- * @param[out] dest Pointer to the destination buffer where the AP password
- * string will be copied.
- * @param[in] max_len Maximum capacity of the destination buffer. Recommended:
- * #CONFIG_WIFI_PASS_MAX_LEN.
- */
-void config_get_wifi_ap_password(char *dest, size_t max_len);
-
-/**
- * @brief Updates Wi-Fi Access Point credentials in RAM.
- * @param[in] ssid Pointer to the new null-terminated SSID string.
- * @param[in] password Pointer to the new null-terminated password string.
- * @return true if credentials were changed and valid, false otherwise.
- */
-bool config_set_wifi_ap_creds(const char *ssid, const char *password);
 
 #ifdef __cplusplus
 }

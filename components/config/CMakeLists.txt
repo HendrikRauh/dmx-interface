@@ -1,10 +1,10 @@
 idf_component_register(
   SRCS
-  "dmx-interface.c"
+  "src/config.c"
   INCLUDE_DIRS
-  "."
+  "include"
   REQUIRES
-  config
+  nvs_flash
+  logger
   led
-  web_server
-  logger)
+  esp_wifi)

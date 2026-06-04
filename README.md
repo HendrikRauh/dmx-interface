@@ -101,7 +101,8 @@ We have a status LED-Button that shows the current state of the device.
 | --- | --- |
 | ![off](/assets/led/off.svg) | no power; LED deactivated |
 | ![static](/assets/led/static.svg) | powered on; normal |
-| ![slow](/assets/led/slow.svg) | startup; warning |
+| ![boot](/assets/led/boot.svg) | startup |
+| ![slow](/assets/led/slow.svg) | warning |
 | ![fast](/assets/led/fast.svg) | resetting; error |
 
 ______________________________________________________________________
