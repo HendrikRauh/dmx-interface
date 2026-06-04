@@ -3,7 +3,6 @@ var tasks_8py =
     [ "tasks._find_esp_port", "namespacetasks.html#a7e34b2c5d3cc2f921141ed7eef89b001", null ],
     [ "tasks.build", "namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7", null ],
     [ "tasks.clean", "namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4", null ],
-    [ "tasks.cleanbuild", "namespacetasks.html#a51163c0f75a29a5eb25eda8284e8676c", null ],
     [ "tasks.config", "namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1", null ],
     [ "tasks.docs", "namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56", null ],
     [ "tasks.docs_coverage", "namespacetasks.html#aa328785601148775faf61b4a721045c0", null ],
