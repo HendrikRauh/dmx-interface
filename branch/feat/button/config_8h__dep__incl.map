@@ -1,0 +1,7 @@
+<map id="components/config/include/config.h" name="components/config/include/config.h">
+<area shape="rect" id="Node000001" title="Thread&#45;safe configuration management component utilizing NVS. Provides an abstraction layer to read,..." alt="" coords="85,5,280,50"/>
+<area shape="rect" id="Node000002" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="5,98,173,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,63,113,100,109,96,148,59"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html" title=" " alt="" coords="196,106,358,134"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="217,59,265,104,261,108,214,63"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="led_init" name="led_init">
+<area shape="rect" id="Node000001" title="Initializes the LEDC peripheral for the status LED." alt="" coords="5,5,75,33"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="123,5,239,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,16,107,16,107,22,75,22"/>
+</map>

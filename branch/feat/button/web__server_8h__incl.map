@@ -1,0 +1,5 @@
+<map id="components/web_server/include/web_server.h" name="components/web_server/include/web_server.h">
+<area shape="rect" id="Node000001" title="Simple HTTP web server component for ESP32 with async FreeRTOS support." alt="" coords="5,5,186,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="27,98,164,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,50,98,82,93,82,93,50"/>
+</map>
