@@ -31,13 +31,6 @@ def _find_esp_port():
 
 
 @task
-def cleanbuild(c):
-    """Clean build: fullclean and build the project"""
-    c.run("idf.py fullclean", pty=True)
-    c.run("idf.py build", pty=True)
-
-
-@task
 def build(c):
     """Build the project"""
     c.run("idf.py build", pty=True)
@@ -81,13 +74,26 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies", pty=True)
+    c.run("nix flake update", pty=True)
 
 
 @task
 def reset(c):
     """Reset project to clean state: remove build, config, and managed components"""
-    files_to_remove = ["sdkconfig", "sdkconfig.old"]
-    dirs_to_remove = ["build", "managed_components"]
+    files_to_remove = [
+        ".cspellcache",
+        ".pre-commit-config.yaml",
+        "bootloader.bin",
+        "sdkconfig",
+        "sdkconfig.old",
+    ]
+    dirs_to_remove = [
+        ".cspell",
+        ".ruff_cache",
+        "build",
+        "docs/doxygen",
+        "managed_components",
+    ]
 
     for f in files_to_remove:
         if os.path.exists(f):
