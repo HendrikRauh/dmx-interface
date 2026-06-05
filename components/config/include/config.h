@@ -95,7 +95,7 @@ typedef enum {
 #define APP_CONFIG_DEFAULT_AP_PASSWORD                                         \
   "ChaosDMX" /**< Factory default AP password */
 #define APP_CONFIG_DEFAULT_AP_SSID_PREFIX                                      \
-  "ChaosDMX" /**< Prefix for runtime generated AP SSID */
+  "ChaosDMX-" /**< Prefix for runtime generated AP SSID */
 
 #define APP_CONFIG_DEFAULT_DMX_DIR                                             \
   APP_CONFIG_DIR_OUTPUT /**< Fallback direction for all DMX ports */

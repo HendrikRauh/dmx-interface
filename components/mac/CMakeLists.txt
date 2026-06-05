@@ -1,12 +1,9 @@
 idf_component_register(
   SRCS
-  "src/config.c"
+  "src/mac.c"
   INCLUDE_DIRS
   "include"
   REQUIRES
-  nvs_flash
-  logger
-  led
-  esp_wifi
+  config
   PRIV_REQUIRES
-  mac)
+  logger)

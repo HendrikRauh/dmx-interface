@@ -89,7 +89,10 @@ void app_main(void) {
     LOGI("Button not pressed at startup.");
   }
 
-  err = wifi_start_ap("DMX", "ChaosDMX", 1, 4);
+  wifi_config_t ap_config;
+  config_get_wifi_ap_config(&ap_config);
+  err = wifi_start_ap((const char *)ap_config.ap.ssid,
+                      (const char *)ap_config.ap.password, 1, 4);
   if (err != ESP_OK) {
     LOGE("Failed to start WiFi AP: %s", esp_err_to_name(err));
     return;

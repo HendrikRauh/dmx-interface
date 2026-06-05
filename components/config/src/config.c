@@ -13,6 +13,7 @@
 #include "freertos/semphr.h"
 #include "led.h"
 #include "logger.h"
+#include "mac.h"
 #include "nvs.h"
 #include <stdio.h>
 #include <string.h>
@@ -123,8 +124,10 @@ static void load_factory_defaults(void) {
   snprintf(s_config.wifi_sta.password, sizeof(s_config.wifi_sta.password), "%s",
            APP_CONFIG_DEFAULT_STA_PASSWORD);
 
-  snprintf(s_config.wifi_ap.ssid, sizeof(s_config.wifi_ap.ssid), "%s",
-           APP_CONFIG_DEFAULT_AP_SSID_PREFIX);
+  uint8_t mac[6];
+  get_mac(mac, APP_CONFIG_CONN_WIFI_AP);
+  snprintf(s_config.wifi_ap.ssid, sizeof(s_config.wifi_ap.ssid), "%s%02X%02X",
+           APP_CONFIG_DEFAULT_AP_SSID_PREFIX, mac[4], mac[5]);
   snprintf(s_config.wifi_ap.password, sizeof(s_config.wifi_ap.password), "%s",
            APP_CONFIG_DEFAULT_AP_PASSWORD);
 
