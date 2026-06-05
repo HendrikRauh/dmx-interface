@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>components/config -&gt; led Relation</title>
+    <title>components/mac/include/mac.h Source File</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -155,7 +155,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('dir_e073664c73731a1262262b3fccda7226.html','',''); });
+$(function(){initNavTree('mac_8h_source.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -180,22 +180,35 @@ $(function(){initNavTree('dir_e073664c73731a1262262b3fccda7226.html','',''); });
 </div>
 </div>
 
+<div class="header">
+  <div class="headertitle"><div class="title">mac.h</div></div>
+</div><!--header-->
 <div class="contents">
-<h3>config &rarr; led Relation</h3><table class="dirtab"><tr class="dirtab"><th class="dirtab">File in components/config</th><th class="dirtab">Includes file in components/led</th></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dir_f433588cc5a9fd24586bf9dc432fda14.html">src</a>&#160;/&#160;<a class="el" href="config_8c.html">config.c</a></td><td class="dirtab"><a class="el" href="dir_88ca3a5c15a0ab43faa23ddeb5a7f92d.html">include</a>&#160;/&#160;<a class="el" href="led_8h.html">led.h</a></td></tr></table></div><!-- contents -->
+<a href="mac_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="config_8h.html">config.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keywordtype">void</span> <a class="code hl_function" href="mac_8h.html#a91cc2340f5641254431157944fce5ebc">get_mac</a>(uint8_t *mac, <a class="code hl_enumeration" href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> connection);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Thread-safe configuration component utilizing NVS for ESP32.</div></div>
+<div class="ttc" id="aconfig_8h_html_a8cc32e542cd74f87507fab832c4a9446"><div class="ttname"><a href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a></div><div class="ttdeci">config_connection_t</div><div class="ttdoc">Network connection medium types.</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00064">config.h:64</a></div></div>
+<div class="ttc" id="amac_8h_html_a91cc2340f5641254431157944fce5ebc"><div class="ttname"><a href="mac_8h.html#a91cc2340f5641254431157944fce5ebc">get_mac</a></div><div class="ttdeci">void get_mac(uint8_t *mac, config_connection_t connection)</div><div class="ttdoc">Retrieves the MAC address for the specified connection type.</div><div class="ttdef"><b>Definition</b> <a href="mac_8c_source.html#l00008">mac.c:8</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div id="page-nav" class="page-nav-panel">
-<div id="page-nav-resize-handle"></div>
-<div id="page-nav-tree">
-<div id="page-nav-contents">
-</div><!-- page-nav-contents -->
-</div><!-- page-nav-tree -->
-</div><!-- page-nav -->
 </div><!-- container -->
 <!-- cspell: words: navpath -->
 <!-- HTML footer for doxygen 1.16.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><ul>
-    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_e073664c73731a1262262b3fccda7226.html">config</a></li>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_debe42a6dfee1319fe9ec108bdc2a03f.html">mac</a></li><li class="navelem"><a href="dir_025924c7314232a4f65767e00f6ab667.html">include</a></li><li class="navelem"><a href="mac_8h.html">mac.h</a></li>
     <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
   </ul>
 </div>

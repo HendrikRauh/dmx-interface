@@ -1,9 +1,14 @@
 <map id="components/config/include/config.h" name="components/config/include/config.h">
-<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="216,5,412,50"/>
+<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="211,5,406,50"/>
 <area shape="rect" id="Node000002" href="$button__actions_8c.html" title="Dynamic hardware button execution mapped directly to app configuration." alt="" coords="5,98,207,143"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,59,157,100,155,95,249,54"/>
-<area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="230,98,398,143"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="317,66,317,98,311,98,311,66"/>
-<area shape="rect" id="Node000004" href="$dmx-interface_8c.html" title=" " alt="" coords="421,106,583,134"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,55,476,104,474,108,372,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,59,156,100,153,95,245,54"/>
+<area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="161,191,328,235"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,65,272,99,258,148,250,191,245,190,253,146,268,97,284,63"/>
+<area shape="rect" id="Node000004" href="$mac_8h.html" title=" " alt="" coords="282,98,466,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="335,61,361,96,356,99,331,64"/>
+<area shape="rect" id="Node000006" href="$dmx-interface_8c.html" title=" " alt="" coords="491,106,652,134"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="386,53,534,103,532,108,385,58"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="333,154,277,192,274,188,330,149"/>
+<area shape="rect" id="Node000005" href="$mac_8c.html" title=" " alt="" coords="352,191,508,235"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="398,155,419,189,415,192,393,157"/>
 </map>
