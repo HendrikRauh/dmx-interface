@@ -79,6 +79,7 @@
     "oxlint",
     "oxlintrc",
     "pinout",
+    "pipefail",
     "pkgs",
     "Prusa",
     "psram",

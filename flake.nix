@@ -210,9 +210,28 @@
           mkdir -p .cspell
           ln -sfn ${germanDict} .cspell/dict-de-de
 
-          # TODO: move to build hook
-          # Install packages from package.json in a sub shell
-          (cd web && npm install)
+          # Install packages from package.json in a sub shell if there are changes in package-lock.json
+          (
+            set -euo pipefail
+
+            cd web
+
+            LOCKFILE="package-lock.json"
+            HASH_STORE="node_modules/.nix-lockfile.hash"
+
+            if [ -f "$LOCKFILE" ]; then
+              CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
+              if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+                echo "Changes detected in $LOCKFILE. Running npm install..."
+                npm install
+
+                # Update the stored hash so we don't install again next time
+                echo "$CURRENT_HASH" > "$HASH_STORE"
+              fi
+            else
+              echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+            fi
+          )
         '';
     };
   };
