@@ -12,6 +12,7 @@ var namespaces_dup =
       [ "monitor", "namespacetasks.html#a83c7344f678f37244547be5fc808c74a", null ],
       [ "reset", "namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6", null ],
       [ "saveconfig", "namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1", null ],
-      [ "update", "namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac", null ]
+      [ "update", "namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac", null ],
+      [ "web_dev", "namespacetasks.html#a2ea8673507363fb78ba2e90de74afdf3", null ]
     ] ]
 ];

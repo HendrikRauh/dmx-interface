@@ -176,6 +176,7 @@ var NAVTREEINDEX0 =
 "namespacemembers_func.html":[8,1,1],
 "namespaces.html":[8,0],
 "namespacetasks.html":[8,0,0],
+"namespacetasks.html#a2ea8673507363fb78ba2e90de74afdf3":[8,0,0,12],
 "namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7":[8,0,0,1],
 "namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56":[8,0,0,4],
 "namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17":[8,0,0,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6":[10,0,0,5,1,1,0],
 "wifi_8c_source.html":[10,0,0,5,1,1],
 "wifi_8h.html":[10,0,0,5,0,1],
-"wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542":[10,0,0,5,0,1,1],
-"wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc":[10,0,0,5,0,1,0]
+"wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542":[10,0,0,5,0,1,1]
 };
