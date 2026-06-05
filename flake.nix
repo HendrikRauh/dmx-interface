@@ -188,10 +188,12 @@
           pkgs.python3Packages.invoke
           pkgs.svgo
         ];
+      env = {
+        ESPTOOL_BEFORE = "usb_reset";
+      };
       shellHook =
         pre-commit-check.shellHook
         + ''
-          export ESPTOOL_BEFORE=usb_reset
           # Set up cspell dictionary files
           mkdir -p .cspell
           ln -sfn ${germanDict} .cspell/dict-de-de
