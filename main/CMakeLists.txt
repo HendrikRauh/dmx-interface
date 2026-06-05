@@ -4,6 +4,7 @@ idf_component_register(
   INCLUDE_DIRS
   "."
   REQUIRES
+  button_actions
   config
   led
   web_server

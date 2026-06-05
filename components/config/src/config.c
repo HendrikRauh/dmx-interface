@@ -26,7 +26,7 @@
 
 /* --- Magic & Version Constants --- */
 #define APP_CONFIG_MAGIC 0x43444D58 /**< ASCII for 'CDMX' */
-#define APP_CONFIG_VERSION 2 /**< Incremented when struct layout changes */
+#define APP_CONFIG_VERSION 4 /**< Incremented when struct layout changes */
 
 /**
  * @brief WIFI credentials structure for both Station and Access Point modes.
@@ -50,7 +50,13 @@ typedef struct {
   app_wifi_creds_t wifi_sta;
   app_wifi_creds_t wifi_ap;
   uint8_t led_brightness;
-  uint8_t padding[3];
+
+  uint8_t btn_action_single; /**< Assigned config_button_action_t for single
+                                click */
+  uint8_t btn_action_double; /**< Assigned config_button_action_t for double
+                                click */
+  uint8_t btn_action_multi;  /**< Assigned config_button_action_t for multiple
+                                click */
 } __attribute__((aligned(4))) config_storage_t;
 
 /**
@@ -99,6 +105,10 @@ static void load_factory_defaults(void) {
   s_config.connection = APP_CONFIG_DEFAULT_CONNECTION;
   s_config.ip_method = APP_CONFIG_DEFAULT_IP_METHOD;
   s_config.led_brightness = APP_CONFIG_DEFAULT_LED_BRIGHTNESS;
+
+  s_config.btn_action_single = APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT;
+  s_config.btn_action_double = APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT;
+  s_config.btn_action_multi = APP_CONFIG_DEFAULT_MULTI_CLICK_ACT;
 
   for (int i = 0; i < APP_CONFIG_DMX_PORT_COUNT; i++) {
     s_config.dmx_universes[i] = APP_CONFIG_DEFAULT_START_UNIVERSE + i;
@@ -423,6 +433,66 @@ bool config_set_wifi_ap_config(const wifi_config_t *src) {
   memcpy(s_config.wifi_ap.ssid, src->ap.ssid, sizeof(s_config.wifi_ap.ssid));
   memcpy(s_config.wifi_ap.password, src->ap.password,
          sizeof(s_config.wifi_ap.password));
+  s_is_dirty = true;
+  UNLOCK();
+  return true;
+}
+
+/**
+ * @brief Retrieves the action assigned to a specific button event.
+ * @param[in] event The button event to query.
+ * @return The @ref config_button_action_t assigned to the event, or
+ * APP_BUTTON_ACTION_NONE if uninitialized or invalid.
+ */
+config_button_action_t config_get_button_action(app_button_event_t event) {
+  if (!s_is_initialized)
+    return APP_BUTTON_ACTION_NONE;
+
+  LOCK();
+  config_button_action_t act = APP_BUTTON_ACTION_NONE;
+  switch (event) {
+  case APP_BUTTON_EVENT_SINGLE_CLICK:
+    act = (config_button_action_t)s_config.btn_action_single;
+    break;
+  case APP_BUTTON_EVENT_DOUBLE_CLICK:
+    act = (config_button_action_t)s_config.btn_action_double;
+    break;
+  case APP_BUTTON_EVENT_MULTIPLE_CLICK:
+    act = (config_button_action_t)s_config.btn_action_multi;
+    break;
+  default:
+    break;
+  }
+  UNLOCK();
+  return act;
+}
+
+/**
+ * @brief Assigns a new action to a specific button event in RAM.
+ * @param[in] event The button event to modify.
+ * @param[in] action The @ref config_button_action_t to assign.
+ * @return true if the configuration was updated, false if uninitialized,
+ * unchanged, or arguments were invalid.
+ */
+bool config_set_button_action(app_button_event_t event,
+                              config_button_action_t action) {
+  if (!s_is_initialized || action >= APP_BUTTON_ACTION_MAX)
+    return false;
+  LOCK();
+  uint8_t *target = NULL;
+  if (event == APP_BUTTON_EVENT_SINGLE_CLICK)
+    target = &s_config.btn_action_single;
+  if (event == APP_BUTTON_EVENT_DOUBLE_CLICK)
+    target = &s_config.btn_action_double;
+  if (event == APP_BUTTON_EVENT_MULTIPLE_CLICK)
+    target = &s_config.btn_action_multi;
+
+  if (target == NULL || *target == (uint8_t)action) {
+    UNLOCK();
+    return false;
+  }
+
+  *target = (uint8_t)action;
   s_is_dirty = true;
   UNLOCK();
   return true;

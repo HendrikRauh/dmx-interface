@@ -7,7 +7,6 @@
 
 #include "driver/ledc.h"
 #include "esp_err.h"
-#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/semphr.h"
 #include "freertos/task.h"
@@ -23,10 +22,12 @@ extern "C" {
  * @brief Available operational modes for the status LED.
  */
 typedef enum {
-  LED_MODE_BOOT_BREATHING = 0, /**< Smooth fading/pulsing for startup */
-  LED_MODE_NORMAL = 1,         /**< Constant solid light */
-  LED_MODE_WARN = 2,           /**< Slow blinking */
-  LED_MODE_ERROR = 3,          /**< Fast blinking */
+  LED_MODE_OFF,            /**< LED turned off */
+  LED_MODE_BOOT_BREATHING, /**< Smooth fading/pulsing for startup */
+  LED_MODE_RESET,          /**< Fast pulsing for resetting */
+  LED_MODE_NORMAL,         /**< Constant solid light */
+  LED_MODE_WARN,           /**< Slow blinking */
+  LED_MODE_ERROR,          /**< Fast blinking */
 } led_mode_t;
 
 /**

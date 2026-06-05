@@ -1,0 +1,10 @@
+idf_component_register(
+  SRCS
+  "src/button_actions.c"
+  INCLUDE_DIRS
+  "include"
+  REQUIRES
+  logger
+  PRIV_REQUIRES
+  espressif__button
+  config)

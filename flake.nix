@@ -200,15 +200,15 @@
           pkgs.svgo
           pkgs.nodejs
         ];
+      env = {
+        ESPTOOL_BEFORE = "usb_reset";
+        GERMAN_DICT_PATH = "${germanDict}";
+      };
       shellHook =
         pre-commit-check.shellHook
         + ''
-          export ESPTOOL_BEFORE=usb_reset
+          # PATH cannot be set in the env attribute set via nix because it causes conflicts
           export PATH="$PWD/web/node_modules/.bin:$PATH"
-
-          # Set up cspell dictionary files
-          mkdir -p .cspell
-          ln -sfn ${germanDict} .cspell/dict-de-de
 
           # Install packages from package.json in a sub shell if there are changes in package-lock.json
           (

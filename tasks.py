@@ -100,7 +100,6 @@ def reset(c):
         "sdkconfig.old",
     ]
     dirs_to_remove = [
-        ".cspell",
         ".ruff_cache",
         "build",
         "docs/doxygen",
