@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['webserver_5fconfig_5ft_0',['webserver_config_t',['../structwebserver__config__t.html',1,'']]]
+  ['sys_5fchip_5finfo_5ft_0',['sys_chip_info_t',['../structsys__chip__info__t.html',1,'']]]
 ];

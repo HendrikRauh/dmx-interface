@@ -1,0 +1,638 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/system/include/system.h File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('system_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">system.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+<div class="textblock"><code>#include &quot;esp_err.h&quot;</code><br />
+<code>#include &lt;stddef.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for system.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h__incl.svg" width="284" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h__dep__incl.svg" width="374" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="system_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:sys_5Fchip_5Finfo_5Ft" id="r_sys_5Fchip_5Finfo_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structsys__chip__info__t.html">sys_chip_info_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure to hold static chip configuration details.  <a href="structsys__chip__info__t.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a596afcad2656a8d9fd7f168c7373031c" id="r_a596afcad2656a8d9fd7f168c7373031c"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a596afcad2656a8d9fd7f168c7373031c">system_init</a> (void)</td></tr>
+<tr class="memdesc:a596afcad2656a8d9fd7f168c7373031c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the system monitoring component. Sets up the internal temperature sensor and tracks initial values.  <br /></td></tr>
+<tr class="memitem:aa0583f6910d1eeab9673273fa671d893" id="r_aa0583f6910d1eeab9673273fa671d893"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#aa0583f6910d1eeab9673273fa671d893">system_get_temperature</a> (void)</td></tr>
+<tr class="memdesc:aa0583f6910d1eeab9673273fa671d893"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current internal CPU temperature.  <br /></td></tr>
+<tr class="memitem:af602c1b7e752d8a22c7c9148e69fb6dd" id="r_af602c1b7e752d8a22c7c9148e69fb6dd"><td class="memItemLeft">float&#160;</td><td class="memItemRight"><a class="el" href="#af602c1b7e752d8a22c7c9148e69fb6dd">system_get_max_temperature</a> (void)</td></tr>
+<tr class="memdesc:af602c1b7e752d8a22c7c9148e69fb6dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the highest recorded CPU temperature since boot.  <br /></td></tr>
+<tr class="memitem:a6740350e2d604ebb43ec714105f12409" id="r_a6740350e2d604ebb43ec714105f12409"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a6740350e2d604ebb43ec714105f12409">system_get_free_heap</a> (void)</td></tr>
+<tr class="memdesc:a6740350e2d604ebb43ec714105f12409"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current available free heap size (RAM).  <br /></td></tr>
+<tr class="memitem:a504a18da557fcf0a5b13da55ac34e0e6" id="r_a504a18da557fcf0a5b13da55ac34e0e6"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#a504a18da557fcf0a5b13da55ac34e0e6">system_get_min_free_heap</a> (void)</td></tr>
+<tr class="memdesc:a504a18da557fcf0a5b13da55ac34e0e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the minimum ever free heap size since boot (watermark). This is crucial for detecting close-to-OOM (Out Of Memory) conditions.  <br /></td></tr>
+<tr class="memitem:aab046ddb36be0a40014a68aa1937946d" id="r_aab046ddb36be0a40014a68aa1937946d"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#aab046ddb36be0a40014a68aa1937946d">system_get_cpu_usage</a> (void)</td></tr>
+<tr class="memdesc:aab046ddb36be0a40014a68aa1937946d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the total real-time CPU utilization. Requires CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS to be enabled.  <br /></td></tr>
+<tr class="memitem:a2ad975db1e5954a7b988ca8e070361f4" id="r_a2ad975db1e5954a7b988ca8e070361f4"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2ad975db1e5954a7b988ca8e070361f4">system_get_tasks_list</a> (char *buffer, size_t buffer_len)</td></tr>
+<tr class="memdesc:a2ad975db1e5954a7b988ca8e070361f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Formats raw FreeRTOS statistics into a human-readable task list. Requires CONFIG_FREERTOS_USE_STATS_FORMATTING_FUNCTIONS to be enabled. Writes a table containing task names, status, priority, and remaining stack space.  <br /></td></tr>
+<tr class="memitem:a4f473a857c4604ea0a1ab4181ec1b401" id="r_a4f473a857c4604ea0a1ab4181ec1b401"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#a4f473a857c4604ea0a1ab4181ec1b401">system_get_version</a> (void)</td></tr>
+<tr class="memdesc:a4f473a857c4604ea0a1ab4181ec1b401"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the active firmware build version. Matches the Git commit short hash (appends '-d' if local modifications exist).  <br /></td></tr>
+<tr class="memitem:ac343b65a1fb9cad2adbfc56fd2c6f226" id="r_ac343b65a1fb9cad2adbfc56fd2c6f226"><td class="memItemLeft">int64_t&#160;</td><td class="memItemRight"><a class="el" href="#ac343b65a1fb9cad2adbfc56fd2c6f226">system_get_uptime_ms</a> (void)</td></tr>
+<tr class="memdesc:ac343b65a1fb9cad2adbfc56fd2c6f226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the system uptime since boot.  <br /></td></tr>
+<tr class="memitem:a156703ab0b846a3a693e7a796ecb7dd7" id="r_a156703ab0b846a3a693e7a796ecb7dd7"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a156703ab0b846a3a693e7a796ecb7dd7">system_get_reset_reason</a> (void)</td></tr>
+<tr class="memdesc:a156703ab0b846a3a693e7a796ecb7dd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the reason for the last system reset.  <br /></td></tr>
+<tr class="memitem:a35a3eca001fb8d752a25d1e250a172e8" id="r_a35a3eca001fb8d752a25d1e250a172e8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a35a3eca001fb8d752a25d1e250a172e8">system_get_chip_info</a> (<a class="el" href="structsys__chip__info__t.html">sys_chip_info_t</a> *chip_info)</td></tr>
+<tr class="memdesc:a35a3eca001fb8d752a25d1e250a172e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves static chip hardware information.  <br /></td></tr>
+<tr class="memitem:a73f9966aa1dae91fff486754fd3088b2" id="r_a73f9966aa1dae91fff486754fd3088b2"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a73f9966aa1dae91fff486754fd3088b2">system_print_info</a> (void)</td></tr>
+<tr class="memdesc:a73f9966aa1dae91fff486754fd3088b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prints a complete, formatted overview of all system statistics to the console. Internally uses ESP_LOGI or printf to output a comprehensive snapshot of the device status.  <br /></td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a35a3eca001fb8d752a25d1e250a172e8" name="a35a3eca001fb8d752a25d1e250a172e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35a3eca001fb8d752a25d1e250a172e8">&#9670;&#160;</a></span>system_get_chip_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void system_get_chip_info </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structsys__chip__info__t.html">sys_chip_info_t</a> *</td>          <td class="paramname"><span class="paramname"><em>chip_info</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves static chip hardware information. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">chip_info</td><td>Pointer to the structure to be filled with chip details. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00123">123</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="system_8h_source.html#l00012">sys_chip_info_t::cores</a>, <a class="el" href="system_8h_source.html#l00011">sys_chip_info_t::model_name</a>, and <a class="el" href="system_8h_source.html#l00013">sys_chip_info_t::revision</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a35a3eca001fb8d752a25d1e250a172e8_icgraph.svg" width="494" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aab046ddb36be0a40014a68aa1937946d" name="aab046ddb36be0a40014a68aa1937946d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab046ddb36be0a40014a68aa1937946d">&#9670;&#160;</a></span>system_get_cpu_usage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t system_get_cpu_usage </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the total real-time CPU utilization. Requires CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS to be enabled. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current CPU usage as a percentage (0 to 100). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00074">74</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_aab046ddb36be0a40014a68aa1937946d_icgraph.svg" width="504" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6740350e2d604ebb43ec714105f12409" name="a6740350e2d604ebb43ec714105f12409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6740350e2d604ebb43ec714105f12409">&#9670;&#160;</a></span>system_get_free_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t system_get_free_heap </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current available free heap size (RAM). </p>
+<dl class="section return"><dt>Returns</dt><dd>Available heap size in bytes. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00068">68</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a6740350e2d604ebb43ec714105f12409_icgraph.svg" width="500" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="af602c1b7e752d8a22c7c9148e69fb6dd" name="af602c1b7e752d8a22c7c9148e69fb6dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af602c1b7e752d8a22c7c9148e69fb6dd">&#9670;&#160;</a></span>system_get_max_temperature()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float system_get_max_temperature </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the highest recorded CPU temperature since boot. </p>
+<dl class="section return"><dt>Returns</dt><dd>The maximum temperature in degrees Celsius. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00063">63</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="system_8c_source.html#l00024">max_measured_temp</a>, and <a class="el" href="system_8c_source.html#l00049">system_get_temperature()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_af602c1b7e752d8a22c7c9148e69fb6dd_cgraph.svg" width="466" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_af602c1b7e752d8a22c7c9148e69fb6dd_icgraph.svg" width="552" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a504a18da557fcf0a5b13da55ac34e0e6" name="a504a18da557fcf0a5b13da55ac34e0e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a504a18da557fcf0a5b13da55ac34e0e6">&#9670;&#160;</a></span>system_get_min_free_heap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t system_get_min_free_heap </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the minimum ever free heap size since boot (watermark). This is crucial for detecting close-to-OOM (Out Of Memory) conditions. </p>
+<dl class="section return"><dt>Returns</dt><dd>Minimum free heap size in bytes. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00070">70</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a504a18da557fcf0a5b13da55ac34e0e6_icgraph.svg" width="532" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a156703ab0b846a3a693e7a796ecb7dd7" name="a156703ab0b846a3a693e7a796ecb7dd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a156703ab0b846a3a693e7a796ecb7dd7">&#9670;&#160;</a></span>system_get_reset_reason()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int system_get_reset_reason </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the reason for the last system reset. </p>
+<dl class="section return"><dt>Returns</dt><dd>The reset reason code (maps to esp_reset_reason_t). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00121">121</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a156703ab0b846a3a693e7a796ecb7dd7_icgraph.svg" width="519" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2ad975db1e5954a7b988ca8e070361f4" name="a2ad975db1e5954a7b988ca8e070361f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ad975db1e5954a7b988ca8e070361f4">&#9670;&#160;</a></span>system_get_tasks_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void system_get_tasks_list </td>
+          <td>(</td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>buffer_len</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Formats raw FreeRTOS statistics into a human-readable task list. Requires CONFIG_FREERTOS_USE_STATS_FORMATTING_FUNCTIONS to be enabled. Writes a table containing task names, status, priority, and remaining stack space. </p>
+<dl class="section warning"><dt>Warning</dt><dd>vTaskList does not perform bounds checking. Ensure the buffer is large enough (at least 40 bytes per task).</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">buffer</td><td>Destination character buffer to write the table string. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">buffer_len</td><td>Size of the destination buffer in bytes. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00105">105</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a2ad975db1e5954a7b988ca8e070361f4_icgraph.svg" width="498" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aa0583f6910d1eeab9673273fa671d893" name="aa0583f6910d1eeab9673273fa671d893"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0583f6910d1eeab9673273fa671d893">&#9670;&#160;</a></span>system_get_temperature()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float system_get_temperature </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current internal CPU temperature. </p>
+<dl class="section return"><dt>Returns</dt><dd>The current temperature in degrees Celsius, or 0.0f if the sensor is uninitialized. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00049">49</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="system_8c_source.html#l00024">max_measured_temp</a>, and <a class="el" href="system_8c_source.html#l00022">temp_sensor</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00063">system_get_max_temperature()</a>, and <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_aa0583f6910d1eeab9673273fa671d893_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ac343b65a1fb9cad2adbfc56fd2c6f226" name="ac343b65a1fb9cad2adbfc56fd2c6f226"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac343b65a1fb9cad2adbfc56fd2c6f226">&#9670;&#160;</a></span>system_get_uptime_ms()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int64_t system_get_uptime_ms </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the system uptime since boot. </p>
+<dl class="section return"><dt>Returns</dt><dd>Total uptime in milliseconds. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00119">119</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_ac343b65a1fb9cad2adbfc56fd2c6f226_icgraph.svg" width="508" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4f473a857c4604ea0a1ab4181ec1b401" name="a4f473a857c4604ea0a1ab4181ec1b401"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f473a857c4604ea0a1ab4181ec1b401">&#9670;&#160;</a></span>system_get_version()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * system_get_version </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the active firmware build version. Matches the Git commit short hash (appends '-d' if local modifications exist). </p>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to a null-terminated string containing the version. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00117">117</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00161">system_print_info()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a4f473a857c4604ea0a1ab4181ec1b401_icgraph.svg" width="483" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a596afcad2656a8d9fd7f168c7373031c" name="a596afcad2656a8d9fd7f168c7373031c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a596afcad2656a8d9fd7f168c7373031c">&#9670;&#160;</a></span>system_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t system_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the system monitoring component. Sets up the internal temperature sensor and tracks initial values. </p>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, or an appropriate error code on failure. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00026">26</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="system_8c_source.html#l00024">max_measured_temp</a>, and <a class="el" href="system_8c_source.html#l00022">temp_sensor</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00024">app_main()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a596afcad2656a8d9fd7f168c7373031c_icgraph.svg" width="242" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a73f9966aa1dae91fff486754fd3088b2" name="a73f9966aa1dae91fff486754fd3088b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73f9966aa1dae91fff486754fd3088b2">&#9670;&#160;</a></span>system_print_info()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void system_print_info </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Prints a complete, formatted overview of all system statistics to the console. Internally uses ESP_LOGI or printf to output a comprehensive snapshot of the device status. </p>
+
+<p class="definition">Definition at line <a class="el" href="system_8c_source.html#l00161">161</a> of file <a class="el" href="system_8c_source.html">system.c</a>.</p>
+
+<p class="reference">References <a class="el" href="system_8h_source.html#l00012">sys_chip_info_t::cores</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="system_8h_source.html#l00011">sys_chip_info_t::model_name</a>, <a class="el" href="system_8h_source.html#l00013">sys_chip_info_t::revision</a>, <a class="el" href="system_8c_source.html#l00123">system_get_chip_info()</a>, <a class="el" href="system_8c_source.html#l00074">system_get_cpu_usage()</a>, <a class="el" href="system_8c_source.html#l00068">system_get_free_heap()</a>, <a class="el" href="system_8c_source.html#l00063">system_get_max_temperature()</a>, <a class="el" href="system_8c_source.html#l00070">system_get_min_free_heap()</a>, <a class="el" href="system_8c_source.html#l00121">system_get_reset_reason()</a>, <a class="el" href="system_8c_source.html#l00105">system_get_tasks_list()</a>, <a class="el" href="system_8c_source.html#l00049">system_get_temperature()</a>, <a class="el" href="system_8c_source.html#l00119">system_get_uptime_ms()</a>, and <a class="el" href="system_8c_source.html#l00117">system_get_version()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00024">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a73f9966aa1dae91fff486754fd3088b2_cgraph.svg" width="652" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="system_8h_a73f9966aa1dae91fff486754fd3088b2_icgraph.svg" width="283" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_d501899c616bf8f1c9255fc97bb5aed3.html">system</a></li><li class="navelem"><a href="dir_6c61a498fc4200a9d9d927c86dc6c37d.html">include</a></li><li class="navelem"><a href="system_8h.html">system.h</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

@@ -33,5 +33,6 @@ var searchData=
   ['config_5fset_5fwifi_5fap_5fconfig_30',['config_set_wifi_ap_config',['../config_8h.html#a5d25d27dd5fd25d16752bbfa8d9e632b',1,'config_set_wifi_ap_config(const wifi_config_t *src):&#160;config.c'],['../config_8c.html#a5d25d27dd5fd25d16752bbfa8d9e632b',1,'config_set_wifi_ap_config(const wifi_config_t *src):&#160;config.c']]],
   ['config_5fset_5fwifi_5fsta_5fconfig_31',['config_set_wifi_sta_config',['../config_8h.html#ada200c44c416b41fe4af32a4eec9c7ed',1,'config_set_wifi_sta_config(const wifi_config_t *src):&#160;config.c'],['../config_8c.html#ada200c44c416b41fe4af32a4eec9c7ed',1,'config_set_wifi_sta_config(const wifi_config_t *src):&#160;config.c']]],
   ['connection_32',['connection',['../struct____attribute____.html#a520c1604659a3c87de89b5ee248c6a03',1,'__attribute__']]],
-  ['contributing_33',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]]
+  ['contributing_33',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]],
+  ['cores_34',['cores',['../structsys__chip__info__t.html#a7d4e8539dc0769d6af273c79f7bc5d90',1,'sys_chip_info_t']]]
 ];
