@@ -1,0 +1,1362 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/config/include/config.h File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('config_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">config.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Thread-safe configuration component utilizing NVS for ESP32.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;esp_err.h&quot;</code><br />
+<code>#include &quot;esp_wifi.h&quot;</code><br />
+<code>#include &lt;stdbool.h&gt;</code><br />
+<code>#include &lt;stdint.h&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for config.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__incl.svg" width="403" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h__dep__incl.svg" width="588" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="config_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:adcbd84cc91f7afef3e2cfe7a0d3e327f" id="r_adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">APP_CONFIG_DMX_PORT_COUNT</a>&#160;&#160;&#160;2</td></tr>
+<tr class="memdesc:adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of physical DMX ports supported by the hardware.  <br /></td></tr>
+<tr class="memitem:a5c48372c1b5a9cf28d2204dc3421ece7" id="r_a5c48372c1b5a9cf28d2204dc3421ece7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5c48372c1b5a9cf28d2204dc3421ece7">APP_CONFIG_INVALID_UNIVERSE</a>&#160;&#160;&#160;0xFFFF</td></tr>
+<tr class="memdesc:a5c48372c1b5a9cf28d2204dc3421ece7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error/Invalid indicator for DMX universe.  <br /></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Compile-time Factory Defaults</div></td></tr>
+<tr class="memitem:a83eeba0a53c30a61824369b6aee279bd" id="r_a83eeba0a53c30a61824369b6aee279bd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a83eeba0a53c30a61824369b6aee279bd">APP_CONFIG_DEFAULT_CONNECTION</a>&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a></td></tr>
+<tr class="memitem:a23a56dc4e1b35b5f1ce78b5e145c4730" id="r_a23a56dc4e1b35b5f1ce78b5e145c4730"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a23a56dc4e1b35b5f1ce78b5e145c4730">APP_CONFIG_DEFAULT_IP_METHOD</a>&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a></td></tr>
+<tr class="memitem:a04d5a17876742e02dd655dcd7068d4e4" id="r_a04d5a17876742e02dd655dcd7068d4e4"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a04d5a17876742e02dd655dcd7068d4e4">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>&#160;&#160;&#160;128</td></tr>
+<tr class="memitem:aa32b08dd0f742d53364e0ba8c9e343da" id="r_aa32b08dd0f742d53364e0ba8c9e343da"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa32b08dd0f742d53364e0ba8c9e343da">APP_CONFIG_DEFAULT_STA_SSID</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
+<tr class="memitem:a46c5266ddf41ed921eab38df4b145a11" id="r_a46c5266ddf41ed921eab38df4b145a11"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a46c5266ddf41ed921eab38df4b145a11">APP_CONFIG_DEFAULT_STA_PASSWORD</a>&#160;&#160;&#160;&quot;&quot;</td></tr>
+<tr class="memitem:abda41d7016a6bc9d5599c3382949b970" id="r_abda41d7016a6bc9d5599c3382949b970"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abda41d7016a6bc9d5599c3382949b970">APP_CONFIG_DEFAULT_AP_PASSWORD</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
+<tr class="memitem:a73e764efdfac1104909b8138528d75a8" id="r_a73e764efdfac1104909b8138528d75a8"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a73e764efdfac1104909b8138528d75a8">APP_CONFIG_DEFAULT_AP_SSID_PREFIX</a>&#160;&#160;&#160;&quot;ChaosDMX&quot;</td></tr>
+<tr class="memitem:a419d0944d7731ba591086c5b191f6fa0" id="r_a419d0944d7731ba591086c5b191f6fa0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a419d0944d7731ba591086c5b191f6fa0">APP_CONFIG_DEFAULT_DMX_DIR</a>&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a></td></tr>
+<tr class="memitem:a9d86e6896ee7a828fac2c433286e3f3d" id="r_a9d86e6896ee7a828fac2c433286e3f3d"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9d86e6896ee7a828fac2c433286e3f3d">APP_CONFIG_DEFAULT_START_UNIVERSE</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:a4dfb20067a3c2e7e1ae0c2554e8f597c" id="r_a4dfb20067a3c2e7e1ae0c2554e8f597c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4dfb20067a3c2e7e1ae0c2554e8f597c">APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT</a>&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7">APP_BUTTON_ACTION_TOGGLE_LED</a></td></tr>
+<tr class="memitem:a925140ec1fc29177922dcffc58031b27" id="r_a925140ec1fc29177922dcffc58031b27"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a925140ec1fc29177922dcffc58031b27">APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT</a>&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae">APP_BUTTON_ACTION_NONE</a></td></tr>
+<tr class="memitem:ab92ccf0eae60b436df573fe161558de2" id="r_ab92ccf0eae60b436df573fe161558de2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab92ccf0eae60b436df573fe161558de2">APP_CONFIG_DEFAULT_MULTI_CLICK_ACT</a>&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3">APP_BUTTON_ACTION_REBOOT</a></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a8cc96b36e17feb908b140ab5685a11e4" id="r_a8cc96b36e17feb908b140ab5685a11e4"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a> { <br />
+&#160;&#160;<a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4a5b618daaecfbc85a45ab9f8b7a7a140c">APP_BUTTON_EVENT_SINGLE_CLICK</a>
+, <a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4addb17168e22a536cf9bfd8beb9c6933b">APP_BUTTON_EVENT_DOUBLE_CLICK</a>
+, <a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4a7ec1ee119c3f7cbfc65536aa13d6e3e4">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>
+, <a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4a2e00eea73402218675c7b8d2b2034ba1">APP_BUTTON_EVENT_LONG_HOLD</a>
+, <br />
+&#160;&#160;<a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4a1cc4a02807ca9ae79260905245ad3487">APP_BUTTON_EVENT_MAX</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a8cc96b36e17feb908b140ab5685a11e4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Supported button event types that can be configured in the system.  <a href="#a8cc96b36e17feb908b140ab5685a11e4">More...</a><br /></td></tr>
+<tr class="memitem:a1949e799bec0d7e0d156db70080fc2fd" id="r_a1949e799bec0d7e0d156db70080fc2fd"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a> { <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae">APP_BUTTON_ACTION_NONE</a> = 0
+, <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7">APP_BUTTON_ACTION_TOGGLE_LED</a>
+, <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3">APP_BUTTON_ACTION_REBOOT</a>
+, <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96">APP_BUTTON_ACTION_MAX</a>
+ }</td></tr>
+<tr class="memdesc:a1949e799bec0d7e0d156db70080fc2fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actions that can be dynamically assigned to button events.  <a href="#a1949e799bec0d7e0d156db70080fc2fd">More...</a><br /></td></tr>
+<tr class="memitem:ac91b5e170b401c2efe0577b14d40f766" id="r_ac91b5e170b401c2efe0577b14d40f766"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a> { <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b">APP_CONFIG_IP_STATIC</a> = 0
+, <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a>
+ }</td></tr>
+<tr class="memdesc:ac91b5e170b401c2efe0577b14d40f766"><td class="mdescLeft">&#160;</td><td class="mdescRight">IP assignment method configurations.  <a href="#ac91b5e170b401c2efe0577b14d40f766">More...</a><br /></td></tr>
+<tr class="memitem:a8cc32e542cd74f87507fab832c4a9446" id="r_a8cc32e542cd74f87507fab832c4a9446"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> { <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a> = 0
+, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22">APP_CONFIG_CONN_WIFI_STA</a>
+, <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a">APP_CONFIG_CONN_ETHERNET</a>
+ }</td></tr>
+<tr class="memdesc:a8cc32e542cd74f87507fab832c4a9446"><td class="mdescLeft">&#160;</td><td class="mdescRight">Network connection medium types.  <a href="#a8cc32e542cd74f87507fab832c4a9446">More...</a><br /></td></tr>
+<tr class="memitem:aa73151f76d6bfc44d0ae222bf31b81d0" id="r_aa73151f76d6bfc44d0ae222bf31b81d0"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> { <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a> = 0
+, <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8">APP_CONFIG_DIR_INPUT</a>
+ }</td></tr>
+<tr class="memdesc:aa73151f76d6bfc44d0ae222bf31b81d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data direction for dmx-port.  <a href="#aa73151f76d6bfc44d0ae222bf31b81d0">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ace6647db1f20678900580f60562dea57" id="r_ace6647db1f20678900580f60562dea57"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#ace6647db1f20678900580f60562dea57">config_init</a> (void)</td></tr>
+<tr class="memdesc:ace6647db1f20678900580f60562dea57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the configuration component.  <br /></td></tr>
+<tr class="memitem:a19524afa3401ea2d7c375af232cf8f39" id="r_a19524afa3401ea2d7c375af232cf8f39"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a19524afa3401ea2d7c375af232cf8f39">config_reset_defaults</a> (void)</td></tr>
+<tr class="memdesc:a19524afa3401ea2d7c375af232cf8f39"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resets all configuration settings back to factory defaults.  <br /></td></tr>
+<tr class="memitem:adbf182647ef90017c070ed7a4d0504fb" id="r_adbf182647ef90017c070ed7a4d0504fb"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#adbf182647ef90017c070ed7a4d0504fb">config_save</a> (void)</td></tr>
+<tr class="memdesc:adbf182647ef90017c070ed7a4d0504fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flushes all staged RAM changes permanently to the non-volatile storage.  <br /></td></tr>
+<tr class="memitem:a6ac096d28ccd844ad0805e9199cae521" id="r_a6ac096d28ccd844ad0805e9199cae521"><td class="memItemLeft"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6ac096d28ccd844ad0805e9199cae521">config_get_connection</a> (void)</td></tr>
+<tr class="memdesc:a6ac096d28ccd844ad0805e9199cae521"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current network connection type.  <br /></td></tr>
+<tr class="memitem:acf23a2850b1dc6112805708e41b6885c" id="r_acf23a2850b1dc6112805708e41b6885c"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#acf23a2850b1dc6112805708e41b6885c">config_set_connection</a> (<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> conn)</td></tr>
+<tr class="memdesc:acf23a2850b1dc6112805708e41b6885c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the network connection type in RAM.  <br /></td></tr>
+<tr class="memitem:a1f52726707a24c67fc1b23fecf5b548c" id="r_a1f52726707a24c67fc1b23fecf5b548c"><td class="memItemLeft"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1f52726707a24c67fc1b23fecf5b548c">config_get_ip_method</a> (void)</td></tr>
+<tr class="memdesc:a1f52726707a24c67fc1b23fecf5b548c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current IP allocation method.  <br /></td></tr>
+<tr class="memitem:a2dbc7956fb60b78f8bc2d96a74eeb764" id="r_a2dbc7956fb60b78f8bc2d96a74eeb764"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a2dbc7956fb60b78f8bc2d96a74eeb764">config_set_ip_method</a> (<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a> method)</td></tr>
+<tr class="memdesc:a2dbc7956fb60b78f8bc2d96a74eeb764"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the IP assignment method in RAM.  <br /></td></tr>
+<tr class="memitem:a30bb8db7736fceae486f36005a411f5e" id="r_a30bb8db7736fceae486f36005a411f5e"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a> (void)</td></tr>
+<tr class="memdesc:a30bb8db7736fceae486f36005a411f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the current status LED brightness level.  <br /></td></tr>
+<tr class="memitem:a0f49b78b8b22ac39ef5ed8a15597818b" id="r_a0f49b78b8b22ac39ef5ed8a15597818b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a0f49b78b8b22ac39ef5ed8a15597818b">config_set_led_brightness</a> (uint8_t brightness)</td></tr>
+<tr class="memdesc:a0f49b78b8b22ac39ef5ed8a15597818b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the status LED brightness level in RAM.  <br /></td></tr>
+<tr class="memitem:abb979e0618588e5b4316d13bfd7e77fb" id="r_abb979e0618588e5b4316d13bfd7e77fb"><td class="memItemLeft"><a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#abb979e0618588e5b4316d13bfd7e77fb">config_get_button_action</a> (<a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a> event)</td></tr>
+<tr class="memdesc:abb979e0618588e5b4316d13bfd7e77fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the action assigned to a specific button event.  <br /></td></tr>
+<tr class="memitem:aeae7812ca9f66115b7958b8adc311d8e" id="r_aeae7812ca9f66115b7958b8adc311d8e"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aeae7812ca9f66115b7958b8adc311d8e">config_set_button_action</a> (<a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a> event, <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a> action)</td></tr>
+<tr class="memdesc:aeae7812ca9f66115b7958b8adc311d8e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Assigns a new action to a specific button event in RAM.  <br /></td></tr>
+<tr class="memitem:a793ee6fb85596d53cb37451d283c2213" id="r_a793ee6fb85596d53cb37451d283c2213"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#a793ee6fb85596d53cb37451d283c2213">config_get_dmx_universe</a> (uint8_t port_index)</td></tr>
+<tr class="memdesc:a793ee6fb85596d53cb37451d283c2213"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the configured DMX universe for a specific port.  <br /></td></tr>
+<tr class="memitem:a77ebd1978a4e2d0591e020597ac5f7f3" id="r_a77ebd1978a4e2d0591e020597ac5f7f3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a77ebd1978a4e2d0591e020597ac5f7f3">config_set_dmx_universe</a> (uint8_t port_index, uint16_t universe)</td></tr>
+<tr class="memdesc:a77ebd1978a4e2d0591e020597ac5f7f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the DMX universe for a specific port in RAM.  <br /></td></tr>
+<tr class="memitem:a6bff9e6513073f020ea80a448ba91748" id="r_a6bff9e6513073f020ea80a448ba91748"><td class="memItemLeft"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6bff9e6513073f020ea80a448ba91748">config_get_dmx_direction</a> (uint8_t port_index)</td></tr>
+<tr class="memdesc:a6bff9e6513073f020ea80a448ba91748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the data direction for a specific port.  <br /></td></tr>
+<tr class="memitem:aa3dc55021718291541a7f7365a1e3b77" id="r_aa3dc55021718291541a7f7365a1e3b77"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#aa3dc55021718291541a7f7365a1e3b77">config_set_dmx_direction</a> (uint8_t port_index, <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> direction)</td></tr>
+<tr class="memdesc:aa3dc55021718291541a7f7365a1e3b77"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the data direction for a specific port in RAM.  <br /></td></tr>
+<tr class="memitem:a80e66713206a22a0ebaf9e5e36714695" id="r_a80e66713206a22a0ebaf9e5e36714695"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a80e66713206a22a0ebaf9e5e36714695">config_get_wifi_sta_config</a> (wifi_config_t *dest)</td></tr>
+<tr class="memdesc:a80e66713206a22a0ebaf9e5e36714695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Wi-Fi Station mode configuration.  <br /></td></tr>
+<tr class="memitem:ada200c44c416b41fe4af32a4eec9c7ed" id="r_ada200c44c416b41fe4af32a4eec9c7ed"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#ada200c44c416b41fe4af32a4eec9c7ed">config_set_wifi_sta_config</a> (const wifi_config_t *src)</td></tr>
+<tr class="memdesc:ada200c44c416b41fe4af32a4eec9c7ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Wi-Fi Station mode configuration in RAM.  <br /></td></tr>
+<tr class="memitem:abfdfc4d5c9822deaee11814d31bc7fd8" id="r_abfdfc4d5c9822deaee11814d31bc7fd8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#abfdfc4d5c9822deaee11814d31bc7fd8">config_get_wifi_ap_config</a> (wifi_config_t *dest)</td></tr>
+<tr class="memdesc:abfdfc4d5c9822deaee11814d31bc7fd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the Wi-Fi Access Point mode configuration.  <br /></td></tr>
+<tr class="memitem:a5d25d27dd5fd25d16752bbfa8d9e632b" id="r_a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a5d25d27dd5fd25d16752bbfa8d9e632b">config_set_wifi_ap_config</a> (const wifi_config_t *src)</td></tr>
+<tr class="memdesc:a5d25d27dd5fd25d16752bbfa8d9e632b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the Wi-Fi Access Point mode configuration in RAM.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Thread-safe configuration component utilizing NVS for ESP32. </p>
+<p>This header defines the public application configuration interface, including Wi-Fi credentials, DMX port settings, and system-wide parameters like LED brightness and button actions. </p>
+
+<p class="definition">Definition in file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="abda41d7016a6bc9d5599c3382949b970" name="abda41d7016a6bc9d5599c3382949b970"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abda41d7016a6bc9d5599c3382949b970">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_AP_PASSWORD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_AP_PASSWORD&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Factory default AP password </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00095">95</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a73e764efdfac1104909b8138528d75a8" name="a73e764efdfac1104909b8138528d75a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73e764efdfac1104909b8138528d75a8">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_AP_SSID_PREFIX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_AP_SSID_PREFIX&#160;&#160;&#160;&quot;ChaosDMX&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Prefix for runtime generated AP SSID </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00097">97</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a83eeba0a53c30a61824369b6aee279bd" name="a83eeba0a53c30a61824369b6aee279bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83eeba0a53c30a61824369b6aee279bd">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_CONNECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_CONNECTION&#160;&#160;&#160;<a class="el" href="#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6">APP_CONFIG_CONN_WIFI_AP</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default connection mode </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00083">83</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00243">config_get_connection()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a419d0944d7731ba591086c5b191f6fa0" name="a419d0944d7731ba591086c5b191f6fa0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a419d0944d7731ba591086c5b191f6fa0">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_DMX_DIR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_DMX_DIR&#160;&#160;&#160;<a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf">APP_CONFIG_DIR_OUTPUT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Fallback direction for all DMX ports </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00100">100</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a925140ec1fc29177922dcffc58031b27" name="a925140ec1fc29177922dcffc58031b27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a925140ec1fc29177922dcffc58031b27">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_DOUBLE_CLICK_ACT&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae">APP_BUTTON_ACTION_NONE</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default action for double click </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00107">107</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a23a56dc4e1b35b5f1ce78b5e145c4730" name="a23a56dc4e1b35b5f1ce78b5e145c4730"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23a56dc4e1b35b5f1ce78b5e145c4730">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_IP_METHOD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_IP_METHOD&#160;&#160;&#160;<a class="el" href="#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931">APP_CONFIG_IP_DHCP</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default IP assignment </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00085">85</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00267">config_get_ip_method()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a04d5a17876742e02dd655dcd7068d4e4" name="a04d5a17876742e02dd655dcd7068d4e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04d5a17876742e02dd655dcd7068d4e4">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_LED_BRIGHTNESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_LED_BRIGHTNESS&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default status LED brightness (0-255) </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00087">87</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00290">config_get_led_brightness()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="ab92ccf0eae60b436df573fe161558de2" name="ab92ccf0eae60b436df573fe161558de2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab92ccf0eae60b436df573fe161558de2">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_MULTI_CLICK_ACT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_MULTI_CLICK_ACT&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3">APP_BUTTON_ACTION_REBOOT</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default action for multi click </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00109">109</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a4dfb20067a3c2e7e1ae0c2554e8f597c" name="a4dfb20067a3c2e7e1ae0c2554e8f597c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4dfb20067a3c2e7e1ae0c2554e8f597c">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_SINGLE_CLICK_ACT&#160;&#160;&#160;<a class="el" href="#a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7">APP_BUTTON_ACTION_TOGGLE_LED</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default action for single click </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00105">105</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a46c5266ddf41ed921eab38df4b145a11" name="a46c5266ddf41ed921eab38df4b145a11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46c5266ddf41ed921eab38df4b145a11">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_STA_PASSWORD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_STA_PASSWORD&#160;&#160;&#160;&quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default STA Password (empty) \ </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00091">91</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="aa32b08dd0f742d53364e0ba8c9e343da" name="aa32b08dd0f742d53364e0ba8c9e343da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32b08dd0f742d53364e0ba8c9e343da">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_STA_SSID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_STA_SSID&#160;&#160;&#160;&quot;&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Default STA SSID (empty) </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00090">90</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a9d86e6896ee7a828fac2c433286e3f3d" name="a9d86e6896ee7a828fac2c433286e3f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d86e6896ee7a828fac2c433286e3f3d">&#9670;&#160;</a></span>APP_CONFIG_DEFAULT_START_UNIVERSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DEFAULT_START_UNIVERSE&#160;&#160;&#160;1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>First port starts at universe X, increments per port </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00102">102</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="adcbd84cc91f7afef3e2cfe7a0d3e327f" name="adcbd84cc91f7afef3e2cfe7a0d3e327f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">&#9670;&#160;</a></span>APP_CONFIG_DMX_PORT_COUNT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_DMX_PORT_COUNT&#160;&#160;&#160;2</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Total number of physical DMX ports supported by the hardware. </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00024">24</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00342">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00351">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>, and <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>.</p>
+
+</div>
+</div>
+<a id="a5c48372c1b5a9cf28d2204dc3421ece7" name="a5c48372c1b5a9cf28d2204dc3421ece7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c48372c1b5a9cf28d2204dc3421ece7">&#9670;&#160;</a></span>APP_CONFIG_INVALID_UNIVERSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define APP_CONFIG_INVALID_UNIVERSE&#160;&#160;&#160;0xFFFF</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Error/Invalid indicator for DMX universe. </p>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00029">29</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config_8c_source.html#l00318">config_get_dmx_universe()</a>, and <a class="el" href="config_8c_source.html#l00327">config_set_dmx_universe()</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a8cc96b36e17feb908b140ab5685a11e4" name="a8cc96b36e17feb908b140ab5685a11e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc96b36e17feb908b140ab5685a11e4">&#9670;&#160;</a></span>app_button_event_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Supported button event types that can be configured in the system. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8cc96b36e17feb908b140ab5685a11e4a5b618daaecfbc85a45ab9f8b7a7a140c" name="a8cc96b36e17feb908b140ab5685a11e4a5b618daaecfbc85a45ab9f8b7a7a140c"></a>APP_BUTTON_EVENT_SINGLE_CLICK&#160;</td><td class="fielddoc"><p>Triggered on a single short press </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc96b36e17feb908b140ab5685a11e4addb17168e22a536cf9bfd8beb9c6933b" name="a8cc96b36e17feb908b140ab5685a11e4addb17168e22a536cf9bfd8beb9c6933b"></a>APP_BUTTON_EVENT_DOUBLE_CLICK&#160;</td><td class="fielddoc"><p>Triggered on a rapid double press </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc96b36e17feb908b140ab5685a11e4a7ec1ee119c3f7cbfc65536aa13d6e3e4" name="a8cc96b36e17feb908b140ab5685a11e4a7ec1ee119c3f7cbfc65536aa13d6e3e4"></a>APP_BUTTON_EVENT_MULTIPLE_CLICK&#160;</td><td class="fielddoc"><p>Triggered on multiple rapid presses </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc96b36e17feb908b140ab5685a11e4a2e00eea73402218675c7b8d2b2034ba1" name="a8cc96b36e17feb908b140ab5685a11e4a2e00eea73402218675c7b8d2b2034ba1"></a>APP_BUTTON_EVENT_LONG_HOLD&#160;</td><td class="fielddoc"><p>Triggered once long-press duration is reached </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc96b36e17feb908b140ab5685a11e4a1cc4a02807ca9ae79260905245ad3487" name="a8cc96b36e17feb908b140ab5685a11e4a1cc4a02807ca9ae79260905245ad3487"></a>APP_BUTTON_EVENT_MAX&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00034">34</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="a1949e799bec0d7e0d156db70080fc2fd" name="a1949e799bec0d7e0d156db70080fc2fd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1949e799bec0d7e0d156db70080fc2fd">&#9670;&#160;</a></span>config_button_action_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Actions that can be dynamically assigned to button events. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae" name="a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae"></a>APP_BUTTON_ACTION_NONE&#160;</td><td class="fielddoc"><p>Do nothing </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7" name="a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7"></a>APP_BUTTON_ACTION_TOGGLE_LED&#160;</td><td class="fielddoc"><p>Toggle status LEDs or change brightness </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3" name="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3"></a>APP_BUTTON_ACTION_REBOOT&#160;</td><td class="fielddoc"><p>Restart the ESP </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96" name="a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96"></a>APP_BUTTON_ACTION_MAX&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00046">46</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="a8cc32e542cd74f87507fab832c4a9446" name="a8cc32e542cd74f87507fab832c4a9446"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cc32e542cd74f87507fab832c4a9446">&#9670;&#160;</a></span>config_connection_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Network connection medium types. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6" name="a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6"></a>APP_CONFIG_CONN_WIFI_AP&#160;</td><td class="fielddoc"><p>Act as a Wi-Fi Access Point </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22" name="a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22"></a>APP_CONFIG_CONN_WIFI_STA&#160;</td><td class="fielddoc"><p>Connect to an existing Wi-Fi network (Station) </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a" name="a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a"></a>APP_CONFIG_CONN_ETHERNET&#160;</td><td class="fielddoc"><p>Wired Ethernet connection </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00064">64</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="aa73151f76d6bfc44d0ae222bf31b81d0" name="aa73151f76d6bfc44d0ae222bf31b81d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73151f76d6bfc44d0ae222bf31b81d0">&#9670;&#160;</a></span>config_direction_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Data direction for dmx-port. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf" name="aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf"></a>APP_CONFIG_DIR_OUTPUT&#160;</td><td class="fielddoc"><p>Port acts as an output </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8" name="aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8"></a>APP_CONFIG_DIR_INPUT&#160;</td><td class="fielddoc"><p>Port acts as an input </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00074">74</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a id="ac91b5e170b401c2efe0577b14d40f766" name="ac91b5e170b401c2efe0577b14d40f766"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac91b5e170b401c2efe0577b14d40f766">&#9670;&#160;</a></span>config_ip_method_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>IP assignment method configurations. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b" name="ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b"></a>APP_CONFIG_IP_STATIC&#160;</td><td class="fielddoc"><p>Use a static IP address config </p>
+</td></tr>
+<tr><td class="fieldname"><a id="ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931" name="ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931"></a>APP_CONFIG_IP_DHCP&#160;</td><td class="fielddoc"><p>Obtain IP address via DHCP </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="config_8h_source.html#l00056">56</a> of file <a class="el" href="config_8h_source.html">config.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="abb979e0618588e5b4316d13bfd7e77fb" name="abb979e0618588e5b4316d13bfd7e77fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb979e0618588e5b4316d13bfd7e77fb">&#9670;&#160;</a></span>config_get_button_action()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a> config_get_button_action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Retrieves the action assigned to a specific button event. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to query. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The assigned <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a>.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to query. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a> assigned to the event, or APP_BUTTON_ACTION_NONE if uninitialized or invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00447">447</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00047">APP_BUTTON_ACTION_NONE</a>, <a class="el" href="config_8h_source.html#l00036">APP_BUTTON_EVENT_DOUBLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00037">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00035">APP_BUTTON_EVENT_SINGLE_CLICK</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="button__actions_8c_source.html#l00101">iot_button_double_click_cb()</a>, <a class="el" href="button__actions_8c_source.html#l00112">iot_button_multiple_click_cb()</a>, and <a class="el" href="button__actions_8c_source.html#l00090">iot_button_single_click_cb()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_abb979e0618588e5b4316d13bfd7e77fb_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a6ac096d28ccd844ad0805e9199cae521" name="a6ac096d28ccd844ad0805e9199cae521"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac096d28ccd844ad0805e9199cae521">&#9670;&#160;</a></span>config_get_connection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> config_get_connection </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current network connection type. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current connection mode as <a class="el" href="#a8cc32e542cd74f87507fab832c4a9446" title="Network connection medium types.">config_connection_t</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00243">243</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00083">APP_CONFIG_DEFAULT_CONNECTION</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a6bff9e6513073f020ea80a448ba91748" name="a6bff9e6513073f020ea80a448ba91748"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bff9e6513073f020ea80a448ba91748">&#9670;&#160;</a></span>config_get_dmx_direction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a> config_get_dmx_direction </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>port_index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the data direction for a specific port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Configuration direction (Defaults to OUTPUT if index invalid). </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00342">342</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00100">APP_CONFIG_DEFAULT_DMX_DIR</a>, <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a793ee6fb85596d53cb37451d283c2213" name="a793ee6fb85596d53cb37451d283c2213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a793ee6fb85596d53cb37451d283c2213">&#9670;&#160;</a></span>config_get_dmx_universe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint16_t config_get_dmx_universe </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>port_index</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the configured DMX universe for a specific port. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Universe number (0-32768), or APP_CONFIG_INVALID_UNIVERSE if port_index is invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00318">318</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a1f52726707a24c67fc1b23fecf5b548c" name="a1f52726707a24c67fc1b23fecf5b548c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f52726707a24c67fc1b23fecf5b548c">&#9670;&#160;</a></span>config_get_ip_method()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a> config_get_ip_method </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current IP allocation method. </p>
+<dl class="section return"><dt>Returns</dt><dd>Current IP method as <a class="el" href="#ac91b5e170b401c2efe0577b14d40f766" title="IP assignment method configurations.">config_ip_method_t</a>. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00267">267</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00085">APP_CONFIG_DEFAULT_IP_METHOD</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a30bb8db7736fceae486f36005a411f5e" name="a30bb8db7736fceae486f36005a411f5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30bb8db7736fceae486f36005a411f5e">&#9670;&#160;</a></span>config_get_led_brightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t config_get_led_brightness </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the current status LED brightness level. </p>
+<dl class="section return"><dt>Returns</dt><dd>Brightness value ranging from 0 to 255. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00290">290</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00087">APP_CONFIG_DEFAULT_LED_BRIGHTNESS</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>, and <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a30bb8db7736fceae486f36005a411f5e_icgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="abfdfc4d5c9822deaee11814d31bc7fd8" name="abfdfc4d5c9822deaee11814d31bc7fd8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abfdfc4d5c9822deaee11814d31bc7fd8">&#9670;&#160;</a></span>config_get_wifi_ap_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void config_get_wifi_ap_config </td>
+          <td>(</td>
+          <td class="paramtype">wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the Wi-Fi Access Point mode configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to a wifi_config_t struct to receive the data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00404">404</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a80e66713206a22a0ebaf9e5e36714695" name="a80e66713206a22a0ebaf9e5e36714695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80e66713206a22a0ebaf9e5e36714695">&#9670;&#160;</a></span>config_get_wifi_sta_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void config_get_wifi_sta_config </td>
+          <td>(</td>
+          <td class="paramtype">wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>dest</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the Wi-Fi Station mode configuration. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">dest</td><td>Pointer to a wifi_config_t struct to receive the data. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00367">367</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="ace6647db1f20678900580f60562dea57" name="ace6647db1f20678900580f60562dea57"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace6647db1f20678900580f60562dea57">&#9670;&#160;</a></span>config_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t config_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializes the configuration component. </p>
+<p>Sets up internal mutexes and loads the persisted configuration blob from NVS.</p>
+<dl class="section note"><dt>Note</dt><dd>The NVS flash subsystem must be initialized (via <span class="tt">nvs_flash_init()</span>) before calling this function.</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>ESP_OK on success.</li>
+<li>ESP_ERR_NO_MEM if mutex creation failed.</li>
+<li>Other NVS-related error codes if loading fails. </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00136">136</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00028">APP_CONFIG_MAGIC</a>, <a class="el" href="config_8c_source.html#l00029">APP_CONFIG_VERSION</a>, <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00071">s_config_mutex</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, and <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_ace6647db1f20678900580f60562dea57_cgraph.svg" width="310" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_ace6647db1f20678900580f60562dea57_icgraph.svg" width="232" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a19524afa3401ea2d7c375af232cf8f39" name="a19524afa3401ea2d7c375af232cf8f39"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a19524afa3401ea2d7c375af232cf8f39">&#9670;&#160;</a></span>config_reset_defaults()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t config_reset_defaults </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Resets all configuration settings back to factory defaults. </p>
+<dl class="section note"><dt>Note</dt><dd>This stages the defaults in RAM. A call to <a class="el" href="#adbf182647ef90017c070ed7a4d0504fb" title="Flushes all staged RAM changes permanently to the non-volatile storage.">config_save()</a> is required to permanently write them to flash. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>ESP_OK on success</li>
+<li>ESP_FAIL if memory or initialization state is invalid </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00194">194</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00102">load_factory_defaults()</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a19524afa3401ea2d7c375af232cf8f39_cgraph.svg" width="382" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a19524afa3401ea2d7c375af232cf8f39_icgraph.svg" width="304" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="adbf182647ef90017c070ed7a4d0504fb" name="adbf182647ef90017c070ed7a4d0504fb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbf182647ef90017c070ed7a4d0504fb">&#9670;&#160;</a></span>config_save()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t config_save </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Flushes all staged RAM changes permanently to the non-volatile storage. </p>
+<dl class="section note"><dt>Note</dt><dd>To prevent flash wear, this function returns early with ESP_OK if no settings were mutated since the last call. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li>ESP_OK on success or if no write was required</li>
+<li>ESP_ERR_NVS_NOT_INITIALIZED if NVS system is down</li>
+<li>Other flash driver error codes on write failures </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00204">204</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00024">NVS_BLOB_KEY</a>, <a class="el" href="config_8c_source.html#l00023">NVS_NAMESPACE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>, and <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_adbf182647ef90017c070ed7a4d0504fb_icgraph.svg" width="100%" height="430"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="aeae7812ca9f66115b7958b8adc311d8e" name="aeae7812ca9f66115b7958b8adc311d8e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeae7812ca9f66115b7958b8adc311d8e">&#9670;&#160;</a></span>config_set_button_action()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_button_action </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8cc96b36e17feb908b140ab5685a11e4">app_button_event_t</a></td>          <td class="paramname"><span class="paramname"><em>event</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd">config_button_action_t</a></td>          <td class="paramname"><span class="paramname"><em>action</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Assigns a new action to a specific button event in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to modify. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">action</td><td>The <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a> to assign. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if uninitialized, unchanged, or invalid.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">event</td><td>The button event to modify. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">action</td><td>The <a class="el" href="#a1949e799bec0d7e0d156db70080fc2fd" title="config_button_action_t">config_button_action_t</a> to assign. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the configuration was updated, false if uninitialized, unchanged, or arguments were invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00477">477</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00050">APP_BUTTON_ACTION_MAX</a>, <a class="el" href="config_8h_source.html#l00036">APP_BUTTON_EVENT_DOUBLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00037">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00035">APP_BUTTON_EVENT_SINGLE_CLICK</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="acf23a2850b1dc6112805708e41b6885c" name="acf23a2850b1dc6112805708e41b6885c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf23a2850b1dc6112805708e41b6885c">&#9670;&#160;</a></span>config_set_connection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_connection </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a></td>          <td class="paramname"><span class="paramname"><em>conn</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the network connection type in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">conn</td><td>New connection mode to apply. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if it was identical or invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00252">252</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00068">APP_CONFIG_CONN_ETHERNET</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="aa3dc55021718291541a7f7365a1e3b77" name="aa3dc55021718291541a7f7365a1e3b77"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3dc55021718291541a7f7365a1e3b77">&#9670;&#160;</a></span>config_set_dmx_direction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_dmx_direction </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>port_index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="#aa73151f76d6bfc44d0ae222bf31b81d0">config_direction_t</a></td>          <td class="paramname"><span class="paramname"><em>direction</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the data direction for a specific port in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">direction</td><td>New direction (Input/Output). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00351">351</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00076">APP_CONFIG_DIR_INPUT</a>, <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a77ebd1978a4e2d0591e020597ac5f7f3" name="a77ebd1978a4e2d0591e020597ac5f7f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77ebd1978a4e2d0591e020597ac5f7f3">&#9670;&#160;</a></span>config_set_dmx_universe()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_dmx_universe </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>port_index</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>universe</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the DMX universe for a specific port in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">port_index</td><td>Index of the port (0 to APP_CONFIG_DMX_PORT_COUNT - 1). </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">universe</td><td>DMX Universe number (typically 0 - 32768). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if index invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00327">327</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8h_source.html#l00029">APP_CONFIG_INVALID_UNIVERSE</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a2dbc7956fb60b78f8bc2d96a74eeb764" name="a2dbc7956fb60b78f8bc2d96a74eeb764"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dbc7956fb60b78f8bc2d96a74eeb764">&#9670;&#160;</a></span>config_set_ip_method()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_ip_method </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ac91b5e170b401c2efe0577b14d40f766">config_ip_method_t</a></td>          <td class="paramname"><span class="paramname"><em>method</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the IP assignment method in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">method</td><td>New IP allocation method to apply. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if the value was modified, false if identical or invalid. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00276">276</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00058">APP_CONFIG_IP_DHCP</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="a0f49b78b8b22ac39ef5ed8a15597818b" name="a0f49b78b8b22ac39ef5ed8a15597818b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f49b78b8b22ac39ef5ed8a15597818b">&#9670;&#160;</a></span>config_set_led_brightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_led_brightness </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t</td>          <td class="paramname"><span class="paramname"><em>brightness</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the status LED brightness level in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">brightness</td><td>Desired brightness (0 - 255). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if value was updated, false if invalid (out of bounds) or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00299">299</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="led_8c_source.html#l00188">led_set_brightness()</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="button__actions_8c_source.html#l00045">execute_button_action()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a0f49b78b8b22ac39ef5ed8a15597818b_cgraph.svg" width="556" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config_8h_a0f49b78b8b22ac39ef5ed8a15597818b_icgraph.svg" width="100%" height="419"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a5d25d27dd5fd25d16752bbfa8d9e632b" name="a5d25d27dd5fd25d16752bbfa8d9e632b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d25d27dd5fd25d16752bbfa8d9e632b">&#9670;&#160;</a></span>config_set_wifi_ap_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_wifi_ap_config </td>
+          <td>(</td>
+          <td class="paramtype">const wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>src</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the Wi-Fi Access Point mode configuration in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Pointer to a wifi_config_t struct containing the new config. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00415">415</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+<a id="ada200c44c416b41fe4af32a4eec9c7ed" name="ada200c44c416b41fe4af32a4eec9c7ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada200c44c416b41fe4af32a4eec9c7ed">&#9670;&#160;</a></span>config_set_wifi_sta_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool config_set_wifi_sta_config </td>
+          <td>(</td>
+          <td class="paramtype">const wifi_config_t *</td>          <td class="paramname"><span class="paramname"><em>src</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the Wi-Fi Station mode configuration in RAM. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Pointer to a wifi_config_t struct containing the new config. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true if updated, false if invalid or unchanged. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00379">379</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_e073664c73731a1262262b3fccda7226.html">config</a></li><li class="navelem"><a href="dir_70d9713c73b59446dc8f13d8eb662fd8.html">include</a></li><li class="navelem"><a href="config_8h.html">config.h</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>
