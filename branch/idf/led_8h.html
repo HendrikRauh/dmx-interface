@@ -189,7 +189,6 @@ $(function(){initNavTree('led_8h.html','',''); });
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;driver/ledc.h&quot;</code><br />
 <code>#include &quot;esp_err.h&quot;</code><br />
-<code>#include &quot;esp_log.h&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;freertos/semphr.h&quot;</code><br />
 <code>#include &quot;freertos/task.h&quot;</code><br />
@@ -204,17 +203,22 @@ Include dependency graph for led.h:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="led_8h__dep__incl.svg" width="535" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="led_8h__dep__incl.svg" width="100%" height="411"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="led_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a6ad21e6046b97022390d7b38aa87ca7e" id="r_a6ad21e6046b97022390d7b38aa87ca7e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7e">led_mode_t</a> { <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a> = 0
-, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a> = 1
-, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea4d134c6a4beb3f51c8d046ecc1763f1b">LED_MODE_WARN</a> = 2
-, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea86d49418aa9a3d016b44ffbd7c2b1118">LED_MODE_ERROR</a> = 3
+<tr class="memitem:a6ad21e6046b97022390d7b38aa87ca7e" id="r_a6ad21e6046b97022390d7b38aa87ca7e"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7e">led_mode_t</a> { <br />
+&#160;&#160;<a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea5a472505476f1d9c473bacb9450dd003">LED_MODE_OFF</a>
+, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a>
+, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7eaccc99ecc5978d5bc06370ccd1dfb8e6b">LED_MODE_RESET</a>
+, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a>
+, <br />
+&#160;&#160;<a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea4d134c6a4beb3f51c8d046ecc1763f1b">LED_MODE_WARN</a>
+, <a class="el" href="#a6ad21e6046b97022390d7b38aa87ca7ea86d49418aa9a3d016b44ffbd7c2b1118">LED_MODE_ERROR</a>
+<br />
  }</td></tr>
 <tr class="memdesc:a6ad21e6046b97022390d7b38aa87ca7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Available operational modes for the status LED.  <a href="#a6ad21e6046b97022390d7b38aa87ca7e">More...</a><br /></td></tr>
 </table><table class="memberdecls">
@@ -246,7 +250,11 @@ Functions</h2></td></tr>
 
 <p>Available operational modes for the status LED. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56" name="a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56"></a>LED_MODE_BOOT_BREATHING&#160;</td><td class="fielddoc"><p>Smooth fading/pulsing for startup </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6ad21e6046b97022390d7b38aa87ca7ea5a472505476f1d9c473bacb9450dd003" name="a6ad21e6046b97022390d7b38aa87ca7ea5a472505476f1d9c473bacb9450dd003"></a>LED_MODE_OFF&#160;</td><td class="fielddoc"><p>LED turned off </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56" name="a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56"></a>LED_MODE_BOOT_BREATHING&#160;</td><td class="fielddoc"><p>Smooth fading/pulsing for startup </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a6ad21e6046b97022390d7b38aa87ca7eaccc99ecc5978d5bc06370ccd1dfb8e6b" name="a6ad21e6046b97022390d7b38aa87ca7eaccc99ecc5978d5bc06370ccd1dfb8e6b"></a>LED_MODE_RESET&#160;</td><td class="fielddoc"><p>Fast pulsing for resetting </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5" name="a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5"></a>LED_MODE_NORMAL&#160;</td><td class="fielddoc"><p>Constant solid light </p>
 </td></tr>
@@ -256,7 +264,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="led_8h_source.html#l00025">25</a> of file <a class="el" href="led_8h_source.html">led.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="led_8h_source.html#l00024">24</a> of file <a class="el" href="led_8h_source.html">led.h</a>.</p>
 
 </div>
 </div>
@@ -284,7 +292,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="led_8c_source.html#l00013">LED_CHANNEL</a>, <a class="el" href="led_8c_source.html#l00014">LED_DUTY_RES</a>, <a class="el" href="led_8c_source.html#l00015">LED_FREQUENCY</a>, <a class="el" href="led_8c_source.html#l00010">LED_GPIO_PIN</a>, <a class="el" href="led_8c_source.html#l00011">LED_SPEED_MODE</a>, <a class="el" href="led_8c_source.html#l00012">LED_TIMER</a>, <a class="el" href="led_8c_source.html#l00020">s_active_max_brightness</a>, <a class="el" href="led_8c_source.html#l00024">s_led_mutex</a>, and <a class="el" href="led_8c_source.html#l00043">set_pwm_duty()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00021">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -321,11 +329,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00178">178</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00188">188</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
 
-<p class="reference">References <a class="el" href="led_8h_source.html#l00027">LED_MODE_NORMAL</a>, <a class="el" href="led_8h_source.html#l00028">LED_MODE_WARN</a>, <a class="el" href="led_8c_source.html#l00020">s_active_max_brightness</a>, <a class="el" href="led_8c_source.html#l00018">s_config_brightness</a>, <a class="el" href="led_8c_source.html#l00022">s_current_mode</a>, <a class="el" href="led_8c_source.html#l00024">s_led_mutex</a>, and <a class="el" href="led_8c_source.html#l00043">set_pwm_duty()</a>.</p>
+<p class="reference">References <a class="el" href="led_8h_source.html#l00028">LED_MODE_NORMAL</a>, <a class="el" href="led_8h_source.html#l00029">LED_MODE_WARN</a>, <a class="el" href="led_8c_source.html#l00020">s_active_max_brightness</a>, <a class="el" href="led_8c_source.html#l00018">s_config_brightness</a>, <a class="el" href="led_8c_source.html#l00022">s_current_mode</a>, <a class="el" href="led_8c_source.html#l00024">s_led_mutex</a>, and <a class="el" href="led_8c_source.html#l00043">set_pwm_duty()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00021">app_main()</a>, and <a class="el" href="config_8c_source.html#l00289">config_set_led_brightness()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>, and <a class="el" href="config_8c_source.html#l00299">config_set_led_brightness()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -334,7 +342,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="led_8h_a0e14d5bbab37c68be83bb93f0327c328_icgraph.svg" width="392" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="led_8h_a0e14d5bbab37c68be83bb93f0327c328_icgraph.svg" width="100%" height="446"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -365,9 +373,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="led_8c_source.html#l00141">141</a> of file <a class="el" href="led_8c_source.html">led.c</a>.</p>
 
-<p class="reference">References <a class="el" href="led_8h_source.html#l00026">LED_MODE_BOOT_BREATHING</a>, <a class="el" href="led_8h_source.html#l00029">LED_MODE_ERROR</a>, <a class="el" href="led_8h_source.html#l00027">LED_MODE_NORMAL</a>, <a class="el" href="led_8h_source.html#l00028">LED_MODE_WARN</a>, <a class="el" href="led_8c_source.html#l00020">s_active_max_brightness</a>, <a class="el" href="led_8c_source.html#l00018">s_config_brightness</a>, <a class="el" href="led_8c_source.html#l00022">s_current_mode</a>, <a class="el" href="led_8c_source.html#l00024">s_led_mutex</a>, <a class="el" href="led_8c_source.html#l00043">set_pwm_duty()</a>, and <a class="el" href="led_8c_source.html#l00101">update_led_generator_unsafe()</a>.</p>
+<p class="reference">References <a class="el" href="led_8h_source.html#l00026">LED_MODE_BOOT_BREATHING</a>, <a class="el" href="led_8h_source.html#l00030">LED_MODE_ERROR</a>, <a class="el" href="led_8h_source.html#l00028">LED_MODE_NORMAL</a>, <a class="el" href="led_8h_source.html#l00025">LED_MODE_OFF</a>, <a class="el" href="led_8h_source.html#l00027">LED_MODE_RESET</a>, <a class="el" href="led_8h_source.html#l00029">LED_MODE_WARN</a>, <a class="el" href="led_8c_source.html#l00020">s_active_max_brightness</a>, <a class="el" href="led_8c_source.html#l00018">s_config_brightness</a>, <a class="el" href="led_8c_source.html#l00022">s_current_mode</a>, <a class="el" href="led_8c_source.html#l00024">s_led_mutex</a>, <a class="el" href="led_8c_source.html#l00043">set_pwm_duty()</a>, and <a class="el" href="led_8c_source.html#l00101">update_led_generator_unsafe()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00021">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

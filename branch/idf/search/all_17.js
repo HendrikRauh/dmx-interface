@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['🔌_20wiring_0',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
+  ['📦_20case_0',['📦 Case',['../index.html#autotoc_md-case',1,'']]]
 ];

@@ -1,10 +1,19 @@
 var searchData=
 [
-  ['app_5fconfig_5fconn_5fethernet_0',['APP_CONFIG_CONN_ETHERNET',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a',1,'config.h']]],
-  ['app_5fconfig_5fconn_5fwifi_5fap_1',['APP_CONFIG_CONN_WIFI_AP',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6',1,'config.h']]],
-  ['app_5fconfig_5fconn_5fwifi_5fsta_2',['APP_CONFIG_CONN_WIFI_STA',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22',1,'config.h']]],
-  ['app_5fconfig_5fdir_5finput_3',['APP_CONFIG_DIR_INPUT',['../config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8',1,'config.h']]],
-  ['app_5fconfig_5fdir_5foutput_4',['APP_CONFIG_DIR_OUTPUT',['../config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf',1,'config.h']]],
-  ['app_5fconfig_5fip_5fdhcp_5',['APP_CONFIG_IP_DHCP',['../config_8h.html#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931',1,'config.h']]],
-  ['app_5fconfig_5fip_5fstatic_6',['APP_CONFIG_IP_STATIC',['../config_8h.html#ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b',1,'config.h']]]
+  ['app_5fbutton_5faction_5fmax_0',['APP_BUTTON_ACTION_MAX',['../config_8h.html#a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96',1,'config.h']]],
+  ['app_5fbutton_5faction_5fnone_1',['APP_BUTTON_ACTION_NONE',['../config_8h.html#a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae',1,'config.h']]],
+  ['app_5fbutton_5faction_5freboot_2',['APP_BUTTON_ACTION_REBOOT',['../config_8h.html#a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3',1,'config.h']]],
+  ['app_5fbutton_5faction_5ftoggle_5fled_3',['APP_BUTTON_ACTION_TOGGLE_LED',['../config_8h.html#a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7',1,'config.h']]],
+  ['app_5fbutton_5fevent_5fdouble_5fclick_4',['APP_BUTTON_EVENT_DOUBLE_CLICK',['../config_8h.html#a8cc96b36e17feb908b140ab5685a11e4addb17168e22a536cf9bfd8beb9c6933b',1,'config.h']]],
+  ['app_5fbutton_5fevent_5flong_5fhold_5',['APP_BUTTON_EVENT_LONG_HOLD',['../config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a2e00eea73402218675c7b8d2b2034ba1',1,'config.h']]],
+  ['app_5fbutton_5fevent_5fmax_6',['APP_BUTTON_EVENT_MAX',['../config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a1cc4a02807ca9ae79260905245ad3487',1,'config.h']]],
+  ['app_5fbutton_5fevent_5fmultiple_5fclick_7',['APP_BUTTON_EVENT_MULTIPLE_CLICK',['../config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a7ec1ee119c3f7cbfc65536aa13d6e3e4',1,'config.h']]],
+  ['app_5fbutton_5fevent_5fsingle_5fclick_8',['APP_BUTTON_EVENT_SINGLE_CLICK',['../config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a5b618daaecfbc85a45ab9f8b7a7a140c',1,'config.h']]],
+  ['app_5fconfig_5fconn_5fethernet_9',['APP_CONFIG_CONN_ETHERNET',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a',1,'config.h']]],
+  ['app_5fconfig_5fconn_5fwifi_5fap_10',['APP_CONFIG_CONN_WIFI_AP',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6',1,'config.h']]],
+  ['app_5fconfig_5fconn_5fwifi_5fsta_11',['APP_CONFIG_CONN_WIFI_STA',['../config_8h.html#a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22',1,'config.h']]],
+  ['app_5fconfig_5fdir_5finput_12',['APP_CONFIG_DIR_INPUT',['../config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8',1,'config.h']]],
+  ['app_5fconfig_5fdir_5foutput_13',['APP_CONFIG_DIR_OUTPUT',['../config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf',1,'config.h']]],
+  ['app_5fconfig_5fip_5fdhcp_14',['APP_CONFIG_IP_DHCP',['../config_8h.html#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931',1,'config.h']]],
+  ['app_5fconfig_5fip_5fstatic_15',['APP_CONFIG_IP_STATIC',['../config_8h.html#ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b',1,'config.h']]]
 ];
