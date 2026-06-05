@@ -206,7 +206,7 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:adcbd84cc91f7afef3e2cfe7a0d3e327f" id="r_adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">APP_CONFIG_DMX_PORT_COUNT</a>&#160;&#160;&#160;1</td></tr>
+<tr class="memitem:adcbd84cc91f7afef3e2cfe7a0d3e327f" id="r_adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#adcbd84cc91f7afef3e2cfe7a0d3e327f">APP_CONFIG_DMX_PORT_COUNT</a>&#160;&#160;&#160;2</td></tr>
 <tr class="memdesc:adcbd84cc91f7afef3e2cfe7a0d3e327f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total number of physical DMX ports supported by the hardware.  <br /></td></tr>
 <tr class="memitem:a5c48372c1b5a9cf28d2204dc3421ece7" id="r_a5c48372c1b5a9cf28d2204dc3421ece7"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a5c48372c1b5a9cf28d2204dc3421ece7">APP_CONFIG_INVALID_UNIVERSE</a>&#160;&#160;&#160;0xFFFF</td></tr>
 <tr class="memdesc:a5c48372c1b5a9cf28d2204dc3421ece7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Error/Invalid indicator for DMX universe.  <br /></td></tr>
@@ -538,7 +538,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define APP_CONFIG_DMX_PORT_COUNT&#160;&#160;&#160;1</td>
+          <td class="memname">#define APP_CONFIG_DMX_PORT_COUNT&#160;&#160;&#160;2</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -619,7 +619,7 @@ Functions</h2></td></tr>
 </td></tr>
 <tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7" name="a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7"></a>APP_BUTTON_ACTION_TOGGLE_LED&#160;</td><td class="fielddoc"><p>Toggle status LEDs or change brightness </p>
 </td></tr>
-<tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3" name="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3"></a>APP_BUTTON_ACTION_REBOOT&#160;</td><td class="fielddoc"><p>Restart only the Web Server / Wi-Fi </p>
+<tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3" name="a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3"></a>APP_BUTTON_ACTION_REBOOT&#160;</td><td class="fielddoc"><p>Restart the ESP </p>
 </td></tr>
 <tr><td class="fieldname"><a id="a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96" name="a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96"></a>APP_BUTTON_ACTION_MAX&#160;</td><td class="fielddoc"></td></tr>
 </table>
@@ -1102,7 +1102,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if the configuration was updated, false if uninitialized, unchanged, or arguments were invalid. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00469">469</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="config_8c_source.html#l00477">477</a> of file <a class="el" href="config_8c_source.html">config.c</a>.</p>
 
 <p class="reference">References <a class="el" href="config_8h_source.html#l00050">APP_BUTTON_ACTION_MAX</a>, <a class="el" href="config_8h_source.html#l00036">APP_BUTTON_EVENT_DOUBLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00037">APP_BUTTON_EVENT_MULTIPLE_CLICK</a>, <a class="el" href="config_8h_source.html#l00035">APP_BUTTON_EVENT_SINGLE_CLICK</a>, <a class="el" href="config_8c_source.html#l00086">LOCK</a>, <a class="el" href="config_8c_source.html#l00065">s_config</a>, <a class="el" href="config_8c_source.html#l00083">s_is_dirty</a>, <a class="el" href="config_8c_source.html#l00077">s_is_initialized</a>, and <a class="el" href="config_8c_source.html#l00090">UNLOCK</a>.</p>
 

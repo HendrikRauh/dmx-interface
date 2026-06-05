@@ -3,7 +3,6 @@ var button__actions_8c =
     [ "BUTTON_GPIO_NUM", "button__actions_8c.html#a5dfac2fb10804bef66ef74d2fe13d3cf", null ],
     [ "LOG_TAG", "button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6", null ],
     [ "RESET_HOLD_TIME_MS", "button__actions_8c.html#ada8fee83817eb41e40da9746e793a00e", null ],
-    [ "button_disable_factory_reset", "button__actions_8c.html#adbf63afa332e349ba3b521eb4f1d0485", null ],
     [ "button_init", "button__actions_8c.html#a564f08a3094c4b560997eae89c45c327", null ],
     [ "button_is_pressed", "button__actions_8c.html#a4ce0d66c4bf23769fc2c42cf3986b2e3", null ],
     [ "execute_button_action", "button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7", null ],

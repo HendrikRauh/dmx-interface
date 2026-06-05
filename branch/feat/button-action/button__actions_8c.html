@@ -226,8 +226,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a564f08a3094c4b560997eae89c45c327"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the hardware button configuration and event callbacks.  <br /></td></tr>
 <tr class="memitem:a4ce0d66c4bf23769fc2c42cf3986b2e3" id="r_a4ce0d66c4bf23769fc2c42cf3986b2e3"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a> (void)</td></tr>
 <tr class="memdesc:a4ce0d66c4bf23769fc2c42cf3986b2e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the button is currently physically pressed.  <br /></td></tr>
-<tr class="memitem:adbf63afa332e349ba3b521eb4f1d0485" id="r_adbf63afa332e349ba3b521eb4f1d0485"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#adbf63afa332e349ba3b521eb4f1d0485">button_disable_factory_reset</a> (void)</td></tr>
-<tr class="memdesc:adbf63afa332e349ba3b521eb4f1d0485"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unregisters the factory reset long-press callback.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -298,35 +296,6 @@ Variables</h2></td></tr>
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="adbf63afa332e349ba3b521eb4f1d0485" name="adbf63afa332e349ba3b521eb4f1d0485"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adbf63afa332e349ba3b521eb4f1d0485">&#9670;&#160;</a></span>button_disable_factory_reset()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void button_disable_factory_reset </td>
-          <td>(</td>
-          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Unregisters the factory reset long-press callback. </p>
-<p>Call this after the boot phase to prevent accidental resets during normal operation. </p>
-
-<p class="definition">Definition at line <a class="el" href="button__actions_8c_source.html#l00171">171</a> of file <a class="el" href="button__actions_8c_source.html">button_actions.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00023">app_main()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="button__actions_8c_adbf63afa332e349ba3b521eb4f1d0485_icgraph.svg" width="315" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
 <a id="a564f08a3094c4b560997eae89c45c327" name="a564f08a3094c4b560997eae89c45c327"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a564f08a3094c4b560997eae89c45c327">&#9670;&#160;</a></span>button_init()</h2>
 
@@ -343,7 +312,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Initializes the hardware button configuration and event callbacks. </p>
-<p>Configures the designated GPIO pin, sets up the debounce thresholds, and registers callbacks for both a single short click and a 3-second long press.</p>
+<p>Configures the designated GPIO pin, sets up the debounce thresholds, and registers callbacks for both a single/double/triple short click</p>
 <dl class="section return"><dt>Returns</dt><dd><ul>
 <li>ESP_OK: Success</li>
 <li>ESP_FAIL: Failed to initialize the button or register callbacks </li>

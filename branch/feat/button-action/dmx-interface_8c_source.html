@@ -204,28 +204,28 @@ $(function(){initNavTree('dmx-interface_8c_source.html','',''); });
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">   23</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70">app_main</a>(<span class="keywordtype">void</span>) {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;DMX Interface starting...&quot;</span>);</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="led_8h.html#aa976cc2095f7fc9974208fde3db3ca5e">led_init</a>() == ESP_OK) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a>);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  <span class="comment">// Basic system init needed for the button callback to work safely</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  esp_err_t err = nvs_flash_init();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>  <span class="keywordflow">if</span> (err == ESP_ERR_NVS_NO_FREE_PAGES ||</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>      err == ESP_ERR_NVS_NEW_VERSION_FOUND) {</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    ESP_ERROR_CHECK(nvs_flash_erase());</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    err = nvs_flash_init();</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  }</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  ESP_ERROR_CHECK(err);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="config_8h.html#ace6647db1f20678900580f60562dea57">config_init</a>() != ESP_OK) {</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Configuration initialization failed!&quot;</span>);</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  }</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  <span class="comment">// Initialize button handler (registers the 3s long-press callback)</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>  <a class="code hl_function" href="button__actions_8h.html#a564f08a3094c4b560997eae89c45c327">button_init</a>();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  ESP_ERROR_CHECK(<a class="code hl_function" href="led_8h.html#aa976cc2095f7fc9974208fde3db3ca5e">led_init</a>());</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>  <span class="comment">// Basic system init needed for the button callback to work safely</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>  esp_err_t err = nvs_flash_init();</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>  <span class="keywordflow">if</span> (err == ESP_ERR_NVS_NO_FREE_PAGES ||</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>      err == ESP_ERR_NVS_NEW_VERSION_FOUND) {</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    ESP_ERROR_CHECK(nvs_flash_erase());</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    err = nvs_flash_init();</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>  }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  ESP_ERROR_CHECK(err);</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>  ESP_ERROR_CHECK(<a class="code hl_function" href="config_8h.html#ace6647db1f20678900580f60562dea57">config_init</a>());</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>  err = <a class="code hl_function" href="button__actions_8h.html#a564f08a3094c4b560997eae89c45c327">button_init</a>();</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keywordflow">if</span> (err != ESP_OK) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to initialize button: %s&quot;</span>, esp_err_to_name(err));</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>  }</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>  <span class="comment">// Power-up Check:</span></div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="comment">// If button is held, block boot and show WARN led.</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  <span class="comment">// If button is held, block boot and show RESET led.</span></div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>  <span class="keywordflow">if</span> (<a class="code hl_function" href="button__actions_8h.html#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a>()) {</div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <a class="code hl_define" href="logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66">LOGW</a>(<span class="stringliteral">&quot;Button detected as PRESSED on power-up! Waiting 3s for factory &quot;</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>         <span class="stringliteral">&quot;reset...&quot;</span>);</div>
@@ -243,60 +243,61 @@ $(function(){initNavTree('dmx-interface_8c_source.html','',''); });
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      <span class="keywordflow">if</span> (hold_time_ms &gt;= 3000) {</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_define" href="logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66">LOGW</a>(<span class="stringliteral">&quot;3000ms reached! Factory reset triggered.&quot;</span>);</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea5a472505476f1d9c473bacb9450dd003">LED_MODE_OFF</a>);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <a class="code hl_function" href="config_8h.html#a19524afa3401ea2d7c375af232cf8f39">config_reset_defaults</a>();</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        vTaskDelay(pdMS_TO_TICKS(2000));</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <a class="code hl_function" href="config_8h.html#adbf182647ef90017c070ed7a4d0504fb">config_save</a>();</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <a class="code hl_define" href="logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66">LOGW</a>(<span class="stringliteral">&quot;Factory defaults applied. PLEASE RELEASE BUTTON TO REBOOT.&quot;</span>);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keywordflow">while</span> (<a class="code hl_function" href="button__actions_8h.html#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a>()) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>          vTaskDelay(pdMS_TO_TICKS(100));</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        }</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button released. Rebooting now...&quot;</span>);</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        esp_restart();</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>      }</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        ESP_ERROR_CHECK(<a class="code hl_function" href="config_8h.html#a19524afa3401ea2d7c375af232cf8f39">config_reset_defaults</a>());</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Configuration reset to factory defaults in RAM.&quot;</span>);</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea5a472505476f1d9c473bacb9450dd003">LED_MODE_OFF</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        vTaskDelay(pdMS_TO_TICKS(2000));</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        ESP_ERROR_CHECK(<a class="code hl_function" href="config_8h.html#adbf182647ef90017c070ed7a4d0504fb">config_save</a>());</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <a class="code hl_define" href="logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66">LOGW</a>(<span class="stringliteral">&quot;Factory defaults applied. PLEASE RELEASE BUTTON TO REBOOT.&quot;</span>);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">while</span> (<a class="code hl_function" href="button__actions_8h.html#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a>()) {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>          vTaskDelay(pdMS_TO_TICKS(100));</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        }</div>
 <div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button released after %dms, continuing normal boot.&quot;</span>, hold_time_ms);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a>);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button not pressed at startup.&quot;</span>);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  }</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>  <span class="comment">// Disable factory reset long-press for normal operation</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  <a class="code hl_function" href="button__actions_8h.html#adbf63afa332e349ba3b521eb4f1d0485">button_disable_factory_reset</a>();</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  err = <a class="code hl_function" href="wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc">wifi_start_ap</a>(<span class="stringliteral">&quot;DMX&quot;</span>, <span class="stringliteral">&quot;ChaosDMX&quot;</span>, 1, 4);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>  <span class="keywordflow">if</span> (err != ESP_OK) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start WiFi AP: %s&quot;</span>, esp_err_to_name(err));</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>  }</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span> </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  httpd_handle_t server = <a class="code hl_function" href="web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a>(NULL);</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>  <span class="keywordflow">if</span> (server == NULL) {</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start web server!&quot;</span>);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  }</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Web server started successfully&quot;</span>);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Open http://192.168.4.1 in your browser&quot;</span>);</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  vTaskDelay(pdMS_TO_TICKS(5000));</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button released. Rebooting now...&quot;</span>);</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        esp_restart();</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>      }</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button released after %dms, continuing normal boot.&quot;</span>, hold_time_ms);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7eac3f805fd15b36aff3a33adaddeed5b56">LED_MODE_BOOT_BREATHING</a>);</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Button not pressed at startup.&quot;</span>);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>  }</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>  err = <a class="code hl_function" href="wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc">wifi_start_ap</a>(<span class="stringliteral">&quot;DMX&quot;</span>, <span class="stringliteral">&quot;ChaosDMX&quot;</span>, 1, 4);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  <span class="keywordflow">if</span> (err != ESP_OK) {</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start WiFi AP: %s&quot;</span>, esp_err_to_name(err));</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>  }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>  httpd_handle_t server = <a class="code hl_function" href="web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a>(NULL);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>  <span class="keywordflow">if</span> (server == NULL) {</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start web server!&quot;</span>);</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  }</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Web server started successfully&quot;</span>);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Open http://192.168.4.1 in your browser&quot;</span>);</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  <a class="code hl_function" href="led_8h.html#a0e14d5bbab37c68be83bb93f0327c328">led_set_brightness</a>(<a class="code hl_function" href="config_8h.html#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a>());</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a>);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    vTaskDelay(pdMS_TO_TICKS(1000));</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>}</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>  vTaskDelay(pdMS_TO_TICKS(5000));</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <a class="code hl_function" href="led_8h.html#a0e14d5bbab37c68be83bb93f0327c328">led_set_brightness</a>(<a class="code hl_function" href="config_8h.html#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a>());</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>  <span class="keywordflow">while</span> (1) {</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    vTaskDelay(pdMS_TO_TICKS(1000));</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>  }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
 </div>
 <div class="ttc" id="abutton__actions_8h_html"><div class="ttname"><a href="button__actions_8h.html">button_actions.h</a></div><div class="ttdoc">Hardware button abstraction layer for short and long press detection.</div></div>
 <div class="ttc" id="abutton__actions_8h_html_a4ce0d66c4bf23769fc2c42cf3986b2e3"><div class="ttname"><a href="button__actions_8h.html#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a></div><div class="ttdeci">bool button_is_pressed(void)</div><div class="ttdoc">Checks if the button is currently physically pressed.</div><div class="ttdef"><b>Definition</b> <a href="button__actions_8c_source.html#l00163">button_actions.c:163</a></div></div>
 <div class="ttc" id="abutton__actions_8h_html_a564f08a3094c4b560997eae89c45c327"><div class="ttname"><a href="button__actions_8h.html#a564f08a3094c4b560997eae89c45c327">button_init</a></div><div class="ttdeci">esp_err_t button_init(void)</div><div class="ttdoc">Initializes the hardware button configuration and event callbacks.</div><div class="ttdef"><b>Definition</b> <a href="button__actions_8c_source.html#l00120">button_actions.c:120</a></div></div>
-<div class="ttc" id="abutton__actions_8h_html_adbf63afa332e349ba3b521eb4f1d0485"><div class="ttname"><a href="button__actions_8h.html#adbf63afa332e349ba3b521eb4f1d0485">button_disable_factory_reset</a></div><div class="ttdeci">void button_disable_factory_reset(void)</div><div class="ttdoc">Unregisters the factory reset long-press callback.</div><div class="ttdef"><b>Definition</b> <a href="button__actions_8c_source.html#l00171">button_actions.c:171</a></div></div>
 <div class="ttc" id="aconfig_8h_html"><div class="ttname"><a href="config_8h.html">config.h</a></div><div class="ttdoc">Thread-safe configuration component utilizing NVS for ESP32.</div></div>
 <div class="ttc" id="aconfig_8h_html_a19524afa3401ea2d7c375af232cf8f39"><div class="ttname"><a href="config_8h.html#a19524afa3401ea2d7c375af232cf8f39">config_reset_defaults</a></div><div class="ttdeci">esp_err_t config_reset_defaults(void)</div><div class="ttdoc">Resets all configuration settings back to factory defaults.</div><div class="ttdef"><b>Definition</b> <a href="config_8c_source.html#l00194">config.c:194</a></div></div>
 <div class="ttc" id="aconfig_8h_html_a30bb8db7736fceae486f36005a411f5e"><div class="ttname"><a href="config_8h.html#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a></div><div class="ttdeci">uint8_t config_get_led_brightness(void)</div><div class="ttdoc">Gets the current status LED brightness level.</div><div class="ttdef"><b>Definition</b> <a href="config_8c_source.html#l00290">config.c:290</a></div></div>

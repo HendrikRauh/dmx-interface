@@ -1,7 +1,5 @@
 var NAVTREEINDEX1 =
 {
-"struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a":[9,0,0,10],
-"structapp__wifi__creds__t.html":[9,0,1],
 "structapp__wifi__creds__t.html#a789fe7f0bb3c6b66e099baa7c16ad17c":[9,0,1,0],
 "structapp__wifi__creds__t.html#aca76bcdede58c36160f68190be53e015":[9,0,1,1],
 "structwebserver__config__t.html":[9,0,2],
