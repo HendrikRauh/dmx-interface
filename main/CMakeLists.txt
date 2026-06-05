@@ -7,5 +7,6 @@ idf_component_register(
   button_actions
   config
   led
-  web_server
-  logger)
+  logger
+  system
+  web_server)

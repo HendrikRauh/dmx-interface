@@ -73,6 +73,7 @@
             "\\.hpp$"
             "\\.md$"
             "^\\.envrc$"
+            "CMakeLists\\.txt$"
           ];
         };
         end-of-file-fixer.enable = true;
