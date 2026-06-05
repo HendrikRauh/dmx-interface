@@ -54,6 +54,12 @@ def monitor(c, port=None):
 
 
 @task
+def web_dev(c):
+    """Start web development server with hot reloading"""
+    c.run("cd web && npm run dev", pty=True)
+
+
+@task
 def clean(c):
     """Clean build artifacts"""
     c.run("idf.py fullclean", pty=True)
