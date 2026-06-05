@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
-  "import": [".cspell/dict-de-de/cspell-ext.json"],
+  "import": ["${env:GERMAN_DICT_PATH}/cspell-ext.json"],
   "ignorePaths": [
     ".cspell.json",
     ".git",

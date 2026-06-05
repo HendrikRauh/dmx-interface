@@ -177,6 +177,7 @@
     checks.${system}.pre-commit-check = pre-commit-check;
 
     devShells.${system}.default = pkgs.mkShell {
+      inherit (pre-commit-check) shellHook;
       buildInputs =
         pre-commit-check.enabledPackages
         ++ [
@@ -188,14 +189,10 @@
           pkgs.python3Packages.invoke
           pkgs.svgo
         ];
-      shellHook =
-        pre-commit-check.shellHook
-        + ''
-          export ESPTOOL_BEFORE=usb_reset
-          # Set up cspell dictionary files
-          mkdir -p .cspell
-          ln -sfn ${germanDict} .cspell/dict-de-de
-        '';
+      env = {
+        ESPTOOL_BEFORE = "usb_reset";
+        GERMAN_DICT_PATH = "${germanDict}";
+      };
     };
   };
 }
