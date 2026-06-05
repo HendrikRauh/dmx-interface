@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['installation_0',['🚀 Installation',['../index.html#autotoc_md-installation',1,'']]],
-  ['ip_5fmethod_1',['ip_method',['../struct____attribute____.html#a5a5351a6cd663c84fc94f480ab883202',1,'__attribute__']]]
+  ['health_5fcheck_5fhandler_0',['health_check_handler',['../web__server_8c.html#af26c5903f907fb3d73fe269a81809275',1,'web_server.c']]],
+  ['hooks_1',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
 ];
