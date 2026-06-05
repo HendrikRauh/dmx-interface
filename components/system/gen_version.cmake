@@ -15,7 +15,7 @@ execute_process(
   OUTPUT_STRIP_TRAILING_WHITESPACE)
 
 if(NOT "${GIT_STATUS}" STREQUAL "")
-  set(VERSION_STR "${GIT_HASH}-d")
+  set(VERSION_STR "${GIT_HASH}-dirty")
 else()
   set(VERSION_STR "${GIT_HASH}")
 endif()
