@@ -1,4 +1,28 @@
 dependencies:
+  espressif/button:
+    component_hash: 95babe831403e301511a22a4dfcd599abcf32cf72c7f8ac5352a61662363c9ea
+    dependencies:
+    - name: espressif/cmake_utilities
+      registry_url: https://components.espressif.com
+      require: private
+      version: '*'
+    - name: idf
+      require: private
+      version: '>=4.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 4.1.7
+  espressif/cmake_utilities:
+    component_hash: 05165f30922b422b4b90c08845e6d449329b97370fbd06309803d8cb539d79e3
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=4.1'
+    source:
+      registry_url: https://components.espressif.com
+      type: service
+    version: 1.1.1
   idf:
     source:
       type: idf
@@ -22,9 +46,10 @@ dependencies:
       type: git
     version: 93cd565bb07d6bf9a56b5c62c96f2552a8fc6194
 direct_dependencies:
+- espressif/button
 - idf
 - joltwallet/littlefs
 - someweisguy/esp_dmx
-manifest_hash: 452ccdb963e60a5d4bb28f619a5058b387491bb886d6685d4d8ba97c5884abe2
+manifest_hash: 5bcb669891ec0f98973093f014bb402c65b5e551851f4ac87a3dd0edc0667122
 target: esp32s2
 version: 2.0.0

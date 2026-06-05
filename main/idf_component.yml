@@ -6,3 +6,4 @@ dependencies:
   someweisguy/esp_dmx:
     git: https://github.com/davispolito/esp_dmx.git
     # version: v4.1.0
+  espressif/button: "^4.1.7"
