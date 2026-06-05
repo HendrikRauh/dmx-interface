@@ -26,7 +26,7 @@
 
 /* --- Magic & Version Constants --- */
 #define APP_CONFIG_MAGIC 0x43444D58 /**< ASCII for 'CDMX' */
-#define APP_CONFIG_VERSION 3 /**< Incremented when struct layout changes */
+#define APP_CONFIG_VERSION 4 /**< Incremented when struct layout changes */
 
 /**
  * @brief WIFI credentials structure for both Station and Access Point modes.
@@ -447,14 +447,22 @@ bool config_set_wifi_ap_config(const wifi_config_t *src) {
 config_button_action_t config_get_button_action(app_button_event_t event) {
   if (!s_is_initialized)
     return APP_BUTTON_ACTION_NONE;
+
   LOCK();
   config_button_action_t act = APP_BUTTON_ACTION_NONE;
-  if (event == APP_BUTTON_EVENT_SINGLE_CLICK)
+  switch (event) {
+  case APP_BUTTON_EVENT_SINGLE_CLICK:
     act = (config_button_action_t)s_config.btn_action_single;
-  if (event == APP_BUTTON_EVENT_DOUBLE_CLICK)
+    break;
+  case APP_BUTTON_EVENT_DOUBLE_CLICK:
     act = (config_button_action_t)s_config.btn_action_double;
-  if (event == APP_BUTTON_EVENT_MULTIPLE_CLICK)
+    break;
+  case APP_BUTTON_EVENT_MULTIPLE_CLICK:
     act = (config_button_action_t)s_config.btn_action_multi;
+    break;
+  default:
+    break;
+  }
   UNLOCK();
   return act;
 }

@@ -21,7 +21,7 @@ extern "C" {
 /**
  * @brief Total number of physical DMX ports supported by the hardware.
  */
-#define APP_CONFIG_DMX_PORT_COUNT 1
+#define APP_CONFIG_DMX_PORT_COUNT 2
 
 /**
  * @brief Error/Invalid indicator for DMX universe.
@@ -46,7 +46,7 @@ typedef enum {
 typedef enum {
   APP_BUTTON_ACTION_NONE = 0,   /**< Do nothing */
   APP_BUTTON_ACTION_TOGGLE_LED, /**< Toggle status LEDs or change brightness */
-  APP_BUTTON_ACTION_REBOOT,     /**< Restart only the Web Server / Wi-Fi */
+  APP_BUTTON_ACTION_REBOOT,     /**< Restart the ESP*/
   APP_BUTTON_ACTION_MAX
 } config_button_action_t;
 

@@ -167,8 +167,3 @@ bool button_is_pressed(void) {
   uint8_t level = iot_button_get_key_level(s_btn_handle);
   return level == 1;
 }
-
-void button_disable_factory_reset(void) {
-  // No action needed as long-press is not registered in button_init
-  // and handled manually in app_main during the boot phase.
-}

@@ -23,9 +23,8 @@
 void app_main(void) {
   LOGI("DMX Interface starting...");
 
-  if (led_init() == ESP_OK) {
-    led_set_mode(LED_MODE_BOOT_BREATHING);
-  }
+  ESP_ERROR_CHECK(led_init());
+  led_set_mode(LED_MODE_BOOT_BREATHING);
 
   // Basic system init needed for the button callback to work safely
   esp_err_t err = nvs_flash_init();
@@ -35,16 +34,17 @@ void app_main(void) {
     err = nvs_flash_init();
   }
   ESP_ERROR_CHECK(err);
-  if (config_init() != ESP_OK) {
-    LOGE("Configuration initialization failed!");
-    return;
+
+  ESP_ERROR_CHECK(config_init());
+
+  err = button_init();
+  if (err != ESP_OK) {
+    LOGE("Failed to initialize button: %s", esp_err_to_name(err));
   }
 
-  // Initialize button handler (registers the 3s long-press callback)
-  button_init();
 
   // Power-up Check:
-  // If button is held, block boot and show WARN led.
+  // If button is held, block boot and show RESET led.
   if (button_is_pressed()) {
     LOGW("Button detected as PRESSED on power-up! Waiting 3s for factory "
          "reset...");
@@ -62,10 +62,15 @@ void app_main(void) {
       if (hold_time_ms >= 3000) {
         LOGW("3000ms reached! Factory reset triggered.");
 
+        ESP_ERROR_CHECK(config_reset_defaults());
+
+        LOGI("Configuration reset to factory defaults in RAM.");
+
         led_set_mode(LED_MODE_OFF);
-        config_reset_defaults();
+
         vTaskDelay(pdMS_TO_TICKS(2000));
-        config_save();
+
+        ESP_ERROR_CHECK(config_save());
 
         LOGW("Factory defaults applied. PLEASE RELEASE BUTTON TO REBOOT.");
 
@@ -83,9 +88,6 @@ void app_main(void) {
   } else {
     LOGI("Button not pressed at startup.");
   }
-
-  // Disable factory reset long-press for normal operation
-  button_disable_factory_reset();
 
   err = wifi_start_ap("DMX", "ChaosDMX", 1, 4);
   if (err != ESP_OK) {
