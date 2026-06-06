@@ -12,6 +12,7 @@
 #include "logger.h"
 #include "nvs_flash.h"
 #include "storage.h"
+#include "system.h"
 #include "web_server.h"
 #include "wifi.h"
 
@@ -26,6 +27,8 @@ void app_main(void) {
 
   ESP_ERROR_CHECK(led_init());
   led_set_mode(LED_MODE_BOOT_BREATHING);
+
+  ESP_ERROR_CHECK(system_init());
 
   // Basic system init needed for the button callback to work safely
   esp_err_t err = nvs_flash_init();
@@ -111,6 +114,8 @@ void app_main(void) {
 
   led_set_brightness(config_get_led_brightness());
   led_set_mode(LED_MODE_NORMAL);
+
+  system_print_info();
 
   while (1) {
     vTaskDelay(pdMS_TO_TICKS(1000));
