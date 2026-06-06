@@ -6,6 +6,7 @@
     ".cspell.json",
     ".git",
     ".vscode/extensions.json",
+    ".vscode/settings.json",
     "assets/case/",
     "assets/circuit/diagram.svg",
     "docs/external/",
