@@ -4,6 +4,8 @@ var searchData=
   ['mac_2ec_1',['mac.c',['../mac_8c.html',1,'']]],
   ['mac_2eh_2',['mac.h',['../mac_8h.html',1,'']]],
   ['magic_3',['magic',['../struct____attribute____.html#a355adfb4bf7d1cdba8e744e8f8a911ce',1,'__attribute__']]],
-  ['max_5furi_5fhandlers_4',['max_uri_handlers',['../structwebserver__config__t.html#ab58318e6e968285ec7e44723369ac4f3',1,'webserver_config_t']]],
-  ['monitor_5',['monitor',['../namespacetasks.html#a83c7344f678f37244547be5fc808c74a',1,'tasks']]]
+  ['max_5fmeasured_5ftemp_4',['max_measured_temp',['../system_8c.html#a9cb3d3a76a9410d4efce65fb74a676f1',1,'system.c']]],
+  ['max_5furi_5fhandlers_5',['max_uri_handlers',['../structwebserver__config__t.html#ab58318e6e968285ec7e44723369ac4f3',1,'webserver_config_t']]],
+  ['model_5fname_6',['model_name',['../structsys__chip__info__t.html#aae087b78a4a9bc84d299f7b4e0252f68',1,'sys_chip_info_t']]],
+  ['monitor_7',['monitor',['../namespacetasks.html#a83c7344f678f37244547be5fc808c74a',1,'tasks']]]
 ];
