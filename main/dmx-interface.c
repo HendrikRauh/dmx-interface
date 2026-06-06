@@ -11,6 +11,7 @@
 #include "led.h"
 #include "logger.h"
 #include "nvs_flash.h"
+#include "storage.h"
 #include "web_server.h"
 #include "wifi.h"
 
@@ -103,6 +104,8 @@ void app_main(void) {
 
   LOGI("Web server started successfully");
   LOGI("Open http://192.168.4.1 in your browser");
+
+  storage_print_info();
 
   vTaskDelay(pdMS_TO_TICKS(5000));
 
