@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "driver/temperature_sensor.h"
+#include "esp_app_desc.h"
 #include "esp_chip_info.h"
 #include "esp_heap_caps.h"
 #include "esp_mac.h"
@@ -16,7 +17,6 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "system_version.h"
 
 /** @brief Handle for the internal temperature sensor. */
 static temperature_sensor_handle_t temp_sensor = NULL;
@@ -114,7 +114,9 @@ void system_get_tasks_list(char *buffer, size_t buffer_len) {
 #endif
 }
 
-const char *system_get_version(void) { return SYS_VERSION; }
+const char *system_get_version(void) {
+  return esp_app_get_description()->version;
+}
 
 int64_t system_get_uptime_ms(void) { return esp_timer_get_time() / 1000; }
 
@@ -161,6 +163,7 @@ void system_get_chip_info(sys_chip_info_t *chip_info) {
 void system_print_info(void) {
   sys_chip_info_t chip;
   system_get_chip_info(&chip);
+  const esp_app_desc_t *app_desc = esp_app_get_description();
 
   const char *reason_str;
   switch ((esp_reset_reason_t)system_get_reset_reason()) {
@@ -195,7 +198,9 @@ void system_print_info(void) {
   LOGI("==================================================");
   LOGI("DEVICE SYSTEM INFO SNAPSHOT");
   LOGI("==================================================");
-  LOGI("Firmware Version : %s", system_get_version());
+  LOGI("Firmware Version : %s", app_desc->version);
+  LOGI("ESP-IDF Version  : %s", app_desc->idf_ver);
+
   LOGI("Hardware SoC     : %s (Cores: %d, Rev: %lu)", chip.model_name,
        chip.cores, chip.revision);
   LOGI("Uptime           : %lld ms", system_get_uptime_ms());
