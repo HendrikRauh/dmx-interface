@@ -17,6 +17,7 @@
 
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
+#include "system_version.h"
 
 /** @brief Handle for the internal temperature sensor. */
 static temperature_sensor_handle_t temp_sensor = NULL;
@@ -114,9 +115,7 @@ void system_get_tasks_list(char *buffer, size_t buffer_len) {
 #endif
 }
 
-const char *system_get_version(void) {
-  return esp_app_get_description()->version;
-}
+const char *system_get_version(void) { return SYS_VERSION; }
 
 int64_t system_get_uptime_ms(void) { return esp_timer_get_time() / 1000; }
 
@@ -198,7 +197,7 @@ void system_print_info(void) {
   LOGI("==================================================");
   LOGI("DEVICE SYSTEM INFO SNAPSHOT");
   LOGI("==================================================");
-  LOGI("Firmware Version : %s", app_desc->version);
+  LOGI("Firmware Version : %s", system_get_version());
   LOGI("ESP-IDF Version  : %s", app_desc->idf_ver);
 
   LOGI("Hardware SoC     : %s (Cores: %d, Rev: %lu)", chip.model_name,
