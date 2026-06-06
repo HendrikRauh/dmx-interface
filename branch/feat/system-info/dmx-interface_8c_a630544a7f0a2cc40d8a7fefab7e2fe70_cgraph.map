@@ -20,12 +20,12 @@
 <area shape="poly" id="edge26_Node000001_Node000018" title=" " alt="" coords="91,414,138,403,276,387,415,381,539,380,638,383,638,388,539,386,415,386,277,393,139,408,92,419"/>
 <area shape="rect" id="Node000021" href="$system_8c.html#a596afcad2656a8d9fd7f168c7373031c" title="Initializes the system monitoring component. Sets up the internal temperature sensor and tracks initi..." alt="" coords="170,573,268,600"/>
 <area shape="poly" id="edge31_Node000001_Node000021" title=" " alt="" coords="58,444,88,499,112,531,140,558,157,568,154,572,137,562,108,534,84,502,53,446"/>
-<area shape="rect" id="Node000022" href="$system_8c.html#a73f9966aa1dae91fff486754fd3088b2" title="Prints a complete, formatted overview of all system statistics to the console. Internally uses ESP_LO..." alt="" coords="150,674,288,702"/>
-<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="57,444,88,518,112,565,141,610,165,638,190,662,186,666,161,642,137,614,107,568,83,520,52,446"/>
-<area shape="rect" id="Node000033" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="156,1012,282,1039"/>
-<area shape="poly" id="edge44_Node000001_Node000033" title=" " alt="" coords="56,444,212,996,207,998,51,446"/>
-<area shape="rect" id="Node000040" href="$wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc" title="Start WiFi Access Point (AP) mode." alt="" coords="167,1064,271,1091"/>
-<area shape="poly" id="edge51_Node000001_Node000040" title=" " alt="" coords="52,445,55,561,67,743,78,838,94,927,114,1000,127,1028,141,1049,154,1060,151,1064,137,1052,122,1030,109,1001,88,928,73,839,62,743,50,562,47,445"/>
+<area shape="rect" id="Node000022" href="$system_8c.html#a73f9966aa1dae91fff486754fd3088b2" title="Prints a complete, formatted overview of all system statistics to the console. Internally uses ESP_LO..." alt="" coords="150,652,288,679"/>
+<area shape="poly" id="edge32_Node000001_Node000022" title=" " alt="" coords="56,444,85,520,110,567,141,610,178,641,174,645,137,614,105,569,80,522,51,446"/>
+<area shape="rect" id="Node000032" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="156,960,282,987"/>
+<area shape="poly" id="edge43_Node000001_Node000032" title=" " alt="" coords="56,444,211,944,206,945,51,445"/>
+<area shape="rect" id="Node000039" href="$wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc" title="Start WiFi Access Point (AP) mode." alt="" coords="167,1012,271,1039"/>
+<area shape="poly" id="edge50_Node000001_Node000039" title=" " alt="" coords="52,445,57,552,70,718,81,805,96,886,116,952,128,978,141,997,154,1008,151,1012,137,1000,123,980,111,954,91,887,76,806,65,719,51,553,47,445"/>
 <area shape="rect" id="Node000003" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="359,164,556,191"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="265,153,344,162,343,167,265,158"/>
 <area shape="rect" id="Node000011" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="384,43,532,88"/>
@@ -57,37 +57,35 @@
 <area shape="rect" id="Node000020" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="1090,374,1236,402"/>
 <area shape="poly" id="edge29_Node000019_Node000020" title=" " alt="" coords="1029,386,1074,386,1074,391,1029,391"/>
 <area shape="poly" id="edge30_Node000020_Node000010" title=" " alt="" coords="1236,373,1268,368,1269,373,1237,379"/>
-<area shape="rect" id="Node000023" href="$system_8c.html#a35a3eca001fb8d752a25d1e250a172e8" title="Retrieves static chip hardware information." alt="" coords="376,934,539,962"/>
-<area shape="poly" id="edge33_Node000022_Node000023" title=" " alt="" coords="226,701,239,744,263,804,299,866,322,895,349,919,363,928,361,933,345,923,318,898,295,869,258,806,234,746,221,703"/>
-<area shape="rect" id="Node000024" href="$system_8c.html#aab046ddb36be0a40014a68aa1937946d" title="Calculates the total real&#45;time CPU utilization. Requires CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS to b..." alt="" coords="371,469,544,496"/>
-<area shape="poly" id="edge34_Node000022_Node000024" title=" " alt="" coords="237,672,267,645,297,611,311,582,317,557,325,532,345,507,355,500,359,504,349,511,330,534,322,558,316,584,301,613,270,649,240,676"/>
-<area shape="rect" id="Node000025" href="$system_8c.html#a6740350e2d604ebb43ec714105f12409" title="Gets the current available free heap size (RAM)." alt="" coords="373,521,542,548"/>
-<area shape="poly" id="edge35_Node000022_Node000025" title=" " alt="" coords="234,672,297,610,319,583,329,571,346,559,359,552,361,557,348,564,333,575,323,586,301,614,237,676"/>
-<area shape="rect" id="Node000026" href="$system_8c.html#af602c1b7e752d8a22c7c9148e69fb6dd" title="Gets the highest recorded CPU temperature since boot." alt="" coords="347,573,568,600"/>
-<area shape="poly" id="edge36_Node000022_Node000026" title=" " alt="" coords="241,671,289,644,346,616,383,603,385,608,348,621,291,649,244,676"/>
-<area shape="rect" id="Node000027" href="$system_8c.html#aa0583f6910d1eeab9673273fa671d893" title="Gets the current internal CPU temperature." alt="" coords="617,598,803,626"/>
-<area shape="poly" id="edge41_Node000022_Node000027" title=" " alt="" coords="288,671,347,660,602,623,602,628,347,665,289,676"/>
-<area shape="rect" id="Node000028" href="$system_8c.html#a504a18da557fcf0a5b13da55ac34e0e6" title="Gets the minimum ever free heap size since boot (watermark). This is crucial for detecting close&#45;to&#45;O..." alt="" coords="357,674,558,702"/>
-<area shape="poly" id="edge38_Node000022_Node000028" title=" " alt="" coords="288,685,341,685,341,691,288,691"/>
-<area shape="rect" id="Node000029" href="$system_8c.html#a156703ab0b846a3a693e7a796ecb7dd7" title="Gets the reason for the last system reset." alt="" coords="364,726,552,754"/>
-<area shape="poly" id="edge39_Node000022_Node000029" title=" " alt="" coords="287,700,376,720,375,725,285,705"/>
-<area shape="rect" id="Node000030" href="$system_8c.html#a2ad975db1e5954a7b988ca8e070361f4" title="Formats raw FreeRTOS statistics into a human&#45;readable task list. Requires CONFIG_FREERTOS_USE_STATS_F..." alt="" coords="374,778,541,806"/>
-<area shape="poly" id="edge40_Node000022_Node000030" title=" " alt="" coords="241,700,288,732,348,763,370,771,368,776,346,768,286,736,238,705"/>
-<area shape="rect" id="Node000031" href="$system_8c.html#ac343b65a1fb9cad2adbfc56fd2c6f226" title="Gets the system uptime since boot." alt="" coords="369,830,546,858"/>
-<area shape="poly" id="edge42_Node000022_Node000031" title=" " alt="" coords="232,701,278,757,311,788,348,815,362,822,360,827,346,820,307,793,274,760,228,704"/>
-<area shape="rect" id="Node000032" href="$system_8c.html#a4f473a857c4604ea0a1ab4181ec1b401" title="Gets the active firmware build version. Matches the Git commit short hash (appends &#39;&#45;d&#39; if local modi..." alt="" coords="382,882,534,910"/>
-<area shape="poly" id="edge43_Node000022_Node000032" title=" " alt="" coords="228,701,244,736,270,781,305,828,349,867,368,878,366,882,345,872,301,831,266,784,240,738,224,704"/>
-<area shape="poly" id="edge37_Node000026_Node000027" title=" " alt="" coords="569,595,602,598,601,604,569,600"/>
-<area shape="rect" id="Node000034" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="376,1038,539,1066"/>
-<area shape="poly" id="edge45_Node000033_Node000034" title=" " alt="" coords="283,1030,361,1039,360,1044,282,1035"/>
-<area shape="rect" id="Node000035" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="388,1090,528,1118"/>
-<area shape="poly" id="edge46_Node000033_Node000035" title=" " alt="" coords="268,1037,300,1050,324,1063,348,1075,373,1083,372,1088,346,1080,322,1067,298,1054,266,1042"/>
-<area shape="rect" id="Node000038" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="408,1142,507,1170"/>
-<area shape="poly" id="edge49_Node000033_Node000038" title=" " alt="" coords="279,1037,301,1050,318,1070,325,1090,332,1109,349,1127,370,1139,394,1147,393,1152,368,1144,345,1131,328,1112,320,1092,313,1073,297,1054,277,1042"/>
-<area shape="rect" id="Node000039" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="396,986,520,1014"/>
-<area shape="poly" id="edge50_Node000033_Node000039" title=" " alt="" coords="282,1016,380,1006,380,1011,283,1021"/>
-<area shape="rect" id="Node000036" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="648,1065,772,1092"/>
-<area shape="poly" id="edge47_Node000035_Node000036" title=" " alt="" coords="528,1094,633,1084,633,1089,528,1100"/>
-<area shape="rect" id="Node000037" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="616,1117,804,1144"/>
-<area shape="poly" id="edge48_Node000035_Node000037" title=" " alt="" coords="528,1109,601,1116,600,1122,528,1114"/>
+<area shape="rect" id="Node000023" href="$system_8c.html#a35a3eca001fb8d752a25d1e250a172e8" title="Retrieves static chip hardware information." alt="" coords="376,625,539,652"/>
+<area shape="poly" id="edge33_Node000022_Node000023" title=" " alt="" coords="288,655,360,647,361,652,289,660"/>
+<area shape="rect" id="Node000024" href="$system_8c.html#aab046ddb36be0a40014a68aa1937946d" title="Calculates the total real&#45;time CPU utilization. Requires CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS to b..." alt="" coords="371,677,544,704"/>
+<area shape="poly" id="edge34_Node000022_Node000024" title=" " alt="" coords="289,670,356,677,355,683,288,675"/>
+<area shape="rect" id="Node000025" href="$system_8c.html#a6740350e2d604ebb43ec714105f12409" title="Gets the current available free heap size (RAM)." alt="" coords="373,729,542,756"/>
+<area shape="poly" id="edge35_Node000022_Node000025" title=" " alt="" coords="254,677,348,713,377,722,375,727,346,719,252,682"/>
+<area shape="rect" id="Node000026" href="$system_8c.html#af602c1b7e752d8a22c7c9148e69fb6dd" title="Gets the highest recorded CPU temperature since boot." alt="" coords="347,830,568,858"/>
+<area shape="poly" id="edge36_Node000022_Node000026" title=" " alt="" coords="231,678,276,742,309,778,348,810,372,822,370,827,346,814,306,782,271,745,226,681"/>
+<area shape="rect" id="Node000027" href="$system_8c.html#aa0583f6910d1eeab9673273fa671d893" title="Gets the current internal CPU temperature." alt="" coords="617,805,803,832"/>
+<area shape="poly" id="edge41_Node000022_Node000027" title=" " alt="" coords="235,678,282,723,313,746,348,766,411,788,477,803,542,811,602,816,602,821,542,817,477,808,410,793,346,770,310,751,278,727,231,682"/>
+<area shape="rect" id="Node000028" href="$system_8c.html#a504a18da557fcf0a5b13da55ac34e0e6" title="Gets the minimum ever free heap size since boot (watermark). This is crucial for detecting close&#45;to&#45;O..." alt="" coords="357,882,558,910"/>
+<area shape="poly" id="edge38_Node000022_Node000028" title=" " alt="" coords="227,678,242,717,267,768,302,822,324,846,349,867,357,873,354,877,345,871,320,850,298,825,262,771,237,719,222,680"/>
+<area shape="rect" id="Node000029" href="$system_8c.html#a156703ab0b846a3a693e7a796ecb7dd7" title="Gets the reason for the last system reset." alt="" coords="364,469,552,496"/>
+<area shape="poly" id="edge39_Node000022_Node000029" title=" " alt="" coords="247,649,273,632,297,610,312,583,318,558,325,532,345,507,353,502,356,506,349,511,330,535,323,559,317,585,301,614,277,636,250,653"/>
+<area shape="rect" id="Node000030" href="$system_8c.html#a2ad975db1e5954a7b988ca8e070361f4" title="Formats raw FreeRTOS statistics into a human&#45;readable task list. Requires CONFIG_FREERTOS_USE_STATS_F..." alt="" coords="374,521,541,548"/>
+<area shape="poly" id="edge40_Node000022_Node000030" title=" " alt="" coords="243,649,297,610,320,583,330,571,346,559,359,552,361,557,348,564,333,575,324,587,301,614,246,653"/>
+<area shape="rect" id="Node000031" href="$system_8c.html#ac343b65a1fb9cad2adbfc56fd2c6f226" title="Gets the system uptime since boot." alt="" coords="369,573,546,600"/>
+<area shape="poly" id="edge42_Node000022_Node000031" title=" " alt="" coords="250,648,346,611,375,602,376,608,348,616,252,653"/>
+<area shape="poly" id="edge37_Node000026_Node000027" title=" " alt="" coords="569,830,601,827,602,832,569,836"/>
+<area shape="rect" id="Node000033" href="$web__server_8c.html#af26c5903f907fb3d73fe269a81809275" title="HTTP handler for API health check (GET /api/health)." alt="" coords="376,1038,539,1066"/>
+<area shape="poly" id="edge44_Node000032_Node000033" title=" " alt="" coords="268,985,300,998,324,1011,348,1023,373,1031,371,1036,346,1028,322,1015,298,1002,266,990"/>
+<area shape="rect" id="Node000034" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files from LittleFS." alt="" coords="388,1090,528,1118"/>
+<area shape="poly" id="edge45_Node000032_Node000034" title=" " alt="" coords="279,985,301,998,318,1018,325,1038,332,1057,349,1075,374,1088,371,1093,345,1079,328,1060,320,1040,313,1021,297,1002,277,990"/>
+<area shape="rect" id="Node000037" href="$storage_8c.html#aa5d3a93052d5ddfdc529d95186bf2b3e" title="Initialize and mount LittleFS filesystem." alt="" coords="408,934,507,962"/>
+<area shape="poly" id="edge48_Node000032_Node000037" title=" " alt="" coords="282,964,393,952,393,957,283,969"/>
+<area shape="rect" id="Node000038" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="396,986,520,1014"/>
+<area shape="poly" id="edge49_Node000032_Node000038" title=" " alt="" coords="283,978,380,989,380,994,282,983"/>
+<area shape="rect" id="Node000035" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="648,1064,772,1091"/>
+<area shape="poly" id="edge46_Node000034_Node000035" title=" " alt="" coords="528,1094,633,1083,633,1088,528,1099"/>
+<area shape="rect" id="Node000036" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="616,1116,804,1143"/>
+<area shape="poly" id="edge47_Node000034_Node000036" title=" " alt="" coords="528,1108,601,1116,600,1121,528,1114"/>
 </map>
