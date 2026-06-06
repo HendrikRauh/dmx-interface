@@ -7,10 +7,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@catppuccin/palette": "^1.8.0",
     "preact": "^10.26.9"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
+    "sass": "^1.100.0",
     "typescript": "^6.0.3",
     "vite": "^7.0.4",
     "vite-plugin-singlefile": "^2.3.3"

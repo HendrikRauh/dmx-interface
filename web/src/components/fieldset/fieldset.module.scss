@@ -1,0 +1,11 @@
+.fieldset {
+  margin: var(--spacing-medium);
+  padding: var(--spacing-medium);
+  border-color: var(--color-surface1);
+  border-radius: var(--border-radius-medium);
+
+  legend {
+    color: var(--color-subtext0);
+    padding: 0 var(--spacing-small);
+  }
+}

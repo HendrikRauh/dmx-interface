@@ -1,0 +1,66 @@
+@import "@catppuccin/palette/css/catppuccin.css";
+
+@mixin catppuccin-colors($flavor, $ctp-color, $color) {
+  --color-#{$color}: var(--ctp-#{$flavor}-#{$ctp-color});
+  --color-#{$color}-rgb: var(--ctp-#{$flavor}-#{$ctp-color}-rgb);
+  --color-#{$color}-hsl: var(--ctp-#{$flavor}-#{$ctp-color}-hsl);
+  --color-#{$color}-oklch: var(--ctp-#{$flavor}-#{$ctp-color}-oklch);
+}
+
+@mixin catppuccin-theme($flavor, $accent) {
+  $colors:
+    crust, mantle, base, surface0, surface1, surface2, overlay0, overlay1, overlay2, text, subtext0,
+    subtext1;
+
+  $semantic-colors: (
+    accent: $accent,
+    error: red,
+    warning: yellow,
+    success: green,
+    info: blue,
+  );
+
+  @each $color in $colors {
+    @include catppuccin-colors($flavor, $color, $color);
+  }
+
+  @each $color-name, $ctp-color in $semantic-colors {
+    @include catppuccin-colors($flavor, $ctp-color, $color-name);
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include catppuccin-theme(latte, teal);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include catppuccin-theme(mocha, teal);
+  }
+}
+
+:root {
+  --spacing-small: 8px;
+  --spacing-medium: 18px;
+  --spacing-large: 24px;
+
+  --border-radius-small: 8px;
+  --border-radius-medium: 16px;
+  --border-radius-large: 24px;
+
+  --transition-duration: 0.2s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  background-color: var(--color-base);
+  color: var(--color-text);
+}
