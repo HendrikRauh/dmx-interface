@@ -22,13 +22,14 @@ var searchData=
   ['led_5fspeed_5fmode_19',['LED_SPEED_MODE',['../led_8c.html#a7b73e39614fabb990c3ee7b0efb831f0',1,'led.c']]],
   ['led_5ftimer_20',['LED_TIMER',['../led_8c.html#ade3a58ca3fc05681b689884e377a37d5',1,'led.c']]],
   ['littlefs_5fmount_5fpoint_21',['LITTLEFS_MOUNT_POINT',['../storage_8c.html#a82a9ae0986f65cbf7f753091674034a9',1,'storage.c']]],
-  ['load_5ffactory_5fdefaults_22',['load_factory_defaults',['../config_8c.html#ae211c3834b90a3f0d253ae52051471e0',1,'config.c']]],
-  ['lock_23',['LOCK',['../config_8c.html#aefb7db7456a848e7cefe90816a5aaa88',1,'config.c']]],
-  ['log_5ftag_24',['LOG_TAG',['../button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;button_actions.c'],['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../led_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;led.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../system_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;system.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
-  ['logd_25',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
-  ['loge_26',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
-  ['logger_2eh_27',['logger.h',['../logger_8h.html',1,'']]],
-  ['logi_28',['LOGI',['../logger_8h.html#a5512e59d578a380a441a70256af997d0',1,'logger.h']]],
-  ['logv_29',['LOGV',['../logger_8h.html#ab78bd305488c62caf8515ee765b1ed49',1,'logger.h']]],
-  ['logw_30',['LOGW',['../logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66',1,'logger.h']]]
+  ['littlefs_5fpartition_5flabel_22',['LITTLEFS_PARTITION_LABEL',['../storage_8c.html#a173132f25c6164bd4ed0731b9e918245',1,'storage.c']]],
+  ['load_5ffactory_5fdefaults_23',['load_factory_defaults',['../config_8c.html#ae211c3834b90a3f0d253ae52051471e0',1,'config.c']]],
+  ['lock_24',['LOCK',['../config_8c.html#aefb7db7456a848e7cefe90816a5aaa88',1,'config.c']]],
+  ['log_5ftag_25',['LOG_TAG',['../button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;button_actions.c'],['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../led_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;led.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../system_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;system.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
+  ['logd_26',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
+  ['loge_27',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
+  ['logger_2eh_28',['logger.h',['../logger_8h.html',1,'']]],
+  ['logi_29',['LOGI',['../logger_8h.html#a5512e59d578a380a441a70256af997d0',1,'logger.h']]],
+  ['logv_30',['LOGV',['../logger_8h.html#ab78bd305488c62caf8515ee765b1ed49',1,'logger.h']]],
+  ['logw_31',['LOGW',['../logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66',1,'logger.h']]]
 ];
