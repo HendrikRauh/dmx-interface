@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=9" />
     <meta name="generator" content="Doxygen 1.16.1" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>main -&gt; components Relation</title>
+    <title>sys_chip_info_t Struct Reference</title>
     <link href="tabs.css" rel="stylesheet" type="text/css" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script type="text/javascript" src="jquery.js"></script>
@@ -155,7 +155,7 @@ $(function() {
   </div>
 </div>
 <script type="text/javascript">
-$(function(){initNavTree('dir_5c982d53a68cdbcd421152b4020263a9.html','',''); });
+$(function(){initNavTree('structsys__chip__info__t.html','',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -180,8 +180,88 @@ $(function(){initNavTree('dir_5c982d53a68cdbcd421152b4020263a9.html','',''); });
 </div>
 </div>
 
+<div class="header">
+  <div class="headertitle"><div class="title">sys_chip_info_t Struct Reference</div></div>
+</div><!--header-->
 <div class="contents">
-<h3>main &rarr; components Relation</h3><table class="dirtab"><tr class="dirtab"><th class="dirtab">File in main</th><th class="dirtab">Includes file in components</th></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_7fed02aba1af4d50516013cfb328d613.html">button_actions</a>&#160;/&#160;<a class="el" href="dir_8e92c4fde5db8938218691e55da556e7.html">include</a>&#160;/&#160;<a class="el" href="button__actions_8h.html">button_actions.h</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_e073664c73731a1262262b3fccda7226.html">config</a>&#160;/&#160;<a class="el" href="dir_70d9713c73b59446dc8f13d8eb662fd8.html">include</a>&#160;/&#160;<a class="el" href="config_8h.html">config.h</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_7ac0bfc132cac1a5157e99849929797e.html">led</a>&#160;/&#160;<a class="el" href="dir_88ca3a5c15a0ab43faa23ddeb5a7f92d.html">include</a>&#160;/&#160;<a class="el" href="led_8h.html">led.h</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_902f11f9cffea26fcf374030c654fe09.html">logger</a>&#160;/&#160;<a class="el" href="dir_185bbfb63894318a3759ceac33df4a30.html">include</a>&#160;/&#160;<a class="el" href="logger_8h.html">logger.h</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_0a72549e2760402ada88361c3a2bfb8e.html">web_server</a>&#160;/&#160;<a class="el" href="dir_bb93161ea6067c3a15d1aeead5ac5044.html">include</a>&#160;/&#160;<a class="el" href="web__server_8h.html">web_server.h</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="dmx-interface_8c.html">dmx-interface.c</a></td><td class="dirtab"><a class="el" href="dir_0a72549e2760402ada88361c3a2bfb8e.html">web_server</a>&#160;/&#160;<a class="el" href="dir_bb93161ea6067c3a15d1aeead5ac5044.html">include</a>&#160;/&#160;<a class="el" href="wifi_8h.html">wifi.h</a></td></tr></table></div><!-- contents -->
+
+<p>Structure to hold static chip configuration details.  
+ <a href="#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="system_8h_source.html">system.h</a>&gt;</code></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr class="memitem:aae087b78a4a9bc84d299f7b4e0252f68" id="r_aae087b78a4a9bc84d299f7b4e0252f68"><td class="memItemLeft">const char *&#160;</td><td class="memItemRight"><a class="el" href="#aae087b78a4a9bc84d299f7b4e0252f68">model_name</a></td></tr>
+<tr class="memitem:a7d4e8539dc0769d6af273c79f7bc5d90" id="r_a7d4e8539dc0769d6af273c79f7bc5d90"><td class="memItemLeft">uint8_t&#160;</td><td class="memItemRight"><a class="el" href="#a7d4e8539dc0769d6af273c79f7bc5d90">cores</a></td></tr>
+<tr class="memitem:aef8b0be660e839762795e526a75b0a2b" id="r_aef8b0be660e839762795e526a75b0a2b"><td class="memItemLeft">uint32_t&#160;</td><td class="memItemRight"><a class="el" href="#aef8b0be660e839762795e526a75b0a2b">revision</a></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Structure to hold static chip configuration details. </p>
+
+<p class="definition">Definition at line <a class="el" href="system_8h_source.html#l00010">10</a> of file <a class="el" href="system_8h_source.html">system.h</a>.</p>
+</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Field Documentation</h2>
+<a id="a7d4e8539dc0769d6af273c79f7bc5d90" name="a7d4e8539dc0769d6af273c79f7bc5d90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d4e8539dc0769d6af273c79f7bc5d90">&#9670;&#160;</a></span>cores</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint8_t sys_chip_info_t::cores</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Number of CPU cores </p>
+
+<p class="definition">Definition at line <a class="el" href="system_8h_source.html#l00012">12</a> of file <a class="el" href="system_8h_source.html">system.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00124">system_get_chip_info()</a>, and <a class="el" href="system_8c_source.html#l00162">system_print_info()</a>.</p>
+
+</div>
+</div>
+<a id="aae087b78a4a9bc84d299f7b4e0252f68" name="aae087b78a4a9bc84d299f7b4e0252f68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae087b78a4a9bc84d299f7b4e0252f68">&#9670;&#160;</a></span>model_name</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* sys_chip_info_t::model_name</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Chip model name (e.g., "ESP32-S2") </p>
+
+<p class="definition">Definition at line <a class="el" href="system_8h_source.html#l00011">11</a> of file <a class="el" href="system_8h_source.html">system.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00124">system_get_chip_info()</a>, and <a class="el" href="system_8c_source.html#l00162">system_print_info()</a>.</p>
+
+</div>
+</div>
+<a id="aef8b0be660e839762795e526a75b0a2b" name="aef8b0be660e839762795e526a75b0a2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef8b0be660e839762795e526a75b0a2b">&#9670;&#160;</a></span>revision</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t sys_chip_info_t::revision</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Chip hardware revision number </p>
+
+<p class="definition">Definition at line <a class="el" href="system_8h_source.html#l00013">13</a> of file <a class="el" href="system_8h_source.html">system.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="system_8c_source.html#l00124">system_get_chip_info()</a>, and <a class="el" href="system_8c_source.html#l00162">system_print_info()</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>components/system/include/<a class="el" href="system_8h_source.html">system.h</a></li>
+</ul>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -195,7 +275,7 @@ $(function(){initNavTree('dir_5c982d53a68cdbcd421152b4020263a9.html','',''); });
 <!-- HTML footer for doxygen 1.16.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><ul>
-    <li class="navelem"><a href="dir_5c982d53a68cdbcd421152b4020263a9.html">main</a></li>
+    <li class="navelem"><a href="structsys__chip__info__t.html">sys_chip_info_t</a></li>
     <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
   </ul>
 </div>
