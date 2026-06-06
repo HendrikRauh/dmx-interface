@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['version_0',['version',['../struct____attribute____.html#a31d2a2fad37f62ce3919384a9a9845bb',1,'__attribute__']]]
+  ['used_5fbytes_0',['used_bytes',['../structstorage__info__t.html#ac9c0999e5a7b1427e4db2a311ea85045',1,'storage_info_t']]]
 ];
