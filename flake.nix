@@ -145,21 +145,6 @@
         cmake-format.enable = true;
 
         # Web-Files
-        prettier = {
-          enable = true;
-          types_or = [
-            "json"
-            "css"
-            "scss"
-            "html"
-            "yaml"
-          ];
-          excludes = ["\\.md$"];
-          args = [
-            "--write"
-            "--ignore-unknown"
-          ];
-        };
         html-tidy = {
           enable = true;
           files = "\\.(html|htm)$";
@@ -167,11 +152,11 @@
         };
         oxfmt = {
           enable = true;
-          args = ["--config" "web/.oxfmtrc.json"];
+          excludes = ["\\.svg"];
         };
         oxlint = {
           enable = true;
-          args = ["--config" "web/.oxlintrc.json"];
+          excludes = ["\\.svg"];
         };
 
         # Nix
