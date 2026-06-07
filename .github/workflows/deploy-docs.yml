@@ -4,6 +4,9 @@ name: gh-pages
 "on":
   push:
     branches: ["**", "!gh-pages"]
+  release:
+    types: [published, edited, deleted]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -21,15 +24,61 @@ jobs:
         uses: ./.github/actions/install-nix
 
       - name: Build Doxygen Documentation from flake devShell
+        if: github.event_name == 'push'
         run: |
           nix develop --command invoke docs
-          touch docs/doxygen/html/.nojekyll
         shell: bash
 
       - name: Deploy Branch Docs
+        if: github.event_name == 'push'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs/doxygen/html
           target-folder: branch/${{ github.ref_name }}
           clean: true
+
+      - name: Generate Releases JSON (Isolated in Temp Folder)
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p temp_meta
+
+          gh api repos/${{ github.repository }}/releases --paginate > github_releases.json
+
+          cat << 'EOF' > parse.js
+          const fs = require('fs');
+          try {
+            let data = JSON.parse(fs.readFileSync('github_releases.json', 'utf8'));
+
+            if (Array.isArray(data) && data.length > 0 && Array.isArray(data[0])) {
+              data = data.flat();
+            } else if (!Array.isArray(data)) {
+              data = [data].flat();
+            }
+
+            const output = data.map(release => ({
+              tag: release.tag_name,
+              assets: release.assets
+                .filter(a => a.name.endsWith('.bin'))
+                .map(a => ({ name: a.name, url: a.browser_download_url }))
+            })).filter(r => r.assets.length > 0);
+
+            fs.writeFileSync('temp_meta/releases.json', JSON.stringify(output, null, 2));
+          } catch (e) {
+            console.error("Error parsing releases:", e);
+            fs.writeFileSync('temp_meta/releases.json', '[]');
+          }
+          EOF
+          node parse.js
+        shell: bash
+
+      - name: Deploy ONLY releases.json to Subfolder
+        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: temp_meta
+          target-folder: flasher/meta
+          clean: false
