@@ -15,7 +15,7 @@ ______________________________________________________________________
 ## 🛒 Parts
 
 | Count | Part |
-| --- | --- |
+| --- :| --- |
 | 1x | ESP32 (Lolin S2 Mini) |
 | 2x | RS485 |
 | 1x | W5500-ETH |
@@ -43,10 +43,10 @@ The following diagram demonstrates how to wire the components together, in the t
 <img src="assets/circuit/diagram.svg" onerror="this.onerror=null; this.src='diagram.svg';" alt="Circuit diagram">
 
 | GPIO | Usage |
-| --- | --- |
+| ---: | --- |
 | GND | GND to others |
-| 3,3V | VIN on RS485 |
-| 5V/VBUS | VIN on W5500 |
+| 3,3 V | VIN on RS485 |
+| 5 V / VBUS | VIN on W5500 |
 | 0 | Onboard Button |
 | 5 | Ext. Button |
 | 7 | Ext. LED |
@@ -85,7 +85,7 @@ Feel free to design your own case (and maybe address the [issues with the curren
 In addition to the print you will need:
 
 | Count | Part | Location |
-| --- | --- | --- |
+| ---: | --- | --- |
 | 6x | M2x5 screw | Case lid, ESP32 |
 | 2x | M2.5x5 screw | W5500 |
 | 4x | M3 screw | XLR sockets |
