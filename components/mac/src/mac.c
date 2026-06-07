@@ -1,3 +1,8 @@
+/**
+ * @file mac.c
+ * @brief Implementation of MAC address retrieval for different connection
+ * types.
+ */
 
 #define LOG_TAG "MAC" ///< "MAC" log tag for this file
 

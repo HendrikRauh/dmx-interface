@@ -1,3 +1,8 @@
+/**
+ * @file mac.h
+ * @brief MAC address retrieval for different connection types.
+ */
+
 #pragma once
 
 #include "config.h"
