@@ -190,17 +190,18 @@ $(function(){initNavTree('index.html','',''); });
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-parts"></a>
 🛒 Parts</h1>
+<dl class="section note"><dt>Note</dt><dd>We linked some of our components in the table below, feel free to use a vendor and manufacturer of your choice.</dd></dl>
 <table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadRight">Count  </th><th class="markdownTableHeadNone">Part  </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone">ESP32 (Lolin S2 Mini)  </td></tr>
+<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone"><a href="https://de.aliexpress.com/item/1005006985001838.html?spm=a2g0o.order_list.order_list_main.212.23795c5fCZ7bIM&amp;gatewayAdapt=glo2deu">ESP32 (Lolin S2 Mini)</a>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyRight">2x  </td><td class="markdownTableBodyNone">RS485  </td></tr>
+<td class="markdownTableBodyRight">2x  </td><td class="markdownTableBodyNone"><a href="https://de.aliexpress.com/item/1005006391142478.html?spm=a2g0o.order_list.order_list_main.102.23795c5fCZ7bIM&amp;gatewayAdapt=glo2deu">RS485</a>  </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone">W5500-ETH  </td></tr>
+<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone"><a href="https://de.aliexpress.com/item/1005006127400904.html?spm=a2g0o.order_list.order_list_main.137.23795c5fCZ7bIM&amp;gatewayAdapt=glo2deu">W5500-ETH</a>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone">LED-Button  </td></tr>
+<td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone"><a href="https://de.aliexpress.com/item/1005003595039032.html?spm=a2g0o.order_list.order_list_main.35.23795c5fCZ7bIM&amp;gatewayAdapt=glo2deu">LED-Button</a>  </td></tr>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyRight">1x  </td><td class="markdownTableBodyNone">♂️-XLR-socket  </td></tr>
 <tr class="markdownTableRowEven">
@@ -348,13 +349,13 @@ Default config</h2>
 <p>We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the <span class="tt">buildInputs</span> section in <span class="tt">flake.nix</span>. If you are on Windows we recommend using <a href="https://learn.microsoft.com/en-us/windows/wsl/">WSL</a> and following the instructions below inside the WSL session. You might need to install <a href="https://github.com/dorssel/usbipd-win#how-to-install">usbipd-win</a> for usage of the usb pass-through</p>
 <h2 class="doxsection"><a class="anchor" id="setup-nix"></a>
 Setup NIX</h2>
-<p>For usage of the development environment, having the nix package manager with flakes-support installed on your system is required. There are two main ways how you can install the nix package manager on your system.</p>
+<p>For usage of the development environment, having the nix package manager with flakes-support installed on your system is required. There are two main ways to install the nix package manager on your system.</p>
 <h3 class="doxsection"><a class="anchor" id="via-terminatesystems-recommended"></a>
 via terminate.systems (recommended)</h3>
 <p>Have a look at <a href="https://determinate.systems/nix-installer/">their website</a>, there is a single command to run, after this you may restart the system or log out.</p>
 <h3 class="doxsection"><a class="anchor" id="via-nixosorg"></a>
 via nixos.org</h3>
-<p>If you want to use the bare nix installer visit <a href="https://nixos.org/download/">nixos.org/download</a> and follow the steps there. If you are done with the installation of nix you need to enable flakes support by adding the following line to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
+<p>If you want to use the bare nix installer visit <a href="https://nixos.org/download/">nixos.org/download</a> and follow the steps there. When you are done with the installation of nix you need to enable flakes support by adding the following line to your <span class="tt">~/.config/nix/nix.conf</span>:</p>
 <div class="fragment"><div class="line">experimental-features = nix-command flakes</div>
 </div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="setup-direnv-optional"></a>
 Setup direnv (optional)</h2>
