@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChaosDMX Web Flasher</title>
+    <script
+      type="module"
+      src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"
+    ></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>ChaosDMX Web Flasher</h1>
+
+    <div class="card">
+      <div class="radio-group">
+        <input
+          type="radio"
+          id="mode-github"
+          name="flash-mode"
+          value="github"
+          checked
+        />
+        <label for="mode-github">Use GitHub Release</label>
+
+        <input type="radio" id="mode-local" name="flash-mode" value="local" />
+        <label for="mode-local">Local File (.bin)</label>
+      </div>
+
+      <div id="sec-github">
+        <label for="release-select"
+          >Select a Release Asset (Offset: 0x0):</label
+        >
+        <select id="release-select">
+          <option value="">Loading latest releases...</option>
+        </select>
+      </div>
+
+      <div id="sec-local" class="hidden">
+        <label for="file-input"
+          >Choose local compiled binary (Offset: 0x0):</label
+        >
+        <input type="file" id="file-input" accept=".bin" />
+      </div>
+
+      <div id="flash-container" class="flash-section hidden"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

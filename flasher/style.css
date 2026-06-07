@@ -1,0 +1,155 @@
+:root {
+  --primary-color: #0284c7;
+  --primary-hover: #0369a1;
+  --background-color: #fafafa;
+  --card-background: #ffffff;
+  --text-primary: #171717;
+  --text-secondary: #525252;
+  --border-color: #e5e5e5;
+
+  --font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  --radius: 8px;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  padding: 60px 20px;
+  max-width: 540px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-top: 0;
+  margin-bottom: 28px;
+}
+
+.card {
+  background: var(--card-background);
+  padding: 32px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow:
+    0 1px 3px 0 rgba(0, 0, 0, 0.05),
+    0 1px 2px -1px rgba(0, 0, 0, 0.05);
+}
+
+.radio-group {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.radio-group input[type="radio"] {
+  accent-color: var(--primary-color);
+  margin: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+select,
+input[type="file"] {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 14px;
+  font-family: var(--font-family);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: var(--card-background);
+  color: var(--text-primary);
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+select:focus,
+input[type="file"]:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.15);
+}
+
+input[type="file"]::file-selector-button {
+  font-family: var(--font-family);
+  font-size: 13px;
+  font-weight: 500;
+  background: #f4f4f5;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 4px 10px;
+  margin-right: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: #e4e4e7;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.flash-section {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-color);
+}
+
+esp-web-install-button {
+  --esp-tools-button-color: var(--primary-color);
+  --esp-tools-button-text-color: #ffffff;
+}
+
+esp-web-install-button::part(button) {
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: var(--radius);
+  padding: 12px 32px;
+  background-color: var(--primary-color);
+  border: none;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+  cursor: pointer;
+}
+
+esp-web-install-button::part(button):hover {
+  background-color: var(--primary-hover);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
