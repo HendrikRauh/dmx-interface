@@ -25,6 +25,7 @@ jobs:
           submodules: recursive
 
       - name: Install Nix and pre-warm flake devShell
+        if: github.event_name == 'push'
         uses: ./.github/actions/install-nix
 
       - name: Build Doxygen Documentation from flake devShell
