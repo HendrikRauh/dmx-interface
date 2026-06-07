@@ -1,0 +1,50 @@
+# spell: ignore: softprops
+
+name: Release
+
+"on":
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+-rc*"
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Install Nix and pre-warm flake devShell
+        uses: ./.github/actions/install-nix
+
+      - name: Run release build from flake devShell
+        run: |
+          nix develop --command invoke release
+        shell: bash
+
+      - name: Determine Pre-release Status
+        id: check_prerelease
+        run: |
+          if [[ "$GITHUB_REF_NAME" == *-rc* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+          fi
+        shell: bash
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ steps.check_prerelease.outputs.prerelease == 'true' }}
+          generate_release_notes: true
+          files: |
+            dist/*.bin
