@@ -14,12 +14,15 @@ ______________________________________________________________________
 
 ## 🛒 Parts
 
+> [!NOTE]
+> We linked some of our components in the table below, feel free to use a vendor and manufacturer of your choice.
+
 | Count | Part |
 | ---: | --- |
-| 1x | ESP32 (Lolin S2 Mini) |
-| 2x | RS485 |
-| 1x | W5500-ETH |
-| 1x | LED-Button |
+| 1x | [ESP32 (Lolin S2 Mini)](https://de.aliexpress.com/item/1005006985001838.html?spm=a2g0o.order_list.order_list_main.212.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 2x | [RS485](https://de.aliexpress.com/item/1005006391142478.html?spm=a2g0o.order_list.order_list_main.102.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 1x | [W5500-ETH](https://de.aliexpress.com/item/1005006127400904.html?spm=a2g0o.order_list.order_list_main.137.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 1x | [LED-Button](https://de.aliexpress.com/item/1005003595039032.html?spm=a2g0o.order_list.order_list_main.35.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
 | 1x | ♂️-XLR-socket |
 | 1x | ♀️-XLR-socket |
 
@@ -136,7 +139,7 @@ If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us
 ### Setup NIX
 
 For usage of the development environment, having the nix package manager with flakes-support installed on your system is required.
-There are two main ways how you can install the nix package manager on your system.
+There are two main ways to install the nix package manager on your system.
 
 #### via terminate.systems (recommended)
 
@@ -144,7 +147,7 @@ Have a look at [their website](https://determinate.systems/nix-installer/), ther
 
 #### via nixos.org
 
-If you want to use the bare nix installer visit [nixos.org/download](https://nixos.org/download/) and follow the steps there. If you are done with the installation of nix you need to enable flakes support by adding the following line to your `~/.config/nix/nix.conf`:
+If you want to use the bare nix installer visit [nixos.org/download](https://nixos.org/download/) and follow the steps there. When you are done with the installation of nix you need to enable flakes support by adding the following line to your `~/.config/nix/nix.conf`:
 
 ```conf
 experimental-features = nix-command flakes
