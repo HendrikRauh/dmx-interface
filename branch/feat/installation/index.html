@@ -258,10 +258,10 @@ $(function(){initNavTree('index.html','',''); });
 <h1 class="doxsection"><a class="anchor" id="autotoc_md-installation"></a>
 🚀 Installation</h1>
 <ol type="1">
-<li>Install <a href="https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html">ESP-IDF</a> (<span class="tt">idf.py</span>) on your system</li>
-<li>Connect the ESP32 to your computer via USB</li>
-<li>Flash the firmware by running <span class="tt">idf.py flash</span> or if you have <a href="https://www.pyinvoke.org/">invoke</a> installed: <span class="tt">inv flash</span> in the project folder</li>
-<li>(optional) Monitor the serial output using <span class="tt">idf.py monitor</span> or <span class="tt">inv monitor</span></li>
+<li>Connect the ESP32 to your computer using a USB cable.</li>
+<li>Flash the firmware to the ESP32 using the provided <a href="https://hendrikrauh.github.io/dmx-interface/flasher/">flash tool</a> or by using a command line tool of your choice (e.g., <span class="tt">esptool.py</span>).<br  />
+You can find the latest firmware release on the <a href="https://github.com/HendrikRauh/dmx-interface/releases">releases page</a>.</li>
+<li>Connect to the WiFi network with the <a class="el" href="#default-config" title="Default config">default configuration</a> and access the web interface.</li>
 </ol>
 <dl class="section remark"><dt>Remarks</dt><dd>If the ESP32 does not show up as a serial device, you might need to place it in bootloader mode.</dd></dl>
 <hr  />
