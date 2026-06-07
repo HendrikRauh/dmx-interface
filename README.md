@@ -64,10 +64,9 @@ ______________________________________________________________________
 
 ## 🚀 Installation
 
-1. Install [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html) (`idf.py`) on your system
-2. Connect the ESP32 to your computer via USB
-3. Flash the firmware by running `idf.py flash` or if you have [invoke](https://www.pyinvoke.org/) installed: `inv flash` in the project folder
-4. (optional) Monitor the serial output using `idf.py monitor` or `inv monitor`
+1. Connect the ESP32 to your computer using a USB cable.
+2. Flash the firmware to the ESP32 using the provided [flash tool](https://hendrikrauh.github.io/dmx-interface/flasher/) or by using a command line tool of your choice (e.g., `esptool.py`).<br>You can find the latest firmware release on the [releases page](https://github.com/HendrikRauh/dmx-interface/releases).
+3. Connect to the WiFi network with the [default configuration](#default-config) and access the web interface.
 
 > [!TIP]
 > If the ESP32 does not show up as a serial device, you might need to place it in bootloader mode.
