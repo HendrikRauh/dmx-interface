@@ -1,0 +1,5 @@
+<map id="config_init" name="config_init">
+<area shape="rect" id="Node000001" title="Initializes the configuration component." alt="" coords="5,5,94,33"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#ae211c3834b90a3f0d253ae52051471e0" title="Restores all configuration fields to their factory&#45;defined values in RAM." alt="" coords="142,5,304,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="94,16,126,16,126,22,94,22"/>
+</map>

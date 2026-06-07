@@ -1,0 +1,10 @@
+<map id="led_set_mode" name="led_set_mode">
+<area shape="rect" id="Node000001" title="Sets the current operational mode of the LED." alt="" coords="5,7,118,34"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="571,5,688,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,14,166,13,378,11,556,14,556,20,378,17,166,18,118,20"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="166,28,329,72"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,27,151,32,150,37,118,32"/>
+<area shape="rect" id="Node000004" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="377,31,523,58"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="329,45,361,44,361,49,330,50"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="523,31,555,27,556,32,524,37"/>
+</map>

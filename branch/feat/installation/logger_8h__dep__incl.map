@@ -1,0 +1,24 @@
+<map id="components/logger/include/logger.h" name="components/logger/include/logger.h">
+<area shape="rect" id="Node000001" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="523,5,721,50"/>
+<area shape="rect" id="Node000002" href="$button__actions_8c.html" title="Dynamic hardware button execution mapped directly to app configuration." alt="" coords="5,191,207,235"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="509,49,412,70,312,101,264,122,216,146,139,192,137,188,214,141,261,117,310,95,410,65,508,44"/>
+<area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="230,191,398,235"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="508,47,408,69,367,83,341,100,327,120,319,144,315,190,310,190,314,143,323,118,337,96,365,79,406,64,507,42"/>
+<area shape="rect" id="Node000004" href="$led_8h.html" title="LED control component with flexible blinking and breathing modes." alt="" coords="351,98,528,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="566,60,484,100,482,95,563,55"/>
+<area shape="rect" id="Node000006" href="$dmx-interface_8c.html" title=" " alt="" coords="593,199,755,227"/>
+<area shape="poly" id="edge12_Node000001_Node000006" title=" " alt="" coords="602,64,589,103,587,123,592,142,603,159,618,174,650,196,647,201,614,178,599,162,588,144,582,123,583,102,597,63"/>
+<area shape="rect" id="Node000007" href="$storage_8c.html" title=" " alt="" coords="602,98,756,143"/>
+<area shape="poly" id="edge8_Node000001_Node000007" title=" " alt="" coords="646,61,668,96,664,99,641,64"/>
+<area shape="rect" id="Node000008" href="$system_8c.html" title=" " alt="" coords="780,98,957,143"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="696,53,811,95,809,100,694,58"/>
+<area shape="rect" id="Node000009" href="$web__server_8c.html" title=" " alt="" coords="981,98,1162,143"/>
+<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="737,49,969,95,981,98,980,103,968,101,735,54"/>
+<area shape="rect" id="Node000010" href="$wifi_8c.html" title=" " alt="" coords="1185,98,1366,143"/>
+<area shape="poly" id="edge11_Node000001_Node000010" title=" " alt="" coords="736,38,941,62,1174,95,1185,97,1184,102,1174,101,940,67,736,43"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="346,150,186,193,185,188,344,145"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="399,154,345,192,342,188,396,150"/>
+<area shape="rect" id="Node000005" href="$led_8c.html" title="Implementation of LEDC&#45;driven status LED with dynamic generator." alt="" coords="421,191,570,235"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="463,155,484,189,480,192,458,157"/>
+<area shape="poly" id="edge7_Node000004_Node000006" title=" " alt="" coords="511,146,641,196,639,201,509,151"/>
+</map>

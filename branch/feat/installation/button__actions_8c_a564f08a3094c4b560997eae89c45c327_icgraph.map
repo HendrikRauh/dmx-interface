@@ -1,0 +1,5 @@
+<map id="button_init" name="button_init">
+<area shape="rect" id="Node000001" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,5,230,33"/>
+<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="123,22,91,22,91,16,123,16"/>
+</map>

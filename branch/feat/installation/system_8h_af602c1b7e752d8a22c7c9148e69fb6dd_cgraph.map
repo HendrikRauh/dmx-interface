@@ -1,0 +1,5 @@
+<map id="system_get_max_temperature" name="system_get_max_temperature">
+<area shape="rect" id="Node000001" title="Gets the highest recorded CPU temperature since boot." alt="" coords="5,5,227,33"/>
+<area shape="rect" id="Node000002" href="$system_8c.html#aa0583f6910d1eeab9673273fa671d893" title="Gets the current internal CPU temperature." alt="" coords="275,5,460,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="227,16,259,16,259,22,227,22"/>
+</map>

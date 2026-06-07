@@ -1,0 +1,7 @@
+<map id="components/button_actions/include/button_actions.h" name="components/button_actions/include/button_actions.h">
+<area shape="rect" id="Node000001" title="Hardware button abstraction layer for short and long press detection." alt="" coords="108,5,309,50"/>
+<area shape="rect" id="Node000002" href="$button__actions_8c.html" title="Dynamic hardware button execution mapped directly to app configuration." alt="" coords="5,98,207,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="175,62,132,100,129,96,171,58"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html" title=" " alt="" coords="231,106,392,134"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="246,58,298,104,295,108,242,62"/>
+</map>
