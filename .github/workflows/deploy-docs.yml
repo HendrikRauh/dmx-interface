@@ -6,6 +6,10 @@ name: gh-pages
     branches: ["**", "!gh-pages"]
   release:
     types: [published, edited, deleted]
+  workflow_run:
+    workflows: ["Release"]
+    types:
+      - completed
   workflow_dispatch:
 
 permissions:
@@ -39,7 +43,10 @@ jobs:
           clean: true
 
       - name: Generate Releases JSON (Isolated in Temp Folder)
-        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        if: >
+          github.event_name == 'release' ||
+          github.event_name == 'workflow_dispatch' ||
+          github.event_name == 'workflow_run'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -75,7 +82,10 @@ jobs:
         shell: bash
 
       - name: Deploy ONLY releases.json to Subfolder
-        if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+        if: >
+          github.event_name == 'release' ||
+          github.event_name == 'workflow_dispatch' ||
+          github.event_name == 'workflow_run'
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
