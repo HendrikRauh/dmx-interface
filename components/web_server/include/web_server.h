@@ -54,6 +54,20 @@ void webserver_stop(httpd_handle_t server);
 esp_err_t webserver_register_handler(httpd_handle_t server,
                                      const httpd_uri_t *uri_handler);
 
+/**
+ * @brief Register an array of custom URI handlers.
+ *
+ * This allows dynamic registration of API endpoints and other custom handlers.
+ *
+ * @param server HTTP server handle.
+ * @param routes Array of URI handlers to register.
+ * @param count Number of URI handlers in the array.
+ * @return ESP_OK on success, error code otherwise.
+ */
+esp_err_t webserver_register_handler_array(httpd_handle_t server,
+                                           const httpd_uri_t *routes,
+                                           size_t count);
+
 #ifdef __cplusplus
 }
 #endif

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "config_routes.h"
 #include "esp_err.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -129,15 +130,6 @@ static esp_err_t static_file_handler(httpd_req_t *req) {
 }
 
 /**
- * @brief HTTP handler for API health check (GET /api/health)
- */
-static esp_err_t health_check_handler(httpd_req_t *req) {
-  httpd_resp_set_type(req, "application/json");
-  httpd_resp_sendstr(req, "{\"status\":\"ok\"}");
-  return ESP_OK;
-}
-
-/**
  * @brief FreeRTOS task function for the HTTP server.
  * Allows non-blocking server operation and future extensibility.
  */
@@ -206,15 +198,12 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
 
   LOGI("HTTP server started on port %d", port);
 
-  // Register default handlers
-  // Health check endpoint
-  httpd_uri_t health_uri = {
-      .uri = "/api/health",
-      .method = HTTP_GET,
-      .handler = health_check_handler,
-      .user_ctx = NULL,
-  };
-  httpd_register_uri_handler(s_server_handle, &health_uri);
+  const httpd_uri_t *routes = NULL;
+  size_t route_count = 0;
+
+  // Register config routes
+  route_count = get_config_routes(&routes);
+  webserver_register_handler_array(s_server_handle, routes, route_count);
 
   // Wildcard handler for static files from LittleFS (must be last)
   httpd_uri_t file_uri = {
@@ -290,4 +279,24 @@ esp_err_t webserver_register_handler(httpd_handle_t server,
   }
 
   return ret;
+}
+
+/**
+ * @brief Helper function to register an array of URI handlers with the HTTP
+ * server.
+ * @param server Handle to the HTTP server instance
+ * @param routes Array of URI handlers to register
+ * @param count Number of URI handlers in the array
+ * @return ESP_OK on success, or an error code on failure
+ */
+esp_err_t webserver_register_handler_array(httpd_handle_t server,
+                                           const httpd_uri_t *routes,
+                                           size_t count) {
+  for (size_t i = 0; i < count; i++) {
+    esp_err_t ret = webserver_register_handler(server, &routes[i]);
+    if (ret != ESP_OK) {
+      return ret;
+    }
+  }
+  return ESP_OK;
 }

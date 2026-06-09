@@ -379,25 +379,41 @@ void config_get_wifi_sta_config(wifi_config_t *dest) {
   UNLOCK();
 }
 
-bool config_set_wifi_sta_config(const wifi_config_t *src) {
-  if (!s_is_initialized || !src)
+bool config_set_wifi_sta_ssid(const char *ssid) {
+  if (!s_is_initialized || !ssid)
     return false;
 
-  if (strnlen((const char *)src->sta.ssid, 32) == 32 ||
-      strnlen((const char *)src->sta.password, 64) == 64) {
-    LOGE("Wi-Fi credentials are not null-terminated or too long!");
+  if (strnlen(ssid, 32) == 32) {
+    LOGE("SSID is not null-terminated or too long!");
     return false;
   }
   LOCK();
-  if (memcmp(s_config.wifi_sta.ssid, src->sta.ssid,
-             sizeof(s_config.wifi_sta.ssid)) == 0 &&
-      memcmp(s_config.wifi_sta.password, src->sta.password,
+  if (memcmp(s_config.wifi_sta.ssid, ssid, sizeof(s_config.wifi_sta.ssid)) ==
+      0) {
+    UNLOCK();
+    return false;
+  }
+  memcpy(s_config.wifi_sta.ssid, ssid, sizeof(s_config.wifi_sta.ssid));
+  s_is_dirty = true;
+  UNLOCK();
+  return true;
+}
+
+bool config_set_wifi_sta_password(const char *password) {
+  if (!s_is_initialized || !password)
+    return false;
+
+  if (strnlen(password, 64) == 64) {
+    LOGE("Password is not null-terminated or too long!");
+    return false;
+  }
+  LOCK();
+  if (memcmp(s_config.wifi_sta.password, password,
              sizeof(s_config.wifi_sta.password)) == 0) {
     UNLOCK();
     return false;
   }
-  memcpy(s_config.wifi_sta.ssid, src->sta.ssid, sizeof(s_config.wifi_sta.ssid));
-  memcpy(s_config.wifi_sta.password, src->sta.password,
+  memcpy(s_config.wifi_sta.password, password,
          sizeof(s_config.wifi_sta.password));
   s_is_dirty = true;
   UNLOCK();
@@ -415,26 +431,40 @@ void config_get_wifi_ap_config(wifi_config_t *dest) {
   UNLOCK();
 }
 
-bool config_set_wifi_ap_config(const wifi_config_t *src) {
-  if (!s_is_initialized || !src)
+bool config_set_wifi_ap_ssid(const char *ssid) {
+  if (!s_is_initialized || !ssid)
     return false;
 
-  if (strnlen((const char *)src->ap.ssid, 32) == 32 ||
-      strnlen((const char *)src->ap.password, 64) == 64) {
-    LOGE("Wi-Fi credentials are not null-terminated or too long!");
+  if (strnlen(ssid, 32) == 32) {
+    LOGE("SSID is not null-terminated or too long!");
     return false;
   }
-
   LOCK();
-  if (memcmp(s_config.wifi_ap.ssid, src->ap.ssid,
-             sizeof(s_config.wifi_ap.ssid)) == 0 &&
-      memcmp(s_config.wifi_ap.password, src->ap.password,
+  if (memcmp(s_config.wifi_ap.ssid, ssid, sizeof(s_config.wifi_ap.ssid)) == 0) {
+    UNLOCK();
+    return false;
+  }
+  memcpy(s_config.wifi_ap.ssid, ssid, sizeof(s_config.wifi_ap.ssid));
+  s_is_dirty = true;
+  UNLOCK();
+  return true;
+}
+
+bool config_set_wifi_ap_password(const char *password) {
+  if (!s_is_initialized || !password)
+    return false;
+
+  if (strnlen(password, 64) == 64) {
+    LOGE("Password is not null-terminated or too long!");
+    return false;
+  }
+  LOCK();
+  if (memcmp(s_config.wifi_ap.password, password,
              sizeof(s_config.wifi_ap.password)) == 0) {
     UNLOCK();
     return false;
   }
-  memcpy(s_config.wifi_ap.ssid, src->ap.ssid, sizeof(s_config.wifi_ap.ssid));
-  memcpy(s_config.wifi_ap.password, src->ap.password,
+  memcpy(s_config.wifi_ap.password, password,
          sizeof(s_config.wifi_ap.password));
   s_is_dirty = true;
   UNLOCK();
@@ -479,7 +509,7 @@ config_button_action_t config_get_button_action(app_button_event_t event) {
  */
 bool config_set_button_action(app_button_event_t event,
                               config_button_action_t action) {
-  if (!s_is_initialized || action >= APP_BUTTON_ACTION_MAX)
+  if (!s_is_initialized || action > APP_BUTTON_ACTION_MAX)
     return false;
   LOCK();
   uint8_t *target = NULL;

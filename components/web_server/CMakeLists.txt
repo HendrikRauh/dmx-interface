@@ -1,9 +1,14 @@
 idf_component_register(
   SRCS
+  "src/config_routes.c"
+  "src/json_processor.c"
   "src/web_server.c"
+  "src/web_server_util.c"
   "src/wifi.c"
   INCLUDE_DIRS
   "include"
+  PRIV_INCLUDE_DIRS
+  "priv_include"
   REQUIRES
   esp_http_server
   storage
@@ -12,5 +17,7 @@ idf_component_register(
   esp_wifi
   esp_event
   esp_netif
+  cjson
   nvs_flash
+  config
   logger)

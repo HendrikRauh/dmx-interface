@@ -24,6 +24,16 @@ extern "C" {
 #define APP_CONFIG_DMX_PORT_COUNT 2
 
 /**
+ * @brief Maximum valid DMX universe number
+ */
+#define APP_CONFIG_MAX_UNIVERSE 32768
+
+/**
+ * @brief Maximum valid LED brightness value
+ */
+#define APP_CONFIG_MAX_LED_BRIGHTNESS 255
+
+/**
  * @brief Error/Invalid indicator for DMX universe.
  */
 #define APP_CONFIG_INVALID_UNIVERSE 0xFFFF
@@ -34,10 +44,13 @@ extern "C" {
 typedef enum {
   APP_BUTTON_EVENT_SINGLE_CLICK,   /**< Triggered on a single short press */
   APP_BUTTON_EVENT_DOUBLE_CLICK,   /**< Triggered on a rapid double press */
-  APP_BUTTON_EVENT_MULTIPLE_CLICK, /**< Triggered on multiple rapid presses */
-  APP_BUTTON_EVENT_LONG_HOLD, /**< Triggered once long-press duration is reached
-                               */
-  APP_BUTTON_EVENT_MAX
+  APP_BUTTON_EVENT_MULTIPLE_CLICK, /**< Triggered on multiple rapid presses
+                                    */
+  APP_BUTTON_EVENT_LONG_HOLD,      /**< Triggered once long-press duration is
+                                    * reached
+                                    */
+  APP_BUTTON_EVENT_MIN = APP_BUTTON_EVENT_SINGLE_CLICK, /**< Boundary marker */
+  APP_BUTTON_EVENT_MAX = APP_BUTTON_EVENT_LONG_HOLD     /**< Boundary marker */
 } app_button_event_t;
 
 /**
@@ -47,7 +60,8 @@ typedef enum {
   APP_BUTTON_ACTION_NONE = 0,   /**< Do nothing */
   APP_BUTTON_ACTION_TOGGLE_LED, /**< Toggle status LEDs or change brightness */
   APP_BUTTON_ACTION_REBOOT,     /**< Restart the ESP*/
-  APP_BUTTON_ACTION_MAX
+  APP_BUTTON_ACTION_MIN = APP_BUTTON_ACTION_NONE,  /** Boundary marker */
+  APP_BUTTON_ACTION_MAX = APP_BUTTON_ACTION_REBOOT /** Boundary marker */
 } config_button_action_t;
 
 /**
@@ -55,7 +69,9 @@ typedef enum {
  */
 typedef enum {
   APP_CONFIG_IP_STATIC = 0, /**< Use a static IP address config */
-  APP_CONFIG_IP_DHCP        /**< Obtain IP address via DHCP */
+  APP_CONFIG_IP_DHCP,       /**< Obtain IP address via DHCP */
+  APP_CONFIG_IP_METHOD_MIN = APP_CONFIG_IP_STATIC, /**< Boundary marker */
+  APP_CONFIG_IP_METHOD_MAX = APP_CONFIG_IP_DHCP    /**< Boundary marker */
 } config_ip_method_t;
 
 /**
@@ -63,17 +79,20 @@ typedef enum {
  */
 typedef enum {
   APP_CONFIG_CONN_WIFI_AP = 0, /**< Act as a Wi-Fi Access Point */
-  APP_CONFIG_CONN_WIFI_STA, /**< Connect to an existing Wi-Fi network (Station)
-                             */
-  APP_CONFIG_CONN_ETHERNET  /**< Wired Ethernet connection */
+  APP_CONFIG_CONN_WIFI_STA,    /**< Connect to an Wi-Fi network (Station) */
+  APP_CONFIG_CONN_ETHERNET,    /**< Wired Ethernet connection */
+  APP_CONFIG_CONN_MIN = APP_CONFIG_CONN_WIFI_AP, /**< Boundary marker */
+  APP_CONFIG_CONN_MAX = APP_CONFIG_CONN_ETHERNET /**< Boundary marker */
 } config_connection_t;
 
 /**
  * @brief Data direction for dmx-port.
  */
 typedef enum {
-  APP_CONFIG_DIR_OUTPUT = 0, /**< Port acts as an output */
-  APP_CONFIG_DIR_INPUT       /**< Port acts as an input */
+  APP_CONFIG_DIR_OUTPUT = 0,                  /**< Port acts as an output */
+  APP_CONFIG_DIR_INPUT,                       /**< Port acts as an input */
+  APP_CONFIG_DIR_MIN = APP_CONFIG_DIR_OUTPUT, /**< Boundary marker */
+  APP_CONFIG_DIR_MAX = APP_CONFIG_DIR_INPUT   /**< Boundary marker */
 } config_direction_t;
 
 /**
@@ -247,11 +266,18 @@ bool config_set_dmx_direction(uint8_t port_index, config_direction_t direction);
 void config_get_wifi_sta_config(wifi_config_t *dest);
 
 /**
- * @brief Sets the Wi-Fi Station mode configuration in RAM.
- * @param[in] src Pointer to a wifi_config_t struct containing the new config.
+ * @brief Sets the Wi-Fi Station SSID in RAM.
+ * @param[in] src SSID string to apply (max 32 chars).
  * @return true if updated, false if invalid or unchanged.
  */
-bool config_set_wifi_sta_config(const wifi_config_t *src);
+bool config_set_wifi_sta_ssid(const char *ssid);
+
+/**
+ * @brief Sets the Wi-Fi Station password in RAM.
+ * @param[in] src Password string to apply (max 64 chars).
+ * @return true if updated, false if invalid or unchanged.
+ */
+bool config_set_wifi_sta_password(const char *password);
 
 /**
  * @brief Gets the Wi-Fi Access Point mode configuration.
@@ -260,11 +286,18 @@ bool config_set_wifi_sta_config(const wifi_config_t *src);
 void config_get_wifi_ap_config(wifi_config_t *dest);
 
 /**
- * @brief Sets the Wi-Fi Access Point mode configuration in RAM.
- * @param[in] src Pointer to a wifi_config_t struct containing the new config.
+ * @brief Sets the Wi-Fi Access Point SSID in RAM.
+ * @param[in] src SSID string to apply (max 32 chars).
  * @return true if updated, false if invalid or unchanged.
  */
-bool config_set_wifi_ap_config(const wifi_config_t *src);
+bool config_set_wifi_ap_ssid(const char *ssid);
+
+/**
+ * @brief Sets the Wi-Fi Access Point password in RAM.
+ * @param[in] src Password string to apply (max 64 chars).
+ * @return true if updated, false if invalid or unchanged.
+ */
+bool config_set_wifi_ap_password(const char *password);
 
 
 #ifdef __cplusplus
