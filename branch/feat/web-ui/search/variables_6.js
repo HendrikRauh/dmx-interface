@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['magic_0',['magic',['../struct____attribute____.html#a355adfb4bf7d1cdba8e744e8f8a911ce',1,'__attribute__']]],
-  ['max_5fmeasured_5ftemp_1',['max_measured_temp',['../system_8c.html#a9cb3d3a76a9410d4efce65fb74a676f1',1,'system.c']]],
-  ['max_5furi_5fhandlers_2',['max_uri_handlers',['../structwebserver__config__t.html#ab58318e6e968285ec7e44723369ac4f3',1,'webserver_config_t']]],
-  ['model_5fname_3',['model_name',['../structsys__chip__info__t.html#aae087b78a4a9bc84d299f7b4e0252f68',1,'sys_chip_info_t']]]
+  ['ip_5fmethod_0',['ip_method',['../struct____attribute____.html#a5a5351a6cd663c84fc94f480ab883202',1,'__attribute__']]],
+  ['is_5fmounted_1',['is_mounted',['../storage_8c.html#af37d8a9de667e1f1b4b8cfda020f33a5',1,'storage.c']]],
+  ['item_5fprocessor_2',['item_processor',['../structjson__processor__array__t.html#a549f77636ff8f2f5c1aba738917828f0',1,'json_processor_array_t']]]
 ];

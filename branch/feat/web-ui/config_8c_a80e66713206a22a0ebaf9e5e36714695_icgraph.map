@@ -1,0 +1,5 @@
+<map id="config_get_wifi_sta_config" name="config_get_wifi_sta_config">
+<area shape="rect" id="Node000001" title="Gets the Wi&#45;Fi Station mode configuration." alt="" coords="198,5,343,50"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2" title="Handler for GET requests to /api/config." alt="" coords="5,14,150,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,30,150,30,150,25,182,25"/>
+</map>

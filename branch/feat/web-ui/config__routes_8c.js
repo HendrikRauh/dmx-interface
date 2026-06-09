@@ -1,0 +1,28 @@
+var config__routes_8c =
+[
+    [ "KEY_CONNECTION", "config__routes_8c.html#ab8e55ee34bebd89db51872b2b932dbfb", null ],
+    [ "KEY_DMX_DIRECTION", "config__routes_8c.html#a4ab6f153ffae98bc3f22571ea4a39d5f", null ],
+    [ "KEY_DMX_PORT_INDEX", "config__routes_8c.html#aa32b6826cbc311dfd0a48ebe4a342cbb", null ],
+    [ "KEY_DMX_PORTS", "config__routes_8c.html#a2dde8c46b28f15e15df3b44a6c9b7e68", null ],
+    [ "KEY_IP_METHOD", "config__routes_8c.html#a77bed0fe0b0c1e623baaffe1fc77a302", null ],
+    [ "KEY_LED_BRIGHTNESS", "config__routes_8c.html#ac4e16248f70d9eabd3b7331e7ac9ba01", null ],
+    [ "KEY_PASSWORD", "config__routes_8c.html#a11298aff27deda97c2bcbb7c12696292", null ],
+    [ "KEY_SSID", "config__routes_8c.html#a6aff84331d73077c42b109e5a83de180", null ],
+    [ "KEY_UNIVERSE", "config__routes_8c.html#a0cd6bb4db4582650538223ef082b90a3", null ],
+    [ "KEY_WIFI_AP_CONFIG", "config__routes_8c.html#ab1bfc6887f18a37734fdb5bad7655f9c", null ],
+    [ "KEY_WIFI_STATION_CONFIG", "config__routes_8c.html#a983b655d091e0753f304522c62e2cc2f", null ],
+    [ "LOG_TAG", "config__routes_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6", null ],
+    [ "action_set_connection", "config__routes_8c.html#a592c3cf2d31818300bef2f2066927108", null ],
+    [ "action_set_ip_method", "config__routes_8c.html#a74ff98be3ac220564063ff7173742236", null ],
+    [ "action_set_led_brightness", "config__routes_8c.html#ad25cea1c08f7a54d51ff9b8065ce3b48", null ],
+    [ "action_set_port_config", "config__routes_8c.html#a695e889152f8530c15ed3286a807aa5f", null ],
+    [ "action_set_wifi_ap_config", "config__routes_8c.html#a953a106faa946387e06e4f1397546f5d", null ],
+    [ "action_set_wifi_sta_config", "config__routes_8c.html#ae44e5a7a4927b8c60807ddc25137c3b8", null ],
+    [ "get_config_handler", "config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2", null ],
+    [ "get_config_routes", "config__routes_8c.html#a0fdf8dcf5f44030aa7de3e1c0d6f22c3", null ],
+    [ "post_config_handler", "config__routes_8c.html#a4c2742039454d8db8617a376e24f8e5b", null ],
+    [ "dmx_port_processor", "config__routes_8c.html#af354bfbe94bf5b33909d60b1abd656d4", null ],
+    [ "processor", "config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888", null ],
+    [ "routes", "config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e", null ],
+    [ "wifi_config_entries_processor", "config__routes_8c.html#a5b60764b6d3a197186f5685e875972cd", null ]
+];

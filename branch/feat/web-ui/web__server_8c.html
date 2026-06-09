@@ -189,6 +189,7 @@ $(function(){initNavTree('web__server_8c.html','',''); });
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="config__routes_8h_source.html">config_routes.h</a>&quot;</code><br />
 <code>#include &quot;esp_err.h&quot;</code><br />
 <code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
 <code>#include &quot;freertos/task.h&quot;</code><br />
@@ -221,8 +222,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:a40f36853d75f35777d20f32d31fcd129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get MIME type based on file extension.  <br /></td></tr>
 <tr class="memitem:a384bdfcbaf6b7332f9da73c0c667314f" id="r_a384bdfcbaf6b7332f9da73c0c667314f"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a384bdfcbaf6b7332f9da73c0c667314f">static_file_handler</a> (httpd_req_t *req)</td></tr>
 <tr class="memdesc:a384bdfcbaf6b7332f9da73c0c667314f"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP handler for static files from LittleFS.  <br /></td></tr>
-<tr class="memitem:af26c5903f907fb3d73fe269a81809275" id="r_af26c5903f907fb3d73fe269a81809275"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#af26c5903f907fb3d73fe269a81809275">health_check_handler</a> (httpd_req_t *req)</td></tr>
-<tr class="memdesc:af26c5903f907fb3d73fe269a81809275"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP handler for API health check (GET /api/health).  <br /></td></tr>
 <tr class="memitem:a642a431098c8aa6cd1adb4282b063e06" id="r_a642a431098c8aa6cd1adb4282b063e06"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a642a431098c8aa6cd1adb4282b063e06">webserver_task</a> (void *arg)</td></tr>
 <tr class="memdesc:a642a431098c8aa6cd1adb4282b063e06"><td class="mdescLeft">&#160;</td><td class="mdescRight">FreeRTOS task function for the HTTP server. Allows non-blocking server operation and future extensibility.  <br /></td></tr>
 <tr class="memitem:aaeff4de8303b44312aa851f3b7211b1d" id="r_aaeff4de8303b44312aa851f3b7211b1d"><td class="memItemLeft">httpd_handle_t&#160;</td><td class="memItemRight"><a class="el" href="#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a> (const <a class="el" href="structwebserver__config__t.html">webserver_config_t</a> *config)</td></tr>
@@ -231,6 +230,8 @@ Functions</h2></td></tr>
 <tr class="memdesc:a8f90e2a598a55079be4b774202e16dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the web server and clean up resources.  <br /></td></tr>
 <tr class="memitem:a59de75410c50a6ebac8de34c4560758e" id="r_a59de75410c50a6ebac8de34c4560758e"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a59de75410c50a6ebac8de34c4560758e">webserver_register_handler</a> (httpd_handle_t server, const httpd_uri_t *uri_handler)</td></tr>
 <tr class="memdesc:a59de75410c50a6ebac8de34c4560758e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a URI handler with the web server.  <br /></td></tr>
+<tr class="memitem:a16c940e907ed2e88fc378de78450a6ef" id="r_a16c940e907ed2e88fc378de78450a6ef"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a16c940e907ed2e88fc378de78450a6ef">webserver_register_handler_array</a> (httpd_handle_t server, const httpd_uri_t *<a class="el" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e">routes</a>, size_t count)</td></tr>
+<tr class="memdesc:a16c940e907ed2e88fc378de78450a6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper function to register an array of URI handlers with the HTTP server.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
@@ -272,9 +273,9 @@ Variables</h2></td></tr>
 
 <p>Default port for the web server. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00029">29</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00030">30</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -292,9 +293,9 @@ Variables</h2></td></tr>
 
 <p>Default port for the web server. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00025">25</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00026">26</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -312,9 +313,9 @@ Variables</h2></td></tr>
 
 <p>Default maximum number of URI handlers. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00033">33</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00034">34</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -332,9 +333,9 @@ Variables</h2></td></tr>
 
 <p>Default stack size for the web server task. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00037">37</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00038">38</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -364,49 +365,13 @@ Variables</h2></td></tr>
 
 <p>Get MIME type based on file extension. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00055">55</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00056">56</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00094">static_file_handler()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a40f36853d75f35777d20f32d31fcd129_icgraph.svg" width="631" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="af26c5903f907fb3d73fe269a81809275" name="af26c5903f907fb3d73fe269a81809275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af26c5903f907fb3d73fe269a81809275">&#9670;&#160;</a></span>health_check_handler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">esp_err_t health_check_handler </td>
-          <td>(</td>
-          <td class="paramtype">httpd_req_t *</td>          <td class="paramname"><span class="paramname"><em>req</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>HTTP handler for API health check (GET /api/health). </p>
-
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00134">134</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_af26c5903f907fb3d73fe269a81809275_icgraph.svg" width="482" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -436,11 +401,11 @@ Here is the caller graph for this function:</div>
 
 <p>HTTP handler for static files from LittleFS. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00093">93</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00094">94</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="web__server_8c_source.html#l00055">get_mime_type()</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, and <a class="el" href="storage_8c_source.html#l00052">storage_get_mount_point()</a>.</p>
+<p class="reference">References <a class="el" href="web__server_8c_source.html#l00056">get_mime_type()</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, and <a class="el" href="storage_8c_source.html#l00052">storage_get_mount_point()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -484,9 +449,70 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, ESP_ERR_INVALID_ARG or other error codes on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00278">278</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00267">267</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
 <p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00292">webserver_register_handler_array()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a59de75410c50a6ebac8de34c4560758e_icgraph.svg" width="659" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a16c940e907ed2e88fc378de78450a6ef" name="a16c940e907ed2e88fc378de78450a6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16c940e907ed2e88fc378de78450a6ef">&#9670;&#160;</a></span>webserver_register_handler_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t webserver_register_handler_array </td>
+          <td>(</td>
+          <td class="paramtype">httpd_handle_t</td>          <td class="paramname"><span class="paramname"><em>server</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const httpd_uri_t *</td>          <td class="paramname"><span class="paramname"><em>routes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Helper function to register an array of URI handlers with the HTTP server. </p>
+<p>Register an array of custom URI handlers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>Handle to the HTTP server instance </td></tr>
+    <tr><td class="paramname"><a class="el" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e" title="Array of URI handlers for the web server configuration routes.">routes</a></td><td>Array of URI handlers to register </td></tr>
+    <tr><td class="paramname">count</td><td>Number of URI handlers in the array </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, or an error code on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00292">292</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00359">routes</a>, and <a class="el" href="web__server_8c_source.html#l00267">webserver_register_handler()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a16c940e907ed2e88fc378de78450a6ef_cgraph.svg" width="352" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a16c940e907ed2e88fc378de78450a6ef_icgraph.svg" width="466" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -516,15 +542,15 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Handle to the running HTTP server, or NULL on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00166">166</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00158">158</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="web__server_8c_source.html#l00134">health_check_handler()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>, <a class="el" href="storage_8c_source.html#l00015">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00029">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00025">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00033">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00037">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, and <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>.</p>
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00372">get_config_routes()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config__routes_8c_source.html#l00359">routes</a>, <a class="el" href="web__server_8c_source.html#l00046">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00051">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00094">static_file_handler()</a>, <a class="el" href="storage_8c_source.html#l00015">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00030">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00026">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00034">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00038">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, <a class="el" href="web__server_8c_source.html#l00292">webserver_register_handler_array()</a>, and <a class="el" href="web__server_8c_source.html#l00136">webserver_task()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00025">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="584" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="567" height="263"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -559,9 +585,9 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00253">253</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00242">242</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>.</p>
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00046">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00051">s_server_task_handle</a>.</p>
 
 </div>
 </div>
@@ -590,11 +616,11 @@ Here is the caller graph for this function:</div>
 
 <p>FreeRTOS task function for the HTTP server. Allows non-blocking server operation and future extensibility. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00144">144</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00136">136</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, and <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>.</p>
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, and <a class="el" href="web__server_8c_source.html#l00046">s_server_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -627,9 +653,9 @@ Here is the caller graph for this function:</div>
 <p>Default task priority for the web server task. </p>
 <p>Handle for the HTTP server instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00045">45</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00046">46</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, <a class="el" href="web__server_8c_source.html#l00253">webserver_stop()</a>, and <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>, <a class="el" href="web__server_8c_source.html#l00242">webserver_stop()</a>, and <a class="el" href="web__server_8c_source.html#l00136">webserver_task()</a>.</p>
 
 </div>
 </div>
@@ -655,9 +681,9 @@ Here is the caller graph for this function:</div>
 
 <p>Handle for the FreeRTOS web server task. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00050">50</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00051">51</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, and <a class="el" href="web__server_8c_source.html#l00253">webserver_stop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00158">webserver_start()</a>, and <a class="el" href="web__server_8c_source.html#l00242">webserver_stop()</a>.</p>
 
 </div>
 </div>

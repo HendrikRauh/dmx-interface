@@ -14,31 +14,41 @@ var config_8h =
     [ "APP_CONFIG_DEFAULT_START_UNIVERSE", "config_8h.html#a9d86e6896ee7a828fac2c433286e3f3d", null ],
     [ "APP_CONFIG_DMX_PORT_COUNT", "config_8h.html#adcbd84cc91f7afef3e2cfe7a0d3e327f", null ],
     [ "APP_CONFIG_INVALID_UNIVERSE", "config_8h.html#a5c48372c1b5a9cf28d2204dc3421ece7", null ],
+    [ "APP_CONFIG_MAX_LED_BRIGHTNESS", "config_8h.html#a5b0e6883c10990b02bc6312b98e78337", null ],
+    [ "APP_CONFIG_MAX_UNIVERSE", "config_8h.html#ac692655dab72ee7b85ad6772ddc16014", null ],
     [ "app_button_event_t", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4", [
       [ "APP_BUTTON_EVENT_SINGLE_CLICK", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a5b618daaecfbc85a45ab9f8b7a7a140c", null ],
       [ "APP_BUTTON_EVENT_DOUBLE_CLICK", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4addb17168e22a536cf9bfd8beb9c6933b", null ],
       [ "APP_BUTTON_EVENT_MULTIPLE_CLICK", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a7ec1ee119c3f7cbfc65536aa13d6e3e4", null ],
       [ "APP_BUTTON_EVENT_LONG_HOLD", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a2e00eea73402218675c7b8d2b2034ba1", null ],
+      [ "APP_BUTTON_EVENT_MIN", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a1d5aedbd08151eff9c95095262f3a09b", null ],
       [ "APP_BUTTON_EVENT_MAX", "config_8h.html#a8cc96b36e17feb908b140ab5685a11e4a1cc4a02807ca9ae79260905245ad3487", null ]
     ] ],
     [ "config_button_action_t", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fd", [
       [ "APP_BUTTON_ACTION_NONE", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fdaab32c2be2951a6885c0683ebd92ff7ae", null ],
       [ "APP_BUTTON_ACTION_TOGGLE_LED", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fdadc92a4218826cf4c9c3784830dc68ee7", null ],
       [ "APP_BUTTON_ACTION_REBOOT", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fda970e1e2a22f6bf023c1d423b8c99c0a3", null ],
+      [ "APP_BUTTON_ACTION_MIN", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fda2246d6c7a807224edc2561d5b55f6c01", null ],
       [ "APP_BUTTON_ACTION_MAX", "config_8h.html#a1949e799bec0d7e0d156db70080fc2fda3850c2b152170d4f3fb303bf2fcefd96", null ]
     ] ],
     [ "config_connection_t", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446", [
       [ "APP_CONFIG_CONN_WIFI_AP", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446af49db6baed548df4b2c592512a68a3e6", null ],
       [ "APP_CONFIG_CONN_WIFI_STA", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446a021584d6c21bc6c17201692b061acf22", null ],
-      [ "APP_CONFIG_CONN_ETHERNET", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a", null ]
+      [ "APP_CONFIG_CONN_ETHERNET", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446ae99e68fd2515aa7bcdc3ca9bde67af5a", null ],
+      [ "APP_CONFIG_CONN_MIN", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446a2e4cf5b42696ded300f5d99eeaa0632f", null ],
+      [ "APP_CONFIG_CONN_MAX", "config_8h.html#a8cc32e542cd74f87507fab832c4a9446a3017a6753de52586174d096bb27cf5d2", null ]
     ] ],
     [ "config_direction_t", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0", [
       [ "APP_CONFIG_DIR_OUTPUT", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a59b56c80c0617d5b03a2af6d0c882baf", null ],
-      [ "APP_CONFIG_DIR_INPUT", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8", null ]
+      [ "APP_CONFIG_DIR_INPUT", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a5297df003ab8c95610538575bd2ad4a8", null ],
+      [ "APP_CONFIG_DIR_MIN", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a7bb3b960f43992541897af3f11be278d", null ],
+      [ "APP_CONFIG_DIR_MAX", "config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a647c5400728a1ace36a25fa195925858", null ]
     ] ],
     [ "config_ip_method_t", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766", [
       [ "APP_CONFIG_IP_STATIC", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766a5e2c45daf098f76be0b2b559f84b702b", null ],
-      [ "APP_CONFIG_IP_DHCP", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931", null ]
+      [ "APP_CONFIG_IP_DHCP", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766a1dbf12e33d0d98a091e87ae305803931", null ],
+      [ "APP_CONFIG_IP_METHOD_MIN", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766a99212edebc07766cb04fe38a87ea13a8", null ],
+      [ "APP_CONFIG_IP_METHOD_MAX", "config_8h.html#ac91b5e170b401c2efe0577b14d40f766a9acb2b05b67fbf442fb42a9cf65eadca", null ]
     ] ],
     [ "config_get_button_action", "config_8h.html#abb979e0618588e5b4316d13bfd7e77fb", null ],
     [ "config_get_connection", "config_8h.html#a6ac096d28ccd844ad0805e9199cae521", null ],
@@ -57,6 +67,8 @@ var config_8h =
     [ "config_set_dmx_universe", "config_8h.html#a77ebd1978a4e2d0591e020597ac5f7f3", null ],
     [ "config_set_ip_method", "config_8h.html#a2dbc7956fb60b78f8bc2d96a74eeb764", null ],
     [ "config_set_led_brightness", "config_8h.html#a0f49b78b8b22ac39ef5ed8a15597818b", null ],
-    [ "config_set_wifi_ap_config", "config_8h.html#a5d25d27dd5fd25d16752bbfa8d9e632b", null ],
-    [ "config_set_wifi_sta_config", "config_8h.html#ada200c44c416b41fe4af32a4eec9c7ed", null ]
+    [ "config_set_wifi_ap_password", "config_8h.html#a5f24f074f99539c2e6606a0eb8c20511", null ],
+    [ "config_set_wifi_ap_ssid", "config_8h.html#a28bbd2f521c109a86d548e23181fc583", null ],
+    [ "config_set_wifi_sta_password", "config_8h.html#a6eb48f4d3ea6ddb02a72918e67a6604d", null ],
+    [ "config_set_wifi_sta_ssid", "config_8h.html#ac45d897af07e006a406c307d54f1d85f", null ]
 ];

@@ -1,0 +1,8 @@
+<map id="execute_actions" name="execute_actions">
+<area shape="rect" id="Node000001" title="Execute actions associated with a JSON value based on the specified processor." alt="" coords="428,29,554,57"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="525,16,513,10,491,8,471,10,459,15,457,20,461,27,457,30,451,20,456,11,469,5,491,3,515,5,527,12"/>
+<area shape="rect" id="Node000002" href="$json__processor_8c.html#a115d1f829601e5e4e791051fa75104a3" title="Validates a cJSON object against the provided json_processor_t definition and executes any associated..." alt="" coords="205,29,380,57"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="413,46,380,46,380,40,413,40"/>
+<area shape="rect" id="Node000003" href="$config__routes_8c.html#a4c2742039454d8db8617a376e24f8e5b" title="Handler for POST requests to /api/config." alt="" coords="5,29,157,57"/>
+<area shape="poly" id="edge3_Node000002_Node000003" title=" " alt="" coords="189,46,157,46,157,40,189,40"/>
+</map>

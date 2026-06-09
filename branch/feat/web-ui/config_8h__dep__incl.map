@@ -1,14 +1,16 @@
 <map id="components/config/include/config.h" name="components/config/include/config.h">
-<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="211,5,406,50"/>
+<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="276,5,472,50"/>
 <area shape="rect" id="Node000002" href="$button__actions_8c.html" title="Dynamic hardware button execution mapped directly to app configuration." alt="" coords="5,98,207,143"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="247,59,156,100,153,95,245,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="296,58,171,100,169,95,295,53"/>
 <area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="161,191,328,235"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="289,65,272,99,258,148,250,191,245,190,253,146,268,97,284,63"/>
-<area shape="rect" id="Node000004" href="$mac_8h.html" title=" " alt="" coords="282,98,466,143"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="335,61,361,96,356,99,331,64"/>
-<area shape="rect" id="Node000006" href="$dmx-interface_8c.html" title=" " alt="" coords="491,106,652,134"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="386,53,534,103,532,108,385,58"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="315,61,291,78,272,100,261,122,253,146,247,190,242,190,248,145,256,120,268,96,288,74,311,56"/>
+<area shape="rect" id="Node000004" href="$mac_8h.html" title="MAC address retrieval for different connection types." alt="" coords="282,98,466,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="377,66,377,98,371,98,371,66"/>
+<area shape="rect" id="Node000006" href="$config__routes_8c.html" title="Implementation of the web server configuration routes." alt="" coords="490,98,671,143"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="438,54,532,95,530,100,436,59"/>
+<area shape="rect" id="Node000007" href="$dmx-interface_8c.html" title=" " alt="" coords="695,106,856,134"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="487,51,684,95,719,103,717,108,683,101,486,57"/>
 <area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="333,154,277,192,274,188,330,149"/>
-<area shape="rect" id="Node000005" href="$mac_8c.html" title=" " alt="" coords="352,191,508,235"/>
+<area shape="rect" id="Node000005" href="$mac_8c.html" title="Implementation of MAC address retrieval for different connection types." alt="" coords="352,191,508,235"/>
 <area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="398,155,419,189,415,192,393,157"/>
 </map>

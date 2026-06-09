@@ -1,0 +1,568 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/web_server/priv_include/json_processor.h File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('json__processor_8h.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">json_processor.h File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Header file for JSON processing utilities used in the web server component.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;cJSON.h&quot;</code><br />
+<code>#include &quot;esp_err.h&quot;</code><br />
+<code>#include &quot;stdbool.h&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for json_processor.h:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="json__processor_8h__incl.svg" width="294" height="131"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="json__processor_8h__dep__incl.svg" width="395" height="148"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="json__processor_8h_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:json_5Fprocessor_5Fboolean_5Ft" id="r_json_5Fprocessor_5Fboolean_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__boolean__t.html">json_processor_boolean_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for boolean JSON fields.  <a href="structjson__processor__boolean__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Fnumber_5Ft" id="r_json_5Fprocessor_5Fnumber_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__number__t.html">json_processor_number_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for integer JSON fields.  <a href="structjson__processor__number__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Fstring_5Ft" id="r_json_5Fprocessor_5Fstring_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__string__t.html">json_processor_string_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for string JSON fields.  <a href="structjson__processor__string__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Fobject_5Fentry_5Ft" id="r_json_5Fprocessor_5Fobject_5Fentry_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for entries in JSON objects.  <a href="structjson__processor__object__entry__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Fobject_5Ft" id="r_json_5Fprocessor_5Fobject_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__object__t.html">json_processor_object_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for JSON objects.  <a href="structjson__processor__object__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Farray_5Ft" id="r_json_5Fprocessor_5Farray_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__array__t.html">json_processor_array_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validator and action for JSON arrays.  <a href="structjson__processor__array__t.html#details">More...</a><br /></td></tr>
+<tr class="memitem:json_5Fprocessor_5Ft" id="r_json_5Fprocessor_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structjson__processor__t.html">json_processor_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union of all possible JSON processor types.  <a href="structjson__processor__t.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">Macro helpers to construct processors cleanly</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><dl class="section warning"><dt>Warning</dt><dd>These macros use compound literals to generate pointers to inline initialized structures (e.g. <span class="tt">&amp;(<a class="el" href="structjson__processor__t.html" title="Union of all possible JSON processor types.">json_processor_t</a>){...}</span>). Only use these macros in contexts where such usage is valid (e.g. global or static file scope) </dd></dl>
+</div></td></tr>
+<tr class="memitem:a2ef8d77a51d334944295066ad7d15f1a" id="r_a2ef8d77a51d334944295066ad7d15f1a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2ef8d77a51d334944295066ad7d15f1a">JSON_PROC_BOOL</a>(act_func)</td></tr>
+<tr class="memdesc:a2ef8d77a51d334944295066ad7d15f1a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a JSON processor for boolean fields.  <br /></td></tr>
+<tr class="memitem:a6c2918d712ddbfbae85c58612bbbf754" id="r_a6c2918d712ddbfbae85c58612bbbf754"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6c2918d712ddbfbae85c58612bbbf754">JSON_PROC_INT</a>(min_val,  max_val,  act_func)</td></tr>
+<tr class="memdesc:a6c2918d712ddbfbae85c58612bbbf754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a JSON processor for integer fields.  <br /></td></tr>
+<tr class="memitem:abce0042e50296b26051fdf509c75fde3" id="r_abce0042e50296b26051fdf509c75fde3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abce0042e50296b26051fdf509c75fde3">JSON_PROC_STR</a>(min_len,  max_len,  act_func)</td></tr>
+<tr class="memdesc:abce0042e50296b26051fdf509c75fde3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a JSON processor for string fields.  <br /></td></tr>
+<tr class="memitem:aaeaafa5e5fe0651e41d18d507ea4589c" id="r_aaeaafa5e5fe0651e41d18d507ea4589c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aaeaafa5e5fe0651e41d18d507ea4589c">JSON_PROC_OBJ</a>(_processor,  count,  act_func)</td></tr>
+<tr class="memdesc:aaeaafa5e5fe0651e41d18d507ea4589c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a JSON processor for object fields.  <br /></td></tr>
+<tr class="memitem:a622a57891b479d2d3254a634e5655466" id="r_a622a57891b479d2d3254a634e5655466"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a622a57891b479d2d3254a634e5655466">JSON_PROC_ARR</a>(_processor,  min_len,  max_len,  act_func)</td></tr>
+<tr class="memdesc:a622a57891b479d2d3254a634e5655466"><td class="mdescLeft">&#160;</td><td class="mdescRight">Macro to define a JSON processor for array fields.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-typedef-members" class="groupheader"><a id="typedef-members" name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a5a5bfb6f4788167716370072134af6e6" id="r_a5a5bfb6f4788167716370072134af6e6"><td class="memItemLeft">typedef struct json_processor_t&#160;</td><td class="memItemRight"><a class="el" href="#a5a5bfb6f4788167716370072134af6e6">json_processor_t</a></td></tr>
+<tr class="memdesc:a5a5bfb6f4788167716370072134af6e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Union of all possible JSON processor types.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a2b01c129765ff7e58709ae69544c9923" id="r_a2b01c129765ff7e58709ae69544c9923"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a2b01c129765ff7e58709ae69544c9923">json_processor_type_t</a> { <br />
+&#160;&#160;<a class="el" href="#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">JSON_PROCESSOR_TYPE_BOOL</a>
+, <a class="el" href="#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">JSON_PROCESSOR_TYPE_INT</a>
+, <a class="el" href="#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">JSON_PROCESSOR_TYPE_STRING</a>
+, <a class="el" href="#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a>
+, <br />
+&#160;&#160;<a class="el" href="#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">JSON_PROCESSOR_TYPE_ARRAY</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:a2b01c129765ff7e58709ae69544c9923"><td class="mdescLeft">&#160;</td><td class="mdescRight">Types of JSON processors that can be defined for validating and processing JSON data.  <a href="#a2b01c129765ff7e58709ae69544c9923">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a115d1f829601e5e4e791051fa75104a3" id="r_a115d1f829601e5e4e791051fa75104a3"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a115d1f829601e5e4e791051fa75104a3">json_processor_process</a> (const cJSON *json, const <a class="el" href="structjson__processor__t.html">json_processor_t</a> *<a class="el" href="config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888">processor</a>, char **out_err)</td></tr>
+<tr class="memdesc:a115d1f829601e5e4e791051fa75104a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates a cJSON object against the provided <a class="el" href="structjson__processor__t.html" title="Union of all possible JSON processor types.">json_processor_t</a> definition and executes any associated actions if the validation of the whole JSON passes.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Header file for JSON processing utilities used in the web server component. </p>
+<p>This file defines the structures and function prototypes for validating and processing JSON data received by the web server. It provides a flexible framework for defining validation rules and associated actions for different types of JSON data, including booleans, numbers, strings, objects, and arrays. </p>
+
+<p class="definition">Definition in file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a622a57891b479d2d3254a634e5655466" name="a622a57891b479d2d3254a634e5655466"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a622a57891b479d2d3254a634e5655466">&#9670;&#160;</a></span>JSON_PROC_ARR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JSON_PROC_ARR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>_processor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>min_len</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>act_func</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">&amp;(<a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>){.type = <a class="code hl_enumvalue" href="#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">JSON_PROCESSOR_TYPE_ARRAY</a>,                       \</div>
+<div class="line">                    .processor.array = {.min_items = (min_len),              \</div>
+<div class="line">                                        .max_items = (max_len),              \</div>
+<div class="line">                                        .item_processor = (_processor),      \</div>
+<div class="line">                                        .action = (act_func)}}</div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be"><div class="ttname"><a href="#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">JSON_PROCESSOR_TYPE_ARRAY</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_ARRAY</div><div class="ttdoc">Processor for JSON arrays.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00087">json_processor.h:87</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html"><div class="ttname"><a href="structjson__processor__t.html">json_processor_t</a></div><div class="ttdoc">Union of all possible JSON processor types.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00181">json_processor.h:181</a></div></div>
+</div><!-- fragment -->
+<p>Macro to define a JSON processor for array fields. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00069">69</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a id="a2ef8d77a51d334944295066ad7d15f1a" name="a2ef8d77a51d334944295066ad7d15f1a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef8d77a51d334944295066ad7d15f1a">&#9670;&#160;</a></span>JSON_PROC_BOOL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JSON_PROC_BOOL</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>act_func</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">&amp;(<a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>){.type = <a class="code hl_enumvalue" href="#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">JSON_PROCESSOR_TYPE_BOOL</a>,                        \</div>
+<div class="line">                    .processor.boolean = {.action = (act_func)}}</div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac"><div class="ttname"><a href="#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">JSON_PROCESSOR_TYPE_BOOL</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_BOOL</div><div class="ttdoc">Processor for boolean JSON values.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00083">json_processor.h:83</a></div></div>
+</div><!-- fragment -->
+<p>Macro to define a JSON processor for boolean fields. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00035">35</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a id="a6c2918d712ddbfbae85c58612bbbf754" name="a6c2918d712ddbfbae85c58612bbbf754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c2918d712ddbfbae85c58612bbbf754">&#9670;&#160;</a></span>JSON_PROC_INT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JSON_PROC_INT</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>min_val</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>max_val</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>act_func</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">&amp;(<a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>){.type = <a class="code hl_enumvalue" href="#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">JSON_PROCESSOR_TYPE_INT</a>,                         \</div>
+<div class="line">                    .processor.number = {.min = (min_val),                   \</div>
+<div class="line">                                         .max = (max_val),                   \</div>
+<div class="line">                                         .action = (act_func)}}</div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178"><div class="ttname"><a href="#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">JSON_PROCESSOR_TYPE_INT</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_INT</div><div class="ttdoc">Processor for integer JSON values.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00084">json_processor.h:84</a></div></div>
+</div><!-- fragment -->
+<p>Macro to define a JSON processor for integer fields. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00042">42</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a id="aaeaafa5e5fe0651e41d18d507ea4589c" name="aaeaafa5e5fe0651e41d18d507ea4589c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeaafa5e5fe0651e41d18d507ea4589c">&#9670;&#160;</a></span>JSON_PROC_OBJ</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JSON_PROC_OBJ</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>_processor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>count</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>act_func</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">&amp;(<a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>){.type = <a class="code hl_enumvalue" href="#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a>,                      \</div>
+<div class="line">                    .processor.object = {.processors = (_processor),         \</div>
+<div class="line">                                         .num_processors = (count),          \</div>
+<div class="line">                                         .action = (act_func)}}</div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12"><div class="ttname"><a href="#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_OBJECT</div><div class="ttdoc">Processor for JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00086">json_processor.h:86</a></div></div>
+</div><!-- fragment -->
+<p>Macro to define a JSON processor for object fields. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00060">60</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a id="abce0042e50296b26051fdf509c75fde3" name="abce0042e50296b26051fdf509c75fde3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abce0042e50296b26051fdf509c75fde3">&#9670;&#160;</a></span>JSON_PROC_STR</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define JSON_PROC_STR</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>min_len</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>max_len</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>act_func</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">&amp;(<a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>){.type = <a class="code hl_enumvalue" href="#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">JSON_PROCESSOR_TYPE_STRING</a>,                      \</div>
+<div class="line">                    .processor.string = {.min_length = (min_len),            \</div>
+<div class="line">                                         .max_length = (max_len),            \</div>
+<div class="line">                                         .action = (act_func)}}</div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99"><div class="ttname"><a href="#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">JSON_PROCESSOR_TYPE_STRING</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_STRING</div><div class="ttdoc">Processor for string JSON values.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00085">json_processor.h:85</a></div></div>
+</div><!-- fragment -->
+<p>Macro to define a JSON processor for string fields. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00051">51</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Typedef Documentation</h2>
+<a id="a5a5bfb6f4788167716370072134af6e6" name="a5a5bfb6f4788167716370072134af6e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a5bfb6f4788167716370072134af6e6">&#9670;&#160;</a></span>json_processor_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct json_processor_t json_processor_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Union of all possible JSON processor types. </p>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00090">90</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="a2b01c129765ff7e58709ae69544c9923" name="a2b01c129765ff7e58709ae69544c9923"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b01c129765ff7e58709ae69544c9923">&#9670;&#160;</a></span>json_processor_type_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="#a2b01c129765ff7e58709ae69544c9923">json_processor_type_t</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Types of JSON processors that can be defined for validating and processing JSON data. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac" name="a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac"></a>JSON_PROCESSOR_TYPE_BOOL&#160;</td><td class="fielddoc"><p>Processor for boolean JSON values. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178" name="a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178"></a>JSON_PROCESSOR_TYPE_INT&#160;</td><td class="fielddoc"><p>Processor for integer JSON values. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99" name="a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99"></a>JSON_PROCESSOR_TYPE_STRING&#160;</td><td class="fielddoc"><p>Processor for string JSON values. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12" name="a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12"></a>JSON_PROCESSOR_TYPE_OBJECT&#160;</td><td class="fielddoc"><p>Processor for JSON objects. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be" name="a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be"></a>JSON_PROCESSOR_TYPE_ARRAY&#160;</td><td class="fielddoc"><p>Processor for JSON arrays. </p>
+</td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8h_source.html#l00082">82</a> of file <a class="el" href="json__processor_8h_source.html">json_processor.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a115d1f829601e5e4e791051fa75104a3" name="a115d1f829601e5e4e791051fa75104a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a115d1f829601e5e4e791051fa75104a3">&#9670;&#160;</a></span>json_processor_process()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t json_processor_process </td>
+          <td>(</td>
+          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>json</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structjson__processor__t.html">json_processor_t</a> *</td>          <td class="paramname"><span class="paramname"><em>processor</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char **</td>          <td class="paramname"><span class="paramname"><em>out_err</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Validates a cJSON object against the provided <a class="el" href="structjson__processor__t.html" title="Union of all possible JSON processor types.">json_processor_t</a> definition and executes any associated actions if the validation of the whole JSON passes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">json</td><td>Pointer to the cJSON object to validate </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname"><a class="el" href="config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888" title="JSON processor definition for validating and processing the entire configuration object received in P...">processor</a></td><td>Pointer to the <a class="el" href="structjson__processor__t.html" title="Union of all possible JSON processor types.">json_processor_t</a> definition to validate against </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">out_err</td><td>If validation fails, this will be set to point to a newly allocated string containing an error message describing the validation failure. The caller is responsible for freeing this string. If validation passes, this will be set to <span class="tt">NULL</span>. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">ESP_OK</span> if validation passes</li>
+<li><span class="tt">ESP_INVALID_ARG</span> if validation fails due to the JSON not meeting the specified rules</li>
+<li><span class="tt">ESP_ERR_INVALID_STATE</span> if the function is called with invalid arguments (e.g. <span class="tt">out_err</span> is <span class="tt">NULL</span>)</li>
+<li><span class="tt">ESP_ERR_NO_MEM</span> if validation fails due to a memory allocation error </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="json__processor_8c_source.html#l00318">318</a> of file <a class="el" href="json__processor_8c_source.html">json_processor.c</a>.</p>
+
+<p class="reference">References <a class="el" href="json__processor_8c_source.html#l00266">execute_actions()</a>, <a class="el" href="config__routes_8c_source.html#l00085">processor</a>, and <a class="el" href="json__processor_8c_source.html#l00238">validate()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00315">post_config_handler()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="json__processor_8h_a115d1f829601e5e4e791051fa75104a3_cgraph.svg" width="542" height="247"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="json__processor_8h_a115d1f829601e5e4e791051fa75104a3_icgraph.svg" width="386" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_0a72549e2760402ada88361c3a2bfb8e.html">web_server</a></li><li class="navelem"><a href="dir_57fc089c359d53fb5cddb346ad8a25b3.html">priv_include</a></li><li class="navelem"><a href="json__processor_8h.html">json_processor.h</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

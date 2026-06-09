@@ -1,6 +1,6 @@
 <map id="components/mac/src/mac.c" name="components/mac/src/mac.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="333,5,489,50"/>
-<area shape="rect" id="Node000002" href="$mac_8h.html" title=" " alt="" coords="280,98,342,126"/>
+<area shape="rect" id="Node000001" title="Implementation of MAC address retrieval for different connection types." alt="" coords="333,5,489,50"/>
+<area shape="rect" id="Node000002" href="$mac_8h.html" title="MAC address retrieval for different connection types." alt="" coords="280,98,342,126"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,52,340,90,337,86,383,48"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="365,98,456,126"/>
 <area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="414,50,414,82,408,82,408,50"/>

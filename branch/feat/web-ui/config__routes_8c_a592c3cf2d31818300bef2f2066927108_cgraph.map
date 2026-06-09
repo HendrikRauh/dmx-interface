@@ -1,0 +1,5 @@
+<map id="action_set_connection" name="action_set_connection">
+<area shape="rect" id="Node000001" title="Wrapper function for actions to update the connection method based on the validated JSON input." alt="" coords="5,5,172,33"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#acf23a2850b1dc6112805708e41b6885c" title="Sets the network connection type in RAM." alt="" coords="220,5,385,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="172,16,204,16,204,22,172,22"/>
+</map>

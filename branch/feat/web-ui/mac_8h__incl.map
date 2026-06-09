@@ -1,5 +1,5 @@
 <map id="components/mac/include/mac.h" name="components/mac/include/mac.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="205,5,390,50"/>
+<area shape="rect" id="Node000001" title="MAC address retrieval for different connection types." alt="" coords="205,5,390,50"/>
 <area shape="rect" id="Node000002" href="$config_8h.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="225,98,298,126"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="290,51,276,85,271,82,286,49"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="326,174,397,201"/>

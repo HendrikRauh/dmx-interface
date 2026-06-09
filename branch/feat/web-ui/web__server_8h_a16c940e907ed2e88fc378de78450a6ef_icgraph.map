@@ -1,0 +1,7 @@
+<map id="webserver_register_handler_array" name="webserver_register_handler_array">
+<area shape="rect" id="Node000001" title="Register an array of custom URI handlers." alt="" coords="313,5,459,50"/>
+<area shape="rect" id="Node000002" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="139,14,265,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="297,30,265,30,265,25,297,25"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,14,91,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,30,91,30,91,25,123,25"/>
+</map>

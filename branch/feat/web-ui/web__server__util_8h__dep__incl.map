@@ -1,0 +1,7 @@
+<map id="components/web_server/priv_include/web_server_util.h" name="components/web_server/priv_include/web_server_util.h">
+<area shape="rect" id="Node000001" title="Utility functions and definitions for the web server component." alt="" coords="105,5,288,67"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html" title="Implementation of the web server configuration routes." alt="" coords="5,115,186,160"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="157,80,119,116,116,113,153,76"/>
+<area shape="rect" id="Node000003" href="$web__server__util_8c.html" title="Utility functions for the web server component." alt="" coords="209,115,390,160"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="241,76,279,113,275,116,237,80"/>
+</map>

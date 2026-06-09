@@ -1,0 +1,5 @@
+<map id="config_set_wifi_ap_password" name="config_set_wifi_ap_password">
+<area shape="rect" id="Node000001" title="Sets the Wi&#45;Fi Access Point password in RAM." alt="" coords="195,5,335,50"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#a953a106faa946387e06e4f1397546f5d" title="Function for actions to update the WiFi access point configuration based on the validated JSON input." alt="" coords="5,5,147,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,30,147,30,147,25,179,25"/>
+</map>

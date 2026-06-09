@@ -1,0 +1,5 @@
+<map id="config_get_ip_method" name="config_get_ip_method">
+<area shape="rect" id="Node000001" title="Gets the current IP allocation method." alt="" coords="198,5,362,33"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2" title="Handler for GET requests to /api/config." alt="" coords="5,5,150,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,22,150,22,150,16,182,16"/>
+</map>

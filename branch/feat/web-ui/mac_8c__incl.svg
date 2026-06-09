@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title=" ">
+<g id="a_Node000001"><a xlink:title="Implementation of MAC address retrieval for different connection types.">
 <polygon fill="#999999" stroke="#666666" points="362.75,-203.75 245.5,-203.75 245.5,-170.25 362.75,-170.25 362.75,-203.75"/>
 <text text-anchor="start" x="253.5" y="-190.25" font-family="Helvetica,sans-Serif" font-size="10.00">components/mac/src</text>
 <text text-anchor="middle" x="304.12" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00">/mac.c</text>
@@ -32,7 +32,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="mac_8h.html" target="_top" xlink:title=" ">
+<g id="a_Node000002"><a xlink:href="mac_8h.html" target="_top" xlink:title="MAC address retrieval for different connection types.">
 <polygon fill="white" stroke="#666666" points="252.12,-134.25 206.12,-134.25 206.12,-113.5 252.12,-113.5 252.12,-134.25"/>
 <text text-anchor="middle" x="229.12" y="-120.75" font-family="Helvetica,sans-Serif" font-size="10.00">mac.h</text>
 </a>

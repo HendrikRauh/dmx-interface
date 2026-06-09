@@ -10,7 +10,7 @@
 <area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="618,50,618,82,612,82,612,50"/>
 <area shape="rect" id="Node000012" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="1061,174,1134,201"/>
 <area shape="poly" id="edge18_Node000001_Node000012" title=" " alt="" coords="630,49,662,88,682,108,706,123,752,144,793,156,831,162,868,163,947,162,993,164,1046,171,1045,176,993,169,947,167,868,168,830,167,792,161,750,149,703,128,679,112,658,92,626,52"/>
-<area shape="rect" id="Node000015" href="$mac_8h.html" title=" " alt="" coords="199,98,260,126"/>
+<area shape="rect" id="Node000015" href="$mac_8h.html" title="MAC address retrieval for different connection types." alt="" coords="199,98,260,126"/>
 <area shape="poly" id="edge19_Node000001_Node000015" title=" " alt="" coords="532,49,276,103,275,98,531,44"/>
 <area shape="rect" id="Node000016" title=" " alt="" coords="716,98,773,126"/>
 <area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="651,48,712,87,710,92,648,53"/>

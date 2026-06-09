@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 844;
+var viewWidth = 861;
 var viewHeight = 146;
 var sectionId = 'dynsection-5';
 </script>
@@ -59,8 +59,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Dynamically updates the LED maximum brightness.">
-<polygon fill="#999999" stroke="#666666" points="836.25,-107.75 728.75,-107.75 728.75,-87 836.25,-87 836.25,-107.75"/>
-<text text-anchor="middle" x="782.5" y="-94.25" font-family="Helvetica,sans-Serif" font-size="10.00">led_set_brightness</text>
+<polygon fill="#999999" stroke="#666666" points="852.75,-130.75 745.25,-130.75 745.25,-110 852.75,-110 852.75,-130.75"/>
+<text text-anchor="middle" x="799" y="-117.25" font-family="Helvetica,sans-Serif" font-size="10.00">led_set_brightness</text>
 </a>
 </g>
 </g>
@@ -77,8 +77,8 @@ var sectionId = 'dynsection-5';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M717.44,-110.14C651.38,-122.17 545.23,-138.38 452.62,-138.38 452.62,-138.38 452.62,-138.38 277.5,-138.38 200.03,-138.38 110.62,-118.11 64.37,-106.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="717.81,-113.63 727.01,-108.37 716.54,-106.74 717.81,-113.63"/>
+<path fill="none" stroke="#63b8ff" d="M733.58,-125.86C665.77,-131.16 555.9,-138.38 460.88,-138.38 460.88,-138.38 460.88,-138.38 277.5,-138.38 200.03,-138.38 110.62,-118.11 64.37,-106.07"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="733.71,-129.36 743.4,-125.08 733.16,-122.38 733.71,-129.36"/>
 </a>
 </g>
 </g>
@@ -86,8 +86,8 @@ var sectionId = 'dynsection-5';
 <g id="Node000003" class="node">
 <title>Node3</title>
 <g id="a_Node000003"><a xlink:href="config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" target="_top" xlink:title="Sets the status LED brightness level in RAM.">
-<polygon fill="white" stroke="#666666" points="692.75,-88.75 550.75,-88.75 550.75,-68 692.75,-68 692.75,-88.75"/>
-<text text-anchor="middle" x="621.75" y="-75.25" font-family="Helvetica,sans-Serif" font-size="10.00">config_set_led_brightness</text>
+<polygon fill="white" stroke="#666666" points="709.25,-108.75 567.25,-108.75 567.25,-88 709.25,-88 709.25,-108.75"/>
+<text text-anchor="middle" x="638.25" y="-95.25" font-family="Helvetica,sans-Serif" font-size="10.00">config_set_led_brightness</text>
 </a>
 </g>
 </g>
@@ -95,17 +95,17 @@ var sectionId = 'dynsection-5';
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M717.23,-89.68C709.31,-88.73 701.18,-87.76 693.18,-86.8"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="716.79,-93.16 727.14,-90.87 717.62,-86.2 716.79,-93.16"/>
+<path fill="none" stroke="#63b8ff" d="M734,-111.51C726,-110.4 717.77,-109.26 709.68,-108.14"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="733.25,-114.94 743.64,-112.84 734.21,-108 733.25,-114.94"/>
 </a>
 </g>
 </g>
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" target="_top" xlink:title="Executes the action compiled into the configuration for the triggered event.">
-<polygon fill="white" stroke="#666666" points="514.75,-76.75 388.5,-76.75 388.5,-56 514.75,-56 514.75,-76.75"/>
-<text text-anchor="middle" x="451.62" y="-63.25" font-family="Helvetica,sans-Serif" font-size="10.00">execute_button_action</text>
+<g id="a_Node000004"><a xlink:href="config__routes_8c.html#ad25cea1c08f7a54d51ff9b8065ce3b48" target="_top" xlink:title="Wrapper function for actions to update the LED brightness based on the validated JSON input.">
+<polygon fill="white" stroke="#666666" points="531.25,-108.75 388.5,-108.75 388.5,-88 531.25,-88 531.25,-108.75"/>
+<text text-anchor="middle" x="459.88" y="-95.25" font-family="Helvetica,sans-Serif" font-size="10.00">action_set_led_brightness</text>
 </a>
 </g>
 </g>
@@ -113,72 +113,35 @@ var sectionId = 'dynsection-5';
 <g id="edge3_Node000003_Node000004" class="edge">
 <title>Node3&#45;&gt;Node4</title>
 <g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M539.1,-72.55C531.06,-71.97 522.98,-71.4 515.18,-70.84"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="538.69,-76.03 548.91,-73.25 539.19,-69.04 538.69,-76.03"/>
+<path fill="none" stroke="#63b8ff" d="M555.52,-98.38C547.5,-98.38 539.41,-98.38 531.52,-98.38"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="555.27,-101.88 565.27,-98.38 555.27,-94.88 555.27,-101.88"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" target="_top" xlink:title="Callback for double click events.">
-<polygon fill="white" stroke="#666666" points="352.5,-110.75 204.5,-110.75 204.5,-90 352.5,-90 352.5,-110.75"/>
-<text text-anchor="middle" x="278.5" y="-97.25" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_double_click_cb</text>
+<g id="a_Node000005"><a xlink:href="button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" target="_top" xlink:title="Executes the action compiled into the configuration for the triggered event.">
+<polygon fill="white" stroke="#666666" points="523,-68.75 396.75,-68.75 396.75,-48 523,-48 523,-68.75"/>
+<text text-anchor="middle" x="459.88" y="-55.25" font-family="Helvetica,sans-Serif" font-size="10.00">execute_button_action</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge4_Node000004_Node000005" class="edge">
-<title>Node4&#45;&gt;Node5</title>
-<g id="a_edge4_Node000004_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M385.14,-79.39C368.32,-82.73 350.4,-86.29 334.18,-89.51"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="385.4,-82.9 394.52,-77.52 384.03,-76.04 385.4,-82.9"/>
-</a>
-</g>
-</g>
-<!-- Node7 -->
-<g id="Node000007" class="node">
-<title>Node7</title>
-<g id="a_Node000007"><a xlink:href="button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" target="_top" xlink:title="Callback for multiple click events.">
-<polygon fill="white" stroke="#666666" points="334.12,-72.12 222.88,-72.12 222.88,-38.62 334.12,-38.62 334.12,-72.12"/>
-<text text-anchor="start" x="230.88" y="-58.62" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_multiple</text>
-<text text-anchor="middle" x="278.5" y="-45.88" font-family="Helvetica,sans-Serif" font-size="10.00">_click_cb</text>
-</a>
-</g>
-</g>
-<!-- Node4&#45;&gt;Node7 -->
-<g id="edge7_Node000004_Node000007" class="edge">
-<title>Node4&#45;&gt;Node7</title>
-<g id="a_edge7_Node000004_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M377.01,-61.64C362.7,-60.72 347.94,-59.77 334.36,-58.9"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="376.65,-65.13 386.85,-62.28 377.1,-58.14 376.65,-65.13"/>
-</a>
-</g>
-</g>
-<!-- Node8 -->
-<g id="Node000008" class="node">
-<title>Node8</title>
-<g id="a_Node000008"><a xlink:href="button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" target="_top" xlink:title="Callback for single click events.">
-<polygon fill="white" stroke="#666666" points="350.62,-20.75 206.38,-20.75 206.38,0 350.62,0 350.62,-20.75"/>
-<text text-anchor="middle" x="278.5" y="-7.25" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_single_click_cb</text>
-</a>
-</g>
-</g>
-<!-- Node4&#45;&gt;Node8 -->
-<g id="edge9_Node000004_Node000008" class="edge">
-<title>Node4&#45;&gt;Node8</title>
-<g id="a_edge9_Node000004_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M413.74,-51.41C395.48,-44.27 373,-35.89 352.5,-29.38 343.39,-26.48 333.54,-23.69 324.11,-21.18"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="412.24,-54.58 422.83,-55 414.82,-48.07 412.24,-54.58"/>
+<!-- Node3&#45;&gt;Node5 -->
+<g id="edge4_Node000003_Node000005" class="edge">
+<title>Node3&#45;&gt;Node5</title>
+<g id="a_edge4_Node000003_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M578.32,-85.01C555.67,-79.87 530.12,-74.08 508.64,-69.21"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="577.52,-88.42 588.04,-87.22 579.07,-81.59 577.52,-88.42"/>
 </a>
 </g>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" target="_top" xlink:title="Initializes the hardware button configuration and event callbacks.">
-<polygon fill="white" stroke="#666666" points="168.5,-88.75 100,-88.75 100,-68 168.5,-68 168.5,-88.75"/>
-<text text-anchor="middle" x="134.25" y="-75.25" font-family="Helvetica,sans-Serif" font-size="10.00">button_init</text>
+<g id="a_Node000006"><a xlink:href="button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" target="_top" xlink:title="Callback for double click events.">
+<polygon fill="white" stroke="#666666" points="352.5,-110.75 204.5,-110.75 204.5,-90 352.5,-90 352.5,-110.75"/>
+<text text-anchor="middle" x="278.5" y="-97.25" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_double_click_cb</text>
 </a>
 </g>
 </g>
@@ -186,33 +149,88 @@ var sectionId = 'dynsection-5';
 <g id="edge5_Node000005_Node000006" class="edge">
 <title>Node5&#45;&gt;Node6</title>
 <g id="a_edge5_Node000005_Node000006"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M401.73,-71.76C377.24,-77.49 349.01,-84.1 325.85,-89.52"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="402.27,-75.22 411.21,-69.54 400.67,-68.41 402.27,-75.22"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" target="_top" xlink:title="Callback for multiple click events.">
+<polygon fill="white" stroke="#666666" points="334.12,-72.12 222.88,-72.12 222.88,-38.62 334.12,-38.62 334.12,-72.12"/>
+<text text-anchor="start" x="230.88" y="-58.62" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_multiple</text>
+<text text-anchor="middle" x="278.5" y="-45.88" font-family="Helvetica,sans-Serif" font-size="10.00">_click_cb</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node8 -->
+<g id="edge8_Node000005_Node000008" class="edge">
+<title>Node5&#45;&gt;Node8</title>
+<g id="a_edge8_Node000005_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M384.89,-57.14C368.06,-56.86 350.47,-56.56 334.58,-56.3"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="384.82,-60.64 394.88,-57.3 384.94,-53.64 384.82,-60.64"/>
+</a>
+</g>
+</g>
+<!-- Node9 -->
+<g id="Node000009" class="node">
+<title>Node9</title>
+<g id="a_Node000009"><a xlink:href="button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" target="_top" xlink:title="Callback for single click events.">
+<polygon fill="white" stroke="#666666" points="350.62,-20.75 206.38,-20.75 206.38,0 350.62,0 350.62,-20.75"/>
+<text text-anchor="middle" x="278.5" y="-7.25" font-family="Helvetica,sans-Serif" font-size="10.00">iot_button_single_click_cb</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node9 -->
+<g id="edge10_Node000005_Node000009" class="edge">
+<title>Node5&#45;&gt;Node9</title>
+<g id="a_edge10_Node000005_Node000009"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M408.53,-44.52C390.83,-39.69 370.79,-34.25 352.5,-29.38 342.5,-26.71 331.72,-23.88 321.6,-21.24"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="407.47,-47.86 418.04,-47.12 409.32,-41.11 407.47,-47.86"/>
+</a>
+</g>
+</g>
+<!-- Node7 -->
+<g id="Node000007" class="node">
+<title>Node7</title>
+<g id="a_Node000007"><a xlink:href="button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" target="_top" xlink:title="Initializes the hardware button configuration and event callbacks.">
+<polygon fill="white" stroke="#666666" points="168.5,-88.75 100,-88.75 100,-68 168.5,-68 168.5,-88.75"/>
+<text text-anchor="middle" x="134.25" y="-75.25" font-family="Helvetica,sans-Serif" font-size="10.00">button_init</text>
+</a>
+</g>
+</g>
+<!-- Node6&#45;&gt;Node7 -->
+<g id="edge6_Node000006_Node000007" class="edge">
+<title>Node6&#45;&gt;Node7</title>
+<g id="a_edge6_Node000006_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M195.9,-87.76C186.34,-86.28 177.03,-84.84 168.69,-83.55"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="195.3,-91.2 205.71,-89.27 196.37,-84.29 195.3,-91.2"/>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node2 -->
-<g id="edge6_Node000006_Node000002" class="edge">
-<title>Node6&#45;&gt;Node2</title>
-<g id="a_edge6_Node000006_Node000002"><a xlink:title=" ">
+<!-- Node7&#45;&gt;Node2 -->
+<g id="edge7_Node000007_Node000002" class="edge">
+<title>Node7&#45;&gt;Node2</title>
+<g id="a_edge7_Node000007_Node000002"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M88.36,-86.88C80.26,-88.42 71.98,-89.99 64.37,-91.43"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="88.93,-90.34 98.1,-85.04 87.63,-83.46 88.93,-90.34"/>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node6 -->
-<g id="edge8_Node000007_Node000006" class="edge">
-<title>Node7&#45;&gt;Node6</title>
-<g id="a_edge8_Node000007_Node000006"><a xlink:title=" ">
+<!-- Node8&#45;&gt;Node7 -->
+<g id="edge9_Node000008_Node000007" class="edge">
+<title>Node8&#45;&gt;Node7</title>
+<g id="a_edge9_Node000008_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M211.31,-66.08C196.54,-68.46 181.49,-70.9 168.72,-72.96"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="211.7,-69.56 221.01,-64.51 210.58,-62.65 211.7,-69.56"/>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node6 -->
-<g id="edge10_Node000008_Node000006" class="edge">
-<title>Node8&#45;&gt;Node6</title>
-<g id="a_edge10_Node000008_Node000006"><a xlink:title=" ">
+<!-- Node9&#45;&gt;Node7 -->
+<g id="edge11_Node000009_Node000007" class="edge">
+<title>Node9&#45;&gt;Node7</title>
+<g id="a_edge11_Node000009_Node000007"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M215.57,-24.79C211.77,-26.2 208.05,-27.72 204.5,-29.38 182.6,-39.56 160.34,-56.8 147.17,-67.88"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="216.61,-28.14 224.97,-21.63 214.38,-21.5 216.61,-28.14"/>
 </a>
