@@ -35,6 +35,7 @@ partition_table/build/
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+!.vscode/c_cpp_properties.json
 .idea/
 *.swp
 *~

@@ -1,0 +1,30 @@
+{
+  "configurations": [
+    {
+      "name": "ESP-IDF",
+      "includePath": [
+        "${workspaceFolder}/components/*/include/",
+        "${workspaceFolder}/components/*/priv_include/",
+        "${workspaceFolder}/managed_components/*/include/",
+        "${IDF_PATH}/components/**/include/",
+        "${IDF_PATH}/components/**/public_include/"
+      ],
+      "browse": {
+        "path": [
+          "${workspaceFolder}/components/*/include/",
+          "${workspaceFolder}/components/*/priv_include/",
+          "${workspaceFolder}/managed_components/*/include/",
+          "${IDF_PATH}/components/**/include/",
+          "${IDF_PATH}/components/**/public_include/"
+        ]
+      },
+      "defines": ["ESP_PLATFORM"],
+      "compileCommands": "${workspaceFolder}/build/compile_commands.json",
+      "cStandard": "c17",
+      "cppStandard": "gnu++17",
+      "intelliSenseMode": "linux-gcc-x64",
+      "configurationProvider": "ms-vscode.cmake-tools"
+    }
+  ],
+  "version": 4
+}
