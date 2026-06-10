@@ -7,6 +7,6 @@ var searchData=
   ['validate_5fobject_4',['validate_object',['../json__processor_8c.html#affcd5f5aa862f7acf97402ac896f2a3c',1,'json_processor.c']]],
   ['validate_5fstring_5',['validate_string',['../json__processor_8c.html#a2ee9216e3611025ff4fad91f31ea0697',1,'json_processor.c']]],
   ['version_6',['version',['../struct____attribute____.html#a31d2a2fad37f62ce3919384a9a9845bb',1,'__attribute__']]],
-  ['via_20nixos_20org_7',['via nixos.org',['../index.html#via-nixosorg',1,'']]],
-  ['via_20terminate_20systems_20recommended_8',['via terminate.systems (recommended)',['../index.html#via-terminatesystems-recommended',1,'']]]
+  ['via_20determinate_20systems_20recommended_7',['via determinate.systems (recommended)',['../index.html#via-determinatesystems-recommended',1,'']]],
+  ['via_20nixos_20org_8',['via nixos.org',['../index.html#via-nixosorg',1,'']]]
 ];
