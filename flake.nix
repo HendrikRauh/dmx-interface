@@ -205,14 +205,14 @@
           (
             set -euo pipefail
 
-            cd web
+            alias npm="${pkgs.nodejs}/bin/npm --prefix \"''${PROJECT_ROOT:-$(pwd)}/web\""
 
-            LOCKFILE="package-lock.json"
-            HASH_STORE="node_modules/.nix-lockfile.hash"
+            LOCKFILE="web/package-lock.json"
+            HASH_STORE="web/node_modules/.nix-lockfile.hash"
 
             if [ -f "$LOCKFILE" ]; then
               CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
-              if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+              if [ ! -d "web/node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
                 echo "Changes detected in $LOCKFILE. Running npm install..."
                 npm install
 
