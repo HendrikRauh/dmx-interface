@@ -43,9 +43,9 @@ def build(c, board="lolinS2mini"):
         print(f"❌ Error: Board '{board}' is not defined in TARGET_BOARDS.")
         print(f"Available boards: {', '.join(TARGET_BOARDS.keys())}")
         raise Exit(code=1)
-    
+
     c.run("npm run build")
-    
+
     defaults_file = TARGET_BOARDS[board]
     print(f"-> Building for board: {board} using {defaults_file}")
     c.run(f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file} build", pty=True)
