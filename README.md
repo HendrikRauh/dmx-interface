@@ -14,12 +14,15 @@ ______________________________________________________________________
 
 ## 🛒 Parts
 
+> [!NOTE]
+> We linked some of our components in the table below, feel free to use a vendor and manufacturer of your choice.
+
 | Count | Part |
-| --- | --- |
-| 1x | ESP32 (Lolin S2 Mini) |
-| 2x | RS485 |
-| 1x | W5500-ETH |
-| 1x | LED-Button |
+| ---: | --- |
+| 1x | [ESP32 (Lolin S2 Mini)](https://de.aliexpress.com/item/1005006985001838.html?spm=a2g0o.order_list.order_list_main.212.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 2x | [RS485](https://de.aliexpress.com/item/1005006391142478.html?spm=a2g0o.order_list.order_list_main.102.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 1x | [W5500-ETH](https://de.aliexpress.com/item/1005006127400904.html?spm=a2g0o.order_list.order_list_main.137.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
+| 1x | [LED-Button](https://de.aliexpress.com/item/1005003595039032.html?spm=a2g0o.order_list.order_list_main.35.23795c5fCZ7bIM&gatewayAdapt=glo2deu) |
 | 1x | ♂️-XLR-socket |
 | 1x | ♀️-XLR-socket |
 
@@ -43,10 +46,10 @@ The following diagram demonstrates how to wire the components together, in the t
 <img src="assets/circuit/diagram.svg" onerror="this.onerror=null; this.src='diagram.svg';" alt="Circuit diagram">
 
 | GPIO | Usage |
-| --- | --- |
+| ---: | --- |
 | GND | GND to others |
-| 3,3V | VIN on RS485 |
-| 5V/VBUS | VIN on W5500 |
+| 3,3 V | VIN on RS485 |
+| 5 V / VBUS | VIN on W5500 |
 | 0 | Onboard Button |
 | 5 | Ext. Button |
 | 7 | Ext. LED |
@@ -64,10 +67,9 @@ ______________________________________________________________________
 
 ## 🚀 Installation
 
-1. Install [ESP-IDF](https://docs.espressif.com/projects/esp-idf/en/stable/esp32/get-started/index.html) (`idf.py`) on your system
-2. Connect the ESP32 to your computer via USB
-3. Flash the firmware by running `idf.py flash` or if you have [invoke](https://www.pyinvoke.org/) installed: `inv flash` in the project folder
-4. (optional) Monitor the serial output using `idf.py monitor` or `inv monitor`
+1. Connect the ESP32 to your computer using a USB cable.
+2. Flash the firmware to the ESP32 using the provided [flash tool](https://hendrikrauh.github.io/dmx-interface/flasher/) or by using a command line tool of your choice (e.g., `esptool.py`).<br>You can find the latest firmware release on the [releases page](https://github.com/HendrikRauh/dmx-interface/releases).
+3. Connect to the WiFi network with the [default configuration](#default-config) and access the web interface.
 
 > [!TIP]
 > If the ESP32 does not show up as a serial device, you might need to place it in bootloader mode.
@@ -85,7 +87,7 @@ Feel free to design your own case (and maybe address the [issues with the curren
 In addition to the print you will need:
 
 | Count | Part | Location |
-| --- | --- | --- |
+| ---: | --- | --- |
 | 6x | M2x5 screw | Case lid, ESP32 |
 | 2x | M2.5x5 screw | W5500 |
 | 4x | M3 screw | XLR sockets |
@@ -136,15 +138,15 @@ If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us
 ### Setup NIX
 
 For usage of the development environment, having the nix package manager with flakes-support installed on your system is required.
-There are two main ways how you can install the nix package manager on your system.
+There are two main ways to install the nix package manager on your system.
 
-#### via terminate.systems (recommended)
+#### via determinate.systems (recommended)
 
 Have a look at [their website](https://determinate.systems/nix-installer/), there is a single command to run, after this you may restart the system or log out.
 
 #### via nixos.org
 
-If you want to use the bare nix installer visit [nixos.org/download](https://nixos.org/download/) and follow the steps there. If you are done with the installation of nix you need to enable flakes support by adding the following line to your `~/.config/nix/nix.conf`:
+If you want to use the bare nix installer visit [nixos.org/download](https://nixos.org/download/) and follow the steps there. When you are done with the installation of nix you need to enable flakes support by adding the following line to your `~/.config/nix/nix.conf`:
 
 ```conf
 experimental-features = nix-command flakes
