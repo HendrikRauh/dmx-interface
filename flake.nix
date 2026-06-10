@@ -35,6 +35,10 @@
       '';
     };
 
+    npm-wrapper = pkgs.writeShellScriptBin "npm" ''
+      exec ${pkgs.nodejs}/bin/npm --prefix "''${PROJECT_ROOT:-$(pwd)}/web" "$@"
+    '';
+
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
@@ -178,6 +182,7 @@
         pre-commit-check.enabledPackages
         ++ [
           esp-idf
+          npm-wrapper
           pkgs.clang-tools
           pkgs.doxygen
           pkgs.graphviz

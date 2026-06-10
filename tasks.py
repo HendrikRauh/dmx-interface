@@ -33,7 +33,7 @@ def _find_esp_port():
 @task
 def build(c):
     """Build the project"""
-    c.run("cd web && npm run build")
+    c.run("npm run build")
     c.run("idf.py build", pty=True)
 
 
@@ -56,7 +56,7 @@ def monitor(c, port=None):
 @task
 def web_dev(c):
     """Start web development server with hot reloading"""
-    c.run("cd web && npm run dev", pty=True)
+    c.run("npm run dev", pty=True)
 
 
 @task
@@ -85,7 +85,7 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies", pty=True)
-    c.run("cd web && npm update", pty=True)
+    c.run("npm update", pty=True)
     c.run("nix flake update", pty=True)
 
 
