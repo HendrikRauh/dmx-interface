@@ -1,8 +1,8 @@
 import {
+  ClassicReset,
   ESPLoader,
-  Transport,
   HardReset,
-  ClassicReset
+  Transport,
 } from "https://unpkg.com/esptool-js/bundle.js";
 
 const themeToggle = document.getElementById("theme-toggle");
@@ -41,10 +41,12 @@ let monitorReader = null;
 const setTheme = (theme) => {
   if (theme === "latte") {
     body.classList.replace("mocha", "latte");
-    themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+    themeToggle.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
   } else {
     body.classList.replace("latte", "mocha");
-    themeToggle.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+    themeToggle.innerHTML =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
   }
   localStorage.setItem("theme", theme);
 };
@@ -87,10 +89,10 @@ async function startMonitoring() {
   try {
     while (isMonitoring && port.readable) {
       if (port.readable.locked) {
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise((resolve) => setTimeout(resolve, 100));
         continue;
       }
-      
+
       monitorReader = port.readable.getReader();
       try {
         while (true) {
@@ -110,9 +112,9 @@ async function startMonitoring() {
           monitorReader = null;
         }
       }
-      
+
       if (!isMonitoring) break;
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 100));
     }
   } catch (err) {
     if (isMonitoring) console.error("Monitor loop error:", err);
@@ -144,17 +146,22 @@ const setProgress = (percent) => {
 };
 
 const toggleFlashButton = () => {
-  const hasFile = radioGithub.checked 
-    ? (releaseSelect.value && !["error", "loading"].includes(releaseSelect.value))
-    : (fileInput.files.length > 0);
-  
+  const hasFile = radioGithub.checked
+    ? releaseSelect.value &&
+      !["error", "loading"].includes(releaseSelect.value)
+    : fileInput.files.length > 0;
+
   const isConnected = !!port;
-  
+
   flashBtn.disabled = !hasFile || !isConnected;
   rebootBtn.disabled = !isConnected;
 
-  isConnected ? rebootBtn.classList.remove("hidden") : rebootBtn.classList.add("hidden");
-  (hasFile && isConnected) ? flashBtn.classList.remove("hidden") : flashBtn.classList.add("hidden");
+  isConnected
+    ? rebootBtn.classList.remove("hidden")
+    : rebootBtn.classList.add("hidden");
+  hasFile && isConnected
+    ? flashBtn.classList.remove("hidden")
+    : flashBtn.classList.add("hidden");
 };
 
 // --- Event Listeners ---
@@ -213,14 +220,14 @@ async function loadGitHubReleases() {
   try {
     const response = await fetch("meta/releases.json");
     if (!response.ok) throw new Error("Failed to load releases.json");
-    
+
     const releases = await response.json();
     releaseSelect.innerHTML = "";
-    
+
     let hasAssets = false;
     if (Array.isArray(releases)) {
-      releases.forEach(release => {
-        release.assets.forEach(asset => {
+      releases.forEach((release) => {
+        release.assets.forEach((asset) => {
           if (asset.name.endsWith(".bin")) {
             const option = document.createElement("option");
             option.text = `${release.tag} — ${asset.name}`;
@@ -233,12 +240,14 @@ async function loadGitHubReleases() {
     }
 
     if (!hasAssets) {
-      releaseSelect.innerHTML = '<option value="error">No firmware found</option>';
+      releaseSelect.innerHTML =
+        '<option value="error">No firmware found</option>';
     }
     toggleFlashButton();
   } catch (err) {
     console.error(err);
-    releaseSelect.innerHTML = '<option value="error">Error loading releases</option>';
+    releaseSelect.innerHTML =
+      '<option value="error">Error loading releases</option>';
   }
 }
 
@@ -266,13 +275,13 @@ connectBtn.addEventListener("click", async () => {
   try {
     port = await navigator.serial.requestPort();
     await port.open({ baudRate: 115200 });
-    
+
     updateStatus("Connected");
     terminalContainer.classList.remove("hidden");
     connectBtn.textContent = "Disconnect";
     connectBtn.classList.replace("btn-primary", "btn-teal");
     toggleFlashButton();
-    
+
     startMonitoring();
   } catch (err) {
     console.error(err);
@@ -290,30 +299,31 @@ rebootBtn.addEventListener("click", async () => {
     flashBtn.disabled = true;
 
     stopMonitoring();
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 300));
 
     updateStatus("Rebooting...");
-    
+
     try {
-      await port.setSignals({ dataTerminalReady: false, requestToSend: true }); // RTS Low (EN Low)
-      await new Promise(r => setTimeout(r, 100));
-      await port.setSignals({ dataTerminalReady: false, requestToSend: false }); // RTS High (EN High)
+      await port.setSignals({ dataTerminalReady: false, requestToSend: true });
+      await new Promise((r) => setTimeout(r, 100));
+      await port.setSignals({
+        dataTerminalReady: false,
+        requestToSend: false,
+      });
     } catch (e) {
       console.warn("Manual signal reset failed, trying esptool reset...");
-      // Re-init esptool context if needed
       if (!transport) transport = new Transport(port, true);
       const esploader = new ESPLoader({
         transport: transport,
         baudrate: 115200,
-        terminal: espTerminal
+        terminal: espTerminal,
       });
       await esploader.after("hard_reset", true);
     }
-    
-    await new Promise(resolve => setTimeout(resolve, 800));
+
+    await new Promise((resolve) => setTimeout(resolve, 800));
     updateStatus("Rebooted!");
     startMonitoring();
-    
   } catch (err) {
     console.error(err);
     updateStatus(`Reboot failed: ${err.message}`, true);
@@ -334,39 +344,39 @@ flashBtn.addEventListener("click", async () => {
     rebootBtn.disabled = true;
 
     stopMonitoring();
-    await new Promise(resolve => setTimeout(resolve, 500));
+    await new Promise((resolve) => setTimeout(resolve, 500));
 
     updateStatus("Preparing for bootloader...");
-    
-    // Explicit reset to bootloader mode for S2 Mini
-    // DTR (GPIO0) Low, RTS (EN) Low -> High
+
     try {
-      await port.setSignals({ dataTerminalReady: true, requestToSend: true }); // GPIO0 Low, EN Low
-      await new Promise(r => setTimeout(r, 100));
-      await port.setSignals({ requestToSend: false }); // EN High (GPIO0 still Low)
-      await new Promise(r => setTimeout(r, 50));
-      await port.setSignals({ dataTerminalReady: false }); // GPIO0 High
+      await port.setSignals({ dataTerminalReady: true, requestToSend: true });
+      await new Promise((r) => setTimeout(r, 100));
+      await port.setSignals({ requestToSend: false });
+      await new Promise((r) => setTimeout(r, 50));
+      await port.setSignals({ dataTerminalReady: false });
     } catch (e) {
       console.warn("Failed to set signals for bootloader entry");
     }
 
-    // Close and let esptool take over
     if (transport) {
-      try { await transport.disconnect(); } catch(e) {}
+      try {
+        await transport.disconnect();
+      } catch (e) {}
     }
     await port.close();
 
-    // Re-open with esptool
     transport = new Transport(port, true);
     const resetConstructors = {
-      hardReset: (transport, usingUsbOtg) => new HardReset(transport, usingUsbOtg),
-      classicReset: (transport, resetDelay) => new ClassicReset(transport, resetDelay),
+      hardReset: (transport, usingUsbOtg) =>
+        new HardReset(transport, usingUsbOtg),
+      classicReset: (transport, resetDelay) =>
+        new ClassicReset(transport, resetDelay),
     };
     esploader = new ESPLoader({
       transport: transport,
       baudrate: 115200,
       terminal: espTerminal,
-      resetConstructors: resetConstructors
+      resetConstructors: resetConstructors,
     });
 
     updateStatus("Syncing...");
@@ -377,17 +387,15 @@ flashBtn.addEventListener("click", async () => {
     let binData;
     if (radioGithub.checked) {
       const url = releaseSelect.value;
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error("Direct fetch failed");
-        binData = new Uint8Array(await response.arrayBuffer());
-      } catch (e) {
-        updateStatus("Trying proxy...", false);
-        const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
-        const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("CORS Proxy failed.");
-        binData = new Uint8Array(await response.arrayBuffer());
-      }
+      updateStatus("Downloading via CORS Proxy...", false);
+
+      const proxyUrl = `https://cors-proxy.hrauh.workers.dev/?url=${encodeURIComponent(url)}`;
+      console.log("Fetching via Proxy:", proxyUrl);
+
+      const response = await fetch(proxyUrl);
+      if (!response.ok)
+        throw new Error(`Proxy fetch failed with status ${response.status}`);
+      binData = new Uint8Array(await response.arrayBuffer());
     } else {
       const file = fileInput.files[0];
       binData = new Uint8Array(await file.arrayBuffer());
@@ -408,20 +416,18 @@ flashBtn.addEventListener("click", async () => {
     await esploader.writeFlash(flashOptions);
     updateStatus("Success!");
     setProgress(100);
-    
+
     await esploader.after("hard_reset", true);
-    await new Promise(resolve => setTimeout(resolve, 800));
-    
+    await new Promise((resolve) => setTimeout(resolve, 800));
+
     startMonitoring();
-    
   } catch (err) {
     console.error(err);
     updateStatus(`Flash failed: ${err.message}`, true);
-    // Try to re-open for monitoring if possible
     try {
       if (!port.opened) await port.open({ baudRate: 115200 });
       startMonitoring();
-    } catch(e) {}
+    } catch (e) {}
   } finally {
     flashBtn.disabled = false;
     connectBtn.disabled = false;
