@@ -35,7 +35,7 @@ var NAVTREE =
     ] ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
       [ "Setup NIX", "index.html#setup-nix", [
-        [ "via terminate.systems (recommended)", "index.html#via-terminatesystems-recommended", null ],
+        [ "via determinate.systems (recommended)", "index.html#via-determinatesystems-recommended", null ],
         [ "via nixos.org", "index.html#via-nixosorg", null ]
       ] ],
       [ "Setup direnv (optional)", "index.html#setup-direnv-optional", null ],
