@@ -141,7 +141,7 @@ If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us
 For usage of the development environment, having the nix package manager with flakes-support installed on your system is required.
 There are two main ways to install the nix package manager on your system.
 
-#### via terminate.systems (recommended)
+#### via determinate.systems (recommended)
 
 Have a look at [their website](https://determinate.systems/nix-installer/), there is a single command to run, after this you may restart the system or log out.
 
