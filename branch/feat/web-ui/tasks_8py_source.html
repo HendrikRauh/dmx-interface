@@ -222,7 +222,7 @@ $(function(){initNavTree('tasks_8py_source.html','',''); });
 <div class="foldopen" id="foldopen00034" data-start="" data-end="">
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7">   34</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a4a34f038ae2e8930e4a7f553047e01a7">build</a>(c):</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="stringliteral">&quot;&quot;&quot;Build the project&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    c.run(<span class="stringliteral">&quot;cd web &amp;&amp; npm run build&quot;</span>)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    c.run(<span class="stringliteral">&quot;npm run build&quot;</span>)</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    c.run(<span class="stringliteral">&quot;idf.py build&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
@@ -251,7 +251,7 @@ $(function(){initNavTree('tasks_8py_source.html','',''); });
 <div class="foldopen" id="foldopen00057" data-start="" data-end="">
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="namespacetasks.html#a2ea8673507363fb78ba2e90de74afdf3">   57</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a2ea8673507363fb78ba2e90de74afdf3">web_dev</a>(c):</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="stringliteral">&quot;&quot;&quot;Start web development server with hot reloading&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    c.run(<span class="stringliteral">&quot;cd web &amp;&amp; npm run dev&quot;</span>, pty=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    c.run(<span class="stringliteral">&quot;npm run dev&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">@task</span></div>
@@ -288,7 +288,7 @@ $(function(){initNavTree('tasks_8py_source.html','',''); });
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac">   85</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac">update</a>(c):</div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="stringliteral">&quot;&quot;&quot;Update project dependencies&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    c.run(<span class="stringliteral">&quot;idf.py update-dependencies&quot;</span>, pty=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    c.run(<span class="stringliteral">&quot;cd web &amp;&amp; npm update&quot;</span>, pty=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    c.run(<span class="stringliteral">&quot;npm update&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    c.run(<span class="stringliteral">&quot;nix flake update&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
 <div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
