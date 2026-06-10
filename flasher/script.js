@@ -267,19 +267,6 @@ connectBtn.addEventListener("click", async () => {
     port = await navigator.serial.requestPort();
     await port.open({ baudRate: 115200 });
     
-    // Create transport and loader for potential flashing
-    transport = new Transport(port, true);
-    const resetConstructors = {
-      hardReset: (transport, usingUsbOtg) => new HardReset(transport, usingUsbOtg),
-      classicReset: (transport, resetDelay) => new ClassicReset(transport, resetDelay),
-    };
-    esploader = new ESPLoader({
-      transport: transport,
-      baudrate: 115200,
-      terminal: espTerminal,
-      resetConstructors: resetConstructors
-    });
-
     updateStatus("Connected");
     terminalContainer.classList.remove("hidden");
     connectBtn.textContent = "Disconnect";
@@ -307,14 +294,19 @@ rebootBtn.addEventListener("click", async () => {
 
     updateStatus("Rebooting...");
     
-    // Manual RTS toggle is often more reliable than software reset command
-    // when the application is flooding the port
     try {
-      await port.setSignals({ requestToSend: true }); // EN Low
+      await port.setSignals({ dataTerminalReady: false, requestToSend: true }); // RTS Low (EN Low)
       await new Promise(r => setTimeout(r, 100));
-      await port.setSignals({ requestToSend: false }); // EN High
+      await port.setSignals({ dataTerminalReady: false, requestToSend: false }); // RTS High (EN High)
     } catch (e) {
-      // Fallback to esptool method
+      console.warn("Manual signal reset failed, trying esptool reset...");
+      // Re-init esptool context if needed
+      if (!transport) transport = new Transport(port, true);
+      const esploader = new ESPLoader({
+        transport: transport,
+        baudrate: 115200,
+        terminal: espTerminal
+      });
       await esploader.after("hard_reset", true);
     }
     
@@ -334,7 +326,7 @@ rebootBtn.addEventListener("click", async () => {
 
 // --- Flashing Logic ---
 flashBtn.addEventListener("click", async () => {
-  if (!esploader || !port) return;
+  if (!port) return;
 
   try {
     flashBtn.disabled = true;
@@ -344,17 +336,42 @@ flashBtn.addEventListener("click", async () => {
     stopMonitoring();
     await new Promise(resolve => setTimeout(resolve, 500));
 
-    updateStatus("Syncing with bootloader...");
+    updateStatus("Preparing for bootloader...");
     
-    // Disconnect transport if it was opened manually for monitoring.
-    // esptool-js wants to handle the opening itself to set correct baud rates.
+    // Explicit reset to bootloader mode for S2 Mini
+    // DTR (GPIO0) Low, RTS (EN) Low -> High
     try {
-      if (transport) await transport.disconnect();
-    } catch (e) {}
+      await port.setSignals({ dataTerminalReady: true, requestToSend: true }); // GPIO0 Low, EN Low
+      await new Promise(r => setTimeout(r, 100));
+      await port.setSignals({ requestToSend: false }); // EN High (GPIO0 still Low)
+      await new Promise(r => setTimeout(r, 50));
+      await port.setSignals({ dataTerminalReady: false }); // GPIO0 High
+    } catch (e) {
+      console.warn("Failed to set signals for bootloader entry");
+    }
 
-    // Now try to sync. This will handle the reset into bootloader mode.
+    // Close and let esptool take over
+    if (transport) {
+      try { await transport.disconnect(); } catch(e) {}
+    }
+    await port.close();
+
+    // Re-open with esptool
+    transport = new Transport(port, true);
+    const resetConstructors = {
+      hardReset: (transport, usingUsbOtg) => new HardReset(transport, usingUsbOtg),
+      classicReset: (transport, resetDelay) => new ClassicReset(transport, resetDelay),
+    };
+    esploader = new ESPLoader({
+      transport: transport,
+      baudrate: 115200,
+      terminal: espTerminal,
+      resetConstructors: resetConstructors
+    });
+
+    updateStatus("Syncing...");
     const chip = await esploader.main();
-    updateStatus(`Preparing firmware for ${chip}...`);
+    updateStatus(`Flashing ${chip}...`);
     setProgress(0);
 
     let binData;
@@ -365,10 +382,10 @@ flashBtn.addEventListener("click", async () => {
         if (!response.ok) throw new Error("Direct fetch failed");
         binData = new Uint8Array(await response.arrayBuffer());
       } catch (e) {
-        updateStatus("Direct fetch failed, trying proxy...", false);
+        updateStatus("Trying proxy...", false);
         const proxyUrl = `https://cors-anywhere.herokuapp.com/${url}`;
         const response = await fetch(proxyUrl);
-        if (!response.ok) throw new Error("CORS Proxy also failed.");
+        if (!response.ok) throw new Error("CORS Proxy failed.");
         binData = new Uint8Array(await response.arrayBuffer());
       }
     } else {
@@ -376,8 +393,6 @@ flashBtn.addEventListener("click", async () => {
       binData = new Uint8Array(await file.arrayBuffer());
     }
 
-    updateStatus("Flashing...");
-    
     const flashOptions = {
       fileArray: [{ data: binData, address: 0x0000 }],
       flashMode: "dio",
@@ -391,7 +406,7 @@ flashBtn.addEventListener("click", async () => {
     };
 
     await esploader.writeFlash(flashOptions);
-    updateStatus("Flashing complete!");
+    updateStatus("Success!");
     setProgress(100);
     
     await esploader.after("hard_reset", true);
@@ -401,7 +416,12 @@ flashBtn.addEventListener("click", async () => {
     
   } catch (err) {
     console.error(err);
-    updateStatus(`Error: ${err.message}`, true);
+    updateStatus(`Flash failed: ${err.message}`, true);
+    // Try to re-open for monitoring if possible
+    try {
+      if (!port.opened) await port.open({ baudRate: 115200 });
+      startMonitoring();
+    } catch(e) {}
   } finally {
     flashBtn.disabled = false;
     connectBtn.disabled = false;
