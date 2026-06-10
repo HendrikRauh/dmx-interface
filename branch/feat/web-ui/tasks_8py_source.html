@@ -232,9 +232,9 @@ $(function(){initNavTree('tasks_8py_source.html','',''); });
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        print(f<span class="stringliteral">&quot;❌ Error: Board &#39;{board}&#39; is not defined in TARGET_BOARDS.&quot;</span>)</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        print(f<span class="stringliteral">&quot;Available boards: {&#39;, &#39;.join(TARGET_BOARDS.keys())}&quot;</span>)</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordflow">raise</span> Exit(code=1)</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span> </div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    c.run(<span class="stringliteral">&quot;npm run build&quot;</span>)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    defaults_file = TARGET_BOARDS[board]</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    print(f<span class="stringliteral">&quot;-&gt; Building for board: {board} using {defaults_file}&quot;</span>)</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    c.run(f<span class="stringliteral">&quot;idf.py -D SDKCONFIG_DEFAULTS={defaults_file} build&quot;</span>, pty=<span class="keyword">True</span>)</div>
