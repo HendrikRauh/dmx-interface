@@ -1,9 +1,9 @@
 import { Fragment } from "preact/jsx-runtime";
 
-import { Slider } from "../../slider/Slider";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Fieldset } from "../fieldset/Fieldset";
 import { LabeledInput } from "../labeled-input/LabeledInput";
+import { Slider } from "../slider/Slider";
 
 export function DmxForm() {
   return (
