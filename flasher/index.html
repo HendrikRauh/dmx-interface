@@ -1,141 +1,109 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ChaosDMX Web Flasher</title>
-    <link rel="icon" href="data:," />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body class="mocha">
-    <div class="container">
-      <header>
-        <h1>ChaosDMX Flasher</h1>
-        <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          >
-            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ChaosDMX Web Flasher</title>
+  <link rel="icon" href="../favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="mocha">
+  <div class="container">
+    <header>
+      <h1>ChaosDMX Flasher</h1>
+      <button id="theme-toggle" class="icon-btn" title="Toggle Theme">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+        </svg>
+      </button>
+    </header>
+
+    <main class="card">
+      <section class="mode-selector">
+        <div class="radio-tab">
+          <input type="radio" id="mode-github" name="flash-mode" value="github" checked />
+          <label for="mode-github">GitHub Release</label>
+
+          <input type="radio" id="mode-local" name="flash-mode" value="local" />
+          <label for="mode-local">Local File</label>
+        </div>
+      </section>
+
+      <section id="sec-github" class="input-group">
+        <label for="release-select">Firmware Version</label>
+        <div class="select-wrapper">
+          <select id="release-select">
+            <option value="">Fetching releases...</option>
+          </select>
+        </div>
+      </section>
+
+      <section id="sec-local" class="input-group hidden">
+        <label>Select Binary</label>
+        <div id="drop-zone" class="drop-zone">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="drop-icon">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="17 8 12 3 7 8" />
+            <line x1="12" y1="3" x2="12" y2="15" />
           </svg>
+          <span id="drop-text">Click or drag .bin file here</span>
+          <input type="file" id="file-input" accept=".bin" class="hidden-input" />
+        </div>
+      </section>
+
+      <section class="input-group">
+        <label for="flash-size">Flash Size</label>
+        <div class="select-wrapper">
+          <select id="flash-size">
+            <option value="detect">Auto Detect</option>
+            <option value="1MB">1MB</option>
+            <option value="2MB">2MB</option>
+            <option value="4MB" selected>4MB (Lolin S2 Mini)</option>
+            <option value="8MB">8MB</option>
+            <option value="16MB">16MB</option>
+          </select>
+        </div>
+      </section>
+
+      <div class="action-bar">
+        <button id="connect-button" class="btn btn-primary">
+          Connect Device
         </button>
-      </header>
+        <button id="reboot-button" class="btn btn-teal hidden" disabled>
+          Reboot
+        </button>
 
-      <main class="card">
-        <section class="mode-selector">
-          <div class="radio-tab">
-            <input
-              type="radio"
-              id="mode-github"
-              name="flash-mode"
-              value="github"
-              checked
-            />
-            <label for="mode-github">GitHub Release</label>
+        <button id="flash-button" class="btn btn-teal hidden" disabled>
+          Flash Firmware
+        </button>
+      </div>
 
-            <input
-              type="radio"
-              id="mode-local"
-              name="flash-mode"
-              value="local"
-            />
-            <label for="mode-local">Local File</label>
-          </div>
-        </section>
+      <div id="status" class="status-msg">Ready to connect</div>
 
-        <section id="sec-github" class="input-group">
-          <label for="release-select">Firmware Version</label>
-          <div class="select-wrapper">
-            <select id="release-select">
-              <option value="">Fetching releases...</option>
-            </select>
-          </div>
-        </section>
-
-        <section id="sec-local" class="input-group hidden">
-          <label>Select Binary</label>
-          <div id="drop-zone" class="drop-zone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="drop-icon"
-            >
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="17 8 12 3 7 8" />
-              <line x1="12" y1="3" x2="12" y2="15" />
-            </svg>
-            <span id="drop-text">Click or drag .bin file here</span>
-            <input
-              type="file"
-              id="file-input"
-              accept=".bin"
-              class="hidden-input"
-            />
-          </div>
-        </section>
-
-        <section class="input-group">
-          <label for="flash-size">Flash Size</label>
-          <div class="select-wrapper">
-            <select id="flash-size">
-              <option value="detect">Auto Detect</option>
-              <option value="1MB">1MB</option>
-              <option value="2MB">2MB</option>
-              <option value="4MB" selected>4MB (Lolin S2 Mini)</option>
-              <option value="8MB">8MB</option>
-              <option value="16MB">16MB</option>
-            </select>
-          </div>
-        </section>
-
-        <div class="action-bar">
-          <button id="connect-button" class="btn btn-primary">
-            Connect Device
-          </button>
-          <button id="reboot-button" class="btn btn-teal hidden" disabled>
-            Reboot
-          </button>
-
-          <button id="flash-button" class="btn btn-teal hidden" disabled>
-            Flash Firmware
-          </button>
+      <div id="progress-container" class="progress-wrapper hidden">
+        <div class="progress-info">
+          <span id="progress-text">0%</span>
         </div>
-
-        <div id="status" class="status-msg">Ready to connect</div>
-
-        <div id="progress-container" class="progress-wrapper hidden">
-          <div class="progress-info">
-            <span id="progress-text">0%</span>
-          </div>
-          <div class="progress-track">
-            <div id="progress-bar" class="progress-fill"></div>
-          </div>
+        <div class="progress-track">
+          <div id="progress-bar" class="progress-fill"></div>
         </div>
+      </div>
 
-        <div id="terminal-container" class="terminal-wrapper hidden">
-          <div class="terminal-header">
-            <span>Terminal Output</span>
-            <button id="clear-terminal" class="text-btn">Clear</button>
-          </div>
-          <div id="terminal" class="terminal-content"></div>
+      <div id="terminal-container" class="terminal-wrapper hidden">
+        <div class="terminal-header">
+          <span>Terminal Output</span>
+          <button id="clear-terminal" class="text-btn">Clear</button>
         </div>
-      </main>
-    </div>
+        <div id="terminal" class="terminal-content"></div>
+      </div>
+    </main>
+  </div>
 
-    <script type="module" src="script.js"></script>
-  </body>
+  <script type="module" src="script.js"></script>
+</body>
+
 </html>
