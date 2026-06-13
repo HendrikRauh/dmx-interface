@@ -1,5 +1,3 @@
-import { useState } from "preact/hooks";
-
 import style from "./Slider.module.scss";
 
 type SliderProps = {
@@ -9,6 +7,7 @@ type SliderProps = {
   max?: number;
   step?: number | string;
   relative?: boolean;
+  onValueChange?: (value: number) => void;
 };
 
 export function Slider({
@@ -18,20 +17,25 @@ export function Slider({
   max = 100,
   step,
   relative = false,
+  onValueChange = () => {},
 }: SliderProps) {
-  const [_value, setValue] = useState(value);
+  const percentage = Math.round(((value - min) / (max - min)) * 100);
+
   return (
     <div class={style.slider}>
       <input
         type="range"
-        value={_value}
+        value={value}
         name={name}
         min={min}
         max={max}
         step={step}
-        onInput={(event) => setValue(Number.parseInt(event.currentTarget.value))}
+        onInput={(event) => {
+          const newValue = Number.parseFloat(event.currentTarget.value);
+          onValueChange(newValue);
+        }}
       />
-      {relative ? <span>{Math.round((_value / (max - min)) * 100)}%</span> : <span>{_value}</span>}
+      {relative ? <span>{percentage}%</span> : <span>{value}</span>}
     </div>
   );
 }

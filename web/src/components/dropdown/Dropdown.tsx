@@ -3,6 +3,7 @@ type DropdownProps = {
   options: { label: string; value: string; disabled?: boolean }[];
   selectedValue?: string;
   required?: boolean;
+  onValueChange?: (value: string) => void;
 };
 
 export function Dropdown({
@@ -10,9 +11,10 @@ export function Dropdown({
   options,
   selectedValue = undefined,
   required = false,
+  onValueChange = () => {},
 }: DropdownProps) {
   return (
-    <select name={name} required={required}>
+    <select name={name} required={required} onChange={(e) => onValueChange(e.currentTarget.value)}>
       {options.map((option) => (
         <option
           key={option.value}

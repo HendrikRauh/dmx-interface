@@ -64,3 +64,25 @@ body {
   background-color: var(--color-base);
   color: var(--color-text);
 }
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-large);
+}
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  background-color: var(--color-accent);
+  color: var(--color-surface0);
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: var(--spacing-small) var(--spacing-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-duration);
+}
