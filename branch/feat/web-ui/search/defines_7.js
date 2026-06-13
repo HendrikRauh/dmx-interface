@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['reset_5fhold_5ftime_5fms_0',['RESET_HOLD_TIME_MS',['../button__actions_8c.html#ada8fee83817eb41e40da9746e793a00e',1,'button_actions.c']]]
+  ['nvs_5fblob_5fkey_0',['NVS_BLOB_KEY',['../config_8c.html#a2ba04455f5520c37f2c2e20396838f52',1,'config.c']]],
+  ['nvs_5fnamespace_1',['NVS_NAMESPACE',['../config_8c.html#ae0d42b03d126e6fb189509303533cc2d',1,'config.c']]]
 ];

@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "j",
   7: "acjl",
   8: "ajl",
-  9: "abjklmnruw",
+  9: "abdjklmnruw",
   10: "cdhilnoprstuvw⚙💡📦🔌🚀🛒🤝🧑"
 };
 

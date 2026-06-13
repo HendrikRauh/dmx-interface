@@ -1,34 +1,36 @@
 <map id="components/web_server/src/config_routes.c" name="components/web_server/src/config_routes.c">
-<area shape="rect" id="Node000001" title="Implementation of the web server configuration routes." alt="" coords="506,5,687,50"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="703,174,775,201"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="688,30,724,37,761,50,794,69,821,97,827,117,819,136,802,153,781,168,778,163,798,149,814,133,822,116,817,99,791,74,758,55,723,43,687,35"/>
-<area shape="rect" id="Node000003" href="$config_8h.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="151,98,223,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="506,47,239,100,238,95,505,42"/>
-<area shape="rect" id="Node000008" href="$config__routes_8h.html" title="Header file for the web server configuration routes." alt="" coords="402,98,522,126"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="562,53,498,92,495,87,559,48"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="546,98,647,126"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="599,50,599,82,594,82,594,50"/>
-<area shape="rect" id="Node000011" href="$json__processor_8h.html" title="Header file for JSON processing utilities used in the web server component." alt="" coords="248,98,377,126"/>
-<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="522,53,373,96,372,91,520,48"/>
-<area shape="rect" id="Node000012" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="882,98,956,126"/>
-<area shape="poly" id="edge14_Node000001_Node000012" title=" " alt="" coords="683,48,868,95,867,100,681,53"/>
-<area shape="rect" id="Node000014" href="$web__server__util_8h.html" title="Utility functions and definitions for the web server component." alt="" coords="671,98,807,126"/>
-<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="636,48,705,88,702,92,633,53"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="316,174,397,201"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="218,124,314,165,312,170,216,129"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="100,174,186,201"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="182,128,161,162,156,159,177,125"/>
-<area shape="rect" id="Node000006" title=" " alt="" coords="210,174,292,201"/>
-<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="201,124,232,160,228,164,197,128"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="5,174,76,201"/>
-<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="162,129,81,169,79,164,160,124"/>
-<area shape="rect" id="Node000009" title=" " alt="" coords="482,174,618,201"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="479,124,524,162,521,166,476,128"/>
-<area shape="poly" id="edge11_Node000011_Node000002" title=" " alt="" coords="378,122,688,175,687,180,377,127"/>
-<area shape="poly" id="edge12_Node000011_Node000004" title=" " alt="" coords="323,125,343,159,339,162,318,128"/>
-<area shape="poly" id="edge13_Node000011_Node000006" title=" " alt="" coords="304,128,274,164,270,160,299,125"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="878,174,961,201"/>
-<area shape="poly" id="edge15_Node000012_Node000013" title=" " alt="" coords="922,126,922,158,916,158,916,126"/>
-<area shape="poly" id="edge18_Node000014_Node000002" title=" " alt="" coords="742,126,742,158,736,158,736,126"/>
-<area shape="poly" id="edge17_Node000014_Node000009" title=" " alt="" coords="706,129,598,170,597,165,704,124"/>
+<area shape="rect" id="Node000001" title="Implementation of the web server configuration routes." alt="" coords="417,5,597,50"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="427,174,499,201"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="504,51,473,159,468,158,499,49"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="202,98,271,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="436,53,287,98,286,93,435,48"/>
+<area shape="rect" id="Node000004" href="$config_8h.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="106,98,178,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="417,50,194,100,193,95,416,45"/>
+<area shape="rect" id="Node000009" href="$config__routes_8h.html" title="Header file for the web server configuration routes." alt="" coords="786,98,906,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="598,48,777,91,776,96,596,53"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="500,98,602,126"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="521,49,539,83,534,85,516,52"/>
+<area shape="rect" id="Node000012" href="$json__processor_8h.html" title="Header file for JSON processing utilities used in the web server component." alt="" coords="296,98,425,126"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="470,53,399,92,396,88,467,48"/>
+<area shape="rect" id="Node000013" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="930,98,1004,126"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="598,39,743,63,916,95,915,100,742,68,597,45"/>
+<area shape="rect" id="Node000015" href="$web__server__util_8h.html" title="Utility functions and definitions for the web server component." alt="" coords="626,98,762,126"/>
+<area shape="poly" id="edge17_Node000001_Node000015" title=" " alt="" coords="558,48,651,89,649,94,556,53"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="320,174,401,201"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="179,123,308,166,306,171,178,128"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="100,174,186,201"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="145,126,145,158,140,158,139,126"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="213,174,294,201"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="163,124,223,163,220,167,160,128"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="5,174,76,201"/>
+<area shape="poly" id="edge7_Node000004_Node000008" title=" " alt="" coords="125,128,72,167,69,162,122,124"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="695,174,831,201"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="833,128,791,165,787,161,829,124"/>
+<area shape="poly" id="edge12_Node000012_Node000002" title=" " alt="" coords="380,124,434,162,431,167,377,128"/>
+<area shape="poly" id="edge13_Node000012_Node000005" title=" " alt="" coords="363,126,363,158,358,158,358,126"/>
+<area shape="poly" id="edge14_Node000012_Node000007" title=" " alt="" coords="343,128,287,167,284,163,340,124"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="926,174,1009,201"/>
+<area shape="poly" id="edge16_Node000013_Node000014" title=" " alt="" coords="970,126,970,158,964,158,964,126"/>
+<area shape="poly" id="edge19_Node000015_Node000002" title=" " alt="" coords="653,129,515,172,514,167,652,124"/>
+<area shape="poly" id="edge18_Node000015_Node000010" title=" " alt="" coords="708,124,742,160,738,164,704,128"/>
 </map>

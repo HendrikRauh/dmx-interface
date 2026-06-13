@@ -80,7 +80,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_2home_2runner_2work_2dmx-interface_2dmx-interface_2components_2logger_2include_2logger_8h-example.html",
-"json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923"
+"json__processor_8c.html#a556cb36db80168fafc9b0179e1d4f9c8",
+"wifi_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
