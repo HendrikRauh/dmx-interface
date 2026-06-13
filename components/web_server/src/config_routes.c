@@ -6,6 +6,7 @@
 #define LOG_TAG "WEB_CFG" ///< Logging tag for this file
 
 #include <cJSON.h>
+#include <stdlib.h>
 
 #include "config.h"
 #include "config_routes.h"
@@ -32,9 +33,46 @@
 static void action_set_connection(int connection);
 static void action_set_ip_method(int ip_method);
 static void action_set_led_brightness(int led_brightness);
-static void action_set_port_config(const cJSON *array);
+static void action_set_port_config(const cJSON *ports);
 static void action_set_wifi_sta_config(const cJSON *json);
 static void action_set_wifi_ap_config(const cJSON *json);
+
+
+/**
+ * @brief Helper macro to initialize a single `json_processor_object_entry_t`
+ * structure.
+ * @param n The port number (integer), which is automatically stringified.
+ */
+#define DMX_ENTRY(n)                                                           \
+  {.key = #n, .required = false, .entry_processor = &dmx_port_processor}
+
+/**
+ * @name DMX Port Expansion Chains
+ * @brief Macros used to linearly chain port definitions based on the configured
+ * count.
+ * @{
+ */
+#define DMX_PORTS_1 DMX_ENTRY(0)              ///< Initializer for 1 DMX port
+#define DMX_PORTS_2 DMX_PORTS_1, DMX_ENTRY(1) ///< Initializer for 2 DMX ports
+#define DMX_PORTS_3 DMX_PORTS_2, DMX_ENTRY(2) ///< Initializer for 3 DMX ports
+#define DMX_PORTS_4 DMX_PORTS_3, DMX_ENTRY(3) ///< Initializer for 4 DMX ports
+/** @} */
+
+/**
+ * @brief Internal helper macro to perform token pasting after argument
+ * expansion.
+ * @param count The evaluated port count.
+ */
+#define DMX_PORTS_EXPAND_HELPER(count) DMX_PORTS_##count
+
+/**
+ * @brief Evaluates the current configuration count and expands it into the full
+ * list of port initializers.
+ * @note This indirection layer is required to force the preprocessor to resolve
+ * the value of APP_CONFIG_DMX_PORT_COUNT before gluing the tokens.
+ * @param count The macro token representing the maximum port count.
+ */
+#define DMX_PORTS_EXPAND(count) DMX_PORTS_EXPAND_HELPER(count)
 
 /**
  * @brief JSON processor definition for validating and processing the
@@ -62,10 +100,6 @@ static const json_processor_t dmx_port_processor = {
     .processor.object = {
         .processors =
             (json_processor_object_entry_t[]){
-                {.key = KEY_DMX_PORT_INDEX,
-                 .required = true,
-                 .entry_processor =
-                     JSON_PROC_INT(0, APP_CONFIG_DMX_PORT_COUNT - 1, NULL)},
                 {.key = KEY_UNIVERSE,
                  .required = false,
                  .entry_processor =
@@ -75,8 +109,20 @@ static const json_processor_t dmx_port_processor = {
                  .entry_processor = JSON_PROC_INT(APP_CONFIG_DIR_MIN,
                                                   APP_CONFIG_DIR_MAX, NULL)},
             },
-        .num_processors = 3,
+        .num_processors = 2,
     }};
+
+/**
+ * @brief Processor lookup table for DMX port JSON objects.
+ *
+ * This array is automatically populated with entry processors up to the
+ * maximum number of ports defined by @ref APP_CONFIG_DMX_PORT_COUNT.
+ */
+static const json_processor_object_entry_t dmx_ports_object_processor[] = {
+#if APP_CONFIG_DMX_PORT_COUNT > 0
+    DMX_PORTS_EXPAND(APP_CONFIG_DMX_PORT_COUNT)
+#endif
+};
 
 /**
  * @brief JSON processor definition for validating and processing the entire
@@ -114,7 +160,7 @@ static const json_processor_t processor = {
                                    action_set_wifi_ap_config)},
                 {.key = KEY_DMX_PORTS,
                  .required = false,
-                 .entry_processor = JSON_PROC_ARR(&dmx_port_processor, 0,
+                 .entry_processor = JSON_PROC_OBJ(dmx_ports_object_processor,
                                                   APP_CONFIG_DMX_PORT_COUNT,
                                                   action_set_port_config)},
             },
@@ -171,15 +217,16 @@ static esp_err_t get_config_handler(httpd_req_t *req) {
   cJSON_AddStringToObject(json_wifi_ap, KEY_PASSWORD, buf_pass);
 
   // --- DMX Ports Array ---
-  cJSON *dmx_array = cJSON_AddArrayToObject(root, KEY_DMX_PORTS);
-  if (!dmx_array) {
+  cJSON *dmx_ports = cJSON_AddObjectToObject(root, KEY_DMX_PORTS);
+  if (!dmx_ports) {
     goto fail;
   }
   for (size_t i = 0; i < APP_CONFIG_DMX_PORT_COUNT; i++) {
     cJSON *port_config = cJSON_CreateObject();
     if (port_config) {
-      cJSON_AddItemToArray(dmx_array, port_config);
-      cJSON_AddNumberToObject(port_config, KEY_DMX_PORT_INDEX, i);
+      char port_index_str[3];
+      sprintf(port_index_str, "%d", i);
+      cJSON_AddItemToObject(dmx_ports, port_index_str, port_config);
       cJSON_AddNumberToObject(port_config, KEY_UNIVERSE,
                               config_get_dmx_universe(i));
       cJSON_AddNumberToObject(port_config, KEY_DMX_DIRECTION,
@@ -243,30 +290,26 @@ static void action_set_led_brightness(int brightness) {
 /**
  * @brief Function for actions to update the DMX port configuration
  * based on the validated JSON input.
- * @param array cJSON array containing the DMX port configurations
+ * @param ports cJSON object containing the DMX port configurations
  */
-static void action_set_port_config(const cJSON *array) {
-  int len = cJSON_GetArraySize(array);
-  LOGI("Setting config for %d DMX ports", len);
-
-  for (int i = 0; i < len; i++) {
-    cJSON *item = cJSON_GetArrayItem(array, i);
-    const cJSON *port_index =
-        cJSON_GetObjectItemCaseSensitive(item, KEY_DMX_PORT_INDEX);
+static void action_set_port_config(const cJSON *ports) {
+  const cJSON *port = NULL;
+  cJSON_ArrayForEach(port, ports) {
+    const int port_index = atoi(port->string);
     const cJSON *universe =
-        cJSON_GetObjectItemCaseSensitive(item, KEY_UNIVERSE);
+        cJSON_GetObjectItemCaseSensitive(port, KEY_UNIVERSE);
     const cJSON *direction =
-        cJSON_GetObjectItemCaseSensitive(item, KEY_DMX_DIRECTION);
-    LOGI("Port config - index: %d, universe: %d, direction: %d",
-         port_index->valueint, universe ? universe->valueint : -1,
+        cJSON_GetObjectItemCaseSensitive(port, KEY_DMX_DIRECTION);
+    LOGI("Port config - index: %d, universe: %d, direction: %d", port_index,
+         universe ? universe->valueint : -1,
          direction ? direction->valueint : -1);
 
     if (universe != NULL) {
-      config_set_dmx_universe(port_index->valueint, universe->valueint);
+      config_set_dmx_universe(port_index, universe->valueint);
     }
 
     if (direction != NULL) {
-      config_set_dmx_direction(port_index->valueint, direction->valueint);
+      config_set_dmx_direction(port_index, direction->valueint);
     }
   }
 }
