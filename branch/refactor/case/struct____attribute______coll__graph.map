@@ -1,0 +1,5 @@
+<map id="__attribute__" name="__attribute__">
+<area shape="rect" id="Node000001" title="Internal configuration storage layout. Mirrors the private runtime configuration context state in RAM..." alt="" coords="17,128,123,156"/>
+<area shape="rect" id="Node000002" href="$structapp__wifi__creds__t.html" title="WIFI credentials structure for both Station and Access Point modes." alt="" coords="5,5,135,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="73,49,73,128,67,128,67,49"/>
+</map>

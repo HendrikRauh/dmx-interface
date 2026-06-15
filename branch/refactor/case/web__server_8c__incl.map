@@ -1,0 +1,32 @@
+<map id="components/web_server/src/web_server.c" name="components/web_server/src/web_server.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="421,5,601,50"/>
+<area shape="rect" id="Node000002" href="$web__server_8h.html" title="Simple HTTP web server component for ESP32 with async FreeRTOS support." alt="" coords="20,98,127,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="421,48,143,100,142,95,420,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="151,98,220,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="422,53,236,100,235,95,421,48"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="245,98,310,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="450,53,325,97,324,92,448,48"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="335,98,404,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="475,53,406,92,404,88,472,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="428,98,498,126"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="501,52,481,86,476,83,496,49"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="901,174,982,201"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="602,30,691,37,786,49,870,68,902,81,925,96,935,110,941,126,946,158,941,158,936,127,930,112,921,100,899,85,868,73,785,54,690,42,601,35"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="620,98,770,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="561,48,652,89,650,94,559,53"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="794,98,910,126"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="602,48,783,91,782,96,601,53"/>
+<area shape="rect" id="Node000011" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="522,98,596,126"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="526,49,546,83,541,86,521,52"/>
+<area shape="rect" id="Node000013" href="$storage_8h.html" title=" " alt="" coords="996,98,1079,126"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="602,39,967,95,981,98,980,103,966,101,601,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,142,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="76,126,76,158,71,158,71,126"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="517,174,600,201"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="562,126,562,158,556,158,556,126"/>
+<area shape="poly" id="edge13_Node000013_Node000008" title=" " alt="" coords="1022,128,972,166,969,162,1019,124"/>
+<area shape="rect" id="Node000014" title=" " alt="" coords="1104,174,1185,201"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="1058,124,1114,163,1111,167,1055,128"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1006,174,1080,201"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="1041,126,1043,158,1038,158,1036,126"/>
+</map>

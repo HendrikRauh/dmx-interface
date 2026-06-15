@@ -1,0 +1,15 @@
+<map id="config_get_button_action" name="config_get_button_action">
+<area shape="rect" id="Node000001" title="Retrieves the action assigned to a specific button event." alt="" coords="523,65,708,93"/>
+<area shape="rect" id="Node000002" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="278,5,475,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="542,64,434,36,436,31,543,58"/>
+<area shape="rect" id="Node000005" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="302,57,451,102"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="508,82,451,82,451,76,508,76"/>
+<area shape="rect" id="Node000006" href="$button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" title="Callback for single click events." alt="" coords="280,125,473,153"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="543,100,436,127,434,122,542,95"/>
+<area shape="rect" id="Node000003" href="$button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,65,230,93"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="302,40,279,47,222,67,220,62,277,42,301,35"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,65,91,93"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="123,82,91,82,91,76,123,76"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="287,82,230,82,230,76,287,76"/>
+<area shape="poly" id="edge7_Node000006_Node000003" title=" " alt="" coords="301,123,277,116,220,96,222,91,279,111,302,118"/>
+</map>

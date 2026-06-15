@@ -1,0 +1,7 @@
+<map id="config_set_led_brightness" name="config_set_led_brightness">
+<area shape="rect" id="Node000001" title="Sets the status LED brightness level in RAM." alt="" coords="5,5,195,33"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="243,5,386,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,16,227,16,227,22,195,22"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="434,5,550,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="386,16,419,16,419,22,386,22"/>
+</map>

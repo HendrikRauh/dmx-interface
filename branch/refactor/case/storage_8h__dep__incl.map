@@ -1,0 +1,9 @@
+<map id="components/storage/include/storage.h" name="components/storage/include/storage.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="197,5,352,50"/>
+<area shape="rect" id="Node000002" href="$storage_8c.html" title=" " alt="" coords="5,98,160,143"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="216,59,129,100,127,95,214,55"/>
+<area shape="rect" id="Node000003" href="$web__server_8c.html" title=" " alt="" coords="184,98,365,143"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="277,66,277,98,272,98,272,66"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html" title=" " alt="" coords="388,106,550,134"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="336,54,442,104,440,108,334,59"/>
+</map>
