@@ -131,6 +131,10 @@ ______________________________________________________________________
 We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the `buildInputs` section in `flake.nix`.
 If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session. You might need to install [usbipd-win](https://github.com/dorssel/usbipd-win#how-to-install) for usage of the usb pass-through
 
+### Setup GIT (with LFS)
+
+Make sure to install [git](https://git-scm.com/) and [git-lfs](https://git-lfs.com/) on your system.
+
 ### Setup NIX
 
 For usage of the development environment, having the nix package manager with flakes-support installed on your system is required.
