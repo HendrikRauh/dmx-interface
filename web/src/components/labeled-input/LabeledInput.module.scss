@@ -1,5 +1,5 @@
 .labeledInput {
-  margin: var(--spacing-small) 0;
+  margin: var(--spacing-medium) 0;
 
   &:first-child {
     margin-top: 0;
@@ -11,17 +11,18 @@
 
   label {
     display: flex;
-    flex-direction: row;
-    gap: var(--spacing-medium);
+    flex-direction: column;
+    gap: var(--spacing-small);
     justify-content: space-between;
-    align-items: center;
-    max-width: 800px;
+  }
+
+  label span {
+    color: var(--color-subtext0);
   }
 
   label > :nth-child(2) {
-    padding: var(--spacing-small);
-    width: 50%;
-    max-width: 400px;
+    padding: var(--spacing-small) var(--spacing-medium);
+    height: 44px;
     box-sizing: border-box;
   }
 

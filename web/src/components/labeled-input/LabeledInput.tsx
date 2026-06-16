@@ -11,7 +11,7 @@ export function LabeledInput({ label, children }: LabeledInputProps) {
   return (
     <div class={style.labeledInput}>
       <label>
-        <span>{label}:</span>
+        <span>{label}</span>
         {children}
       </label>
     </div>

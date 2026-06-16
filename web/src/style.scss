@@ -29,6 +29,14 @@
   }
 }
 
+@font-face {
+  font-family: "Fredoka";
+  src: url("/fonts/Fredoka.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     @include catppuccin-theme(latte, teal);
@@ -43,7 +51,7 @@
 
 :root {
   --spacing-small: 8px;
-  --spacing-medium: 18px;
+  --spacing-medium: 16px;
   --spacing-large: 24px;
 
   --border-radius-small: 8px;
@@ -59,10 +67,23 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   background-color: var(--color-base);
   color: var(--color-text);
+}
+
+body,
+input,
+select,
+button,
+textarea {
+  font-family: "Fredoka", sans-serif;
+}
+
+header {
+  display: flex;
+  gap: var(--spacing-medium);
+  align-items: center;
 }
 
 main {
