@@ -9,7 +9,7 @@ type DropdownProps = {
 export function Dropdown({
   name,
   options,
-  selectedValue = undefined,
+  selectedValue,
   required = false,
   onValueChange = () => {},
 }: DropdownProps) {

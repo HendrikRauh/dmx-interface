@@ -108,6 +108,7 @@
     "statix",
     "stdenv",
     "STREQUAL",
+    "tsgolint",
     "usbipd",
     "VBUS",
     "venv",

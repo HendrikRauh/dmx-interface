@@ -46,7 +46,7 @@ export function DmxForm() {
   };
 
   useEffect(() => {
-    loadConfig().then((data) => {
+    void loadConfig().then((data) => {
       console.log("Loaded config:", data);
       setConfig(data);
     });
