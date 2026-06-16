@@ -113,6 +113,8 @@ export function DmxForm() {
                 type="number"
                 name={`universe-${index}`}
                 value={port.universe}
+                min={0}
+                max={32767}
                 onInput={(event) => {
                   updateConfig({
                     dmx_ports: {
