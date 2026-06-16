@@ -392,6 +392,15 @@ static esp_err_t post_config_handler(httpd_req_t *req) {
     return ESP_OK;
   }
 
+  esp_err_t err = config_save();
+  if (err != ESP_OK) {
+    LOGE("Failed to save configuration after processing POST /api/config: 0x%X",
+         err);
+    httpd_resp_send_err(req, HTTPD_500_INTERNAL_SERVER_ERROR,
+                        "Failed to save configuration");
+    return ESP_OK;
+  }
+
   httpd_resp_send(req, NULL, 0);
   return ESP_OK;
 }
