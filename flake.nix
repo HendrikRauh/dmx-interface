@@ -244,13 +244,9 @@
         ESPTOOL_BEFORE = "usb_reset";
         GERMAN_DICT_PATH = "${germanDict}";
         LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
-          pkgs.opencascade-occt
           pkgs.vtk
-          pkgs.stdenv.cc.cc.lib
           pkgs.libGL
           pkgs.libX11
-          pkgs.expat
-          pkgs.zlib
         ]}:${virtualenv}/lib/python3.13/site-packages/vtkmodules:${virtualenv}/lib/python3.13/site-packages/cadquery_vtk:$LD_LIBRARY_PATH";
         UV_NO_SYNC = "1";
         UV_PYTHON = python.interpreter;
