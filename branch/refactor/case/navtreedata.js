@@ -34,6 +34,7 @@ var NAVTREE =
       [ "Default config", "index.html#default-config", null ]
     ] ],
     [ "🧑‍💻 Development", "index.html#‍-development", [
+      [ "Setup GIT (with LFS)", "index.html#setup-git-with-lfs", null ],
       [ "Setup NIX", "index.html#setup-nix", [
         [ "via determinate.systems (recommended)", "index.html#via-determinatesystems-recommended", null ],
         [ "via nixos.org", "index.html#via-nixosorg", null ]
@@ -79,7 +80,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_2home_2runner_2work_2dmx-interface_2dmx-interface_2components_2logger_2include_2logger_8h-example.html",
-"storage_8c.html#a173132f25c6164bd4ed0731b9e918245"
+"storage_8c.html#a089569849719023c87c42e440ca66154"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

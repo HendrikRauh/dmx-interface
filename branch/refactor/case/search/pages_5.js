@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['nix_0',['Setup NIX',['../index.html#setup-nix',1,'']]],
-  ['nixos_20org_1',['via nixos.org',['../index.html#via-nixosorg',1,'']]]
+  ['led_0',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]],
+  ['lfs_1',['Setup GIT (with LFS)',['../index.html#setup-git-with-lfs',1,'']]]
 ];

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['parts_0',['🛒 Parts',['../index.html#autotoc_md-parts',1,'']]],
-  ['pre_20commit_20hooks_1',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
+  ['optional_0',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
+  ['org_1',['via nixos.org',['../index.html#via-nixosorg',1,'']]]
 ];

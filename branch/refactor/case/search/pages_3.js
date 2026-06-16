@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['installation_0',['🚀 Installation',['../index.html#autotoc_md-installation',1,'']]]
+  ['hooks_0',['Pre-commit hooks',['../index.html#pre-commit-hooks',1,'']]]
 ];

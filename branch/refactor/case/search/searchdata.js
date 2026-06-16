@@ -9,7 +9,7 @@ var indexSectionsWithContent =
   6: "acl",
   7: "al",
   8: "ablmnruw",
-  9: "cdhilnoprstuvw⚙💡📦🔌🚀🛒🤝🧑"
+  9: "cdghilnoprstuvw⚙💡📦🔌🚀🛒🤝🧑"
 };
 
 var indexSectionNames =
