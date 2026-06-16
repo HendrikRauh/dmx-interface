@@ -1,18 +1,20 @@
 <map id="config_save" name="config_save">
-<area shape="rect" id="Node000001" title="Flushes all staged RAM changes permanently to the non&#45;volatile storage." alt="" coords="740,24,838,52"/>
-<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,24,91,52"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="724,32,525,13,402,9,278,11,178,21,92,34,91,28,177,16,278,6,402,3,526,8,725,27"/>
-<area shape="rect" id="Node000003" href="$button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" title="Executes the action compiled into the configuration for the triggered event." alt="" coords="523,49,692,77"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="725,50,692,54,692,49,724,44"/>
-<area shape="rect" id="Node000004" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="278,20,475,48"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="508,53,475,49,476,44,508,48"/>
-<area shape="rect" id="Node000006" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="302,72,451,116"/>
-<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="508,79,452,87,451,81,508,74"/>
-<area shape="rect" id="Node000007" href="$button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" title="Callback for single click events." alt="" coords="280,140,473,168"/>
-<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="569,87,525,110,476,131,442,142,441,137,474,126,523,105,567,83"/>
-<area shape="rect" id="Node000005" href="$button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,49,230,77"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="267,53,231,59,230,54,266,48"/>
-<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="123,55,91,49,92,43,124,49"/>
-<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="287,82,230,73,231,68,288,77"/>
-<area shape="poly" id="edge9_Node000007_Node000005" title=" " alt="" coords="292,137,277,131,234,106,200,79,203,75,237,101,279,126,294,132"/>
+<area shape="rect" id="Node000001" title="Flushes all staged RAM changes permanently to the non&#45;volatile storage." alt="" coords="740,53,838,81"/>
+<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,27,91,54"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="724,52,691,44,576,23,486,11,395,9,278,14,178,24,92,36,91,31,177,19,278,9,395,3,486,6,577,17,692,39,725,47"/>
+<area shape="rect" id="Node000003" href="$button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" title="Executes the action compiled into the configuration for the triggered event." alt="" coords="523,53,692,81"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="724,70,692,70,692,65,724,65"/>
+<area shape="rect" id="Node000008" href="$config__routes_8c.html#a4c2742039454d8db8617a376e24f8e5b" title="Handler for POST requests to /api/config." alt="" coords="532,105,683,133"/>
+<area shape="poly" id="edge10_Node000001_Node000008" title=" " alt="" coords="725,88,659,107,658,102,724,83"/>
+<area shape="rect" id="Node000004" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="278,23,475,50"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="508,57,475,52,476,47,508,51"/>
+<area shape="rect" id="Node000006" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="302,74,451,119"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="508,82,451,90,451,84,508,77"/>
+<area shape="rect" id="Node000007" href="$button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" title="Callback for single click events." alt="" coords="280,143,473,170"/>
+<area shape="poly" id="edge8_Node000003_Node000007" title=" " alt="" coords="539,89,525,96,501,115,477,133,449,145,447,140,474,129,498,111,522,92,537,85"/>
+<area shape="rect" id="Node000005" href="$button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,52,230,80"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="267,56,231,62,230,56,266,51"/>
+<area shape="poly" id="edge5_Node000005_Node000002" title=" " alt="" coords="123,57,91,51,92,46,124,52"/>
+<area shape="poly" id="edge7_Node000006_Node000005" title=" " alt="" coords="287,85,230,76,231,70,288,80"/>
+<area shape="poly" id="edge9_Node000007_Node000005" title=" " alt="" coords="292,140,277,134,234,108,200,82,203,78,237,104,279,129,294,135"/>
 </map>
