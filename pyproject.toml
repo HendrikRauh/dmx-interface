@@ -1,0 +1,16 @@
+# cspell:ignore: pyperclip setuptools
+
+[project]
+name = "dmx-interface"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "build123d>=0.10.0",
+    "ocp-vscode>=3.4.0",
+]
+[tool.uv.extra-build-dependencies]
+pyperclip = ["setuptools"]
+[tool.setuptools]
+packages = []

@@ -78,11 +78,7 @@ ______________________________________________________________________
 
 ## 📦 Case
 
-All print files can be found in the folder `assets/case`.
-Alternatively, you can view the current case on [OnShape](https://cad.onshape.com/documents/7363818fd18bf0cbf094790e/w/52455282b39e47fbde5d0e53/e/9bec98aa83a813dc9a4d6ab2) where you can export the files in a format of your choice.
-Feel free to design your own case (and maybe address the [issues with the current one](https://github.com/HendrikRauh/dmx-interface/issues/92)) and share it with us!
-
-![Prusa Slicer with case loaded](/assets/case/Screenshot.png)
+All print files can be found in the folder `assets/case/output`. We used [build123d](https://build123d.readthedocs.io) to design the case, you can find the source file in `assets/case/case.py` if you want to modify the design.
 
 In addition to the print you will need:
 

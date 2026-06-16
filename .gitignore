@@ -53,6 +53,7 @@ __pycache__/
 venv/
 venv*/
 .env
+tempCodeRunnerFile.py
 
 # Logs / temp
 *.log

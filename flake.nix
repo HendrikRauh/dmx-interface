@@ -1,4 +1,4 @@
-# cspell:words: ESPTOOL_BEFORE
+# cspell:words: ESPTOOL_BEFORE pyproject cadquery Patchelf virtualenv opencascade occt dont vtkmodules
 {
   description = "dmx-interface development environment";
 
@@ -7,17 +7,59 @@
     git-hooks.inputs.nixpkgs.follows = "nixpkgs";
     git-hooks.url = "github:cachix/git-hooks.nix";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    pyproject-nix.url = "github:pyproject-nix/pyproject.nix";
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = {
     esp-dev,
     git-hooks,
     nixpkgs,
+    pyproject-build-systems,
+    pyproject-nix,
+    uv2nix,
     ...
   }: let
-    esp-idf = esp-dev.packages.${system}.esp-idf-full;
-    pkgs = nixpkgs.legacyPackages.${system};
     system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+    esp-idf = esp-dev.packages.${system}.esp-idf-full;
+    inherit (pkgs) lib;
+
+    workspace = uv2nix.lib.workspace.loadWorkspace {workspaceRoot = ./.;};
+
+    python = pkgs.python3;
+
+    pythonBase = pkgs.callPackage pyproject-nix.build.packages {inherit python;};
+
+    overlay = workspace.mkPyprojectOverlay {
+      sourcePreference = "wheel";
+    };
+
+    pythonSet = pythonBase.overrideScope (
+      lib.composeManyExtensions [
+        pyproject-build-systems.overlays.wheel
+        overlay
+
+        (_: prev: {
+          cadquery-ocp = prev.cadquery-ocp.overrideAttrs (_: {
+            dontAutoPatchelf = true;
+          });
+        })
+      ]
+    );
+
+    virtualenv = pythonSet.mkVirtualEnv "dmx-env" workspace.deps.default;
 
     germanDict = pkgs.stdenv.mkDerivation {
       name = "cspell-dict-de";
@@ -26,7 +68,6 @@
         hash = "sha256-bikoewusguLv1UvP2x3k9/KpSfBfNP1H88Xfqa1zaUE=";
       };
 
-      # cspell:ignore-words dont
       dontBuild = true;
       dontConfigure = true;
       installPhase = ''
@@ -43,7 +84,8 @@
         "\\.elf$"
         "\\.hex$"
         "\\.o$"
-        "^assets/case/"
+        "^assets/case/output/"
+        "^assets/case/parts/"
         "^build/"
         "^dependencies\\.lock$"
         "^docs/doxygen/"
@@ -178,7 +220,11 @@
     checks.${system}.pre-commit-check = pre-commit-check;
 
     devShells.${system}.default = pkgs.mkShell {
-      inherit (pre-commit-check) shellHook;
+      shellHook = ''
+        git lfs install --local --force
+        ${pre-commit-check.shellHook}
+      '';
+
       buildInputs =
         pre-commit-check.enabledPackages
         ++ [
@@ -186,13 +232,29 @@
           pkgs.clang-tools
           pkgs.doxygen
           pkgs.graphviz
+          pkgs.opencascade-occt
           pkgs.python3
           pkgs.python3Packages.invoke
           pkgs.svgo
+          pkgs.uv
+          pkgs.vtk
+          virtualenv
         ];
       env = {
         ESPTOOL_BEFORE = "usb_reset";
         GERMAN_DICT_PATH = "${germanDict}";
+        LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+          pkgs.opencascade-occt
+          pkgs.vtk
+          pkgs.stdenv.cc.cc.lib
+          pkgs.libGL
+          pkgs.libX11
+          pkgs.expat
+          pkgs.zlib
+        ]}:${virtualenv}/lib/python3.13/site-packages/vtkmodules:${virtualenv}/lib/python3.13/site-packages/cadquery_vtk:$LD_LIBRARY_PATH";
+        UV_NO_SYNC = "1";
+        UV_PYTHON = python.interpreter;
+        UV_PYTHON_DOWNLOADS = "never";
       };
     };
   };
