@@ -330,77 +330,87 @@ $(function(){initNavTree('tasks_8py_source.html','',''); });
 <div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac">  127</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac">update</a>(c):</div>
 <div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    <span class="stringliteral">&quot;&quot;&quot;Update project dependencies&quot;&quot;&quot;</span></div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    c.run(<span class="stringliteral">&quot;idf.py update-dependencies&quot;</span>, pty=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    c.run(<span class="stringliteral">&quot;nix flake update&quot;</span>, pty=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    c.run(<span class="stringliteral">&quot;uv lock&quot;</span>, pty=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    c.run(<span class="stringliteral">&quot;nix flake update&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">@task</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">@task</span></div>
 </div>
-<div class="foldopen" id="foldopen00134" data-start="" data-end="">
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">  134</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">reset</a>(c):</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="stringliteral">&quot;&quot;&quot;Reset project to clean state: remove build, config, and managed components&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    files_to_remove = [</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        <span class="stringliteral">&quot;.cspellcache&quot;</span>,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="stringliteral">&quot;.pre-commit-config.yaml&quot;</span>,</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="stringliteral">&quot;bootloader.bin&quot;</span>,</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="stringliteral">&quot;sdkconfig&quot;</span>,</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="stringliteral">&quot;sdkconfig.old&quot;</span>,</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    ]</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    dirs_to_remove = [</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>        <span class="stringliteral">&quot;.ruff_cache&quot;</span>,</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="stringliteral">&quot;build&quot;</span>,</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="stringliteral">&quot;docs/doxygen&quot;</span>,</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="stringliteral">&quot;managed_components&quot;</span>,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>    ]</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <span class="keywordflow">for</span> f <span class="keywordflow">in</span> files_to_remove:</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        <span class="keywordflow">if</span> os.path.exists(f):</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            os.remove(f)</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">for</span> d <span class="keywordflow">in</span> dirs_to_remove:</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        <span class="keywordflow">if</span> os.path.exists(d):</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>            shutil.rmtree(d)</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span> </div>
+<div class="foldopen" id="foldopen00135" data-start="" data-end="">
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno"><a class="line" href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">  135</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">reset</a>(c):</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="stringliteral">&quot;&quot;&quot;Reset project to clean state: remove build, config, and managed components&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    files_to_remove = [</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="stringliteral">&quot;.cspellcache&quot;</span>,</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        <span class="stringliteral">&quot;.pre-commit-config.yaml&quot;</span>,</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        <span class="stringliteral">&quot;bootloader.bin&quot;</span>,</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        <span class="stringliteral">&quot;sdkconfig&quot;</span>,</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>        <span class="stringliteral">&quot;sdkconfig.old&quot;</span>,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    ]</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    dirs_to_remove = [</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        <span class="stringliteral">&quot;.ruff_cache&quot;</span>,</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        <span class="stringliteral">&quot;build&quot;</span>,</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="stringliteral">&quot;docs/doxygen&quot;</span>,</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>        <span class="stringliteral">&quot;managed_components&quot;</span>,</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    ]</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span> </div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    <span class="keywordflow">for</span> f <span class="keywordflow">in</span> files_to_remove:</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        <span class="keywordflow">if</span> os.path.exists(f):</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>            os.remove(f)</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordflow">for</span> d <span class="keywordflow">in</span> dirs_to_remove:</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">if</span> os.path.exists(d):</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            shutil.rmtree(d)</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">@task</span></div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span><span class="preprocessor">@task</span></div>
 </div>
-<div class="foldopen" id="foldopen00160" data-start="" data-end="">
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">  160</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">format</a>(c):</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    <span class="stringliteral">&quot;&quot;&quot;Format all source files using pre-commit hooks&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    c.run(<span class="stringliteral">&quot;pre-commit run --all-files&quot;</span>, pty=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
+<div class="foldopen" id="foldopen00161" data-start="" data-end="">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">  161</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">format</a>(c):</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="stringliteral">&quot;&quot;&quot;Format all source files using pre-commit hooks&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    c.run(<span class="stringliteral">&quot;pre-commit run --all-files&quot;</span>, pty=<span class="keyword">True</span>)</div>
 <div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="preprocessor">@task(help={&quot;o&quot;: &quot;Open documentation in the default browser after generation.&quot;})</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">@task(help={&quot;o&quot;: &quot;Open documentation in the default browser after generation.&quot;})</span></div>
 </div>
-<div class="foldopen" id="foldopen00166" data-start="" data-end="">
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno"><a class="line" href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">  166</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">docs</a>(c, o=False):</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="stringliteral">&quot;&quot;&quot;Generate Doxygen documentation.&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    result = c.run(<span class="stringliteral">&quot;doxygen Doxyfile&quot;</span>, warn=<span class="keyword">True</span>)</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">if</span> result.ok:</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>        path = <span class="stringliteral">&quot;docs/doxygen/html/index.html&quot;</span></div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        print(f<span class="stringliteral">&quot;\n✓ Documentation generated in {path}&quot;</span>)</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        <span class="keywordflow">if</span> o:</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>            webbrowser.open(f<span class="stringliteral">&quot;file://{os.path.abspath(path)}&quot;</span>)</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>        <span class="keywordflow">return</span></div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">raise</span> Exit(code=1)</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
+<div class="foldopen" id="foldopen00167" data-start="" data-end="">
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">  167</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">docs</a>(c, o=False):</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="stringliteral">&quot;&quot;&quot;Generate Doxygen documentation.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    result = c.run(<span class="stringliteral">&quot;doxygen Doxyfile&quot;</span>, warn=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">if</span> result.ok:</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        path = <span class="stringliteral">&quot;docs/doxygen/html/index.html&quot;</span></div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        print(f<span class="stringliteral">&quot;\n✓ Documentation generated in {path}&quot;</span>)</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">if</span> o:</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            webbrowser.open(f<span class="stringliteral">&quot;file://{os.path.abspath(path)}&quot;</span>)</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>        <span class="keywordflow">return</span></div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordflow">raise</span> Exit(code=1)</div>
 <div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="preprocessor">@task</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="preprocessor">@task</span></div>
 </div>
-<div class="foldopen" id="foldopen00179" data-start="" data-end="">
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="namespacetasks.html#aa328785601148775faf61b4a721045c0">  179</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#aa328785601148775faf61b4a721045c0">docs_coverage</a>(c):</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="stringliteral">&quot;&quot;&quot;List doxygen coverage of documentation.&quot;&quot;&quot;</span></div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    c.run(<span class="stringliteral">&quot;python tools/doxy-coverage.py docs/doxygen/xml --no-error&quot;</span>, pty=<span class="keyword">True</span>)</div>
+<div class="foldopen" id="foldopen00180" data-start="" data-end="">
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno"><a class="line" href="namespacetasks.html#aa328785601148775faf61b4a721045c0">  180</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#aa328785601148775faf61b4a721045c0">docs_coverage</a>(c):</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>    <span class="stringliteral">&quot;&quot;&quot;List doxygen coverage of documentation.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    c.run(<span class="stringliteral">&quot;python tools/doxy-coverage.py docs/doxygen/xml --no-error&quot;</span>, pty=<span class="keyword">True</span>)</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span><span class="preprocessor">@task</span></div>
+</div>
+<div class="foldopen" id="foldopen00186" data-start="" data-end="">
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="namespacetasks.html#aa26000dcc67956bc8bec6a81d5946aa9">  186</a></span><span class="keyword">def </span><a class="code hl_function" href="namespacetasks.html#aa26000dcc67956bc8bec6a81d5946aa9">generate_case</a>(c):</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="stringliteral">&quot;&quot;&quot;Generate 3D model of the case and export STL/STEP files.&quot;&quot;&quot;</span></div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    c.run(<span class="stringliteral">&quot;python assets/case/src/main_case.py&quot;</span>, pty=<span class="keyword">True</span>)</div>
 </div>
 <div class="ttc" id="anamespacetasks_html_a0308a0613f3f6fa6ca7d29c0de08de1f"><div class="ttname"><a href="namespacetasks.html#a0308a0613f3f6fa6ca7d29c0de08de1f">tasks.build</a></div><div class="ttdeci">build(c, board=&quot;lolinS2mini&quot;)</div><div class="ttdef"><b>Definition</b> <a href="#l00040">tasks.py:40</a></div></div>
 <div class="ttc" id="anamespacetasks_html_a03e2bac12d45e95c8d42e7ad4a81ee98"><div class="ttname"><a href="namespacetasks.html#a03e2bac12d45e95c8d42e7ad4a81ee98">tasks.release</a></div><div class="ttdeci">release(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00070">tasks.py:70</a></div></div>
-<div class="ttc" id="anamespacetasks_html_a61697a05b78ef5022d4f9d51f9604d56"><div class="ttname"><a href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">tasks.docs</a></div><div class="ttdeci">docs(c, o=False)</div><div class="ttdef"><b>Definition</b> <a href="#l00166">tasks.py:166</a></div></div>
-<div class="ttc" id="anamespacetasks_html_a682347ed01534e1f0bfb270a1d733c17"><div class="ttname"><a href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">tasks.format</a></div><div class="ttdeci">format(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00160">tasks.py:160</a></div></div>
+<div class="ttc" id="anamespacetasks_html_a61697a05b78ef5022d4f9d51f9604d56"><div class="ttname"><a href="namespacetasks.html#a61697a05b78ef5022d4f9d51f9604d56">tasks.docs</a></div><div class="ttdeci">docs(c, o=False)</div><div class="ttdef"><b>Definition</b> <a href="#l00167">tasks.py:167</a></div></div>
+<div class="ttc" id="anamespacetasks_html_a682347ed01534e1f0bfb270a1d733c17"><div class="ttname"><a href="namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17">tasks.format</a></div><div class="ttdeci">format(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00161">tasks.py:161</a></div></div>
 <div class="ttc" id="anamespacetasks_html_a7e34b2c5d3cc2f921141ed7eef89b001"><div class="ttname"><a href="namespacetasks.html#a7e34b2c5d3cc2f921141ed7eef89b001">tasks._find_esp_port</a></div><div class="ttdeci">_find_esp_port()</div><div class="ttdef"><b>Definition</b> <a href="#l00017">tasks.py:17</a></div></div>
 <div class="ttc" id="anamespacetasks_html_a83c7344f678f37244547be5fc808c74a"><div class="ttname"><a href="namespacetasks.html#a83c7344f678f37244547be5fc808c74a">tasks.monitor</a></div><div class="ttdeci">monitor(c, port=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00062">tasks.py:62</a></div></div>
 <div class="ttc" id="anamespacetasks_html_a9c7192f847c16bc218f824e74eb962a1"><div class="ttname"><a href="namespacetasks.html#a9c7192f847c16bc218f824e74eb962a1">tasks.config</a></div><div class="ttdeci">config(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00115">tasks.py:115</a></div></div>
-<div class="ttc" id="anamespacetasks_html_aa328785601148775faf61b4a721045c0"><div class="ttname"><a href="namespacetasks.html#aa328785601148775faf61b4a721045c0">tasks.docs_coverage</a></div><div class="ttdeci">docs_coverage(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00179">tasks.py:179</a></div></div>
+<div class="ttc" id="anamespacetasks_html_aa26000dcc67956bc8bec6a81d5946aa9"><div class="ttname"><a href="namespacetasks.html#aa26000dcc67956bc8bec6a81d5946aa9">tasks.generate_case</a></div><div class="ttdeci">generate_case(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00186">tasks.py:186</a></div></div>
+<div class="ttc" id="anamespacetasks_html_aa328785601148775faf61b4a721045c0"><div class="ttname"><a href="namespacetasks.html#aa328785601148775faf61b4a721045c0">tasks.docs_coverage</a></div><div class="ttdeci">docs_coverage(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00180">tasks.py:180</a></div></div>
 <div class="ttc" id="anamespacetasks_html_aaf817e12aed19a1a90f3cd4bb1aec5d4"><div class="ttname"><a href="namespacetasks.html#aaf817e12aed19a1a90f3cd4bb1aec5d4">tasks.clean</a></div><div class="ttdeci">clean(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00109">tasks.py:109</a></div></div>
-<div class="ttc" id="anamespacetasks_html_ac0f4592aeb5c9897dd86d45906ddcef6"><div class="ttname"><a href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">tasks.reset</a></div><div class="ttdeci">reset(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00134">tasks.py:134</a></div></div>
+<div class="ttc" id="anamespacetasks_html_ac0f4592aeb5c9897dd86d45906ddcef6"><div class="ttname"><a href="namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6">tasks.reset</a></div><div class="ttdeci">reset(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00135">tasks.py:135</a></div></div>
 <div class="ttc" id="anamespacetasks_html_ae6a442521548b207b0e52ce48913e7ac"><div class="ttname"><a href="namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac">tasks.update</a></div><div class="ttdeci">update(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00127">tasks.py:127</a></div></div>
 <div class="ttc" id="anamespacetasks_html_af1556e714853d8c36ec135da4ca3d9dc"><div class="ttname"><a href="namespacetasks.html#af1556e714853d8c36ec135da4ca3d9dc">tasks.flash</a></div><div class="ttdeci">flash(c, port=None)</div><div class="ttdef"><b>Definition</b> <a href="#l00054">tasks.py:54</a></div></div>
 <div class="ttc" id="anamespacetasks_html_af9e439267dd9694d2c0afaee1c1519e1"><div class="ttname"><a href="namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1">tasks.saveconfig</a></div><div class="ttdeci">saveconfig(c)</div><div class="ttdef"><b>Definition</b> <a href="#l00121">tasks.py:121</a></div></div>

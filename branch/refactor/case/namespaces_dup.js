@@ -9,6 +9,7 @@ var namespaces_dup =
       [ "docs_coverage", "namespacetasks.html#aa328785601148775faf61b4a721045c0", null ],
       [ "flash", "namespacetasks.html#af1556e714853d8c36ec135da4ca3d9dc", null ],
       [ "format", "namespacetasks.html#a682347ed01534e1f0bfb270a1d733c17", null ],
+      [ "generate_case", "namespacetasks.html#aa26000dcc67956bc8bec6a81d5946aa9", null ],
       [ "monitor", "namespacetasks.html#a83c7344f678f37244547be5fc808c74a", null ],
       [ "release", "namespacetasks.html#a03e2bac12d45e95c8d42e7ad4a81ee98", null ],
       [ "reset", "namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6", null ],
