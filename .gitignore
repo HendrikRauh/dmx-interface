@@ -22,6 +22,10 @@ web/dist/
 # Python
 __pycache__/
 *.pyc
+venv/
+venv*/
+.env
+tempCodeRunnerFile.py
 
 # OS
 .DS_Store

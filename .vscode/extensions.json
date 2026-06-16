@@ -9,6 +9,7 @@
     "pinage404.nix-extension-pack",
     "yoavbls.pretty-ts-errors",
     "ms-python.python",
-    "charliermarsh.ruff"
+    "charliermarsh.ruff",
+    "bernhard-42.ocp-cad-viewer"
   ]
 }

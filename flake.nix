@@ -1,16 +1,29 @@
-# cspell:words: ESPTOOL_BEFORE
+# cspell:words: ESPTOOL_BEFORE pyproject cadquery Patchelf virtualenv opencascade occt dont vtkmodules
 {
   description = "dmx-interface ESP32 Rust development environment (esp-hal, no_std)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
 
     git-hooks.inputs.nixpkgs.follows = "nixpkgs";
     git-hooks.url = "github:cachix/git-hooks.nix";
 
     esp-rs-nix.url = "github:leighleighleigh/esp-rs-nix";
 
-    flake-utils.url = "github:numtide/flake-utils";
+    pyproject-nix.url = "github:pyproject-nix/pyproject.nix";
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = {
@@ -18,6 +31,9 @@
     flake-utils,
     git-hooks,
     esp-rs-nix,
+    pyproject-build-systems,
+    pyproject-nix,
+    uv2nix,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (
@@ -50,6 +66,8 @@
             "\\.elf$"
             "\\.hex$"
             "\\.o$"
+            "^assets/case/output/"
+            "^assets/case/parts/"
             "^build/"
             "^web/dist/"
             "^web/node_modules/"
@@ -188,6 +206,31 @@
             };
           };
         };
+
+        workspace = uv2nix.lib.workspace.loadWorkspace {workspaceRoot = ./.;};
+
+        python = pkgs.python313;
+
+        pythonBase = pkgs.callPackage pyproject-nix.build.packages {inherit python;};
+
+        overlay = workspace.mkPyprojectOverlay {
+          sourcePreference = "wheel";
+        };
+
+        pythonSet = pythonBase.overrideScope (
+          pkgs.lib.composeManyExtensions [
+            pyproject-build-systems.overlays.wheel
+            overlay
+
+            (_: prev: {
+              cadquery-ocp = prev.cadquery-ocp.overrideAttrs (_: {
+                dontAutoPatchelf = true;
+              });
+            })
+          ]
+        );
+
+        virtualenv = pythonSet.mkVirtualEnv "dmx-env" workspace.deps.default;
       in {
         checks.pre-commit-check = pre-commit-check;
 
@@ -205,44 +248,60 @@
 
               pkgs.git
               pkgs.libclang
+              pkgs.opencascade-occt
               pkgs.python3.pkgs.invoke
               pkgs.python3.pkgs.pyserial
               pkgs.python3
               pkgs.svgo
               pkgs.renovate
+              pkgs.uv
+              pkgs.vtk
+              virtualenv
             ];
 
           env = {
             RUSTUP_TOOLCHAIN = "${esp-rs}";
             LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
             GERMAN_DICT_PATH = "${germanDict}";
+            LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+              pkgs.opencascade-occt
+              pkgs.vtk
+              pkgs.stdenv.cc.cc.lib
+              pkgs.libGL
+              pkgs.libX11
+              pkgs.expat
+              pkgs.zlib
+            ]}:${virtualenv}/lib/python3.13/site-packages/vtkmodules:${virtualenv}/lib/python3.13/site-packages/cadquery_vtk:$LD_LIBRARY_PATH";
+            UV_NO_SYNC = "1";
+            UV_PYTHON = python.interpreter;
+            UV_PYTHON_DOWNLOADS = "never";
           };
 
-          shellHook =
-            pre-commit-check.shellHook
-            + ''
-              export PATH="$PWD/web/node_modules/.bin:$PATH"
+          shellHook = ''
+            git lfs install --local --force
+            ${pre-commit-check.shellHook}
+            export PATH="$PWD/web/node_modules/.bin:$PATH"
 
-              (
-                set -euo pipefail
-                cd web
+            (
+              set -euo pipefail
+              cd web
 
-                LOCKFILE="package-lock.json"
-                HASH_STORE="node_modules/.nix-lockfile.hash"
+              LOCKFILE="package-lock.json"
+              HASH_STORE="node_modules/.nix-lockfile.hash"
 
-                if [ -f "$LOCKFILE" ]; then
-                  CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
-                  if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
-                    echo "Changes detected in $LOCKFILE. Running npm install..."
-                    npm install
+              if [ -f "$LOCKFILE" ]; then
+                CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
+                if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+                  echo "Changes detected in $LOCKFILE. Running npm install..."
+                  npm install
 
-                    echo "$CURRENT_HASH" > "$HASH_STORE"
-                  fi
-                else
-                  echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+                  echo "$CURRENT_HASH" > "$HASH_STORE"
                 fi
-              )
-            '';
+              else
+                echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+              fi
+            )
+          '';
         };
       }
     );
