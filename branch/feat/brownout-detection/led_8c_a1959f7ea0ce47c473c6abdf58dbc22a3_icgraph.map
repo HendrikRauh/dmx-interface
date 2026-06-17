@@ -1,0 +1,7 @@
+<map id="update_led_generator_unsafe" name="update_led_generator_unsafe">
+<area shape="rect" id="Node000001" title="Configures effect parameters and ensures the generator task is running." alt="" coords="299,5,462,50"/>
+<area shape="rect" id="Node000002" href="$led_8c.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4" title="Sets the current operational mode of the LED." alt="" coords="139,14,251,42"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,30,251,30,251,25,283,25"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,14,91,42"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,30,91,30,91,25,123,25"/>
+</map>
