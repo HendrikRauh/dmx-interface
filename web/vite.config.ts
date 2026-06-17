@@ -38,9 +38,9 @@ export default defineConfig({
         return {
           html,
           tags: [
-            generateFavicon("src/assets/favicon-mocha.svg"),
-            generateFavicon("src/assets/favicon-latte.svg", "light"),
-            generateFavicon("src/assets/favicon-mocha.svg", "dark"),
+            generateFavicon("src/assets/favicons/mocha.svg"),
+            generateFavicon("src/assets/favicons/latte.svg", "light"),
+            generateFavicon("src/assets/favicons/mocha.svg", "dark"),
           ],
         };
       },
