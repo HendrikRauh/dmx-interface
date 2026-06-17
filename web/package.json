@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@catppuccin/palette": "^1.8.0",
+    "lucide-preact": "^1.20.0",
     "preact": "^10.26.9"
   },
   "devDependencies": {

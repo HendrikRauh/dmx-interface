@@ -5,6 +5,7 @@ import { deepMerged, DeepPartial } from "../../util/deep-merge";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Fieldset } from "../fieldset/Fieldset";
 import { LabeledInput } from "../labeled-input/LabeledInput";
+import { PasswordInput } from "../password-input/PasswordInput";
 import { Slider } from "../slider/Slider";
 
 async function loadConfig() {
@@ -79,8 +80,7 @@ export function DmxForm() {
         </LabeledInput>
 
         <LabeledInput label="Password">
-          <input
-            type="password"
+          <PasswordInput
             name="password"
             value={
               config?.connection === 0
