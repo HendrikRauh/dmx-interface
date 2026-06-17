@@ -67,7 +67,11 @@
           args = ["--maxkb=1000"];
         };
         check-case-conflicts.enable = true;
-        check-symlinks.enable = true;
+        check-symlinks = {
+          enable = true;
+          always_run = true;
+          entry = "bash -c 'check-symlinks $(git ls-files)'";
+        };
         editorconfig-checker = {
           enable = true;
           excludes = [
