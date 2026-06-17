@@ -82,8 +82,8 @@ textarea {
 
 header {
   display: flex;
-  gap: var(--spacing-medium);
   align-items: center;
+  justify-content: center;
 }
 
 main {
