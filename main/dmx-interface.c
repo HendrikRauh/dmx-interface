@@ -99,6 +99,8 @@ void app_main(void) {
     return;
   }
 
+  vTaskDelay(pdMS_TO_TICKS(1000));
+
   httpd_handle_t server = webserver_start(NULL);
   if (server == NULL) {
     LOGE("Failed to start web server!");
@@ -110,7 +112,7 @@ void app_main(void) {
 
   storage_print_info();
 
-  vTaskDelay(pdMS_TO_TICKS(5000));
+  vTaskDelay(pdMS_TO_TICKS(3000));
 
   led_set_brightness(config_get_led_brightness());
   led_set_mode(LED_MODE_NORMAL);
