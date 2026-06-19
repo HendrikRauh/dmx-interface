@@ -1,4 +1,4 @@
-/* cspell:words projectnumber, navelem, tablehead, keywordflow, keywordtype */
+/* cspell:words projectnumber, navelem, tablehead, keywordflow, keywordtype, ititle */
 
 @font-face {
   font-family: "Fredoka";
@@ -103,6 +103,7 @@ html.dark-mode {
   --primary-color: var(--ctp-mocha-teal);
   --primary-dark-color: var(--ctp-mocha-teal);
   --primary-light-color: var(--ctp-mocha-teal);
+  --on-primary-color: var(--ctp-mocha-base);
 
   --box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.3);
   --odd-color: rgba(100, 100, 100, 0.06);
@@ -292,6 +293,40 @@ html.dark-mode #theme-select {
 
 #nav-tree-contents {
   margin-bottom: 30px;
+}
+
+div.groupHeader {
+  border-bottom: 0px;
+  color: var(--page-foreground-color);
+  box-shadow:
+    100px 0 var(--page-background-color),
+    -100px 0 var(--page-background-color),
+    100px 0.75px var(--separator-color),
+    -100px 0.75px var(--separator-color),
+    500px 0 var(--page-background-color),
+    -500px 0 var(--page-background-color),
+    500px 0.75px var(--separator-color),
+    -500px 0.75px var(--separator-color),
+    900px 0 var(--page-background-color),
+    -900px 0 var(--page-background-color),
+    900px 0.75px var(--separator-color),
+    -900px 0.75px var(--separator-color),
+    1400px 0 var(--page-background-color),
+    -1400px 0 var(--page-background-color),
+    1400px 0.75px var(--separator-color),
+    -1400px 0.75px var(--separator-color),
+    1900px 0 var(--page-background-color),
+    -1900px 0 var(--page-background-color),
+    1900px 0.75px var(--separator-color),
+    -1900px 0.75px var(--separator-color);
+}
+
+tr.groupHeader + tr td.ititle {
+  border: none;
+
+  div.groupText {
+    margin-left: 0;
+  }
 }
 
 @media screen and (max-width: 767px) {
