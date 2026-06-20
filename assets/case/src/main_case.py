@@ -9,11 +9,14 @@ except ImportError:
 
 from build123d import (
     Axis,
+    Locations,
     Box,
+    Cylinder,
     BuildPart,
     Color,
     Compound,
     export_step,
+    import_step,
     export_stl,
     Keep,
     Mode,
@@ -31,6 +34,9 @@ with BuildPart() as main_body:
     Box(*box_size)
     offset(amount=-wall_thickness, mode=Mode.SUBTRACT)
 
+    with Locations((box_size[0]/2, box_size[1]/4, 0), (box_size[0]/2, -1*box_size[1]/4, 0)):
+        Cylinder(12, wall_thickness*2, rotation=(0,90,0), mode=Mode.SUBTRACT)
+
     # Get the Z coordinate of the inner top face
     inner_top_z = main_body.faces().sort_by(Axis.Z)[-2].center().Z
 
@@ -38,6 +44,10 @@ with BuildPart() as main_body:
     split_plane = Plane.XY.offset(inner_top_z)
 
     bottom, top = main_body.part.split(split_plane, Keep.ALL)
+
+esp = import_step("assets/case/parts/S2 Mini Board_no_hdr.step")
+
+bottom = bottom + esp.translate((-5,-30,0))
 
 bottom.label = "Case Bottom"
 top.label = "Case Lid"
