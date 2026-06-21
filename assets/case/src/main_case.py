@@ -1,4 +1,6 @@
+# %%
 import os
+from pathlib import Path
 
 try:
     from ocp_vscode import show
@@ -24,18 +26,40 @@ from build123d import (
     Plane,
 )
 
+SCRIPT_DIR = Path(__file__).resolve().parent  # assets/case/src
+CASE_ROOT = SCRIPT_DIR.parent  # assets/case
+PARTS_DIR = CASE_ROOT / "parts"  # assets/case/parts
+OUTPUT_DIR = CASE_ROOT / "output"  # assets/case/output
+
 ## Case Wallthickness in mm
 wall_thickness = 2
 
+xlr_main_diameter = 12
+xlr_screw_diameter = 3.5
+xlr_count = 2
+
 ## Base size of the case (length, width, height)
 box_size = (110, 65, 40)
+
+esp = import_step(f"{PARTS_DIR}/S2 Mini Board_no_hdr.step")
+
+# %%
 
 with BuildPart() as main_body:
     Box(*box_size)
     offset(amount=-wall_thickness, mode=Mode.SUBTRACT)
 
-    with Locations((box_size[0]/2, box_size[1]/4, 0), (box_size[0]/2, -1*box_size[1]/4, 0)):
-        Cylinder(12, wall_thickness*2, rotation=(0,90,0), mode=Mode.SUBTRACT)
+    # TODO: use the shipped center things for easy alignment
+    with Locations(
+        (box_size[0] / 2, box_size[1] / 4, 0),
+        (box_size[0] / 2, -1 * box_size[1] / 4, 0),
+    ):
+        Cylinder(
+            xlr_main_diameter,
+            wall_thickness * 2,
+            rotation=(0, 90, 0),
+            mode=Mode.SUBTRACT,
+        )
 
     # Get the Z coordinate of the inner top face
     inner_top_z = main_body.faces().sort_by(Axis.Z)[-2].center().Z
@@ -45,27 +69,24 @@ with BuildPart() as main_body:
 
     bottom, top = main_body.part.split(split_plane, Keep.ALL)
 
-esp = import_step("assets/case/parts/S2 Mini Board_no_hdr.step")
-
-bottom = bottom + esp.translate((-5,-30,0))
-
 bottom.label = "Case Bottom"
 top.label = "Case Lid"
 bottom.color = Color("#94e2d5")
 top.color = Color("#74c7ec", 0.75)
 
 if in_vscode and "VSCODE_CWD" in os.environ:
-    show(bottom, top)
+    show(bottom, top, esp)
+
+# %%
 
 print("Exporting models...")
 
-out_dir = "assets/case/output"
-os.makedirs(out_dir, exist_ok=True)
+os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-export_stl(bottom, f"{out_dir}/case_bottom.stl")
-export_stl(top, f"{out_dir}/case_top.stl")
+export_stl(bottom, str(OUTPUT_DIR / "case_bottom.stl"))
+export_stl(top, str(OUTPUT_DIR / "case_top.stl"))
 
 combined = Compound(children=[bottom, top])
-export_step(combined, f"{out_dir}/case.step")
+export_step(combined, str(OUTPUT_DIR / "case.step"))
 
 print("Done. Files generated: STL (bottom/top) and STEP (combined)")

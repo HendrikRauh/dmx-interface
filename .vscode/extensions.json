@@ -9,6 +9,7 @@
     "yoavbls.pretty-ts-errors",
     "ms-python.python",
     "ms-python.black-formatter",
-    "bernhard-42.ocp-cad-viewer"
+    "bernhard-42.ocp-cad-viewer",
+    "ms-toolsai.jupyter"
   ]
 }

@@ -65,6 +65,7 @@ docs/doxygen/*
 
 # Misc
 *.local
+assets/case/output/*
 
 # Keep Snyk instructions file tracked (project policy)
 # .github/instructions/snyk_rules.instructions.md
