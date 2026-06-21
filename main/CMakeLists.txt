@@ -8,5 +8,6 @@ idf_component_register(
   config
   led
   logger
+  network
   system
   web_server)

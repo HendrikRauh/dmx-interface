@@ -3,19 +3,19 @@
     {
       "name": "ESP-IDF",
       "includePath": [
-        "${workspaceFolder}/components/*/include/",
-        "${workspaceFolder}/components/*/priv_include/",
-        "${workspaceFolder}/managed_components/*/include/",
-        "${IDF_PATH}/components/**/include/",
-        "${IDF_PATH}/components/**/public_include/"
+        "${workspaceFolder}components/*/include/",
+        "${workspaceFolder}components/*/priv_include/",
+        "${workspaceFolder}managed_components/*/include/",
+        "${IDF_PATH}components/**/include/",
+        "${IDF_PATH}components/**/public_include/"
       ],
       "browse": {
         "path": [
-          "${workspaceFolder}/components/*/include/",
-          "${workspaceFolder}/components/*/priv_include/",
-          "${workspaceFolder}/managed_components/*/include/",
-          "${IDF_PATH}/components/**/include/",
-          "${IDF_PATH}/components/**/public_include/"
+          "${workspaceFolder}components/*/include/",
+          "${workspaceFolder}components/*/priv_include/",
+          "${workspaceFolder}managed_components/*/include/",
+          "${IDF_PATH}components/**/include/",
+          "${IDF_PATH}components/**/public_include/"
         ]
       },
       "defines": ["ESP_PLATFORM"],

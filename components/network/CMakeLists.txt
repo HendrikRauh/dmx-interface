@@ -1,0 +1,12 @@
+idf_component_register(
+  SRCS
+  "src/network.c"
+  INCLUDE_DIRS
+  "include"
+  REQUIRES
+  PRIV_REQUIRES
+  config
+  esp_wifi
+  esp_event
+  esp_netif
+  logger)

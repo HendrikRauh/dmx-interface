@@ -5,16 +5,43 @@
 #include "button_actions.h"
 #include "config.h"
 #include "esp_err.h"
+#include "esp_event.h"
 #include "esp_system.h"
 #include "freertos/FreeRTOS.h"
+#include "freertos/event_groups.h"
 #include "freertos/task.h"
 #include "led.h"
 #include "logger.h"
+#include "network.h"
 #include "nvs_flash.h"
 #include "storage.h"
 #include "system.h"
 #include "web_server.h"
-#include "wifi.h"
+
+#define BIT_NETWORK_READY (1 << 0) ///< Event bit for network ready event
+
+/**
+ * @brief Handle to the event group used for synchronizing network events.
+ */
+static EventGroupHandle_t event_group;
+
+/**
+ * @brief Event handler for network events.
+ * @param arg User-defined argument (not used)
+ * @param event_base The base of the event
+ * @param event_id The specific event ID within the base
+ * @param event_data Pointer to event-specific data (not used)
+ */
+static void network_event_handler(void *arg, esp_event_base_t event_base,
+                                  int32_t event_id, void *event_data) {
+  if (event_base == NETWORK_EVENT) {
+    if (event_id == NETWORK_EVENT_READY) {
+      if (event_group != NULL) {
+        xEventGroupSetBits(event_group, BIT_NETWORK_READY);
+      }
+    }
+  }
+}
 
 /**
  * @brief Main entry point for the DMX Interface application.
@@ -93,33 +120,57 @@ void app_main(void) {
     LOGI("Button not pressed at startup.");
   }
 
-  wifi_config_t ap_config;
-  config_get_wifi_ap_config(&ap_config);
-  err = wifi_start_ap((const char *)ap_config.ap.ssid,
-                      (const char *)ap_config.ap.password, 1, 4);
-  if (err != ESP_OK) {
-    LOGE("Failed to start WiFi AP: %s", esp_err_to_name(err));
+  event_group = xEventGroupCreate();
+  if (event_group == NULL) {
+    LOGE("Failed to create event group");
     return;
   }
 
-  vTaskDelay(pdMS_TO_TICKS(1000));
+  ESP_ERROR_CHECK(network_init());
 
-  httpd_handle_t server = webserver_start(NULL);
-  if (server == NULL) {
-    LOGE("Failed to start web server!");
+  ESP_ERROR_CHECK(esp_event_handler_instance_register(
+      NETWORK_EVENT, ESP_EVENT_ANY_ID, &network_event_handler, NULL, NULL));
+
+  switch (config_get_connection()) {
+  case APP_CONFIG_CONN_WIFI_AP:
+    wifi_config_t ap_config;
+    config_get_wifi_ap_config(&ap_config);
+    ESP_ERROR_CHECK(network_start_ap((const char *)ap_config.ap.ssid,
+                                     (const char *)ap_config.ap.password));
+    break;
+  case APP_CONFIG_CONN_WIFI_STA:
+    wifi_config_t sta_config;
+    config_get_wifi_sta_config(&sta_config);
+    ESP_ERROR_CHECK(network_start_sta((const char *)sta_config.sta.ssid,
+                                      (const char *)sta_config.sta.password));
+    break;
+  case APP_CONFIG_CONN_ETHERNET:
+    LOGE("Ethernet is not yet supported");
+    break;
+  default:
+    LOGE("Invalid connection type in config!");
+    break;
+  }
+
+  // Wait for network to be ready before starting the web server
+  xEventGroupWaitBits(event_group, BIT_NETWORK_READY, pdFALSE, pdTRUE,
+                      portMAX_DELAY);
+
+
+  if (webserver_start(NULL) == NULL) {
+    LOGE("Failed to start web server.");
     return;
   }
 
-  LOGI("Web server started successfully");
+  // TODO: dynamic IP
   LOGI("Open http://192.168.4.1 in your browser");
 
-  storage_print_info();
-
-  vTaskDelay(pdMS_TO_TICKS(3000));
+  vTaskDelay(pdMS_TO_TICKS(2000));
 
   led_set_brightness(config_get_led_brightness());
   led_set_mode(LED_MODE_NORMAL);
 
+  storage_print_info();
   system_print_info();
 
   while (1) {

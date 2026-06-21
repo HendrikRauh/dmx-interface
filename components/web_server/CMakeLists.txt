@@ -4,7 +4,6 @@ idf_component_register(
   "src/json_processor.c"
   "src/web_server.c"
   "src/web_server_util.c"
-  "src/wifi.c"
   INCLUDE_DIRS
   "include"
   PRIV_INCLUDE_DIRS
@@ -13,7 +12,6 @@ idf_component_register(
   esp_http_server
   storage
   PRIV_REQUIRES
-  freertos
   esp_wifi
   esp_event
   esp_netif

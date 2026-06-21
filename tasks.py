@@ -127,7 +127,7 @@ def clean(c):
 @task
 def config(c):
     """Open menuconfig to edit project settings"""
-    c.run("idf.py menuconfig", pty=True)
+    c.run("idf.py menuconfig --color-scheme monochrome", pty=True)
 
 
 @task
