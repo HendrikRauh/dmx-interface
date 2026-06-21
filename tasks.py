@@ -37,7 +37,7 @@ def _find_esp_port():
 
 
 @task
-def build(c, board="lolinS2mini"):
+def build(c, board="lolinS2mini", release=False):
     """Build the project for a specific board (default: lolinS2mini)"""
     if board not in TARGET_BOARDS:
         print(f"❌ Error: Board '{board}' is not defined in TARGET_BOARDS.")
@@ -48,7 +48,10 @@ def build(c, board="lolinS2mini"):
 
     defaults_file = TARGET_BOARDS[board]
     print(f"-> Building for board: {board} using {defaults_file}")
-    c.run(f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file} build", pty=True)
+
+    # Add Release flag if requested by release task
+    release_flag = " -D CMAKE_BUILD_TYPE=Release" if release else ""
+    c.run(f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file}{release_flag} build", pty=True)
 
 
 @task
@@ -96,8 +99,7 @@ def release(c):
         if os.path.exists("sdkconfig"):
             os.remove("sdkconfig")
 
-        build_cmd = f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file} -D CMAKE_BUILD_TYPE=Release build"
-        c.run(build_cmd, pty=True)
+        build(c, board=board, release=True)
 
         c.run("idf.py merge-bin", pty=True)
 
