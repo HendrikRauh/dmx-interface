@@ -47,7 +47,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 646;
+var viewWidth = 783;
 var viewHeight = 181;
 var sectionId = 'dynsection-1';
 </script>
@@ -59,9 +59,9 @@ var sectionId = 'dynsection-1';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Thread&#45;safe configuration component utilizing NVS for ESP32.">
-<polygon fill="#999999" stroke="#666666" points="349.75,-172.5 203.25,-172.5 203.25,-139 349.75,-139 349.75,-172.5"/>
-<text text-anchor="start" x="211.25" y="-159" font-family="Helvetica,sans-Serif" font-size="10.00">components/config/include</text>
-<text text-anchor="middle" x="276.5" y="-146.25" font-family="Helvetica,sans-Serif" font-size="10.00">/config.h</text>
+<polygon fill="#999999" stroke="#666666" points="422.75,-172.5 276.25,-172.5 276.25,-139 422.75,-139 422.75,-172.5"/>
+<text text-anchor="start" x="284.25" y="-159" font-family="Helvetica,sans-Serif" font-size="10.00">components/config/include</text>
+<text text-anchor="middle" x="349.5" y="-146.25" font-family="Helvetica,sans-Serif" font-size="10.00">/config.h</text>
 </a>
 </g>
 </g>
@@ -79,8 +79,8 @@ var sectionId = 'dynsection-1';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M217.63,-134.98C187.72,-124.94 151.83,-112.88 123.6,-103.4"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="216.33,-138.23 226.92,-138.1 218.56,-131.6 216.33,-138.23"/>
+<path fill="none" stroke="#63b8ff" d="M272.72,-135.83C231.27,-125.62 180.65,-113.15 141.07,-103.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="271.85,-139.23 282.4,-138.22 273.53,-132.43 271.85,-139.23"/>
 </a>
 </g>
 </g>
@@ -98,8 +98,8 @@ var sectionId = 'dynsection-1';
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M230.75,-132.68C218.66,-124.84 206.71,-114.94 198.5,-103 184.16,-82.13 180.44,-52.21 179.59,-33.93"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="228.75,-135.55 239.12,-137.73 232.37,-129.56 228.75,-135.55"/>
+<path fill="none" stroke="#63b8ff" d="M265.21,-142.04C240.65,-134.45 215.8,-122.34 198.5,-103 181.41,-83.9 178.6,-52.87 178.67,-33.98"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="264.04,-145.35 274.61,-144.71 265.95,-138.61 264.04,-145.35"/>
 </a>
 </g>
 </g>
@@ -117,18 +117,18 @@ var sectionId = 'dynsection-1';
 <g id="edge3_Node000001_Node000004" class="edge">
 <title>Node1&#45;&gt;Node4</title>
 <g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M276.5,-127.31C276.5,-119.09 276.5,-110.34 276.5,-103.13"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="273,-127.24 276.5,-137.24 280,-127.24 273,-127.24"/>
+<path fill="none" stroke="#63b8ff" d="M323.88,-131.06C313.97,-121.9 302.88,-111.65 293.93,-103.37"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="321.37,-133.51 331.09,-137.73 326.12,-128.37 321.37,-133.51"/>
 </a>
 </g>
 </g>
 <!-- Node6 -->
 <g id="Node000006" class="node">
 <title>Node6</title>
-<g id="a_Node000006"><a xlink:href="config__routes_8c.html" target="_top" xlink:title="Implementation of the web server configuration routes.">
-<polygon fill="white" stroke="#666666" points="499.12,-103 363.88,-103 363.88,-69.5 499.12,-69.5 499.12,-103"/>
-<text text-anchor="start" x="371.88" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">components/web_server</text>
-<text text-anchor="middle" x="431.5" y="-76.75" font-family="Helvetica,sans-Serif" font-size="10.00">/src/config_routes.c</text>
+<g id="a_Node000006"><a xlink:href="network_8c.html" target="_top" xlink:title="Implementation of network management for WiFi AP and STA modes.">
+<polygon fill="white" stroke="#666666" points="482.88,-103 364.12,-103 364.12,-69.5 482.88,-69.5 482.88,-103"/>
+<text text-anchor="start" x="372.12" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">components/network</text>
+<text text-anchor="middle" x="423.5" y="-76.75" font-family="Helvetica,sans-Serif" font-size="10.00">/src/network.c</text>
 </a>
 </g>
 </g>
@@ -136,17 +136,18 @@ var sectionId = 'dynsection-1';
 <g id="edge6_Node000001_Node000006" class="edge">
 <title>Node1&#45;&gt;Node6</title>
 <g id="a_edge6_Node000001_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M324.03,-134.05C346.66,-124.2 373.31,-112.59 394.41,-103.4"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="322.78,-130.78 315.01,-137.98 325.58,-137.19 322.78,-130.78"/>
+<path fill="none" stroke="#63b8ff" d="M375.47,-131.06C385.52,-121.9 396.75,-111.65 405.83,-103.37"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="373.18,-128.41 368.16,-137.73 377.9,-133.58 373.18,-128.41"/>
 </a>
 </g>
 </g>
 <!-- Node7 -->
 <g id="Node000007" class="node">
 <title>Node7</title>
-<g id="a_Node000007"><a xlink:href="dmx-interface_8c.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="638,-96.62 517,-96.62 517,-75.88 638,-75.88 638,-96.62"/>
-<text text-anchor="middle" x="577.5" y="-83.12" font-family="Helvetica,sans-Serif" font-size="10.00">main/dmx&#45;interface.c</text>
+<g id="a_Node000007"><a xlink:href="config__routes_8c.html" target="_top" xlink:title="Implementation of the web server configuration routes.">
+<polygon fill="white" stroke="#666666" points="636.12,-103 500.88,-103 500.88,-69.5 636.12,-69.5 636.12,-103"/>
+<text text-anchor="start" x="508.88" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">components/web_server</text>
+<text text-anchor="middle" x="568.5" y="-76.75" font-family="Helvetica,sans-Serif" font-size="10.00">/src/config_routes.c</text>
 </a>
 </g>
 </g>
@@ -154,8 +155,26 @@ var sectionId = 'dynsection-1';
 <g id="edge7_Node000001_Node000007" class="edge">
 <title>Node1&#45;&gt;Node7</title>
 <g id="a_edge7_Node000001_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M360.9,-136.03C404.91,-126.24 459.62,-114.03 508.5,-103 516.89,-101.11 525.85,-99.07 534.44,-97.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="360.14,-132.61 351.14,-138.2 361.66,-139.44 360.14,-132.61"/>
+<path fill="none" stroke="#63b8ff" d="M412.78,-135.24C445.55,-125.15 485.06,-112.97 516.09,-103.4"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="411.93,-131.85 403.4,-138.14 413.99,-138.54 411.93,-131.85"/>
+</a>
+</g>
+</g>
+<!-- Node8 -->
+<g id="Node000008" class="node">
+<title>Node8</title>
+<g id="a_Node000008"><a xlink:href="dmx-interface_8c.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="775,-96.62 654,-96.62 654,-75.88 775,-75.88 775,-96.62"/>
+<text text-anchor="middle" x="714.5" y="-83.12" font-family="Helvetica,sans-Serif" font-size="10.00">main/dmx&#45;interface.c</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge8_Node000001_Node000008" class="edge">
+<title>Node1&#45;&gt;Node8</title>
+<g id="a_edge8_Node000001_Node000008"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M434.17,-141.13C493.49,-131.3 574.51,-117.3 645.5,-103 654.41,-101.2 663.94,-99.13 672.98,-97.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="433.78,-137.65 424.48,-142.73 434.92,-144.56 433.78,-137.65"/>
 </a>
 </g>
 </g>

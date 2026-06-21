@@ -15,12 +15,8 @@ var searchData=
   ['webserver_5fstart_12',['webserver_start',['../web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d',1,'webserver_start(const webserver_config_t *config):&#160;web_server.c'],['../web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d',1,'webserver_start(const webserver_config_t *config):&#160;web_server.c']]],
   ['webserver_5fstop_13',['webserver_stop',['../web__server_8h.html#a8f90e2a598a55079be4b774202e16dbb',1,'webserver_stop(httpd_handle_t server):&#160;web_server.c'],['../web__server_8c.html#a8f90e2a598a55079be4b774202e16dbb',1,'webserver_stop(httpd_handle_t server):&#160;web_server.c']]],
   ['webserver_5ftask_14',['webserver_task',['../web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06',1,'web_server.c']]],
-  ['wifi_2ec_15',['wifi.c',['../wifi_8c.html',1,'']]],
-  ['wifi_2eh_16',['wifi.h',['../wifi_8h.html',1,'']]],
-  ['wifi_5fap_17',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
-  ['wifi_5fconfig_5fentries_5fprocessor_18',['wifi_config_entries_processor',['../config__routes_8c.html#a5b60764b6d3a197186f5685e875972cd',1,'config_routes.c']]],
-  ['wifi_5fsta_19',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]],
-  ['wifi_5fstart_5fap_20',['wifi_start_ap',['../wifi_8h.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c'],['../wifi_8c.html#a66fa0d239961fd0c9570a9eef7ee74cc',1,'wifi_start_ap(const char *ssid, const char *password, uint8_t channel, uint8_t max_connections):&#160;wifi.c']]],
-  ['wifi_5fstop_5fap_21',['wifi_stop_ap',['../wifi_8h.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c'],['../wifi_8c.html#a50cfbf480f800c136dd392fd2b4bc542',1,'wifi_stop_ap(void):&#160;wifi.c']]],
-  ['wiring_22',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
+  ['wifi_5fap_15',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
+  ['wifi_5fconfig_5fentries_5fprocessor_16',['wifi_config_entries_processor',['../config__routes_8c.html#a5b60764b6d3a197186f5685e875972cd',1,'config_routes.c']]],
+  ['wifi_5fsta_17',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]],
+  ['wiring_18',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
 ];

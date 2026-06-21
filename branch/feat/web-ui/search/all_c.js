@@ -25,11 +25,12 @@ var searchData=
   ['littlefs_5fpartition_5flabel_22',['LITTLEFS_PARTITION_LABEL',['../storage_8c.html#a173132f25c6164bd4ed0731b9e918245',1,'storage.c']]],
   ['load_5ffactory_5fdefaults_23',['load_factory_defaults',['../config_8c.html#ae211c3834b90a3f0d253ae52051471e0',1,'config.c']]],
   ['lock_24',['LOCK',['../config_8c.html#aefb7db7456a848e7cefe90816a5aaa88',1,'config.c']]],
-  ['log_5ftag_25',['LOG_TAG',['../button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;button_actions.c'],['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../led_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;led.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../mac_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;mac.c'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../system_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;system.c'],['../config__routes_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config_routes.c'],['../json__processor_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;json_processor.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../web__server__util_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server_util.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
-  ['logd_26',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
-  ['loge_27',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
-  ['logger_2eh_28',['logger.h',['../logger_8h.html',1,'']]],
-  ['logi_29',['LOGI',['../logger_8h.html#a5512e59d578a380a441a70256af997d0',1,'logger.h']]],
-  ['logv_30',['LOGV',['../logger_8h.html#ab78bd305488c62caf8515ee765b1ed49',1,'logger.h']]],
-  ['logw_31',['LOGW',['../logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66',1,'logger.h']]]
+  ['lock_5fnetwork_25',['LOCK_NETWORK',['../network_8c.html#abac362446d03927d0c92f2f4fba3f430',1,'network.c']]],
+  ['log_5ftag_26',['LOG_TAG',['../button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;button_actions.c'],['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../led_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;led.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../mac_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;mac.c'],['../network_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;network.c'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../system_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;system.c'],['../config__routes_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config_routes.c'],['../json__processor_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;json_processor.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../web__server__util_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server_util.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
+  ['logd_27',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
+  ['loge_28',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
+  ['logger_2eh_29',['logger.h',['../logger_8h.html',1,'']]],
+  ['logi_30',['LOGI',['../logger_8h.html#a5512e59d578a380a441a70256af997d0',1,'logger.h']]],
+  ['logv_31',['LOGV',['../logger_8h.html#ab78bd305488c62caf8515ee765b1ed49',1,'logger.h']]],
+  ['logw_32',['LOGW',['../logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66',1,'logger.h']]]
 ];

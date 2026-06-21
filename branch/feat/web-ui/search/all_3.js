@@ -37,6 +37,8 @@ var searchData=
   ['config_5fset_5fwifi_5fsta_5fpassword_34',['config_set_wifi_sta_password',['../config_8h.html#a6eb48f4d3ea6ddb02a72918e67a6604d',1,'config_set_wifi_sta_password(const char *password):&#160;config.c'],['../config_8c.html#a6eb48f4d3ea6ddb02a72918e67a6604d',1,'config_set_wifi_sta_password(const char *password):&#160;config.c']]],
   ['config_5fset_5fwifi_5fsta_5fssid_35',['config_set_wifi_sta_ssid',['../config_8h.html#ac45d897af07e006a406c307d54f1d85f',1,'config_set_wifi_sta_ssid(const char *ssid):&#160;config.c'],['../config_8c.html#ac45d897af07e006a406c307d54f1d85f',1,'config_set_wifi_sta_ssid(const char *ssid):&#160;config.c']]],
   ['connection_36',['connection',['../struct____attribute____.html#a520c1604659a3c87de89b5ee248c6a03',1,'__attribute__']]],
-  ['contributing_37',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]],
-  ['cores_38',['cores',['../structsys__chip__info__t.html#a7d4e8539dc0769d6af273c79f7bc5d90',1,'sys_chip_info_t']]]
+  ['connection_5fstarted_37',['connection_started',['../network_8c.html#a08cef5a94a3129092bb6e284408271c9',1,'network.c']]],
+  ['connection_5ftype_38',['connection_type',['../network_8c.html#a93cb2fd383cc207992bec53f060c8900',1,'network.c']]],
+  ['contributing_39',['🤝 Contributing',['../index.html#autotoc_md-contributing',1,'']]],
+  ['cores_40',['cores',['../structsys__chip__info__t.html#a7d4e8539dc0769d6af273c79f7bc5d90',1,'sys_chip_info_t']]]
 ];

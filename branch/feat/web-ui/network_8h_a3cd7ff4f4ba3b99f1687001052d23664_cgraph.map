@@ -1,0 +1,5 @@
+<map id="network_start_ap" name="network_start_ap">
+<area shape="rect" id="Node000001" title="Start the WiFi access point." alt="" coords="5,5,140,33"/>
+<area shape="rect" id="Node000002" href="$network_8c.html#a872c0f15a662528aedcfdb61acaeb31f" title="Validates the provided WiFi credentials for SSID and password length requirements." alt="" coords="188,5,341,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,16,172,16,172,22,140,22"/>
+</map>

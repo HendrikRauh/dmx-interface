@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['release_0',['release',['../namespacetasks.html#a03e2bac12d45e95c8d42e7ad4a81ee98',1,'tasks']]],
-  ['reset_1',['reset',['../namespacetasks.html#ac0f4592aeb5c9897dd86d45906ddcef6',1,'tasks']]]
+  ['on_5freconnect_5ftimer_0',['on_reconnect_timer',['../network_8c.html#ab3d78447c41c0858e4225c3a98ca07b1',1,'network.c']]]
 ];

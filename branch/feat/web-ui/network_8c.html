@@ -1,0 +1,943 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/network/src/network.c File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('network_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">network.c File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementation of network management for WiFi AP and STA modes.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &quot;<a class="el" href="network_8h_source.html">network.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
+<code>#include &quot;esp_check.h&quot;</code><br />
+<code>#include &quot;esp_netif.h&quot;</code><br />
+<code>#include &quot;esp_wifi.h&quot;</code><br />
+<code>#include &quot;freertos/semphr.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="logger_8h_source.html">logger.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for network.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c__incl.svg" width="100%" height="455"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="network_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a7ce0df38eb467e59f209470c8f5ac4e6" id="r_a7ce0df38eb467e59f209470c8f5ac4e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>&#160;&#160;&#160;&quot;NETWORK&quot;</td></tr>
+<tr class="memdesc:a7ce0df38eb467e59f209470c8f5ac4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log tag for this file.  <br /></td></tr>
+<tr class="memitem:a916d8294e955ac2924e0f2635942785f" id="r_a916d8294e955ac2924e0f2635942785f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a916d8294e955ac2924e0f2635942785f">MAX_RETRY_ATTEMPTS</a>&#160;&#160;&#160;10</td></tr>
+<tr class="memdesc:a916d8294e955ac2924e0f2635942785f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of retry attempts for WiFi STA connection before giving up.  <br /></td></tr>
+<tr class="memitem:a58722368d0c62d4e77e8bbecac23a03a" id="r_a58722368d0c62d4e77e8bbecac23a03a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a58722368d0c62d4e77e8bbecac23a03a">RECONNECT_DELAY_MS</a>&#160;&#160;&#160;5000</td></tr>
+<tr class="memdesc:a58722368d0c62d4e77e8bbecac23a03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay between WiFi STA reconnect attempts in milliseconds.  <br /></td></tr>
+<tr class="memitem:abac362446d03927d0c92f2f4fba3f430" id="r_abac362446d03927d0c92f2f4fba3f430"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#abac362446d03927d0c92f2f4fba3f430">LOCK_NETWORK</a>()</td></tr>
+<tr class="memdesc:abac362446d03927d0c92f2f4fba3f430"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for locking the network mutex.  <br /></td></tr>
+<tr class="memitem:acc241923ec41001de600f41bb03b4f9c" id="r_acc241923ec41001de600f41bb03b4f9c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acc241923ec41001de600f41bb03b4f9c">UNLOCK_NETWORK</a>()</td></tr>
+<tr class="memdesc:acc241923ec41001de600f41bb03b4f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro for unlocking the network mutex.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ab2eae718b6d54d919fbd08735aee513d" id="r_ab2eae718b6d54d919fbd08735aee513d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab2eae718b6d54d919fbd08735aee513d">ESP_EVENT_DEFINE_BASE</a> (NETWORK_EVENT)</td></tr>
+<tr class="memdesc:ab2eae718b6d54d919fbd08735aee513d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Base event for all network-related events.  <br /></td></tr>
+<tr class="memitem:ab3d78447c41c0858e4225c3a98ca07b1" id="r_ab3d78447c41c0858e4225c3a98ca07b1"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ab3d78447c41c0858e4225c3a98ca07b1">on_reconnect_timer</a> (TimerHandle_t timer)</td></tr>
+<tr class="memdesc:ab3d78447c41c0858e4225c3a98ca07b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function for the WiFi reconnect timer.  <br /></td></tr>
+<tr class="memitem:a9bd9f390af7b80b21e4b1bcd75340ea7" id="r_a9bd9f390af7b80b21e4b1bcd75340ea7"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a9bd9f390af7b80b21e4b1bcd75340ea7">network_event_handler</a> (void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data)</td></tr>
+<tr class="memdesc:a9bd9f390af7b80b21e4b1bcd75340ea7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event handler for WiFi and IP events to manage network state changes and post appropriate NETWORK_EVENTs.  <br /></td></tr>
+<tr class="memitem:a872c0f15a662528aedcfdb61acaeb31f" id="r_a872c0f15a662528aedcfdb61acaeb31f"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a872c0f15a662528aedcfdb61acaeb31f">validate_credentials</a> (const char *ssid, const char *password)</td></tr>
+<tr class="memdesc:a872c0f15a662528aedcfdb61acaeb31f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Validates the provided WiFi credentials for SSID and password length requirements.  <br /></td></tr>
+<tr class="memitem:a456493724a89879d5342f60479b15a6a" id="r_a456493724a89879d5342f60479b15a6a"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a456493724a89879d5342f60479b15a6a">network_init_wifi</a> ()</td></tr>
+<tr class="memdesc:a456493724a89879d5342f60479b15a6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper function to initialize the WiFi driver with default configuration.  <br /></td></tr>
+<tr class="memitem:a1129e850b1115fb36f2f96b8f69bc786" id="r_a1129e850b1115fb36f2f96b8f69bc786"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a1129e850b1115fb36f2f96b8f69bc786">network_init</a> ()</td></tr>
+<tr class="memdesc:a1129e850b1115fb36f2f96b8f69bc786"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the network stack.  <br /></td></tr>
+<tr class="memitem:a3cd7ff4f4ba3b99f1687001052d23664" id="r_a3cd7ff4f4ba3b99f1687001052d23664"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a3cd7ff4f4ba3b99f1687001052d23664">network_start_ap</a> (const char *ssid, const char *password)</td></tr>
+<tr class="memdesc:a3cd7ff4f4ba3b99f1687001052d23664"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the WiFi access point.  <br /></td></tr>
+<tr class="memitem:ae74924a1c688a9f1efa93cf06548ebd2" id="r_ae74924a1c688a9f1efa93cf06548ebd2"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#ae74924a1c688a9f1efa93cf06548ebd2">network_start_sta</a> (const char *ssid, const char *password)</td></tr>
+<tr class="memdesc:ae74924a1c688a9f1efa93cf06548ebd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the WiFi station.  <br /></td></tr>
+<tr class="memitem:a6cbfb4cab43d55e80d395b23a1bcf64b" id="r_a6cbfb4cab43d55e80d395b23a1bcf64b"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a6cbfb4cab43d55e80d395b23a1bcf64b">network_stop_wifi</a> ()</td></tr>
+<tr class="memdesc:a6cbfb4cab43d55e80d395b23a1bcf64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the WiFi interface, works for both AP and STA mode.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a76ce7f67cb18455d8ccaf19aa44f7c12" id="r_a76ce7f67cb18455d8ccaf19aa44f7c12"><td class="memItemLeft">static SemaphoreHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#a76ce7f67cb18455d8ccaf19aa44f7c12">network_mutex</a> = NULL</td></tr>
+<tr class="memdesc:a76ce7f67cb18455d8ccaf19aa44f7c12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Mutex to ensure thread-safe access to network state and operations.  <br /></td></tr>
+<tr class="memitem:afbf56132afb6018c35041bbe71c73d26" id="r_afbf56132afb6018c35041bbe71c73d26"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#afbf56132afb6018c35041bbe71c73d26">network_initialized</a> = false</td></tr>
+<tr class="memdesc:afbf56132afb6018c35041bbe71c73d26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the network stack has been initialized.  <br /></td></tr>
+<tr class="memitem:a08cef5a94a3129092bb6e284408271c9" id="r_a08cef5a94a3129092bb6e284408271c9"><td class="memItemLeft">static bool&#160;</td><td class="memItemRight"><a class="el" href="#a08cef5a94a3129092bb6e284408271c9">connection_started</a> = false</td></tr>
+<tr class="memdesc:a08cef5a94a3129092bb6e284408271c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether a network connection (AP or STA) has been started.  <br /></td></tr>
+<tr class="memitem:a4a825860b3d0e41839bc302ed35ea6ac" id="r_a4a825860b3d0e41839bc302ed35ea6ac"><td class="memItemLeft">static volatile bool&#160;</td><td class="memItemRight"><a class="el" href="#a4a825860b3d0e41839bc302ed35ea6ac">network_sta_wants_connection</a> = false</td></tr>
+<tr class="memdesc:a4a825860b3d0e41839bc302ed35ea6ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Flag indicating whether the STA mode should attempt to maintain a connection.  <br /></td></tr>
+<tr class="memitem:a93cb2fd383cc207992bec53f060c8900" id="r_a93cb2fd383cc207992bec53f060c8900"><td class="memItemLeft">static <a class="el" href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a93cb2fd383cc207992bec53f060c8900">connection_type</a></td></tr>
+<tr class="memdesc:a93cb2fd383cc207992bec53f060c8900"><td class="mdescLeft">&#160;</td><td class="mdescRight">The currently active connection type, if any. Valid only if <span class="tt"><a class="el" href="#a08cef5a94a3129092bb6e284408271c9" title="Flag indicating whether a network connection (AP or STA) has been started.">connection_started</a></span> is true.  <br /></td></tr>
+<tr class="memitem:ad2fe45f7f7e859660903f2fe700a51c9" id="r_ad2fe45f7f7e859660903f2fe700a51c9"><td class="memItemLeft">static TimerHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#ad2fe45f7f7e859660903f2fe700a51c9">reconnect_timer</a> = NULL</td></tr>
+<tr class="memdesc:ad2fe45f7f7e859660903f2fe700a51c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Timer handle for scheduling WiFi STA reconnect attempts.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of network management for WiFi AP and STA modes. </p>
+
+<p class="definition">Definition in file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="abac362446d03927d0c92f2f4fba3f430" name="abac362446d03927d0c92f2f4fba3f430"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abac362446d03927d0c92f2f4fba3f430">&#9670;&#160;</a></span>LOCK_NETWORK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOCK_NETWORK</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">xSemaphoreTake(<a class="code hl_variable" href="#a76ce7f67cb18455d8ccaf19aa44f7c12">network_mutex</a>, portMAX_DELAY)</div>
+<div class="ttc" id="anetwork_8c_html_a76ce7f67cb18455d8ccaf19aa44f7c12"><div class="ttname"><a href="#a76ce7f67cb18455d8ccaf19aa44f7c12">network_mutex</a></div><div class="ttdeci">static SemaphoreHandle_t network_mutex</div><div class="ttdoc">Mutex to ensure thread-safe access to network state and operations.</div><div class="ttdef"><b>Definition</b> <a href="network_8c_source.html#l00025">network.c:25</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro for locking the network mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00073">73</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>, <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>, and <a class="el" href="network_8c_source.html#l00357">network_stop_wifi()</a>.</p>
+
+</div>
+</div>
+<a id="a7ce0df38eb467e59f209470c8f5ac4e6" name="a7ce0df38eb467e59f209470c8f5ac4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ce0df38eb467e59f209470c8f5ac4e6">&#9670;&#160;</a></span>LOG_TAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOG_TAG&#160;&#160;&#160;&quot;NETWORK&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Log tag for this file. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00006">6</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+</div>
+</div>
+<a id="a916d8294e955ac2924e0f2635942785f" name="a916d8294e955ac2924e0f2635942785f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a916d8294e955ac2924e0f2635942785f">&#9670;&#160;</a></span>MAX_RETRY_ATTEMPTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAX_RETRY_ATTEMPTS&#160;&#160;&#160;10</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Maximum number of retry attempts for WiFi STA connection before giving up. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00058">58</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00099">network_event_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a58722368d0c62d4e77e8bbecac23a03a" name="a58722368d0c62d4e77e8bbecac23a03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58722368d0c62d4e77e8bbecac23a03a">&#9670;&#160;</a></span>RECONNECT_DELAY_MS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define RECONNECT_DELAY_MS&#160;&#160;&#160;5000</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delay between WiFi STA reconnect attempts in milliseconds. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00063">63</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00099">network_event_handler()</a>, and <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+
+</div>
+</div>
+<a id="acc241923ec41001de600f41bb03b4f9c" name="acc241923ec41001de600f41bb03b4f9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc241923ec41001de600f41bb03b4f9c">&#9670;&#160;</a></span>UNLOCK_NETWORK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define UNLOCK_NETWORK</td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">xSemaphoreGive(<a class="code hl_variable" href="#a76ce7f67cb18455d8ccaf19aa44f7c12">network_mutex</a>)</div>
+</div><!-- fragment -->
+<p>Helper macro for unlocking the network mutex. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00078">78</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>, <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>, and <a class="el" href="network_8c_source.html#l00357">network_stop_wifi()</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ab2eae718b6d54d919fbd08735aee513d" name="ab2eae718b6d54d919fbd08735aee513d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2eae718b6d54d919fbd08735aee513d">&#9670;&#160;</a></span>ESP_EVENT_DEFINE_BASE()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">ESP_EVENT_DEFINE_BASE </td>
+          <td>(</td>
+          <td class="paramtype">NETWORK_EVENT</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Base event for all network-related events. </p>
+
+</div>
+</div>
+<a id="a9bd9f390af7b80b21e4b1bcd75340ea7" name="a9bd9f390af7b80b21e4b1bcd75340ea7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9bd9f390af7b80b21e4b1bcd75340ea7">&#9670;&#160;</a></span>network_event_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void network_event_handler </td>
+          <td>(</td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">esp_event_base_t</td>          <td class="paramname"><span class="paramname"><em>event_base</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t</td>          <td class="paramname"><span class="paramname"><em>event_id</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>event_data</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Event handler for WiFi and IP events to manage network state changes and post appropriate NETWORK_EVENTs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">arg</td><td>User-defined argument (not used) </td></tr>
+    <tr><td class="paramname">event_base</td><td>The base of the event (e.g. WIFI_EVENT or IP_EVENT) </td></tr>
+    <tr><td class="paramname">event_id</td><td>The specific event ID within the base </td></tr>
+    <tr><td class="paramname">event_data</td><td>Pointer to event-specific data (e.g. IP address info on IP_EVENT_STA_GOT_IP) </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00099">99</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00058">MAX_RETRY_ATTEMPTS</a>, <a class="el" href="network_8h_source.html#l00027">NETWORK_EVENT_DISCONNECTED</a>, <a class="el" href="network_8h_source.html#l00026">NETWORK_EVENT_READY</a>, <a class="el" href="network_8c_source.html#l00046">network_sta_wants_connection</a>, <a class="el" href="network_8c_source.html#l00063">RECONNECT_DELAY_MS</a>, and <a class="el" href="network_8c_source.html#l00068">reconnect_timer</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00052">app_main()</a>, and <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a9bd9f390af7b80b21e4b1bcd75340ea7_icgraph.svg" width="470" height="64"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1129e850b1115fb36f2f96b8f69bc786" name="a1129e850b1115fb36f2f96b8f69bc786"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1129e850b1115fb36f2f96b8f69bc786">&#9670;&#160;</a></span>network_init()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t network_init </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initialize the network stack. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">ESP_OK</span> on success</li>
+<li><span class="tt">ESP_ERR_INVALID_STATE</span> if the network stack is already initialized</li>
+<li><span class="tt">ESP_ERR_NO_MEM</span> if there was a memory allocation failure</li>
+</ul>
+</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>This function is not thread-safe and should be called from a single task during application startup.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>If there is a severe failure during initialization, the function may abort the program.</dd></dl>
+<p>This function must be called before any other network functions. It sets up the necessary event handlers and initializes the WiFi driver. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00199">199</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="network_8c_source.html#l00073">LOCK_NETWORK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00099">network_event_handler()</a>, <a class="el" href="network_8c_source.html#l00192">network_init_wifi()</a>, <a class="el" href="network_8c_source.html#l00030">network_initialized</a>, <a class="el" href="network_8c_source.html#l00025">network_mutex</a>, <a class="el" href="network_8c_source.html#l00083">on_reconnect_timer()</a>, <a class="el" href="network_8c_source.html#l00063">RECONNECT_DELAY_MS</a>, <a class="el" href="network_8c_source.html#l00068">reconnect_timer</a>, and <a class="el" href="network_8c_source.html#l00078">UNLOCK_NETWORK</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00052">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a1129e850b1115fb36f2f96b8f69bc786_cgraph.svg" width="336" height="143"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a1129e850b1115fb36f2f96b8f69bc786_icgraph.svg" width="247" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a456493724a89879d5342f60479b15a6a" name="a456493724a89879d5342f60479b15a6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a456493724a89879d5342f60479b15a6a">&#9670;&#160;</a></span>network_init_wifi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t network_init_wifi </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Internal helper function to initialize the WiFi driver with default configuration. </p>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">ESP_OK</span> on success, otherwise an appropriate error code from the WiFi initialization process. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00192">192</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a456493724a89879d5342f60479b15a6a_icgraph.svg" width="427" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3cd7ff4f4ba3b99f1687001052d23664" name="a3cd7ff4f4ba3b99f1687001052d23664"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cd7ff4f4ba3b99f1687001052d23664">&#9670;&#160;</a></span>network_start_ap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t network_start_ap </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ssid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start the WiFi access point. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssid</td><td>The SSID of the access point, 32 characters max </td></tr>
+    <tr><td class="paramname">password</td><td>The password of the access point, 63 characters max (optional, can be <span class="tt">NULL</span> or empty for open AP) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">ESP_OK</span> on success</li>
+<li><span class="tt">ESP_ERR_INVALID_STATE</span> if the network stack is not initialized or already connected</li>
+<li>an other appropiate error code if there was a failure starting the AP </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00248">248</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00081">APP_CONFIG_CONN_WIFI_AP</a>, <a class="el" href="network_8c_source.html#l00036">connection_started</a>, <a class="el" href="network_8c_source.html#l00052">connection_type</a>, <a class="el" href="network_8c_source.html#l00073">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00030">network_initialized</a>, <a class="el" href="network_8c_source.html#l00078">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00173">validate_credentials()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00052">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a3cd7ff4f4ba3b99f1687001052d23664_cgraph.svg" width="347" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a3cd7ff4f4ba3b99f1687001052d23664_icgraph.svg" width="279" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae74924a1c688a9f1efa93cf06548ebd2" name="ae74924a1c688a9f1efa93cf06548ebd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae74924a1c688a9f1efa93cf06548ebd2">&#9670;&#160;</a></span>network_start_sta()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t network_start_sta </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ssid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Start the WiFi station. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssid</td><td>The SSID of the network to connect to, 32 characters max </td></tr>
+    <tr><td class="paramname">password</td><td>The password of the network to connect to, 63 characters max (optional, can be <span class="tt">NULL</span> or empty for open networks) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">ESP_OK</span> on success</li>
+<li><span class="tt">ESP_ERR_INVALID_STATE</span> if the network stack is not initialized or already connected</li>
+<li>an other appropiate error code if there was a failure starting the station </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00303">303</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00082">APP_CONFIG_CONN_WIFI_STA</a>, <a class="el" href="network_8c_source.html#l00036">connection_started</a>, <a class="el" href="network_8c_source.html#l00052">connection_type</a>, <a class="el" href="network_8c_source.html#l00073">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00030">network_initialized</a>, <a class="el" href="network_8c_source.html#l00046">network_sta_wants_connection</a>, <a class="el" href="network_8c_source.html#l00078">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00173">validate_credentials()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00052">app_main()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_ae74924a1c688a9f1efa93cf06548ebd2_cgraph.svg" width="351" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_ae74924a1c688a9f1efa93cf06548ebd2_icgraph.svg" width="283" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6cbfb4cab43d55e80d395b23a1bcf64b" name="a6cbfb4cab43d55e80d395b23a1bcf64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cbfb4cab43d55e80d395b23a1bcf64b">&#9670;&#160;</a></span>network_stop_wifi()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t network_stop_wifi </td>
+          <td>(</td>
+          <td class="paramtype">void</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Stop the WiFi interface, works for both AP and STA mode. </p>
+<dl class="section return"><dt>Returns</dt><dd><ul>
+<li><span class="tt">ESP_OK</span> on success</li>
+<li><span class="tt">ESP_ERR_INVALID_STATE</span> if the network stack is not initialized</li>
+<li>an other appropiate error code if there was a failure stopping the WiFi </li>
+</ul>
+</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00357">357</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="network_8c_source.html#l00036">connection_started</a>, <a class="el" href="network_8c_source.html#l00073">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00046">network_sta_wants_connection</a>, and <a class="el" href="network_8c_source.html#l00078">UNLOCK_NETWORK</a>.</p>
+
+</div>
+</div>
+<a id="ab3d78447c41c0858e4225c3a98ca07b1" name="ab3d78447c41c0858e4225c3a98ca07b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab3d78447c41c0858e4225c3a98ca07b1">&#9670;&#160;</a></span>on_reconnect_timer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void on_reconnect_timer </td>
+          <td>(</td>
+          <td class="paramtype">TimerHandle_t</td>          <td class="paramname"><span class="paramname"><em>timer</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Callback function for the WiFi reconnect timer. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00083">83</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, and <a class="el" href="network_8c_source.html#l00046">network_sta_wants_connection</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_ab3d78447c41c0858e4225c3a98ca07b1_icgraph.svg" width="446" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a872c0f15a662528aedcfdb61acaeb31f" name="a872c0f15a662528aedcfdb61acaeb31f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a872c0f15a662528aedcfdb61acaeb31f">&#9670;&#160;</a></span>validate_credentials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t validate_credentials </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>ssid</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>password</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Validates the provided WiFi credentials for SSID and password length requirements. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ssid</td><td>The SSID string to validate </td></tr>
+    <tr><td class="paramname">password</td><td>The password string to validate </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><span class="tt">ESP_OK</span> if the credentials are valid, otherwise <span class="tt">ESP_ERR_INVALID_ARG</span></dd></dl>
+<p>The credential requirements are:</p>
+<ul>
+<li>SSID must be non-null, non-empty, and at most 32 characters long</li>
+<li>Password is optional (can be null or empty for open networks), but if provided, it must be between 8 and 63 characters long </li>
+</ul>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00173">173</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, and <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="network_8c_a872c0f15a662528aedcfdb61acaeb31f_icgraph.svg" width="484" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a08cef5a94a3129092bb6e284408271c9" name="a08cef5a94a3129092bb6e284408271c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08cef5a94a3129092bb6e284408271c9">&#9670;&#160;</a></span>connection_started</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool connection_started = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating whether a network connection (AP or STA) has been started. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00036">36</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>, and <a class="el" href="network_8c_source.html#l00357">network_stop_wifi()</a>.</p>
+
+</div>
+</div>
+<a id="a93cb2fd383cc207992bec53f060c8900" name="a93cb2fd383cc207992bec53f060c8900"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93cb2fd383cc207992bec53f060c8900">&#9670;&#160;</a></span>connection_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446">config_connection_t</a> connection_type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The currently active connection type, if any. Valid only if <span class="tt"><a class="el" href="#a08cef5a94a3129092bb6e284408271c9" title="Flag indicating whether a network connection (AP or STA) has been started.">connection_started</a></span> is true. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00052">52</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, and <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>.</p>
+
+</div>
+</div>
+<a id="afbf56132afb6018c35041bbe71c73d26" name="afbf56132afb6018c35041bbe71c73d26"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf56132afb6018c35041bbe71c73d26">&#9670;&#160;</a></span>network_initialized</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool network_initialized = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating whether the network stack has been initialized. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00030">30</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>, <a class="el" href="network_8c_source.html#l00248">network_start_ap()</a>, and <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>.</p>
+
+</div>
+</div>
+<a id="a76ce7f67cb18455d8ccaf19aa44f7c12" name="a76ce7f67cb18455d8ccaf19aa44f7c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76ce7f67cb18455d8ccaf19aa44f7c12">&#9670;&#160;</a></span>network_mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">SemaphoreHandle_t network_mutex = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Mutex to ensure thread-safe access to network state and operations. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00025">25</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+
+</div>
+</div>
+<a id="a4a825860b3d0e41839bc302ed35ea6ac" name="a4a825860b3d0e41839bc302ed35ea6ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a825860b3d0e41839bc302ed35ea6ac">&#9670;&#160;</a></span>network_sta_wants_connection</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">volatile bool network_sta_wants_connection = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Flag indicating whether the STA mode should attempt to maintain a connection. </p>
+<p>This is set to false if the user explicitly disconnects or if there is an authentication failure, to prevent infinite reconnect loops in those cases. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00046">46</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00099">network_event_handler()</a>, <a class="el" href="network_8c_source.html#l00303">network_start_sta()</a>, <a class="el" href="network_8c_source.html#l00357">network_stop_wifi()</a>, and <a class="el" href="network_8c_source.html#l00083">on_reconnect_timer()</a>.</p>
+
+</div>
+</div>
+<a id="ad2fe45f7f7e859660903f2fe700a51c9" name="ad2fe45f7f7e859660903f2fe700a51c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2fe45f7f7e859660903f2fe700a51c9">&#9670;&#160;</a></span>reconnect_timer</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">TimerHandle_t reconnect_timer = NULL</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Timer handle for scheduling WiFi STA reconnect attempts. </p>
+
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00068">68</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="network_8c_source.html#l00099">network_event_handler()</a>, and <a class="el" href="network_8c_source.html#l00199">network_init()</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_d4b03c9fad44aec9b3a39a22e1bc3662.html">network</a></li><li class="navelem"><a href="dir_dc1d5662d3224ea9411aecfadddb8e50.html">src</a></li><li class="navelem"><a href="network_8c.html">network.c</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>
