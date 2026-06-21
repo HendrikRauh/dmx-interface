@@ -10,6 +10,7 @@
     "yoavbls.pretty-ts-errors",
     "ms-python.python",
     "charliermarsh.ruff",
-    "bernhard-42.ocp-cad-viewer"
+    "bernhard-42.ocp-cad-viewer",
+    "ms-toolsai.jupyter"
   ]
 }
