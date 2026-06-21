@@ -61,6 +61,11 @@ with BuildPart() as main_body:
             mode=Mode.SUBTRACT,
         )
 
+    esp.position = (
+        0,
+        -main_body.faces().sort_by(Axis.Y)[-2].center().Y,
+        -main_body.faces().sort_by(Axis.Z)[-2].center().Z,
+    )
     # Get the Z coordinate of the inner top face
     inner_top_z = main_body.faces().sort_by(Axis.Z)[-2].center().Z
 
@@ -71,7 +76,7 @@ with BuildPart() as main_body:
 
 bottom.label = "Case Bottom"
 top.label = "Case Lid"
-bottom.color = Color("#94e2d5")
+bottom.color = Color("#94e2d5", 0.75)
 top.color = Color("#74c7ec", 0.75)
 
 if in_vscode and "VSCODE_CWD" in os.environ:
