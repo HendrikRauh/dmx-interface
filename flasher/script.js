@@ -13,10 +13,11 @@ const radioLocal = document.getElementById("mode-local");
 const secGithub = document.getElementById("sec-github");
 const secLocal = document.getElementById("sec-local");
 const releaseSelect = document.getElementById("release-select");
+const deviceSelect = document.getElementById("device-select");
 const fileInput = document.getElementById("file-input");
 const dropZone = document.getElementById("drop-zone");
 const dropText = document.getElementById("drop-text");
-const flashSizeSelect = document.getElementById("flash-size");
+const flashSizeSelect = document.getElementById("flash-size-select");
 
 const connectBtn = document.getElementById("connect-button");
 const rebootBtn = document.getElementById("reboot-button");
@@ -36,6 +37,16 @@ let transport = null;
 let esploader = null;
 let isMonitoring = false;
 let monitorReader = null;
+
+let allReleases = [];
+
+const DEVICE_FLASH_SIZES = {
+  esp32s2: "4MB",
+  esp32s3: "4MB",
+  esp32: "4MB",
+};
+
+const DEFAULT_FLASH_SIZE = "4MB";
 
 // --- Theme Logic ---
 const setTheme = (theme) => {
@@ -178,6 +189,7 @@ radioLocal.addEventListener("change", () => {
 });
 
 releaseSelect.addEventListener("change", toggleFlashButton);
+deviceSelect.addEventListener("change", updateVersionOptions);
 
 // --- Drop Zone Logic ---
 dropZone.addEventListener("click", () => fileInput.click());
@@ -215,40 +227,83 @@ const handleFileSelect = () => {
 
 fileInput.addEventListener("change", handleFileSelect);
 
-// --- GitHub Release Loading ---
 async function loadGitHubReleases() {
   try {
     const response = await fetch("meta/releases.json");
     if (!response.ok) throw new Error("Failed to load releases.json");
 
-    const releases = await response.json();
-    releaseSelect.innerHTML = "";
+    allReleases = await response.json();
 
-    let hasAssets = false;
-    if (Array.isArray(releases)) {
-      releases.forEach((release) => {
+    const devices = new Set();
+    if (Array.isArray(allReleases)) {
+      allReleases.forEach((release) => {
         release.assets.forEach((asset) => {
-          if (asset.name.endsWith(".bin")) {
-            const option = document.createElement("option");
-            option.text = `${release.tag} — ${asset.name}`;
-            option.value = asset.url;
-            releaseSelect.appendChild(option);
-            hasAssets = true;
+          const match = asset.name.match(/ChaosDMX-(.*?)-v/);
+          if (match && match[1]) {
+            devices.add(match[1]);
           }
         });
       });
     }
 
-    if (!hasAssets) {
+    deviceSelect.innerHTML = "";
+    if (devices.size === 0) {
+      deviceSelect.innerHTML = '<option value="">No devices found</option>';
       releaseSelect.innerHTML =
         '<option value="error">No firmware found</option>';
+      return;
     }
-    toggleFlashButton();
+
+    devices.forEach((device) => {
+      const option = document.createElement("option");
+      option.value = device;
+      option.text = device.charAt(0).toUpperCase() + device.slice(1);
+      deviceSelect.appendChild(option);
+    });
+
+    deviceSelect.disabled = false;
+    releaseSelect.disabled = false;
+
+    updateVersionOptions();
   } catch (err) {
     console.error(err);
+    deviceSelect.innerHTML = '<option value="error">Error</option>';
     releaseSelect.innerHTML =
       '<option value="error">Error loading releases</option>';
   }
+}
+
+function updateVersionOptions() {
+  const selectedDevice = deviceSelect.value;
+  releaseSelect.innerHTML = "";
+
+  if (!selectedDevice) {
+    releaseSelect.innerHTML =
+      '<option value="">Select a device first</option>';
+    toggleFlashButton();
+    return;
+  }
+
+  let hasAssets = false;
+
+  allReleases.forEach((release) => {
+    release.assets.forEach((asset) => {
+      if (asset.name.includes(selectedDevice) && asset.name.endsWith(".bin")) {
+        const option = document.createElement("option");
+        option.text = release.tag;
+        option.value = asset.url;
+        releaseSelect.appendChild(option);
+        hasAssets = true;
+      }
+    });
+  });
+
+  if (!hasAssets) {
+    releaseSelect.innerHTML =
+      '<option value="error">No version for this device</option>';
+  }
+
+  toggleFlashButton();
 }
 
 // --- Connection Logic ---
@@ -385,6 +440,8 @@ flashBtn.addEventListener("click", async () => {
     setProgress(0);
 
     let binData;
+    let chosenFlashSize = DEFAULT_FLASH_SIZE; // Fallback Variable definieren
+
     if (radioGithub.checked) {
       const url = releaseSelect.value;
       updateStatus("Downloading via CORS Proxy...", false);
@@ -396,16 +453,22 @@ flashBtn.addEventListener("click", async () => {
       if (!response.ok)
         throw new Error(`Proxy fetch failed with status ${response.status}`);
       binData = new Uint8Array(await response.arrayBuffer());
+
+      const currentDevice = deviceSelect.value;
+      chosenFlashSize =
+        DEVICE_FLASH_SIZES[currentDevice] || DEFAULT_FLASH_SIZE;
     } else {
       const file = fileInput.files[0];
       binData = new Uint8Array(await file.arrayBuffer());
+
+      chosenFlashSize = flashSizeSelect.value;
     }
 
     const flashOptions = {
       fileArray: [{ data: binData, address: 0x0000 }],
       flashMode: "dio",
       flashFreq: "40m",
-      flashSize: flashSizeSelect.value,
+      flashSize: chosenFlashSize,
       eraseAll: false,
       compress: true,
       reportProgress: (fileIndex, written, total) => {
