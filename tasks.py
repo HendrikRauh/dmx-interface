@@ -73,6 +73,7 @@ def web_dev(c):
     c.run("npm run dev", pty=True)
 
 
+@task
 def release(c):
     """Build single binaries for release across all targets"""
     version = os.environ.get("GITHUB_REF_NAME", "dev")
