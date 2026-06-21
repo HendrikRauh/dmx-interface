@@ -1,23 +1,36 @@
 [
   {
+    "tag": "v0.0.02-rc2",
+    "assets": [
+      {
+        "name": "ChaosDMX-lolinS2mini-v0.0.02-rc2.bin",
+        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/untagged-1c9c9f6da7e1c3b247ba/ChaosDMX-lolinS2mini-v0.0.02-rc2.bin"
+      },
+      {
+        "name": "ChaosDMX-lolinS3mini-v0.0.02-rc2.bin",
+        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/untagged-1c9c9f6da7e1c3b247ba/ChaosDMX-lolinS3mini-v0.0.02-rc2.bin"
+      }
+    ]
+  },
+  {
+    "tag": "v0.0.2-rc2",
+    "assets": [
+      {
+        "name": "ChaosDMX-lolinS2mini-v0.0.2-rc2.bin",
+        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/v0.0.2-rc2/ChaosDMX-lolinS2mini-v0.0.2-rc2.bin"
+      },
+      {
+        "name": "ChaosDMX-lolinS3mini-v0.0.2-rc2.bin",
+        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/v0.0.2-rc2/ChaosDMX-lolinS3mini-v0.0.2-rc2.bin"
+      }
+    ]
+  },
+  {
     "tag": "v0.0.2-rc1",
     "assets": [
       {
         "name": "ChaosDMX-lolinS2mini-v0.0.2-rc1.bin",
         "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/v0.0.2-rc1/ChaosDMX-lolinS2mini-v0.0.2-rc1.bin"
-      }
-    ]
-  },
-  {
-    "tag": "v0.0.02-rc2",
-    "assets": [
-      {
-        "name": "ChaosDMX-lolinS2mini-v0.0.02-rc2.bin",
-        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/v0.0.02-rc2/ChaosDMX-lolinS2mini-v0.0.02-rc2.bin"
-      },
-      {
-        "name": "ChaosDMX-lolinS3mini-v0.0.02-rc2.bin",
-        "url": "https://github.com/HendrikRauh/dmx-interface/releases/download/v0.0.02-rc2/ChaosDMX-lolinS3mini-v0.0.02-rc2.bin"
       }
     ]
   },
