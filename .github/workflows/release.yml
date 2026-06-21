@@ -28,6 +28,11 @@ jobs:
           nix develop --command invoke release
         shell: bash
 
+      - name: Generate Case Assets
+        run: |
+          nix develop --command invoke generate-case
+        shell: bash
+
       - name: Determine Pre-release Status
         id: check_prerelease
         run: |
@@ -48,3 +53,4 @@ jobs:
           generate_release_notes: true
           files: |
             dist/*.bin
+            assets/case/output/**/*
