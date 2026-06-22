@@ -133,16 +133,14 @@ void app_main(void) {
 
   switch (config_get_connection()) {
   case APP_CONFIG_CONN_WIFI_AP:
-    wifi_config_t ap_config;
-    config_get_wifi_ap_config(&ap_config);
-    ESP_ERROR_CHECK(network_start_ap((const char *)ap_config.ap.ssid,
-                                     (const char *)ap_config.ap.password));
+    app_wifi_creds_t ap_creds;
+    config_get_wifi_ap_config(&ap_creds);
+    ESP_ERROR_CHECK(network_start_ap(ap_creds.ssid, ap_creds.password));
     break;
   case APP_CONFIG_CONN_WIFI_STA:
-    wifi_config_t sta_config;
-    config_get_wifi_sta_config(&sta_config);
-    ESP_ERROR_CHECK(network_start_sta((const char *)sta_config.sta.ssid,
-                                      (const char *)sta_config.sta.password));
+    app_wifi_creds_t sta_creds;
+    config_get_wifi_sta_config(&sta_creds);
+    ESP_ERROR_CHECK(network_start_sta(sta_creds.ssid, sta_creds.password));
     break;
   case APP_CONFIG_CONN_ETHERNET:
     LOGE("Ethernet is not yet supported");

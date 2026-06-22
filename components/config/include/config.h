@@ -39,6 +39,14 @@ extern "C" {
 #define APP_CONFIG_INVALID_UNIVERSE 0xFFFF
 
 /**
+ * @brief WIFI credentials structure for both Station and Access Point modes.
+ */
+typedef struct {
+  char ssid[33];     // 32 chars + null terminator
+  char password[64]; // 63 chars + null terminator (WPA2 standard)
+} app_wifi_creds_t;
+
+/**
  * @brief Supported button event types that can be configured in the system.
  */
 typedef enum {
@@ -261,9 +269,10 @@ bool config_set_dmx_direction(uint8_t port_index, config_direction_t direction);
 
 /**
  * @brief Gets the Wi-Fi Station mode configuration.
- * @param[out] dest Pointer to a wifi_config_t struct to receive the data.
+ * @param[out] dest Pointer to a `app_wifi_creds_t` struct to receive the
+ * data.
  */
-void config_get_wifi_sta_config(wifi_config_t *dest);
+void config_get_wifi_sta_config(app_wifi_creds_t *dest);
 
 /**
  * @brief Sets the Wi-Fi Station SSID in RAM.
@@ -274,16 +283,17 @@ bool config_set_wifi_sta_ssid(const char *ssid);
 
 /**
  * @brief Sets the Wi-Fi Station password in RAM.
- * @param[in] src Password string to apply (max 64 chars).
+ * @param[in] src Password string to apply (max 63 chars).
  * @return true if updated, false if invalid or unchanged.
  */
 bool config_set_wifi_sta_password(const char *password);
 
 /**
  * @brief Gets the Wi-Fi Access Point mode configuration.
- * @param[out] dest Pointer to a wifi_config_t struct to receive the data.
+ * @param[out] dest Pointer to a `app_wifi_creds_t` struct to receive the
+ * data.
  */
-void config_get_wifi_ap_config(wifi_config_t *dest);
+void config_get_wifi_ap_config(app_wifi_creds_t *dest);
 
 /**
  * @brief Sets the Wi-Fi Access Point SSID in RAM.
@@ -294,7 +304,7 @@ bool config_set_wifi_ap_ssid(const char *ssid);
 
 /**
  * @brief Sets the Wi-Fi Access Point password in RAM.
- * @param[in] src Password string to apply (max 64 chars).
+ * @param[in] src Password string to apply (max 63 chars).
  * @return true if updated, false if invalid or unchanged.
  */
 bool config_set_wifi_ap_password(const char *password);

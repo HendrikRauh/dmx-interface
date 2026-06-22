@@ -82,12 +82,12 @@ static const json_processor_object_entry_t wifi_config_entries_processor[] = {
     {
         .key = KEY_SSID,
         .required = false,
-        .entry_processor = JSON_PROC_STR(0, 32, NULL),
+        .entry_processor = JSON_PROC_STR(1, 32, NULL),
     },
     {
         .key = KEY_PASSWORD,
         .required = false,
-        .entry_processor = JSON_PROC_STR(0, 64, NULL),
+        .entry_processor = JSON_PROC_STR(0, 63, NULL),
     },
 };
 
@@ -186,35 +186,27 @@ static esp_err_t get_config_handler(httpd_req_t *req) {
   cJSON_AddNumberToObject(root, KEY_LED_BRIGHTNESS,
                           config_get_led_brightness());
 
-  wifi_config_t wifi_config;
-  char buf_ssid[33] = {0};
-  char buf_pass[65] = {0};
+  app_wifi_creds_t wifi_creds;
 
   // --- WiFi Station Config ---
-  config_get_wifi_sta_config(&wifi_config);
+  config_get_wifi_sta_config(&wifi_creds);
   cJSON *json_wifi_sta = cJSON_CreateObject();
   if (!json_wifi_sta) {
     goto fail;
   }
   cJSON_AddItemToObject(root, KEY_WIFI_STATION_CONFIG, json_wifi_sta);
-  memcpy(buf_ssid, wifi_config.sta.ssid, sizeof(wifi_config.sta.ssid));
-  memcpy(buf_pass, wifi_config.sta.password, sizeof(wifi_config.sta.password));
-  cJSON_AddStringToObject(json_wifi_sta, KEY_SSID, buf_ssid);
-  cJSON_AddStringToObject(json_wifi_sta, KEY_PASSWORD, buf_pass);
+  cJSON_AddStringToObject(json_wifi_sta, KEY_SSID, wifi_creds.ssid);
+  cJSON_AddStringToObject(json_wifi_sta, KEY_PASSWORD, wifi_creds.password);
 
   // --- WiFi AP Config ---
-  config_get_wifi_ap_config(&wifi_config);
+  config_get_wifi_ap_config(&wifi_creds);
   cJSON *json_wifi_ap = cJSON_CreateObject();
   if (!json_wifi_ap) {
     goto fail;
   }
   cJSON_AddItemToObject(root, KEY_WIFI_AP_CONFIG, json_wifi_ap);
-  memset(buf_ssid, 0, sizeof(buf_ssid));
-  memset(buf_pass, 0, sizeof(buf_pass));
-  memcpy(buf_ssid, wifi_config.ap.ssid, sizeof(wifi_config.ap.ssid));
-  memcpy(buf_pass, wifi_config.ap.password, sizeof(wifi_config.ap.password));
-  cJSON_AddStringToObject(json_wifi_ap, KEY_SSID, buf_ssid);
-  cJSON_AddStringToObject(json_wifi_ap, KEY_PASSWORD, buf_pass);
+  cJSON_AddStringToObject(json_wifi_ap, KEY_SSID, wifi_creds.ssid);
+  cJSON_AddStringToObject(json_wifi_ap, KEY_PASSWORD, wifi_creds.password);
 
   // --- DMX Ports Array ---
   cJSON *dmx_ports = cJSON_AddObjectToObject(root, KEY_DMX_PORTS);
