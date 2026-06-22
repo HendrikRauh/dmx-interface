@@ -1,5 +1,6 @@
 var config_8h =
 [
+    [ "app_wifi_creds_t", "structapp__wifi__creds__t.html", "structapp__wifi__creds__t" ],
     [ "APP_CONFIG_DEFAULT_AP_PASSWORD", "config_8h.html#abda41d7016a6bc9d5599c3382949b970", null ],
     [ "APP_CONFIG_DEFAULT_AP_SSID_PREFIX", "config_8h.html#a73e764efdfac1104909b8138528d75a8", null ],
     [ "APP_CONFIG_DEFAULT_CONNECTION", "config_8h.html#a83eeba0a53c30a61824369b6aee279bd", null ],
@@ -56,8 +57,8 @@ var config_8h =
     [ "config_get_dmx_universe", "config_8h.html#a793ee6fb85596d53cb37451d283c2213", null ],
     [ "config_get_ip_method", "config_8h.html#a1f52726707a24c67fc1b23fecf5b548c", null ],
     [ "config_get_led_brightness", "config_8h.html#a30bb8db7736fceae486f36005a411f5e", null ],
-    [ "config_get_wifi_ap_config", "config_8h.html#abfdfc4d5c9822deaee11814d31bc7fd8", null ],
-    [ "config_get_wifi_sta_config", "config_8h.html#a80e66713206a22a0ebaf9e5e36714695", null ],
+    [ "config_get_wifi_ap_config", "config_8h.html#a2363e27104e4b2fd1f91bb94102bb216", null ],
+    [ "config_get_wifi_sta_config", "config_8h.html#aa8007b5893a417a97f29a29ab98ac747", null ],
     [ "config_init", "config_8h.html#ace6647db1f20678900580f60562dea57", null ],
     [ "config_reset_defaults", "config_8h.html#a19524afa3401ea2d7c375af232cf8f39", null ],
     [ "config_save", "config_8h.html#adbf182647ef90017c070ed7a4d0504fb", null ],

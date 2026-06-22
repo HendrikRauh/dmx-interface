@@ -110,7 +110,7 @@
 <!-- Node15 -->
 <g id="Node000015" class="node">
 <title>Node15</title>
-<g id="a_Node000015"><a xlink:href="config_8c.html#abfdfc4d5c9822deaee11814d31bc7fd8" target="_top" xlink:title="Gets the Wi&#45;Fi Access Point mode configuration.">
+<g id="a_Node000015"><a xlink:href="config_8c.html#a2363e27104e4b2fd1f91bb94102bb216" target="_top" xlink:title="Gets the Wi&#45;Fi Access Point mode configuration.">
 <polygon fill="white" stroke="#666666" points="215.38,-1067.12 109.38,-1067.12 109.38,-1033.62 215.38,-1033.62 215.38,-1067.12"/>
 <text text-anchor="start" x="117.38" y="-1053.62" font-family="Helvetica,sans-Serif" font-size="10.00">config_get_wifi_ap</text>
 <text text-anchor="middle" x="162.38" y="-1040.88" font-family="Helvetica,sans-Serif" font-size="10.00">_config</text>
@@ -129,7 +129,7 @@
 <!-- Node16 -->
 <g id="Node000016" class="node">
 <title>Node16</title>
-<g id="a_Node000016"><a xlink:href="config_8c.html#a80e66713206a22a0ebaf9e5e36714695" target="_top" xlink:title="Gets the Wi&#45;Fi Station mode configuration.">
+<g id="a_Node000016"><a xlink:href="config_8c.html#aa8007b5893a417a97f29a29ab98ac747" target="_top" xlink:title="Gets the Wi&#45;Fi Station mode configuration.">
 <polygon fill="white" stroke="#666666" points="216.88,-1015.12 107.88,-1015.12 107.88,-981.62 216.88,-981.62 216.88,-1015.12"/>
 <text text-anchor="start" x="115.88" y="-1001.62" font-family="Helvetica,sans-Serif" font-size="10.00">config_get_wifi_sta</text>
 <text text-anchor="middle" x="162.38" y="-988.88" font-family="Helvetica,sans-Serif" font-size="10.00">_config</text>

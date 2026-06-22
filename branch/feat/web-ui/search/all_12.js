@@ -18,7 +18,7 @@ var searchData=
   ['set_5fpwm_5fduty_15',['set_pwm_duty',['../led_8c.html#aecd6c57a0c34616eda567d5ce860979a',1,'led.c']]],
   ['setup_20direnv_20optional_16',['Setup direnv (optional)',['../index.html#setup-direnv-optional',1,'']]],
   ['setup_20nix_17',['Setup NIX',['../index.html#setup-nix',1,'']]],
-  ['ssid_18',['ssid',['../structapp__wifi__creds__t.html#aca76bcdede58c36160f68190be53e015',1,'app_wifi_creds_t']]],
+  ['ssid_18',['ssid',['../structapp__wifi__creds__t.html#a364b0a40731e3f67eb1ed82737e0148b',1,'app_wifi_creds_t']]],
   ['stack_5fsize_19',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
   ['static_5ffile_5fhandler_20',['static_file_handler',['../web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f',1,'web_server.c']]],
   ['status_20led_21',['💡 Status LED',['../index.html#autotoc_md-status-led',1,'']]],

@@ -1,6 +1,5 @@
 var config_8c =
 [
-    [ "app_wifi_creds_t", "structapp__wifi__creds__t.html", "structapp__wifi__creds__t" ],
     [ "__attribute__", "struct____attribute____.html", "struct____attribute____" ],
     [ "APP_CONFIG_MAGIC", "config_8c.html#aea0a66f4bdc7a4a2f837024fe55c8567", null ],
     [ "APP_CONFIG_VERSION", "config_8c.html#ab49cfbb693d17f7996a155add59c7ee4", null ],
@@ -15,8 +14,8 @@ var config_8c =
     [ "config_get_dmx_universe", "config_8c.html#a793ee6fb85596d53cb37451d283c2213", null ],
     [ "config_get_ip_method", "config_8c.html#a1f52726707a24c67fc1b23fecf5b548c", null ],
     [ "config_get_led_brightness", "config_8c.html#a30bb8db7736fceae486f36005a411f5e", null ],
-    [ "config_get_wifi_ap_config", "config_8c.html#abfdfc4d5c9822deaee11814d31bc7fd8", null ],
-    [ "config_get_wifi_sta_config", "config_8c.html#a80e66713206a22a0ebaf9e5e36714695", null ],
+    [ "config_get_wifi_ap_config", "config_8c.html#a2363e27104e4b2fd1f91bb94102bb216", null ],
+    [ "config_get_wifi_sta_config", "config_8c.html#aa8007b5893a417a97f29a29ab98ac747", null ],
     [ "config_init", "config_8c.html#ace6647db1f20678900580f60562dea57", null ],
     [ "config_reset_defaults", "config_8c.html#a19524afa3401ea2d7c375af232cf8f39", null ],
     [ "config_save", "config_8c.html#adbf182647ef90017c070ed7a4d0504fb", null ],

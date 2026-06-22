@@ -10,9 +10,9 @@
 <area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="46,664,46,604,56,516,67,467,83,418,106,373,137,332,141,328,145,332,141,336,111,375,88,420,72,468,61,516,52,604,51,664"/>
 <area shape="rect" id="Node000014" href="$config_8c.html#a6ac096d28ccd844ad0805e9199cae521" title="Gets the current network connection type." alt="" coords="139,345,305,373"/>
 <area shape="poly" id="edge14_Node000001_Node000014" title=" " alt="" coords="47,664,49,612,61,537,73,496,88,455,109,417,137,383,139,380,143,384,141,386,114,420,93,457,78,497,66,538,55,612,52,664"/>
-<area shape="rect" id="Node000015" href="$config_8c.html#abfdfc4d5c9822deaee11814d31bc7fd8" title="Gets the Wi&#45;Fi Access Point mode configuration." alt="" coords="151,397,292,442"/>
+<area shape="rect" id="Node000015" href="$config_8c.html#a2363e27104e4b2fd1f91bb94102bb216" title="Gets the Wi&#45;Fi Access Point mode configuration." alt="" coords="151,397,292,442"/>
 <area shape="poly" id="edge16_Node000001_Node000015" title=" " alt="" coords="49,663,56,623,72,567,98,506,115,478,137,452,139,450,143,453,141,456,120,481,102,509,77,569,61,624,54,664"/>
-<area shape="rect" id="Node000016" href="$config_8c.html#a80e66713206a22a0ebaf9e5e36714695" title="Gets the Wi&#45;Fi Station mode configuration." alt="" coords="149,466,294,511"/>
+<area shape="rect" id="Node000016" href="$config_8c.html#aa8007b5893a417a97f29a29ab98ac747" title="Gets the Wi&#45;Fi Station mode configuration." alt="" coords="149,466,294,511"/>
 <area shape="poly" id="edge17_Node000001_Node000016" title=" " alt="" coords="52,662,81,596,105,556,137,521,141,518,144,522,141,525,110,560,86,599,57,665"/>
 <area shape="rect" id="Node000017" href="$config_8c.html#ace6647db1f20678900580f60562dea57" title="Initializes the configuration component." alt="" coords="178,535,266,562"/>
 <area shape="poly" id="edge18_Node000001_Node000017" title=" " alt="" coords="56,662,88,618,111,594,137,573,162,561,164,565,140,578,115,598,92,622,60,665"/>
