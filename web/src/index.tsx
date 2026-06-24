@@ -13,7 +13,7 @@ export function App() {
         <header>
           <picture>
             <source srcset={bannerDark} media="(prefers-color-scheme: dark)" />
-            <img src={bannerLight} height="48" alt="ChaosDMX" />
+            <img src={bannerLight} height="48" alt="ChaosDMX" style={{ maxWidth: "100%" }} />
           </picture>
         </header>
         <DmxForm></DmxForm>
