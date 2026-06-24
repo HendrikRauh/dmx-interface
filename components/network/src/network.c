@@ -114,7 +114,21 @@ static void network_event_handler(void *arg, esp_event_base_t event_base,
   if (event_base == WIFI_EVENT) {
     switch (event_id) {
     case WIFI_EVENT_AP_START:
-      esp_event_post(NETWORK_EVENT, NETWORK_EVENT_READY, NULL, 0, 0);
+      esp_netif_t *ap_netif = esp_netif_get_handle_from_ifkey("WIFI_AP_DEF");
+
+      if (ap_netif == NULL) {
+        LOGE("Failed to get AP netif handle");
+        break;
+      }
+
+      esp_netif_ip_info_t ip_info;
+      if (esp_netif_get_ip_info(ap_netif, &ip_info) != ESP_OK) {
+        LOGE("Failed to get AP IP info");
+        break;
+      }
+
+      esp_event_post(NETWORK_EVENT, NETWORK_EVENT_READY, &ip_info,
+                     sizeof(ip_info), 0);
       break;
     case WIFI_EVENT_STA_START:
       retry_count = 0;
@@ -201,7 +215,8 @@ static void network_event_handler(void *arg, esp_event_base_t event_base,
     if (event_id == IP_EVENT_STA_GOT_IP) {
       ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
       LOGI("Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
-      esp_event_post(NETWORK_EVENT, NETWORK_EVENT_READY, NULL, 0, 0);
+      esp_event_post(NETWORK_EVENT, NETWORK_EVENT_READY, &event->ip_info,
+                     sizeof(event->ip_info), 0);
       retry_count = 0;
     }
   }

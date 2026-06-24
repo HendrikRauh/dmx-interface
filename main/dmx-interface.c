@@ -30,7 +30,7 @@ static EventGroupHandle_t event_group;
  * @param arg User-defined argument (not used)
  * @param event_base The base of the event
  * @param event_id The specific event ID within the base
- * @param event_data Pointer to event-specific data (not used)
+ * @param event_data Pointer to event-specific data
  */
 static void network_event_handler(void *arg, esp_event_base_t event_base,
                                   int32_t event_id, void *event_data) {
@@ -40,8 +40,9 @@ static void network_event_handler(void *arg, esp_event_base_t event_base,
       if (webserver_start(NULL) == NULL) {
         LOGE("Failed to start web server.");
       }
-      // TODO: dynamic IP
-      LOGI("Open http://192.168.4.1 in your browser");
+
+      esp_netif_ip_info_t *ip_info = (esp_netif_ip_info_t *)event_data;
+      LOGI("Open http://" IPSTR " in your browser", IP2STR(&ip_info->ip));
 
       if (event_group != NULL) {
         xEventGroupSetBits(event_group, BIT_NETWORK_READY);

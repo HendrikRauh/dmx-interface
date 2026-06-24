@@ -1,6 +1,14 @@
 /**
  * @file network.h
  * @brief Network management for WiFi AP and STA modes
+ *
+ * This component provides an abstraction layer for managing WiFi connections in
+ * both Access Point (AP) and Station (STA) modes. It handles initialization,
+ * connection management, and event handling for network state changes.
+ *
+ * The caller can subscribe to the `NETWORK_EVENT` event base to receive
+ * notifications about network state changes, such as when the network is ready,
+ * disconnected, or when a connection attempt fails.
  */
 
 #pragma once
@@ -23,11 +31,37 @@ ESP_EVENT_DECLARE_BASE(NETWORK_EVENT);
  * status changes.
  */
 typedef enum {
-  NETWORK_EVENT_READY, ///< Network is ready (e.g. AP started or STA connected)
-  NETWORK_EVENT_DISCONNECTED,     ///< Network got disconnected (e.g. STA
-                                  ///< disconnected or AP stopped)
-  NETWORK_EVENT_CONNECTION_FAILED ///< Network connection failed (e.g. STA
-                                  ///< failed to connect)
+  /**
+   * @brief Network is ready
+   *
+   * This event is posted when the network is ready for use, such as when the
+   * WiFi AP has started or the STA has successfully connected and obtained an
+   * IP address.
+   *
+   * @note Event data: `esp_netif_ip_info_t *` Pointer to the IP information
+   * structure
+   */
+  NETWORK_EVENT_READY,
+
+  /**
+   * @brief Network got disconnected
+   *
+   * This event is posted when the network connection is lost, such as when the
+   * STA disconnects or the AP is stopped.
+   *
+   * @note Event data: `NULL` No payload
+   */
+  NETWORK_EVENT_DISCONNECTED,
+
+  /**
+   * @brief Network connection failed
+   *
+   * This event is posted when a connection attempt fails, such as when the STA
+   * fails to connect to the configured AP.
+   *
+   * @note Event data: `NULL` No payload
+   */
+  NETWORK_EVENT_CONNECTION_FAILED
 } network_event_id_t;
 
 /**
