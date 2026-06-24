@@ -81,7 +81,7 @@ var NAVTREEINDEX =
 [
 "_2home_2runner_2work_2dmx-interface_2dmx-interface_2components_2logger_2include_2logger_8h-example.html",
 "index.html#‍-development",
-"web__server_8c.html"
+"tasks_8py.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

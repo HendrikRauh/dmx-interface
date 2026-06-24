@@ -1,7 +1,9 @@
 <map id="config_get_wifi_ap_config" name="config_get_wifi_ap_config">
-<area shape="rect" id="Node000001" title="Gets the Wi&#45;Fi Access Point mode configuration." alt="" coords="198,24,339,68"/>
-<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="35,5,120,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,37,120,28,121,22,183,31"/>
-<area shape="rect" id="Node000003" href="$config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2" title="Handler for GET requests to /api/config." alt="" coords="5,57,150,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="183,60,150,64,150,59,182,55"/>
+<area shape="rect" id="Node000001" title="Gets the Wi&#45;Fi Access Point mode configuration." alt="" coords="228,49,369,94"/>
+<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="50,5,135,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,52,135,32,136,27,213,47"/>
+<area shape="rect" id="Node000003" href="$config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2" title="Handler for GET requests to /api/config." alt="" coords="20,57,165,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,74,165,74,165,68,212,68"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html#a9bd9f390af7b80b21e4b1bcd75340ea7" title="Event handler for network events." alt="" coords="5,109,180,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="213,95,151,111,150,106,212,90"/>
 </map>

@@ -32,7 +32,7 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="web__server_8c.html#a59de75410c50a6ebac8de34c4560758e" target="_top" xlink:title="Register a URI handler with the web server.">
+<g id="a_Node000002"><a xlink:href="web__server_8c.html#a59de75410c50a6ebac8de34c4560758e" target="_top" xlink:title="Register a custom URI handler.">
 <polygon fill="white" stroke="#666666" points="255.5,-33.5 145.75,-33.5 145.75,0 255.5,0 255.5,-33.5"/>
 <text text-anchor="start" x="153.75" y="-20" font-family="Helvetica,sans-Serif" font-size="10.00">webserver_register</text>
 <text text-anchor="middle" x="200.62" y="-7.25" font-family="Helvetica,sans-Serif" font-size="10.00">_handler</text>

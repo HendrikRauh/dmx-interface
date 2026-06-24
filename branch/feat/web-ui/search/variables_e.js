@@ -15,6 +15,7 @@ var searchData=
   ['s_5fserver_5fhandle_12',['s_server_handle',['../web__server_8c.html#abe7b45c4156b4291f93764735fc68c13',1,'web_server.c']]],
   ['s_5fserver_5ftask_5fhandle_13',['s_server_task_handle',['../web__server_8c.html#a92afb04210a0a9bf80ea1c9f1c58fe2c',1,'web_server.c']]],
   ['ssid_14',['ssid',['../structapp__wifi__creds__t.html#a364b0a40731e3f67eb1ed82737e0148b',1,'app_wifi_creds_t']]],
-  ['stack_5fsize_15',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
-  ['string_16',['string',['../structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162',1,'json_processor_t']]]
+  ['sta_5freconnect_15',['sta_reconnect',['../network_8c.html#a452540dbf861801b6862781cdc276522',1,'network.c']]],
+  ['stack_5fsize_16',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
+  ['string_17',['string',['../structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162',1,'json_processor_t']]]
 ];
