@@ -225,6 +225,8 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Network management for WiFi AP and STA modes. </p>
+<p>This component provides an abstraction layer for managing WiFi connections in both Access Point (AP) and Station (STA) modes. It handles initialization, connection management, and event handling for network state changes.</p>
+<p>The caller can subscribe to the <span class="tt">NETWORK_EVENT</span> event base to receive notifications about network state changes, such as when the network is ready, disconnected, or when a connection attempt fails. </p>
 
 <p class="definition">Definition in file <a class="el" href="network_8h_source.html">network.h</a>.</p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
@@ -242,15 +244,21 @@ Functions</h2></td></tr>
 
 <p>Network event IDs These events are posted to the NETWORK_EVENT event loop when the network status changes. </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71cad9c3634e79f264ccf710e73d6c05d475" name="a1a277a9bb8cf5a182aeca18f1e7ad71cad9c3634e79f264ccf710e73d6c05d475"></a>NETWORK_EVENT_READY&#160;</td><td class="fielddoc"><p>Network is ready (e.g. AP started or STA connected). </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71cad9c3634e79f264ccf710e73d6c05d475" name="a1a277a9bb8cf5a182aeca18f1e7ad71cad9c3634e79f264ccf710e73d6c05d475"></a>NETWORK_EVENT_READY&#160;</td><td class="fielddoc"><p>Network is ready. </p>
+<p>This event is posted when the network is ready for use, such as when the WiFi AP has started or the STA has successfully connected and obtained an IP address.</p>
+<dl class="section note"><dt>Note</dt><dd>Event data: <span class="tt">esp_netif_ip_info_t *</span> Pointer to the IP information structure </dd></dl>
 </td></tr>
-<tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71ca4b00a59b20aad12d338837f8ed05c2aa" name="a1a277a9bb8cf5a182aeca18f1e7ad71ca4b00a59b20aad12d338837f8ed05c2aa"></a>NETWORK_EVENT_DISCONNECTED&#160;</td><td class="fielddoc"><p>Network got disconnected (e.g. STA disconnected or AP stopped) </p>
+<tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71ca4b00a59b20aad12d338837f8ed05c2aa" name="a1a277a9bb8cf5a182aeca18f1e7ad71ca4b00a59b20aad12d338837f8ed05c2aa"></a>NETWORK_EVENT_DISCONNECTED&#160;</td><td class="fielddoc"><p>Network got disconnected. </p>
+<p>This event is posted when the network connection is lost, such as when the STA disconnects or the AP is stopped.</p>
+<dl class="section note"><dt>Note</dt><dd>Event data: <span class="tt">NULL</span> No payload </dd></dl>
 </td></tr>
-<tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71caf0e9a462ea824546332811140ad92741" name="a1a277a9bb8cf5a182aeca18f1e7ad71caf0e9a462ea824546332811140ad92741"></a>NETWORK_EVENT_CONNECTION_FAILED&#160;</td><td class="fielddoc"><p>Network connection failed (e.g. STA failed to connect) </p>
+<tr><td class="fieldname"><a id="a1a277a9bb8cf5a182aeca18f1e7ad71caf0e9a462ea824546332811140ad92741" name="a1a277a9bb8cf5a182aeca18f1e7ad71caf0e9a462ea824546332811140ad92741"></a>NETWORK_EVENT_CONNECTION_FAILED&#160;</td><td class="fielddoc"><p>Network connection failed. </p>
+<p>This event is posted when a connection attempt fails, such as when the STA fails to connect to the configured AP.</p>
+<dl class="section note"><dt>Note</dt><dd>Event data: <span class="tt">NULL</span> No payload </dd></dl>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="network_8h_source.html#l00025">25</a> of file <a class="el" href="network_8h_source.html">network.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="network_8h_source.html#l00033">33</a> of file <a class="el" href="network_8h_source.html">network.h</a>.</p>
 
 </div>
 </div>
@@ -300,11 +308,11 @@ Functions</h2></td></tr>
 <dl class="section note"><dt>Note</dt><dd>If there is a severe failure during initialization, the function may abort the program.</dd></dl>
 <p>This function must be called before any other network functions. It sets up the necessary event handlers and initializes the WiFi driver. </p>
 
-<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00251">251</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00266">266</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
 
-<p class="reference">References <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00110">network_event_handler()</a>, <a class="el" href="network_8c_source.html#l00244">network_init_wifi()</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00027">network_mutex</a>, <a class="el" href="network_8c_source.html#l00094">on_reconnect_timer()</a>, <a class="el" href="network_8c_source.html#l00069">RECONNECT_BASE_DELAY_MS</a>, <a class="el" href="network_8c_source.html#l00079">reconnect_timer</a>, and <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>.</p>
+<p class="reference">References <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00110">network_event_handler()</a>, <a class="el" href="network_8c_source.html#l00259">network_init_wifi()</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00027">network_mutex</a>, <a class="el" href="network_8c_source.html#l00094">on_reconnect_timer()</a>, <a class="el" href="network_8c_source.html#l00069">RECONNECT_BASE_DELAY_MS</a>, <a class="el" href="network_8c_source.html#l00079">reconnect_timer</a>, and <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00078">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00079">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -352,11 +360,11 @@ Here is the caller graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00301">301</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00316">316</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00089">APP_CONFIG_CONN_WIFI_AP</a>, <a class="el" href="network_8c_source.html#l00038">connection_started</a>, <a class="el" href="network_8c_source.html#l00054">connection_type</a>, <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00225">validate_credentials()</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00089">APP_CONFIG_CONN_WIFI_AP</a>, <a class="el" href="network_8c_source.html#l00038">connection_started</a>, <a class="el" href="network_8c_source.html#l00054">connection_type</a>, <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00240">validate_credentials()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00078">app_main()</a>, and <a class="el" href="dmx-interface_8c_source.html#l00035">network_event_handler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00079">app_main()</a>, and <a class="el" href="dmx-interface_8c_source.html#l00035">network_event_handler()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -404,11 +412,11 @@ Here is the caller graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00356">356</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00371">371</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config_8h_source.html#l00090">APP_CONFIG_CONN_WIFI_STA</a>, <a class="el" href="network_8c_source.html#l00038">connection_started</a>, <a class="el" href="network_8c_source.html#l00054">connection_type</a>, <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00048">sta_reconnect</a>, <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00225">validate_credentials()</a>.</p>
+<p class="reference">References <a class="el" href="config_8h_source.html#l00090">APP_CONFIG_CONN_WIFI_STA</a>, <a class="el" href="network_8c_source.html#l00038">connection_started</a>, <a class="el" href="network_8c_source.html#l00054">connection_type</a>, <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00032">network_initialized</a>, <a class="el" href="network_8c_source.html#l00048">sta_reconnect</a>, <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>, and <a class="el" href="network_8c_source.html#l00240">validate_credentials()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00078">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00079">app_main()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -445,7 +453,7 @@ Here is the caller graph for this function:</div>
 </ul>
 </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00410">410</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="network_8c_source.html#l00425">425</a> of file <a class="el" href="network_8c_source.html">network.c</a>.</p>
 
 <p class="reference">References <a class="el" href="network_8c_source.html#l00038">connection_started</a>, <a class="el" href="network_8c_source.html#l00084">LOCK_NETWORK</a>, <a class="el" href="button__actions_8c_source.html#l00010">LOG_TAG</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="network_8c_source.html#l00048">sta_reconnect</a>, and <a class="el" href="network_8c_source.html#l00089">UNLOCK_NETWORK</a>.</p>
 
