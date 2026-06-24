@@ -6,7 +6,8 @@
   "json.schemaDownload.trustedDomains": {
     "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json": true,
     "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxfmt/configuration_schema.json": true,
-    "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxlint/configuration_schema.json": true
+    "https://raw.githubusercontent.com/oxc-project/oxc/refs/heads/main/npm/oxlint/configuration_schema.json": true,
+    "https://docs.renovatebot.com/renovate-schema.json": true
   },
   "[c]": {
     "editor.defaultFormatter": "xaver.clang-format"
