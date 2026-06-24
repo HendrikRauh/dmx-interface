@@ -73,7 +73,7 @@ static void network_event_handler(void *arg, esp_event_base_t event_base,
 /**
  * @brief Main entry point for the DMX Interface application.
  *
- * Initializes WiFi Access Point and starts the web server.
+ * Initializes the network stack and starts the web server.
  * Keeps the application running indefinitely.
  */
 void app_main(void) {
