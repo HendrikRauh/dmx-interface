@@ -35,10 +35,36 @@ static EventGroupHandle_t event_group;
 static void network_event_handler(void *arg, esp_event_base_t event_base,
                                   int32_t event_id, void *event_data) {
   if (event_base == NETWORK_EVENT) {
-    if (event_id == NETWORK_EVENT_READY) {
+    switch (event_id) {
+    case NETWORK_EVENT_READY:
+      if (webserver_start(NULL) == NULL) {
+        LOGE("Failed to start web server.");
+      }
+      // TODO: dynamic IP
+      LOGI("Open http://192.168.4.1 in your browser");
+
       if (event_group != NULL) {
         xEventGroupSetBits(event_group, BIT_NETWORK_READY);
       }
+      break;
+    case NETWORK_EVENT_DISCONNECTED:
+      webserver_stop();
+      break;
+    case NETWORK_EVENT_CONNECTION_FAILED:
+      webserver_stop();
+      if (event_group != NULL) {
+        xEventGroupClearBits(event_group, BIT_NETWORK_READY);
+      }
+
+      led_set_mode(LED_MODE_ERROR);
+      LOGE("WiFi connection failed. Switching to AP mode...");
+
+      network_stop_wifi();
+
+      app_wifi_creds_t ap_creds;
+      config_get_wifi_ap_config(&ap_creds);
+      ESP_ERROR_CHECK(network_start_ap(ap_creds.ssid, ap_creds.password));
+      break;
     }
   }
 }
@@ -153,15 +179,6 @@ void app_main(void) {
   // Wait for network to be ready before starting the web server
   xEventGroupWaitBits(event_group, BIT_NETWORK_READY, pdFALSE, pdTRUE,
                       portMAX_DELAY);
-
-
-  if (webserver_start(NULL) == NULL) {
-    LOGE("Failed to start web server.");
-    return;
-  }
-
-  // TODO: dynamic IP
-  LOGI("Open http://192.168.4.1 in your browser");
 
   vTaskDelay(pdMS_TO_TICKS(2000));
 

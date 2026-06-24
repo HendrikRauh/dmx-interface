@@ -9,7 +9,7 @@ type WifiConfig = {
 };
 
 type Config = {
-  connection: number;
+  connection: ConnectionType;
   ip_method: number;
   led_brightness: number;
   station_config: WifiConfig;

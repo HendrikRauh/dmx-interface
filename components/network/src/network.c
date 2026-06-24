@@ -3,6 +3,8 @@
  * @brief Implementation of network management for WiFi AP and STA modes
  */
 
+// cspell:ignore AKMP DISASSOC SUPCHAN PWRCAP
+
 #define LOG_TAG "NETWORK" ///< Log tag for this file
 
 #include "network.h"
@@ -43,7 +45,7 @@ static bool connection_started = false;
  * there is an authentication failure, to prevent infinite reconnect loops in
  * those cases.
  */
-static volatile bool network_sta_wants_connection = false;
+static volatile bool sta_reconnect = false;
 
 /**
  * @brief The currently active connection type, if any. Valid only if
@@ -55,12 +57,21 @@ static config_connection_t connection_type;
  * @brief Maximum number of retry attempts for WiFi STA connection before giving
  * up
  */
-#define MAX_RETRY_ATTEMPTS 10
+#define MAX_RETRY_ATTEMPTS 5
 
 /**
- * @brief Delay between WiFi STA reconnect attempts in milliseconds
+ * @brief Base delay between WiFi STA reconnect attempts in milliseconds
+ *
+ * This delay is used to schedule reconnect attempts after a disconnection
+ * event. The actual delay may be increased exponentially based on the number of
+ * consecutive failed attempts, up to a maximum of @ref MAX_RETRY_ATTEMPTS.
  */
-#define RECONNECT_DELAY_MS 5000
+#define RECONNECT_BASE_DELAY_MS 2000
+
+/**
+ * @brief Maximum delay between WiFi STA reconnect attempts in milliseconds
+ */
+#define RECONNECT_MAX_DELAY_MS 60000
 
 /**
  * @brief Timer handle for scheduling WiFi STA reconnect attempts
@@ -81,7 +92,7 @@ static TimerHandle_t reconnect_timer = NULL;
  * @brief Callback function for the WiFi reconnect timer
  */
 static void on_reconnect_timer(TimerHandle_t timer) {
-  if (network_sta_wants_connection) {
+  if (sta_reconnect) {
     LOGI("Attempting to reconnect to WiFi...");
     esp_wifi_connect();
   }
@@ -117,29 +128,70 @@ static void network_event_handler(void *arg, esp_event_base_t event_base,
 
       esp_event_post(NETWORK_EVENT, NETWORK_EVENT_DISCONNECTED, NULL, 0, 0);
 
-      if (disconnected_event->reason == WIFI_REASON_AUTH_FAIL) {
-        LOGE("Authentication failed, not attempting to reconnect");
-        network_sta_wants_connection = false;
+      if (reconnect_timer) {
+        // prevent multiple timers from running simultaneously
+        xTimerStop(reconnect_timer, 0);
       }
 
-      if (network_sta_wants_connection) {
+      switch (disconnected_event->reason) {
+      case WIFI_REASON_AUTH_FAIL:
+      case WIFI_REASON_NO_AP_FOUND_W_COMPATIBLE_SECURITY:
+      case WIFI_REASON_NO_AP_FOUND_IN_AUTHMODE_THRESHOLD:
+      case WIFI_REASON_802_1X_AUTH_FAILED:
+      case WIFI_REASON_PAIRWISE_CIPHER_INVALID:
+      case WIFI_REASON_GROUP_CIPHER_INVALID:
+      case WIFI_REASON_BAD_CIPHER_OR_AKM:
+      case WIFI_REASON_AKMP_INVALID:
+      case WIFI_REASON_CIPHER_SUITE_REJECTED:
+      case WIFI_REASON_UNSUPP_RSN_IE_VERSION:
+      case WIFI_REASON_INVALID_RSN_IE_CAP:
+      case WIFI_REASON_NOT_AUTHORIZED_THIS_LOCATION:
+      case WIFI_REASON_DISASSOC_SUPCHAN_BAD:
+      case WIFI_REASON_DISASSOC_PWRCAP_BAD:
+        LOGE("Critical configuration/security error. Reconnection halted.");
+        sta_reconnect = false;
+        esp_event_post(NETWORK_EVENT, NETWORK_EVENT_CONNECTION_FAILED, NULL, 0,
+                       0);
+        break;
+      }
+
+      if (sta_reconnect) {
         if (retry_count < MAX_RETRY_ATTEMPTS) {
           retry_count++;
-          LOGI("Scheduling reconnect attempt %d/%d in %dms...", retry_count,
-               MAX_RETRY_ATTEMPTS, RECONNECT_DELAY_MS);
+
+          // exponential backoff delay: base * 2 ^(retry_count - 1), capped at
+          // RECONNECT_MAX_DELAY_MS
+          uint32_t delay_ms =
+              RECONNECT_BASE_DELAY_MS * (1 << (retry_count - 1));
+
+          if (delay_ms > RECONNECT_MAX_DELAY_MS) {
+            delay_ms = RECONNECT_MAX_DELAY_MS;
+          }
+
+          LOGI("Scheduling reconnect attempt %d/%d in %lu ms...", retry_count,
+               MAX_RETRY_ATTEMPTS, delay_ms);
 
           if (reconnect_timer) {
-            xTimerStart(reconnect_timer, 0);
+            // Also starts the timer if it is not already running
+            if (xTimerChangePeriod(reconnect_timer, pdMS_TO_TICKS(delay_ms),
+                                   0) != pdPASS) {
+              LOGE("Failed to change reconnect timer period");
+            }
           }
         } else {
           LOGW("Max retry attempts reached. Giving up.");
-          network_sta_wants_connection = false;
+          sta_reconnect = false;
+          esp_event_post(NETWORK_EVENT, NETWORK_EVENT_CONNECTION_FAILED, NULL,
+                         0, 0);
         }
       }
       break;
     }
-    case WIFI_EVENT_AP_STOP:
     case WIFI_EVENT_STA_STOP:
+      xTimerStop(reconnect_timer, 0);
+      esp_event_post(NETWORK_EVENT, NETWORK_EVENT_DISCONNECTED, NULL, 0, 0);
+      break;
+    case WIFI_EVENT_AP_STOP:
       esp_event_post(NETWORK_EVENT, NETWORK_EVENT_DISCONNECTED, NULL, 0, 0);
       break;
     default:
@@ -211,9 +263,10 @@ esp_err_t network_init() {
   }
 
   if (reconnect_timer == NULL) {
-    reconnect_timer =
-        xTimerCreate("wifi_reconnect_timer", pdMS_TO_TICKS(RECONNECT_DELAY_MS),
-                     pdFALSE, NULL, on_reconnect_timer);
+    reconnect_timer = xTimerCreate("wifi_reconnect_timer",
+                                   pdMS_TO_TICKS(RECONNECT_BASE_DELAY_MS),
+                                   pdFALSE, NULL, on_reconnect_timer);
+
     if (reconnect_timer == NULL) {
       LOGE("Failed to create reconnect timer");
       return ESP_ERR_NO_MEM;
@@ -346,7 +399,7 @@ esp_err_t network_start_sta(const char *ssid, const char *password) {
   LOGI("WiFi Station initialized, attempting connection to %s...", ssid);
 
   connection_started = true;
-  network_sta_wants_connection = true;
+  sta_reconnect = true;
   connection_type = APP_CONFIG_CONN_WIFI_STA;
 
 cleanup:
@@ -365,7 +418,7 @@ esp_err_t network_stop_wifi() {
     goto cleanup;
   }
 
-  network_sta_wants_connection = false;
+  sta_reconnect = false;
 
   ESP_GOTO_ON_ERROR(esp_wifi_stop(), cleanup, LOG_TAG, "Failed to stop WiFi");
   connection_started = false;

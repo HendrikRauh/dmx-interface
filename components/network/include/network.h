@@ -24,8 +24,10 @@ ESP_EVENT_DECLARE_BASE(NETWORK_EVENT);
  */
 typedef enum {
   NETWORK_EVENT_READY, ///< Network is ready (e.g. AP started or STA connected)
-  NETWORK_EVENT_DISCONNECTED ///< Network got disconnected (e.g. STA
-                             ///< disconnected or AP stopped)
+  NETWORK_EVENT_DISCONNECTED,     ///< Network got disconnected (e.g. STA
+                                  ///< disconnected or AP stopped)
+  NETWORK_EVENT_CONNECTION_FAILED ///< Network connection failed (e.g. STA
+                                  ///< failed to connect)
 } network_event_id_t;
 
 /**

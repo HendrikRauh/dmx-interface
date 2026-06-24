@@ -37,10 +37,9 @@ httpd_handle_t webserver_start(const webserver_config_t *config);
 /**
  * @brief Stop the web server and cleanup resources.
  *
- * @param server HTTP server handle returned by webserver_start().
- *                Safe to pass NULL.
+ * Stops the HTTP server and deletes the FreeRTOS task.
  */
-void webserver_stop(httpd_handle_t server);
+void webserver_stop();
 
 /**
  * @brief Register a custom URI handler.

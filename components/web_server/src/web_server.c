@@ -158,7 +158,9 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
 
   // Initialize LittleFS
   esp_err_t ret = storage_init();
-  if (ret != ESP_OK) {
+  if (ret == ESP_ERR_INVALID_STATE) {
+    LOGW("LittleFS already initialized");
+  } else if (ret != ESP_OK) {
     LOGE("Failed to initialize storage");
     return NULL;
   }
@@ -227,12 +229,12 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   return s_server_handle;
 }
 
-void webserver_stop(httpd_handle_t server) {
-  if (server == NULL) {
+void webserver_stop() {
+  if (s_server_handle == NULL) {
     return;
   }
 
-  httpd_stop(server);
+  httpd_stop(s_server_handle);
   s_server_handle = NULL;
 
   // Wait for task to finish

@@ -2,6 +2,8 @@ import { useEffect, useState } from "preact/hooks";
 import { Fragment } from "preact/jsx-runtime";
 
 import { deepMerged, DeepPartial } from "../../util/deep-merge";
+import { ConnectionType, connectionTypeToString, enumValues } from "../../util/enums";
+import { Callout } from "../callout/Callout";
 import { Dropdown } from "../dropdown/Dropdown";
 import { Fieldset } from "../fieldset/Fieldset";
 import { LabeledInput } from "../labeled-input/LabeledInput";
@@ -60,36 +62,68 @@ export function DmxForm() {
           <Dropdown
             name="mode"
             selectedValue={`${config?.connection ?? 0}`}
-            options={[
-              { label: "Access Point", value: "0" },
-              { label: "Station (not yet implemented)", value: "1", disabled: true },
-              { label: "Ethernet (not yet implemented)", value: "2", disabled: true },
-            ]}
+            options={enumValues(ConnectionType).map((value) => ({
+              label:
+                connectionTypeToString(value) +
+                (value === ConnectionType.ETHERNET ? " (not yet implemented)" : ""),
+              value: `${value}`,
+              disabled: value === ConnectionType.ETHERNET,
+            }))}
             onValueChange={(value) => updateConfig({ connection: Number.parseInt(value) })}
           />
         </LabeledInput>
 
-        <LabeledInput label="WiFi-SSID">
-          <input
-            type="text"
-            name="ssid"
-            value={config?.ap_config.ssid ?? ""}
-            onInput={(e) => updateConfig({ ap_config: { ssid: e.currentTarget.value } })}
-            required
-          />
-        </LabeledInput>
+        {(config?.connection == ConnectionType.WIFI_STA ||
+          config?.connection == ConnectionType.WIFI_AP) && (
+          <>
+            <LabeledInput label="WiFi-SSID">
+              <input
+                type="text"
+                name="ssid"
+                value={
+                  config?.connection == ConnectionType.WIFI_AP
+                    ? (config?.ap_config.ssid ?? "")
+                    : (config?.station_config.ssid ?? "")
+                }
+                onInput={(e) => {
+                  const value = { ssid: e.currentTarget.value };
+                  updateConfig(
+                    config?.connection == ConnectionType.WIFI_AP
+                      ? { ap_config: value }
+                      : { station_config: value },
+                  );
+                }}
+                required
+              />
+            </LabeledInput>
 
-        <LabeledInput label="Password">
-          <PasswordInput
-            name="password"
-            value={
-              config?.connection === 0
-                ? config.ap_config.password
-                : (config?.station_config.password ?? "")
-            }
-            onInput={(e) => updateConfig({ ap_config: { password: e.currentTarget.value } })}
-          />
-        </LabeledInput>
+            <LabeledInput label="Password">
+              <PasswordInput
+                name="password"
+                value={
+                  config?.connection === 0
+                    ? config.ap_config.password
+                    : (config?.station_config.password ?? "")
+                }
+                onInput={(e) => {
+                  const value = { password: e.currentTarget.value };
+                  updateConfig(
+                    config?.connection == ConnectionType.WIFI_AP
+                      ? { ap_config: value }
+                      : { station_config: value },
+                  );
+                }}
+              />
+            </LabeledInput>
+
+            {config?.connection == ConnectionType.WIFI_STA && (
+              <Callout type="info">
+                If the device cannot connect to the WiFi network, it will automatically fall back to
+                Access Point mode.
+              </Callout>
+            )}
+          </>
+        )}
       </Fieldset>
 
       <Fieldset legend="DMX">

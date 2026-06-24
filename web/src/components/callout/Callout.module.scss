@@ -1,0 +1,48 @@
+.callout {
+  @each $type in success, info, warning, error {
+    &[data-type="#{$type}"] {
+      --callout-color: var(--color-#{$type});
+      --callout-color-rgb: var(--color-#{$type}-rgb);
+    }
+  }
+
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-medium);
+  container-type: inline-size;
+
+  padding: var(--spacing-medium);
+  border: 1px solid var(--callout-color);
+  border-radius: var(--border-radius-medium);
+  background-color: rgb(var(--callout-color-rgb) / 0.1);
+  color: var(--color-text);
+
+  &[data-layout="with-title"] {
+    grid-template-areas:
+      "icon title"
+      "content content";
+  }
+
+  &[data-layout="without-title"] {
+    grid-template-areas: "icon content";
+  }
+
+  // Icon
+  svg {
+    grid-area: icon;
+    color: var(--callout-color);
+  }
+
+  // Title
+  & > p {
+    grid-area: title;
+    font-size: 18px;
+    font-weight: bold;
+    align-self: center;
+  }
+
+  // Content
+  & > div {
+    grid-area: content;
+  }
+}
