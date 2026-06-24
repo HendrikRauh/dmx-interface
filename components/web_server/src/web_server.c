@@ -52,6 +52,8 @@ static TaskHandle_t s_server_task_handle = NULL;
 
 /**
  * @brief Get MIME type based on file extension
+ * @param filename The name of the file
+ * @return The corresponding MIME type string
  */
 static const char *get_mime_type(const char *filename) {
   const char *dot = strrchr(filename, '.');
@@ -90,6 +92,8 @@ static const char *get_mime_type(const char *filename) {
 
 /**
  * @brief HTTP handler for static files from LittleFS
+ * @param req Pointer to the HTTP request structure
+ * @return ESP_OK on success, or an error code on failure
  */
 static esp_err_t static_file_handler(httpd_req_t *req) {
   // Build the file path
@@ -146,15 +150,6 @@ static void webserver_task(void *arg) {
   vTaskDelete(NULL);
 }
 
-/**
- * @brief Start the web server with the given configuration.
- *
- * Initializes storage, configures the HTTP server, registers default handlers,
- * and starts the FreeRTOS task for async operation.
- *
- * @param config Pointer to webserver configuration struct (optional)
- * @return Handle to the running HTTP server, or NULL on failure
- */
 httpd_handle_t webserver_start(const webserver_config_t *config) {
   if (s_server_handle != NULL) {
     LOGW("Web server already running");
@@ -232,13 +227,6 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   return s_server_handle;
 }
 
-/**
- * @brief Stop the web server and clean up resources.
- *
- * Stops the HTTP server and deletes the FreeRTOS task.
- *
- * @param server Handle to the HTTP server instance
- */
 void webserver_stop(httpd_handle_t server) {
   if (server == NULL) {
     return;
@@ -256,14 +244,6 @@ void webserver_stop(httpd_handle_t server) {
   LOGI("Web server stopped");
 }
 
-/**
- * @brief Register a URI handler with the web server.
- *
- * @param server Handle to the HTTP server instance
- * @param uri_handler Pointer to the URI handler struct
- * @return ESP_OK on success, ESP_ERR_INVALID_ARG or other error codes on
- * failure
- */
 esp_err_t webserver_register_handler(httpd_handle_t server,
                                      const httpd_uri_t *uri_handler) {
   if (server == NULL || uri_handler == NULL) {
@@ -281,14 +261,6 @@ esp_err_t webserver_register_handler(httpd_handle_t server,
   return ret;
 }
 
-/**
- * @brief Helper function to register an array of URI handlers with the HTTP
- * server.
- * @param server Handle to the HTTP server instance
- * @param routes Array of URI handlers to register
- * @param count Number of URI handlers in the array
- * @return ESP_OK on success, or an error code on failure
- */
 esp_err_t webserver_register_handler_array(httpd_handle_t server,
                                            const httpd_uri_t *routes,
                                            size_t count) {
