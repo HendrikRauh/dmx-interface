@@ -15,7 +15,6 @@ idf_component_register(
   esp_event
   esp_netif
   cjson
-  nvs_flash
   config
   logger
   EMBED_FILES

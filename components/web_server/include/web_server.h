@@ -1,7 +1,12 @@
 /**
  * @file web_server.h
- * @brief Simple HTTP web server component for ESP32 with async FreeRTOS
- * support.
+ * @brief Simple HTTP web server component
+ *
+ * This header defines the interface for a simple web server that serves static
+ * files embedded in the firmware and allows dynamic registration of URI
+ * handlers for API endpoints. The web server is built on top of the ESP-IDF
+ * HTTP server library and provides a convenient way to start, stop, and manage
+ * the server.
  */
 
 #pragma once
@@ -25,9 +30,8 @@ typedef struct {
 /**
  * @brief Initialize and start the HTTP web server.
  *
- * This function creates a FreeRTOS task that manages the HTTP server.
- * It serves static files that are embedded in the firmware and supports dynamic
- * handler registration.
+ * The web server serves static files that are embedded in the firmware and
+ * supports dynamic handler registration.
  *
  * @param config Configuration structure. If NULL, default values are used.
  * @return HTTP server handle on success, NULL on failure.
@@ -35,9 +39,9 @@ typedef struct {
 httpd_handle_t webserver_start(const webserver_config_t *config);
 
 /**
- * @brief Stop the web server and cleanup resources.
+ * @brief Stop the web server
  *
- * Stops the HTTP server and deletes the FreeRTOS task.
+ * Stop the HTTP server and cleanup resources.
  */
 void webserver_stop();
 

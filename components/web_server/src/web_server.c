@@ -17,8 +17,6 @@
 
 #include "config_routes.h"
 #include "esp_err.h"
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "logger.h"
 
 // Default configuration values
@@ -93,11 +91,6 @@ static const size_t static_files_count =
 static httpd_handle_t s_server_handle = NULL;
 
 /**
- * @brief Handle for the FreeRTOS web server task.
- */
-static TaskHandle_t s_server_task_handle = NULL;
-
-/**
  * @brief Retrieve static file data based on the requested path.
  * @param path The requested URI path
  * @return Pointer to the static_file_t structure if found, NULL otherwise
@@ -136,23 +129,6 @@ static esp_err_t static_file_handler(httpd_req_t *req) {
   return ESP_OK;
 }
 
-/**
- * @brief FreeRTOS task function for the HTTP server.
- * Allows non-blocking server operation and future extensibility.
- */
-static void webserver_task(void *arg) {
-  (void)arg; // Unused parameter
-  LOGI("Web server task started");
-
-  // Keep task alive - the server runs in the background
-  while (s_server_handle != NULL) {
-    vTaskDelay(pdMS_TO_TICKS(10000)); // 10 second check interval
-  }
-
-  LOGI("Web server task ending");
-  vTaskDelete(NULL);
-}
-
 httpd_handle_t webserver_start(const webserver_config_t *config) {
   if (s_server_handle != NULL) {
     LOGW("Web server already running");
@@ -178,6 +154,7 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   http_config.max_uri_handlers = max_handlers;
   http_config.stack_size = stack_size;
   http_config.uri_match_fn = httpd_uri_match_wildcard;
+  http_config.task_priority = task_priority;
 
   // Start HTTP server
   esp_err_t ret = httpd_start(&s_server_handle, &http_config);
@@ -205,20 +182,6 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   };
   httpd_register_uri_handler(s_server_handle, &file_uri);
 
-  // Create FreeRTOS task for the server
-  // This allows other tasks to continue running and makes the server
-  // async-ready
-  BaseType_t task_ret = xTaskCreate(webserver_task, "webserver", stack_size,
-                                    (void *)s_server_handle, task_priority,
-                                    &s_server_task_handle);
-
-  if (task_ret != pdPASS) {
-    LOGE("Failed to create web server task");
-    httpd_stop(s_server_handle);
-    s_server_handle = NULL;
-    return NULL;
-  }
-
   LOGI("Web server initialized successfully");
   return s_server_handle;
 }
@@ -228,16 +191,12 @@ void webserver_stop() {
     return;
   }
 
-  httpd_stop(s_server_handle);
-  s_server_handle = NULL;
-
-  // Wait for task to finish
-  if (s_server_task_handle != NULL) {
-    vTaskDelay(pdMS_TO_TICKS(100));
-    s_server_task_handle = NULL;
+  if (httpd_stop(s_server_handle) == ESP_OK) {
+    s_server_handle = NULL;
+    LOGI("Web server stopped");
+  } else {
+    LOGE("Failed to cleanly stop web server");
   }
-
-  LOGI("Web server stopped");
 }
 
 esp_err_t webserver_register_handler(httpd_handle_t server,
