@@ -1,9 +1,12 @@
-#define LOG_TAG "WEBSRV"
+/**
+ * @file web_server.c
+ * @brief Implementation of a simple web server using ESP-IDF's HTTP server.
+ */
 
 /**
- * @def LOG_TAG
  * @brief Tag used for web server logging.
  */
+#define LOG_TAG "WEBSRV"
 
 #include "web_server.h"
 
@@ -24,21 +27,17 @@
  */
 #define WEBSERVER_DEFAULT_PORT 80
 /**
- * @brief Default port for the web server.
+ * @brief Default maximum number of URI handlers.
  */
 #define WEBSERVER_DEFAULT_MAX_HANDLERS 32
 /**
- * @brief Default maximum number of URI handlers.
+ * @brief Default stack size for the web server task.
  */
 #define WEBSERVER_DEFAULT_STACK_SIZE (8 * 1024)
 /**
- * @brief Default stack size for the web server task.
- */
-#define WEBSERVER_DEFAULT_TASK_PRIORITY 5
-
-/**
  * @brief Default task priority for the web server task.
  */
+#define WEBSERVER_DEFAULT_TASK_PRIORITY 5
 
 /**
  * @brief Structure representing a static file embedded in the firmware.
