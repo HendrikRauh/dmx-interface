@@ -1,28 +1,24 @@
 <map id="components/web_server/src/web_server.c" name="components/web_server/src/web_server.c">
-<area shape="rect" id="Node000001" title="Implementation of a simple web server using ESP&#45;IDF&#39;s HTTP server." alt="" coords="418,5,598,50"/>
-<area shape="rect" id="Node000002" href="$web__server_8h.html" title="Simple HTTP web server component for ESP32 with async FreeRTOS support." alt="" coords="5,98,113,126"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="418,48,129,100,128,95,417,42"/>
+<area shape="rect" id="Node000001" title="Implementation of a simple web server using ESP&#45;IDF&#39;s HTTP server." alt="" coords="312,5,492,50"/>
+<area shape="rect" id="Node000002" href="$web__server_8h.html" title="Simple HTTP web server component." alt="" coords="5,98,113,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="312,53,128,97,127,92,311,48"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="136,98,206,126"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="418,52,221,100,220,95,417,47"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="341,53,221,96,219,91,340,48"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="230,98,296,126"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="444,53,311,97,309,92,442,48"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="366,53,300,92,297,87,364,48"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="320,98,390,126"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="469,53,394,93,392,88,466,48"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="392,52,372,86,368,83,387,49"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="413,98,484,126"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="495,52,469,87,465,84,490,49"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="416,49,436,83,431,86,412,52"/>
 <area shape="rect" id="Node000008" href="$config__routes_8h.html" title="Header file for the web server configuration routes." alt="" coords="508,98,628,126"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="526,49,552,84,548,87,522,52"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="447,48,529,88,527,93,445,53"/>
 <area shape="rect" id="Node000009" title=" " alt="" coords="652,98,732,126"/>
-<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="558,48,650,89,648,94,556,53"/>
-<area shape="rect" id="Node000010" title=" " alt="" coords="757,98,908,126"/>
-<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="595,48,766,91,765,96,594,53"/>
-<area shape="rect" id="Node000011" title=" " alt="" coords="932,98,1048,126"/>
-<area shape="poly" id="edge11_Node000001_Node000011" title=" " alt="" coords="599,41,916,95,916,100,598,47"/>
-<area shape="rect" id="Node000012" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="1072,98,1145,126"/>
-<area shape="poly" id="edge12_Node000001_Node000012" title=" " alt="" coords="599,34,805,56,929,73,1057,95,1056,100,929,79,804,62,598,39"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="480,48,638,92,636,98,478,53"/>
+<area shape="rect" id="Node000010" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="757,98,830,126"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="493,43,742,95,741,100,492,49"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="246,174,382,201"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,124,255,166,253,172,104,129"/>
 <area shape="poly" id="edge8_Node000008_Node000003" title=" " alt="" coords="524,129,374,172,373,166,522,124"/>
-<area shape="rect" id="Node000013" title=" " alt="" coords="1067,174,1150,201"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="1111,126,1111,158,1106,158,1106,126"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="752,174,835,201"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="796,126,796,158,791,158,791,126"/>
 </map>

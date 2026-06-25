@@ -14,9 +14,8 @@ var searchData=
   ['webserver_5fregister_5fhandler_5farray_11',['webserver_register_handler_array',['../web__server_8h.html#a16c940e907ed2e88fc378de78450a6ef',1,'webserver_register_handler_array(httpd_handle_t server, const httpd_uri_t *routes, size_t count):&#160;web_server.c'],['../web__server_8c.html#a16c940e907ed2e88fc378de78450a6ef',1,'webserver_register_handler_array(httpd_handle_t server, const httpd_uri_t *routes, size_t count):&#160;web_server.c']]],
   ['webserver_5fstart_12',['webserver_start',['../web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d',1,'webserver_start(const webserver_config_t *config):&#160;web_server.c'],['../web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d',1,'webserver_start(const webserver_config_t *config):&#160;web_server.c']]],
   ['webserver_5fstop_13',['webserver_stop',['../web__server_8h.html#a57da21ce441188971db9deecbbf06529',1,'webserver_stop():&#160;web_server.c'],['../web__server_8c.html#a57da21ce441188971db9deecbbf06529',1,'webserver_stop():&#160;web_server.c']]],
-  ['webserver_5ftask_14',['webserver_task',['../web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06',1,'web_server.c']]],
-  ['wifi_5fap_15',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
-  ['wifi_5fconfig_5fentries_5fprocessor_16',['wifi_config_entries_processor',['../config__routes_8c.html#a5b60764b6d3a197186f5685e875972cd',1,'config_routes.c']]],
-  ['wifi_5fsta_17',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]],
-  ['wiring_18',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
+  ['wifi_5fap_14',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
+  ['wifi_5fconfig_5fentries_5fprocessor_15',['wifi_config_entries_processor',['../config__routes_8c.html#a5b60764b6d3a197186f5685e875972cd',1,'config_routes.c']]],
+  ['wifi_5fsta_16',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]],
+  ['wiring_17',['🔌 Wiring',['../index.html#autotoc_md-wiring',1,'']]]
 ];

@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Simple HTTP web server component for ESP32 with async FreeRTOS support.">
+<g id="a_Node000001"><a xlink:title="Simple HTTP web server component.">
 <polygon fill="#999999" stroke="#666666" points="208.25,-103 73,-103 73,-69.5 208.25,-69.5 208.25,-103"/>
 <text text-anchor="start" x="81" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">components/web_server</text>
 <text text-anchor="middle" x="140.62" y="-76.75" font-family="Helvetica,sans-Serif" font-size="10.00">/include/web_server.h</text>

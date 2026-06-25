@@ -319,7 +319,7 @@ var sectionId = 'dynsection-0';
 <!-- Node24 -->
 <g id="Node000024" class="node">
 <title>Node24</title>
-<g id="a_Node000024"><a xlink:href="web__server_8h.html" target="_top" xlink:title="Simple HTTP web server component for ESP32 with async FreeRTOS support.">
+<g id="a_Node000024"><a xlink:href="web__server_8h.html" target="_top" xlink:title="Simple HTTP web server component.">
 <polygon fill="white" stroke="#666666" points="1225.75,-134.25 1145.25,-134.25 1145.25,-113.5 1225.75,-113.5 1225.75,-134.25"/>
 <text text-anchor="middle" x="1185.5" y="-120.75" font-family="Helvetica,sans-Serif" font-size="10.00">web_server.h</text>
 </a>

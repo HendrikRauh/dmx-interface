@@ -16,9 +16,7 @@ var web__server_8c =
     [ "webserver_register_handler_array", "web__server_8c.html#a16c940e907ed2e88fc378de78450a6ef", null ],
     [ "webserver_start", "web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d", null ],
     [ "webserver_stop", "web__server_8c.html#a57da21ce441188971db9deecbbf06529", null ],
-    [ "webserver_task", "web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06", null ],
     [ "s_server_handle", "web__server_8c.html#abe7b45c4156b4291f93764735fc68c13", null ],
-    [ "s_server_task_handle", "web__server_8c.html#a92afb04210a0a9bf80ea1c9f1c58fe2c", null ],
     [ "static_files", "web__server_8c.html#a1c8281dfcfea2431dc78a1dfd6364eb1", null ],
     [ "static_files_count", "web__server_8c.html#a3153817ccce7d112711b4040d836bd82", null ]
 ];

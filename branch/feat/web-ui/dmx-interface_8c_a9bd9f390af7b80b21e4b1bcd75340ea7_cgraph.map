@@ -10,27 +10,25 @@
 <area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="180,178,214,183,213,188,180,184"/>
 <area shape="rect" id="Node000010" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="235,234,362,262"/>
 <area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="133,182,246,225,244,230,131,187"/>
-<area shape="rect" id="Node000017" href="$web__server_8c.html#a57da21ce441188971db9deecbbf06529" title="Stop the web server and cleanup resources." alt="" coords="236,286,360,314"/>
-<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="111,183,162,225,229,271,241,277,238,281,226,275,158,229,108,187"/>
-<area shape="rect" id="Node000004" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="823,36,939,64"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="338,71,416,46,522,35,629,32,727,35,807,40,807,46,726,40,629,38,523,40,418,52,339,76"/>
-<area shape="rect" id="Node000005" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="417,61,580,106"/>
-<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="355,84,401,83,401,88,355,89"/>
-<area shape="rect" id="Node000006" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="628,66,775,94"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="581,79,613,79,613,84,581,85"/>
-<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="775,65,807,60,807,65,776,70"/>
-<area shape="rect" id="Node000008" href="$network_8c.html#a872c0f15a662528aedcfdb61acaeb31f" title="Validates the provided WiFi credentials for SSID and password length requirements." alt="" coords="422,130,575,158"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="366,141,406,141,406,146,366,146"/>
-<area shape="rect" id="Node000011" href="$config__routes_8c.html#a0fdf8dcf5f44030aa7de3e1c0d6f22c3" title="Get the array of configuration routes for the web server." alt="" coords="430,182,567,210"/>
-<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="354,231,427,211,428,217,355,236"/>
-<area shape="rect" id="Node000012" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files embedded in the firmware." alt="" coords="428,234,569,262"/>
-<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="362,245,413,245,413,250,362,250"/>
-<area shape="rect" id="Node000014" href="$web__server_8c.html#a16c940e907ed2e88fc378de78450a6ef" title="Register an array of custom URI handlers." alt="" coords="426,285,572,330"/>
-<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="348,259,411,279,410,284,346,265"/>
-<area shape="rect" id="Node000016" href="$web__server_8c.html#a642a431098c8aa6cd1adb4282b063e06" title="FreeRTOS task function for the HTTP server. Allows non&#45;blocking server operation and future extensibi..." alt="" coords="436,354,561,382"/>
-<area shape="poly" id="edge16_Node000010_Node000016" title=" " alt="" coords="350,260,371,272,387,290,395,308,403,324,419,340,425,344,422,349,415,344,399,327,390,310,382,293,367,276,347,264"/>
-<area shape="rect" id="Node000013" href="$web__server_8c.html#a953decee81f83cf17c70bebbc753b03a" title="Retrieve static file data based on the requested path." alt="" coords="649,234,754,262"/>
-<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="569,245,633,245,633,250,569,250"/>
-<area shape="rect" id="Node000015" href="$web__server_8c.html#a59de75410c50a6ebac8de34c4560758e" title="Register a custom URI handler." alt="" coords="628,285,775,330"/>
-<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="572,305,613,305,613,310,572,310"/>
+<area shape="rect" id="Node000016" href="$web__server_8c.html#a57da21ce441188971db9deecbbf06529" title="Stop the web server." alt="" coords="236,286,360,314"/>
+<area shape="poly" id="edge16_Node000001_Node000016" title=" " alt="" coords="111,183,162,225,229,271,241,277,238,281,226,275,158,229,108,187"/>
+<area shape="rect" id="Node000004" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="823,38,939,66"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="340,71,416,48,522,37,629,34,727,37,807,42,807,47,726,42,629,39,523,42,418,53,341,76"/>
+<area shape="rect" id="Node000005" href="$led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3" title="Configures effect parameters and ensures the generator task is running." alt="" coords="417,63,580,107"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="355,84,401,84,401,89,355,90"/>
+<area shape="rect" id="Node000006" href="$led_8c.html#a801799683e3f94725f9ceece52dc23a0" title="Generic asynchronous generator for LED effects." alt="" coords="628,67,775,95"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="581,81,613,80,613,85,581,86"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="775,66,807,61,807,66,776,72"/>
+<area shape="rect" id="Node000008" href="$network_8c.html#a872c0f15a662528aedcfdb61acaeb31f" title="Validates the provided WiFi credentials for SSID and password length requirements." alt="" coords="422,131,575,159"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="366,141,406,142,406,147,366,147"/>
+<area shape="rect" id="Node000011" href="$config__routes_8c.html#a0fdf8dcf5f44030aa7de3e1c0d6f22c3" title="Get the array of configuration routes for the web server." alt="" coords="430,183,567,211"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="355,231,426,213,427,218,356,236"/>
+<area shape="rect" id="Node000012" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files embedded in the firmware." alt="" coords="428,235,569,263"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="362,245,413,246,413,251,362,251"/>
+<area shape="rect" id="Node000014" href="$web__server_8c.html#a16c940e907ed2e88fc378de78450a6ef" title="Register an array of custom URI handlers." alt="" coords="426,287,572,331"/>
+<area shape="poly" id="edge14_Node000010_Node000014" title=" " alt="" coords="347,259,411,280,410,285,345,265"/>
+<area shape="rect" id="Node000013" href="$web__server_8c.html#a953decee81f83cf17c70bebbc753b03a" title="Retrieve static file data based on the requested path." alt="" coords="649,235,754,263"/>
+<area shape="poly" id="edge13_Node000012_Node000013" title=" " alt="" coords="569,246,633,246,633,252,569,252"/>
+<area shape="rect" id="Node000015" href="$web__server_8c.html#a59de75410c50a6ebac8de34c4560758e" title="Register a custom URI handler." alt="" coords="628,287,775,331"/>
+<area shape="poly" id="edge15_Node000014_Node000015" title=" " alt="" coords="572,306,613,306,613,312,572,312"/>
 </map>

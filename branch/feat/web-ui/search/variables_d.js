@@ -13,12 +13,11 @@ var searchData=
   ['s_5fparam_5fbreathing_10',['s_param_breathing',['../led_8c.html#a77da4146a6d7c0e787c7814281eda3cb',1,'led.c']]],
   ['s_5fparam_5fperiod_5fms_11',['s_param_period_ms',['../led_8c.html#a98a9af025001b92cb5f5bf3a062f29d8',1,'led.c']]],
   ['s_5fserver_5fhandle_12',['s_server_handle',['../web__server_8c.html#abe7b45c4156b4291f93764735fc68c13',1,'web_server.c']]],
-  ['s_5fserver_5ftask_5fhandle_13',['s_server_task_handle',['../web__server_8c.html#a92afb04210a0a9bf80ea1c9f1c58fe2c',1,'web_server.c']]],
-  ['ssid_14',['ssid',['../structapp__wifi__creds__t.html#a364b0a40731e3f67eb1ed82737e0148b',1,'app_wifi_creds_t']]],
-  ['sta_5freconnect_15',['sta_reconnect',['../network_8c.html#a452540dbf861801b6862781cdc276522',1,'network.c']]],
-  ['stack_5fsize_16',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
-  ['start_17',['start',['../structstatic__file__t.html#a31471656202d6f5d5638c283bdce8096',1,'static_file_t']]],
-  ['static_5ffiles_18',['static_files',['../web__server_8c.html#a1c8281dfcfea2431dc78a1dfd6364eb1',1,'web_server.c']]],
-  ['static_5ffiles_5fcount_19',['static_files_count',['../web__server_8c.html#a3153817ccce7d112711b4040d836bd82',1,'web_server.c']]],
-  ['string_20',['string',['../structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162',1,'json_processor_t']]]
+  ['ssid_13',['ssid',['../structapp__wifi__creds__t.html#a364b0a40731e3f67eb1ed82737e0148b',1,'app_wifi_creds_t']]],
+  ['sta_5freconnect_14',['sta_reconnect',['../network_8c.html#a452540dbf861801b6862781cdc276522',1,'network.c']]],
+  ['stack_5fsize_15',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
+  ['start_16',['start',['../structstatic__file__t.html#a31471656202d6f5d5638c283bdce8096',1,'static_file_t']]],
+  ['static_5ffiles_17',['static_files',['../web__server_8c.html#a1c8281dfcfea2431dc78a1dfd6364eb1',1,'web_server.c']]],
+  ['static_5ffiles_5fcount_18',['static_files_count',['../web__server_8c.html#a3153817ccce7d112711b4040d836bd82',1,'web_server.c']]],
+  ['string_19',['string',['../structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162',1,'json_processor_t']]]
 ];

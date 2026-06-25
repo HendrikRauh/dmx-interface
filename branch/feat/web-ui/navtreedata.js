@@ -81,7 +81,7 @@ var NAVTREEINDEX =
 [
 "_2home_2runner_2work_2dmx-interface_2dmx-interface_2components_2logger_2include_2logger_8h-example.html",
 "json__processor_8c.html#a115d1f829601e5e4e791051fa75104a3",
-"web__server_8h.html#a59de75410c50a6ebac8de34c4560758e"
+"web__server_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';
