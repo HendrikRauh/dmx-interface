@@ -196,7 +196,7 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   route_count = get_config_routes(&routes);
   webserver_register_handler_array(s_server_handle, routes, route_count);
 
-  // Wildcard handler for static files from LittleFS (must be last)
+  // Wildcard handler for embedded static files (must be last)
   httpd_uri_t file_uri = {
       .uri = "/*",
       .method = HTTP_GET,
