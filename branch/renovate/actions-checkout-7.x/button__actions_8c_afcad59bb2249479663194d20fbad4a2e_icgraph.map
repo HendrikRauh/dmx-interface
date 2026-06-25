@@ -1,0 +1,7 @@
+<map id="iot_button_double_click_cb" name="iot_button_double_click_cb">
+<area shape="rect" id="Node000001" title="Callback for double click events." alt="" coords="278,5,475,33"/>
+<area shape="rect" id="Node000002" href="$button__actions_8c.html#a564f08a3094c4b560997eae89c45c327" title="Initializes the hardware button configuration and event callbacks." alt="" coords="139,5,230,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="263,22,231,22,231,16,263,16"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,22,91,22,91,16,123,16"/>
+</map>

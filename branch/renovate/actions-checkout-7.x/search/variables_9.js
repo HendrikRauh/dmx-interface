@@ -1,0 +1,20 @@
+var searchData=
+[
+  ['s_5factive_5fmax_5fbrightness_0',['s_active_max_brightness',['../led_8c.html#ad719978006336a2053aa202a4aecd173',1,'led.c']]],
+  ['s_5fbtn_5fhandle_1',['s_btn_handle',['../button__actions_8c.html#a91dfe019b128afd05a05f3fe50fcd17e',1,'button_actions.c']]],
+  ['s_5fconfig_2',['s_config',['../config_8c.html#a5f638f7893b9b83c0a241170e893395f',1,'config.c']]],
+  ['s_5fconfig_5fbrightness_3',['s_config_brightness',['../led_8c.html#a2b57f0aeb4f65479f4d887a232110d67',1,'led.c']]],
+  ['s_5fconfig_5fmutex_4',['s_config_mutex',['../config_8c.html#aff85db3a742d550fef5f0c3ea3159146',1,'config.c']]],
+  ['s_5fcurrent_5fmode_5',['s_current_mode',['../led_8c.html#ae0c620a39bc88aa343c1972ac1d82818',1,'led.c']]],
+  ['s_5fgenerator_5ftask_5fhandle_6',['s_generator_task_handle',['../led_8c.html#aaee427f32cb91674001e5110382ee2f3',1,'led.c']]],
+  ['s_5fis_5fdirty_7',['s_is_dirty',['../config_8c.html#a2d43871dcf1c3652057d980300d323b3',1,'config.c']]],
+  ['s_5fis_5finitialized_8',['s_is_initialized',['../config_8c.html#ac576f774ee93ff7a2fe7ab44e55d2451',1,'config.c']]],
+  ['s_5fled_5fmutex_9',['s_led_mutex',['../led_8c.html#ab7031427fc69226ac2e6f7fe974a14ac',1,'led.c']]],
+  ['s_5fparam_5fbreathing_10',['s_param_breathing',['../led_8c.html#a77da4146a6d7c0e787c7814281eda3cb',1,'led.c']]],
+  ['s_5fparam_5fperiod_5fms_11',['s_param_period_ms',['../led_8c.html#a98a9af025001b92cb5f5bf3a062f29d8',1,'led.c']]],
+  ['s_5fserver_5fhandle_12',['s_server_handle',['../web__server_8c.html#abe7b45c4156b4291f93764735fc68c13',1,'web_server.c']]],
+  ['s_5fserver_5ftask_5fhandle_13',['s_server_task_handle',['../web__server_8c.html#a92afb04210a0a9bf80ea1c9f1c58fe2c',1,'web_server.c']]],
+  ['s_5fwifi_5fstarted_14',['s_wifi_started',['../wifi_8c.html#a67b8e77b6a1b5659b5a65f3537cd9a93',1,'wifi.c']]],
+  ['ssid_15',['ssid',['../structapp__wifi__creds__t.html#aca76bcdede58c36160f68190be53e015',1,'app_wifi_creds_t']]],
+  ['stack_5fsize_16',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]]
+];

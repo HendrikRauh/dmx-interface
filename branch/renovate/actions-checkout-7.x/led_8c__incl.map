@@ -1,0 +1,23 @@
+<map id="components/led/src/led.c" name="components/led/src/led.c">
+<area shape="rect" id="Node000001" title="Implementation of LEDC&#45;driven status LED with dynamic generator." alt="" coords="481,5,629,50"/>
+<area shape="rect" id="Node000002" href="$led_8h.html" title="LED control component with flexible blinking and breathing modes." alt="" coords="528,98,582,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="558,50,558,82,552,82,552,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,108,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="528,119,362,141,124,176,123,171,361,135,528,114"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="132,174,213,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="529,120,229,176,228,171,528,115"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="237,174,388,201"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="529,124,371,171,369,166,528,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="412,174,549,201"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="544,128,507,164,503,161,540,124"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="573,174,689,201"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="571,124,609,161,605,165,567,128"/>
+<area shape="rect" id="Node000008" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="713,174,786,201"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="583,121,702,165,700,170,581,126"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="811,174,878,201"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="583,117,796,170,795,175,582,122"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="903,174,973,201"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="583,115,710,136,888,171,887,176,709,141,582,120"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="708,249,792,277"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="752,202,752,234,747,234,747,202"/>
+</map>
