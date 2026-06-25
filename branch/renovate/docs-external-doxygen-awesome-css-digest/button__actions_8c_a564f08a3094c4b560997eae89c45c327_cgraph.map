@@ -1,0 +1,27 @@
+<map id="button_init" name="button_init">
+<area shape="rect" id="Node000001" title="Initializes the hardware button configuration and event callbacks." alt="" coords="5,65,97,93"/>
+<area shape="rect" id="Node000002" href="$button__actions_8c.html#afcad59bb2249479663194d20fbad4a2e" title="Callback for double click events." alt="" coords="145,5,342,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,62,144,42,167,35,169,40,145,47,89,67"/>
+<area shape="rect" id="Node000010" href="$button__actions_8c.html#a9d01ada73f8cc64a82bc0f109f308706" title="Callback for multiple click events." alt="" coords="169,57,318,102"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="97,76,154,76,154,82,97,82"/>
+<area shape="rect" id="Node000011" href="$button__actions_8c.html#a60a4193d0f061c802bc929a3a7bf5648" title="Callback for single click events." alt="" coords="147,125,340,153"/>
+<area shape="poly" id="edge12_Node000001_Node000011" title=" " alt="" coords="89,91,145,111,169,118,167,123,144,116,87,96"/>
+<area shape="rect" id="Node000003" href="$config_8c.html#abb979e0618588e5b4316d13bfd7e77fb" title="Retrieves the action assigned to a specific button event." alt="" coords="390,40,574,68"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="343,31,375,36,374,41,342,36"/>
+<area shape="rect" id="Node000004" href="$button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" title="Executes the action compiled into the configuration for the triggered event." alt="" coords="398,92,566,120"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="314,31,343,42,368,60,391,77,408,84,406,89,389,81,365,64,341,47,312,36"/>
+<area shape="rect" id="Node000005" href="$config_8c.html#a30bb8db7736fceae486f36005a411f5e" title="Gets the current status LED brightness level." alt="" coords="622,40,813,68"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="548,89,636,69,637,74,549,94"/>
+<area shape="rect" id="Node000006" href="$config_8c.html#adbf182647ef90017c070ed7a4d0504fb" title="Flushes all staged RAM changes permanently to the non&#45;volatile storage." alt="" coords="668,92,767,120"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="567,103,653,103,653,108,567,108"/>
+<area shape="rect" id="Node000007" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="623,144,812,172"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="549,118,637,137,636,143,548,123"/>
+<area shape="rect" id="Node000008" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="861,144,1004,172"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="813,155,845,155,845,160,813,160"/>
+<area shape="rect" id="Node000009" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="1052,144,1168,172"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1004,155,1037,155,1037,160,1004,160"/>
+<area shape="poly" id="edge10_Node000010_Node000003" title=" " alt="" coords="318,69,374,63,375,68,318,74"/>
+<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="318,85,383,92,382,97,318,90"/>
+<area shape="poly" id="edge13_Node000011_Node000003" title=" " alt="" coords="312,122,341,111,365,95,389,78,406,71,409,76,391,83,368,99,343,116,314,127"/>
+<area shape="poly" id="edge14_Node000011_Node000004" title=" " alt="" coords="340,123,382,117,383,122,340,128"/>
+</map>
