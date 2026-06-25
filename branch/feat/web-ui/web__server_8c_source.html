@@ -337,7 +337,7 @@ $(function(){initNavTree('web__server_8c_source.html','',''); });
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>  route_count = <a class="code hl_function" href="config__routes_8h.html#a0fdf8dcf5f44030aa7de3e1c0d6f22c3">get_config_routes</a>(&amp;<a class="code hl_variable" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e">routes</a>);</div>
 <div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>  <a class="code hl_function" href="web__server_8c.html#a16c940e907ed2e88fc378de78450a6ef">webserver_register_handler_array</a>(<a class="code hl_variable" href="web__server_8c.html#abe7b45c4156b4291f93764735fc68c13">s_server_handle</a>, <a class="code hl_variable" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e">routes</a>, route_count);</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="comment">// Wildcard handler for static files from LittleFS (must be last)</span></div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>  <span class="comment">// Wildcard handler for embedded static files (must be last)</span></div>
 <div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>  httpd_uri_t file_uri = {</div>
 <div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>      .uri = <span class="stringliteral">&quot;/*&quot;</span>,</div>
 <div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>      .method = HTTP_GET,</div>
