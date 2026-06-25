@@ -2,7 +2,6 @@
 dependencies:
   idf:
     version: '>=4.1.0'
-  joltwallet/littlefs: ==1.20.2
   someweisguy/esp_dmx:
     git: https://github.com/davispolito/esp_dmx.git
     # version: v4.1.0

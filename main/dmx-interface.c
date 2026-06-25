@@ -14,7 +14,6 @@
 #include "logger.h"
 #include "network.h"
 #include "nvs_flash.h"
-#include "storage.h"
 #include "system.h"
 #include "web_server.h"
 
@@ -186,7 +185,6 @@ void app_main(void) {
   led_set_brightness(config_get_led_brightness());
   led_set_mode(LED_MODE_NORMAL);
 
-  storage_print_info();
   system_print_info();
 
   while (1) {

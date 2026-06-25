@@ -3,6 +3,7 @@ import path from "path";
 
 import preact from "@preact/preset-vite";
 import { defineConfig } from "vite";
+import viteCompression from "vite-plugin-compression";
 import { mockDevServerPlugin } from "vite-plugin-mock-dev-server";
 import { viteSingleFile } from "vite-plugin-singlefile";
 
@@ -45,5 +46,6 @@ export default defineConfig({
         };
       },
     },
+    viteCompression(),
   ],
 });

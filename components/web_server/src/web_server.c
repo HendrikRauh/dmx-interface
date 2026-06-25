@@ -17,7 +17,6 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "logger.h"
-#include "storage.h"
 
 // Default configuration values
 /**
@@ -36,9 +35,58 @@
  * @brief Default stack size for the web server task.
  */
 #define WEBSERVER_DEFAULT_TASK_PRIORITY 5
+
 /**
  * @brief Default task priority for the web server task.
  */
+
+/**
+ * @brief Structure representing a static file embedded in the firmware.
+ *
+ * This structure holds metadata about the file, including its path, content,
+ * and encoding. It is used to serve static files directly from the firmware
+ * without relying on an external filesystem.
+ */
+typedef struct {
+  const char *path; ///< The URI path for the static file (e.g., "/index.html")
+  const uint8_t *start;     ///< Pointer to the start of the file data in memory
+  const uint8_t *end;       ///< Pointer to the end of the file data in memory
+  const char *content_type; ///< MIME type of the file (e.g., "text/html")
+  const char *content_encoding; ///< Optional content encoding (e.g., "gzip"),
+                                ///< NULL if not applicable
+} static_file_t;
+
+/** @brief Memory address of the start of the embedded index.html.gz file */
+extern const uint8_t index_html_gz_start[] asm("_binary_index_html_gz_start");
+/** @brief Memory address of the end of the embedded index.html.gz file */
+extern const uint8_t index_html_gz_end[] asm("_binary_index_html_gz_end");
+
+/** @brief Memory address of the start of the embedded Fredoka.ttf file */
+extern const uint8_t fredoka_ttf_start[] asm("_binary_Fredoka_ttf_start");
+/** @brief Memory address of the end of the embedded Fredoka.ttf file */
+extern const uint8_t fredoka_ttf_end[] asm("_binary_Fredoka_ttf_end");
+
+/**
+ * @brief Array of static files embedded in the firmware.
+ */
+static const static_file_t static_files[] = {
+    {.path = "/",
+     .start = index_html_gz_start,
+     .end = index_html_gz_end,
+     .content_type = "text/html",
+     .content_encoding = "gzip"},
+    {.path = "/fonts/Fredoka.ttf",
+     .start = fredoka_ttf_start,
+     .end = fredoka_ttf_end,
+     .content_type = "font/ttf",
+     .content_encoding = NULL},
+};
+
+/**
+ * @brief Number of static files embedded in the firmware.
+ */
+static const size_t static_files_count =
+    sizeof(static_files) / sizeof(static_file_t);
 
 /**
  * @brief Handle for the HTTP server instance.
@@ -51,85 +99,41 @@ static httpd_handle_t s_server_handle = NULL;
 static TaskHandle_t s_server_task_handle = NULL;
 
 /**
- * @brief Get MIME type based on file extension
- * @param filename The name of the file
- * @return The corresponding MIME type string
+ * @brief Retrieve static file data based on the requested path.
+ * @param path The requested URI path
+ * @return Pointer to the static_file_t structure if found, NULL otherwise
  */
-static const char *get_mime_type(const char *filename) {
-  const char *dot = strrchr(filename, '.');
-  if (!dot)
-    return "application/octet-stream";
-
-  if (strcmp(dot, ".html") == 0)
-    return "text/html";
-  if (strcmp(dot, ".css") == 0)
-    return "text/css";
-  if (strcmp(dot, ".js") == 0)
-    return "application/javascript";
-  if (strcmp(dot, ".json") == 0)
-    return "application/json";
-  if (strcmp(dot, ".png") == 0)
-    return "image/png";
-  if (strcmp(dot, ".jpg") == 0 || strcmp(dot, ".jpeg") == 0)
-    return "image/jpeg";
-  if (strcmp(dot, ".gif") == 0)
-    return "image/gif";
-  if (strcmp(dot, ".svg") == 0)
-    return "image/svg+xml";
-  if (strcmp(dot, ".ico") == 0)
-    return "image/x-icon";
-  if (strcmp(dot, ".txt") == 0)
-    return "text/plain";
-  if (strcmp(dot, ".xml") == 0)
-    return "application/xml";
-  if (strcmp(dot, ".wav") == 0)
-    return "audio/wav";
-  if (strcmp(dot, ".mp3") == 0)
-    return "audio/mpeg";
-
-  return "application/octet-stream";
+static const static_file_t *get_file_data(const char *path) {
+  for (size_t i = 0; i < static_files_count; i++) {
+    if (strcmp(path, static_files[i].path) == 0) {
+      return &static_files[i];
+    }
+  }
+  return NULL;
 }
 
 /**
- * @brief HTTP handler for static files from LittleFS
+ * @brief HTTP handler for static files embedded in the firmware.
  * @param req Pointer to the HTTP request structure
  * @return ESP_OK on success, or an error code on failure
  */
 static esp_err_t static_file_handler(httpd_req_t *req) {
-  // Build the file path
-  char filepath[1024];
-  snprintf(filepath, sizeof(filepath), "%s%s", storage_get_mount_point(),
-           req->uri);
+  const static_file_t *file = get_file_data(req->uri);
 
-  // Handle root path
-  if (strcmp(req->uri, "/") == 0) {
-    snprintf(filepath, sizeof(filepath), "%s/index.html",
-             storage_get_mount_point());
-  }
-
-  FILE *f = fopen(filepath, "r");
-  if (!f) {
-    LOGW("File not found: %s", filepath);
+  if (file == NULL) {
+    LOGW("File not found: %s", req->uri);
     httpd_resp_send_404(req);
     return ESP_OK;
   }
 
-  // Get MIME type and set content type
-  const char *mime_type = get_mime_type(filepath);
-  httpd_resp_set_type(req, mime_type);
-
-  // Send file in chunks
-  char buf[1024];
-  size_t read_len;
-  while ((read_len = fread(buf, 1, sizeof(buf), f)) > 0) {
-    if (httpd_resp_send_chunk(req, buf, read_len) != ESP_OK) {
-      LOGW("Failed to send data chunk for %s", filepath);
-      break;
-    }
+  httpd_resp_set_type(req, file->content_type);
+  if (file->content_encoding) {
+    httpd_resp_set_hdr(req, "Content-Encoding", file->content_encoding);
   }
 
-  fclose(f);
-  httpd_resp_send_chunk(req, NULL, 0); // Send end marker
+  const size_t file_len = file->end - file->start;
+  httpd_resp_send(req, (const char *)file->start, file_len);
+
   return ESP_OK;
 }
 
@@ -156,15 +160,6 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
     return s_server_handle;
   }
 
-  // Initialize LittleFS
-  esp_err_t ret = storage_init();
-  if (ret == ESP_ERR_INVALID_STATE) {
-    LOGW("LittleFS already initialized");
-  } else if (ret != ESP_OK) {
-    LOGE("Failed to initialize storage");
-    return NULL;
-  }
-
   // Use provided config or defaults
   uint16_t port = WEBSERVER_DEFAULT_PORT;
   size_t max_handlers = WEBSERVER_DEFAULT_MAX_HANDLERS;
@@ -186,7 +181,7 @@ httpd_handle_t webserver_start(const webserver_config_t *config) {
   http_config.uri_match_fn = httpd_uri_match_wildcard;
 
   // Start HTTP server
-  ret = httpd_start(&s_server_handle, &http_config);
+  esp_err_t ret = httpd_start(&s_server_handle, &http_config);
   if (ret != ESP_OK) {
     LOGE("Failed to start HTTP server: %s", esp_err_to_name(ret));
     s_server_handle = NULL;

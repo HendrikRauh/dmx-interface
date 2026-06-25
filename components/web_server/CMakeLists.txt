@@ -10,7 +10,6 @@ idf_component_register(
   "priv_include"
   REQUIRES
   esp_http_server
-  storage
   PRIV_REQUIRES
   esp_wifi
   esp_event
@@ -18,4 +17,7 @@ idf_component_register(
   cjson
   nvs_flash
   config
-  logger)
+  logger
+  EMBED_FILES
+  "../../web/dist/index.html.gz"
+  "../../web/dist/fonts/Fredoka.ttf")

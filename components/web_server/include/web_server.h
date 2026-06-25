@@ -26,8 +26,8 @@ typedef struct {
  * @brief Initialize and start the HTTP web server.
  *
  * This function creates a FreeRTOS task that manages the HTTP server.
- * It serves static files from the data/ folder and supports dynamic handler
- * registration.
+ * It serves static files that are embedded in the firmware and supports dynamic
+ * handler registration.
  *
  * @param config Configuration structure. If NULL, default values are used.
  * @return HTTP server handle on success, NULL on failure.
