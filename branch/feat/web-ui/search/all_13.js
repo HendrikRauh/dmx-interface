@@ -5,7 +5,6 @@ var searchData=
   ['tasks_2',['tasks',['../namespacetasks.html',1,'']]],
   ['tasks_2epy_3',['tasks.py',['../tasks_8py.html',1,'']]],
   ['temp_5fsensor_4',['temp_sensor',['../system_8c.html#aae223b2e70bb0b080bc5b66cf50bdd16',1,'system.c']]],
-  ['total_5fbytes_5',['total_bytes',['../structstorage__info__t.html#a5330424818dd81aeaf685c2a692e44d1',1,'storage_info_t']]],
-  ['troubleshooting_6',['Troubleshooting',['../index.html#troubleshooting',1,'']]],
-  ['type_7',['type',['../structjson__processor__t.html#aa2b2765d8d97f533776fc45d40268c9e',1,'json_processor_t']]]
+  ['troubleshooting_5',['Troubleshooting',['../index.html#troubleshooting',1,'']]],
+  ['type_6',['type',['../structjson__processor__t.html#aa2b2765d8d97f533776fc45d40268c9e',1,'json_processor_t']]]
 ];

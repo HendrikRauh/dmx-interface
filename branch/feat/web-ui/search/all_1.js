@@ -52,5 +52,6 @@ var searchData=
   ['app_5fconfig_5fversion_49',['APP_CONFIG_VERSION',['../config_8c.html#ab49cfbb693d17f7996a155add59c7ee4',1,'config.c']]],
   ['app_5fmain_50',['app_main',['../dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70',1,'dmx-interface.c']]],
   ['app_5fwifi_5fcreds_5ft_51',['app_wifi_creds_t',['../structapp__wifi__creds__t.html',1,'']]],
-  ['array_52',['array',['../structjson__processor__t.html#a91eec0d9f03bcf40393a155d7f3d5435',1,'json_processor_t']]]
+  ['array_52',['array',['../structjson__processor__t.html#a91eec0d9f03bcf40393a155d7f3d5435',1,'json_processor_t']]],
+  ['asm_53',['asm',['../web__server_8c.html#a8b388bfbcf4b9f48d176a7c292eff6aa',1,'asm(&quot;_binary_index_html_gz_start&quot;):&#160;web_server.c'],['../web__server_8c.html#afbf3bf1dbc568e3ffe9983f8681fe425',1,'asm(&quot;_binary_index_html_gz_end&quot;):&#160;web_server.c'],['../web__server_8c.html#a1c2fbfaddc4610dd33c9bf1699881b95',1,'asm(&quot;_binary_Fredoka_ttf_start&quot;):&#160;web_server.c'],['../web__server_8c.html#ab54d7f7a60c847e48192e865f40a35a5',1,'asm(&quot;_binary_Fredoka_ttf_end&quot;):&#160;web_server.c']]]
 ];

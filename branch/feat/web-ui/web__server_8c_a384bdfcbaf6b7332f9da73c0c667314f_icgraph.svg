@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="HTTP handler for static files from LittleFS.">
+<g id="a_Node000001"><a xlink:title="HTTP handler for static files embedded in the firmware.">
 <polygon fill="#999999" stroke="#666666" points="402.75,-20.75 297.5,-20.75 297.5,0 402.75,0 402.75,-20.75"/>
 <text text-anchor="middle" x="350.12" y="-7.25" font-family="Helvetica,sans-Serif" font-size="10.00">static_file_handler</text>
 </a>

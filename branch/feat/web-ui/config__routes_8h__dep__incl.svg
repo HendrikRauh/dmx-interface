@@ -52,7 +52,7 @@
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="web__server_8c.html" target="_top" xlink:title=" ">
+<g id="a_Node000003"><a xlink:href="web__server_8c.html" target="_top" xlink:title="Implementation of a simple web server using ESP&#45;IDF&#39;s HTTP server.">
 <polygon fill="white" stroke="#666666" points="288.25,-33.5 153,-33.5 153,0 288.25,0 288.25,-33.5"/>
 <text text-anchor="start" x="161" y="-20" font-family="Helvetica,sans-Serif" font-size="10.00">components/web_server</text>
 <text text-anchor="middle" x="220.62" y="-7.25" font-family="Helvetica,sans-Serif" font-size="10.00">/src/web_server.c</text>

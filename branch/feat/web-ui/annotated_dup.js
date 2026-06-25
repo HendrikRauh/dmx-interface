@@ -9,7 +9,7 @@ var annotated_dup =
     [ "json_processor_object_t", "structjson__processor__object__t.html", "structjson__processor__object__t" ],
     [ "json_processor_string_t", "structjson__processor__string__t.html", "structjson__processor__string__t" ],
     [ "json_processor_t", "structjson__processor__t.html", "structjson__processor__t" ],
-    [ "storage_info_t", "structstorage__info__t.html", "structstorage__info__t" ],
+    [ "static_file_t", "structstatic__file__t.html", "structstatic__file__t" ],
     [ "sys_chip_info_t", "structsys__chip__info__t.html", "structsys__chip__info__t" ],
     [ "webserver_config_t", "structwebserver__config__t.html", "structwebserver__config__t" ]
 ];

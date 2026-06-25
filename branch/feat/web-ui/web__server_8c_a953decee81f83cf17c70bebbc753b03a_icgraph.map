@@ -1,0 +1,9 @@
+<map id="get_file_data" name="get_file_data">
+<area shape="rect" id="Node000001" title="Retrieve static file data based on the requested path." alt="" coords="590,5,696,33"/>
+<area shape="rect" id="Node000002" href="$web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f" title="HTTP handler for static files embedded in the firmware." alt="" coords="402,5,542,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="575,22,543,22,543,16,575,16"/>
+<area shape="rect" id="Node000003" href="$web__server_8c.html#aaeff4de8303b44312aa851f3b7211b1d" title="Initialize and start the HTTP web server." alt="" coords="228,5,354,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="387,22,355,22,355,16,387,16"/>
+<area shape="rect" id="Node000004" href="$dmx-interface_8c.html#a9bd9f390af7b80b21e4b1bcd75340ea7" title="Event handler for network events." alt="" coords="5,5,180,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,22,180,22,180,16,212,16"/>
+</map>

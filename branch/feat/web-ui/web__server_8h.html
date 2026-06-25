@@ -252,11 +252,11 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, error code otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00249">249</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00243">243</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
 <p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00266">webserver_register_handler_array()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00260">webserver_register_handler_array()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -301,11 +301,11 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, error code otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00266">266</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00260">260</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, and <a class="el" href="web__server_8c_source.html#l00249">webserver_register_handler()</a>.</p>
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, and <a class="el" href="web__server_8c_source.html#l00243">webserver_register_handler()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00153">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00156">webserver_start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -335,7 +335,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 
 <p>Initialize and start the HTTP web server. </p>
-<p>This function creates a FreeRTOS task that manages the HTTP server. It serves static files from the data/ folder and supports dynamic handler registration.</p>
+<p>This function creates a FreeRTOS task that manages the HTTP server. It serves static files that are embedded in the firmware and supports dynamic handler registration.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">config</td><td>Configuration structure. If NULL, default values are used. </td></tr>
@@ -344,15 +344,15 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>HTTP server handle on success, NULL on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00153">153</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00156">156</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00416">get_config_routes()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, <a class="el" href="web__server_8c_source.html#l00046">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00051">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00098">static_file_handler()</a>, <a class="el" href="storage_8c_source.html#l00015">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00030">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00026">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00034">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00038">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, <a class="el" href="web__server_8c_source.html#l00266">webserver_register_handler_array()</a>, and <a class="el" href="web__server_8c_source.html#l00140">webserver_task()</a>.</p>
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00416">get_config_routes()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, <a class="el" href="web__server_8c_source.html#l00093">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00098">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00119">static_file_handler()</a>, <a class="el" href="web__server_8c_source.html#l00032">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00028">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00036">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00040">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, <a class="el" href="web__server_8c_source.html#l00260">webserver_register_handler_array()</a>, and <a class="el" href="web__server_8c_source.html#l00143">webserver_task()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00035">network_event_handler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00034">network_event_handler()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8h_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="567" height="263"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8h_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="526" height="211"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -380,11 +380,11 @@ Here is the caller graph for this function:</div>
 <p>Stop the web server and cleanup resources. </p>
 <p>Stops the HTTP server and deletes the FreeRTOS task. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00232">232</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00226">226</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00046">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00051">s_server_task_handle</a>.</p>
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00093">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00098">s_server_task_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00035">network_event_handler()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00034">network_event_handler()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
