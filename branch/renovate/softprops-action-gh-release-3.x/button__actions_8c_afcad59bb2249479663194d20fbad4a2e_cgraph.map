@@ -1,0 +1,17 @@
+<map id="iot_button_double_click_cb" name="iot_button_double_click_cb">
+<area shape="rect" id="Node000001" title="Callback for double click events." alt="" coords="5,32,203,60"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#abb979e0618588e5b4316d13bfd7e77fb" title="Retrieves the action assigned to a specific button event." alt="" coords="251,5,435,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,32,235,29,236,34,203,37"/>
+<area shape="rect" id="Node000003" href="$button__actions_8c.html#a36509997e5c76d7413f80d35c914dda7" title="Executes the action compiled into the configuration for the triggered event." alt="" coords="259,57,427,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="203,54,243,58,243,63,203,59"/>
+<area shape="rect" id="Node000004" href="$config_8c.html#a30bb8db7736fceae486f36005a411f5e" title="Gets the current status LED brightness level." alt="" coords="483,5,673,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="408,54,497,34,498,40,410,59"/>
+<area shape="rect" id="Node000005" href="$config_8c.html#adbf182647ef90017c070ed7a4d0504fb" title="Flushes all staged RAM changes permanently to the non&#45;volatile storage." alt="" coords="529,57,627,85"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="428,68,514,68,514,74,428,74"/>
+<area shape="rect" id="Node000006" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="484,109,673,137"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="410,83,498,103,497,108,408,88"/>
+<area shape="rect" id="Node000007" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="721,109,865,137"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="673,120,705,120,705,126,673,126"/>
+<area shape="rect" id="Node000008" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="913,109,1029,137"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="865,120,897,120,897,126,865,126"/>
+</map>
