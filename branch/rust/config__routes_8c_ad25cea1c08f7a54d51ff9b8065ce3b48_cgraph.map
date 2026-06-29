@@ -1,0 +1,9 @@
+<map id="action_set_led_brightness" name="action_set_led_brightness">
+<area shape="rect" id="Node000001" title="Wrapper function for actions to update the LED brightness based on the validated JSON input." alt="" coords="5,5,196,33"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#a0f49b78b8b22ac39ef5ed8a15597818b" title="Sets the status LED brightness level in RAM." alt="" coords="244,5,433,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="196,16,228,16,228,22,196,22"/>
+<area shape="rect" id="Node000003" href="$led_8c.html#a0e14d5bbab37c68be83bb93f0327c328" title="Dynamically updates the LED maximum brightness." alt="" coords="481,5,624,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="433,16,465,16,465,22,433,22"/>
+<area shape="rect" id="Node000004" href="$led_8c.html#aecd6c57a0c34616eda567d5ce860979a" title="Updates the physical LEDC duty cycle." alt="" coords="672,5,789,33"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="625,16,657,16,657,22,625,22"/>
+</map>

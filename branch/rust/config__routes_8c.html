@@ -1,0 +1,1273 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/web_server/src/config_routes.c File Reference</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('config__routes_8c.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">config_routes.c File Reference</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Implementation of the web server configuration routes.  
+<a href="#details">More...</a></p>
+<div class="textblock"><code>#include &lt;cJSON.h&gt;</code><br />
+<code>#include &lt;stdlib.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="config_8h_source.html">config.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="config__routes_8h_source.html">config_routes.h</a>&quot;</code><br />
+<code>#include &quot;esp_check.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="json__processor_8h_source.html">json_processor.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="logger_8h_source.html">logger.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="web__server__util_8h_source.html">web_server_util.h</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for config_routes.c:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c__incl.svg" width="100%" height="455"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div>
+<p><a href="config__routes_8c_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:a7ce0df38eb467e59f209470c8f5ac4e6" id="r_a7ce0df38eb467e59f209470c8f5ac4e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>&#160;&#160;&#160;&quot;WEB_CFG&quot;</td></tr>
+<tr class="memdesc:a7ce0df38eb467e59f209470c8f5ac4e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logging tag for this file.  <br /></td></tr>
+<tr class="memitem:ab8e55ee34bebd89db51872b2b932dbfb" id="r_ab8e55ee34bebd89db51872b2b932dbfb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab8e55ee34bebd89db51872b2b932dbfb">KEY_CONNECTION</a>&#160;&#160;&#160;&quot;connection&quot;</td></tr>
+<tr class="memdesc:ab8e55ee34bebd89db51872b2b932dbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for network connection type.  <br /></td></tr>
+<tr class="memitem:a77bed0fe0b0c1e623baaffe1fc77a302" id="r_a77bed0fe0b0c1e623baaffe1fc77a302"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a77bed0fe0b0c1e623baaffe1fc77a302">KEY_IP_METHOD</a>&#160;&#160;&#160;&quot;ip_method&quot;</td></tr>
+<tr class="memdesc:a77bed0fe0b0c1e623baaffe1fc77a302"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for IP configuration method.  <br /></td></tr>
+<tr class="memitem:ac4e16248f70d9eabd3b7331e7ac9ba01" id="r_ac4e16248f70d9eabd3b7331e7ac9ba01"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ac4e16248f70d9eabd3b7331e7ac9ba01">KEY_LED_BRIGHTNESS</a>&#160;&#160;&#160;&quot;led_brightness&quot;</td></tr>
+<tr class="memdesc:ac4e16248f70d9eabd3b7331e7ac9ba01"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for LED brightness.  <br /></td></tr>
+<tr class="memitem:a983b655d091e0753f304522c62e2cc2f" id="r_a983b655d091e0753f304522c62e2cc2f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a983b655d091e0753f304522c62e2cc2f">KEY_WIFI_STATION_CONFIG</a>&#160;&#160;&#160;&quot;station_config&quot;</td></tr>
+<tr class="memdesc:a983b655d091e0753f304522c62e2cc2f"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for WiFi station configuration.  <br /></td></tr>
+<tr class="memitem:ab1bfc6887f18a37734fdb5bad7655f9c" id="r_ab1bfc6887f18a37734fdb5bad7655f9c"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab1bfc6887f18a37734fdb5bad7655f9c">KEY_WIFI_AP_CONFIG</a>&#160;&#160;&#160;&quot;ap_config&quot;</td></tr>
+<tr class="memdesc:ab1bfc6887f18a37734fdb5bad7655f9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for WiFi access point configuration.  <br /></td></tr>
+<tr class="memitem:a6aff84331d73077c42b109e5a83de180" id="r_a6aff84331d73077c42b109e5a83de180"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6aff84331d73077c42b109e5a83de180">KEY_SSID</a>&#160;&#160;&#160;&quot;ssid&quot;</td></tr>
+<tr class="memdesc:a6aff84331d73077c42b109e5a83de180"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for WiFi SSID.  <br /></td></tr>
+<tr class="memitem:a11298aff27deda97c2bcbb7c12696292" id="r_a11298aff27deda97c2bcbb7c12696292"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a11298aff27deda97c2bcbb7c12696292">KEY_PASSWORD</a>&#160;&#160;&#160;&quot;password&quot;</td></tr>
+<tr class="memdesc:a11298aff27deda97c2bcbb7c12696292"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for WiFi password.  <br /></td></tr>
+<tr class="memitem:a2dde8c46b28f15e15df3b44a6c9b7e68" id="r_a2dde8c46b28f15e15df3b44a6c9b7e68"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a2dde8c46b28f15e15df3b44a6c9b7e68">KEY_DMX_PORTS</a>&#160;&#160;&#160;&quot;dmx_ports&quot;</td></tr>
+<tr class="memdesc:a2dde8c46b28f15e15df3b44a6c9b7e68"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for DMX ports configuration.  <br /></td></tr>
+<tr class="memitem:aa32b6826cbc311dfd0a48ebe4a342cbb" id="r_aa32b6826cbc311dfd0a48ebe4a342cbb"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa32b6826cbc311dfd0a48ebe4a342cbb">KEY_DMX_PORT_INDEX</a>&#160;&#160;&#160;&quot;index&quot;</td></tr>
+<tr class="memdesc:aa32b6826cbc311dfd0a48ebe4a342cbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for DMX port index.  <br /></td></tr>
+<tr class="memitem:a0cd6bb4db4582650538223ef082b90a3" id="r_a0cd6bb4db4582650538223ef082b90a3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0cd6bb4db4582650538223ef082b90a3">KEY_UNIVERSE</a>&#160;&#160;&#160;&quot;universe&quot;</td></tr>
+<tr class="memdesc:a0cd6bb4db4582650538223ef082b90a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for DMX universe.  <br /></td></tr>
+<tr class="memitem:a4ab6f153ffae98bc3f22571ea4a39d5f" id="r_a4ab6f153ffae98bc3f22571ea4a39d5f"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a4ab6f153ffae98bc3f22571ea4a39d5f">KEY_DMX_DIRECTION</a>&#160;&#160;&#160;&quot;direction&quot;</td></tr>
+<tr class="memdesc:a4ab6f153ffae98bc3f22571ea4a39d5f"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON key for DMX direction.  <br /></td></tr>
+<tr class="memitem:a6c3db73d7a4ab9fb53144bbc61b5a695" id="r_a6c3db73d7a4ab9fb53144bbc61b5a695"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(n)</td></tr>
+<tr class="memdesc:a6c3db73d7a4ab9fb53144bbc61b5a695"><td class="mdescLeft">&#160;</td><td class="mdescRight">Helper macro to initialize a single <span class="tt"><a class="el" href="structjson__processor__object__entry__t.html" title="Validator and action for entries in JSON objects.">json_processor_object_entry_t</a></span> structure.  <br /></td></tr>
+<tr class="memitem:a65c9b4db7de291a6539c26d7ad77d71a" id="r_a65c9b4db7de291a6539c26d7ad77d71a"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a65c9b4db7de291a6539c26d7ad77d71a">DMX_PORTS_EXPAND_HELPER</a>(count)</td></tr>
+<tr class="memdesc:a65c9b4db7de291a6539c26d7ad77d71a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internal helper macro to perform token pasting after argument expansion.  <br /></td></tr>
+<tr class="memitem:a1303a28a127de4c3175af169a8a959e0" id="r_a1303a28a127de4c3175af169a8a959e0"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a1303a28a127de4c3175af169a8a959e0">DMX_PORTS_EXPAND</a>(count)</td></tr>
+<tr class="memdesc:a1303a28a127de4c3175af169a8a959e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Evaluates the current configuration count and expands it into the full list of port initializers.  <br /></td></tr>
+<tr id="define-members-0" class="groupHeader"><td colspan="2"><div class="groupHeader">DMX Port Expansion Chains</div></td></tr>
+<tr><td colspan="2" class="ititle"><div class="groupText"><p>Macros used to linearly chain port definitions based on the configured count. </p>
+</div></td></tr>
+<tr class="memitem:a36d02ca02fbaad2b63912c528e660e09" id="r_a36d02ca02fbaad2b63912c528e660e09"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a36d02ca02fbaad2b63912c528e660e09">DMX_PORTS_1</a>&#160;&#160;&#160;<a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(0)</td></tr>
+<tr class="memdesc:a36d02ca02fbaad2b63912c528e660e09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializer for 1 DMX port.  <br /></td></tr>
+<tr class="memitem:a04884b958bd0fde4d33000f79d28c616" id="r_a04884b958bd0fde4d33000f79d28c616"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a04884b958bd0fde4d33000f79d28c616">DMX_PORTS_2</a>&#160;&#160;&#160;<a class="el" href="#a36d02ca02fbaad2b63912c528e660e09">DMX_PORTS_1</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(1)</td></tr>
+<tr class="memdesc:a04884b958bd0fde4d33000f79d28c616"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializer for 2 DMX ports.  <br /></td></tr>
+<tr class="memitem:a803f61ddf6dfdfc447488fadaa1e5c92" id="r_a803f61ddf6dfdfc447488fadaa1e5c92"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a803f61ddf6dfdfc447488fadaa1e5c92">DMX_PORTS_3</a>&#160;&#160;&#160;<a class="el" href="#a04884b958bd0fde4d33000f79d28c616">DMX_PORTS_2</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(2)</td></tr>
+<tr class="memdesc:a803f61ddf6dfdfc447488fadaa1e5c92"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializer for 3 DMX ports.  <br /></td></tr>
+<tr class="memitem:a9329974b95534a3985447d86f56026b3" id="r_a9329974b95534a3985447d86f56026b3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a9329974b95534a3985447d86f56026b3">DMX_PORTS_4</a>&#160;&#160;&#160;<a class="el" href="#a803f61ddf6dfdfc447488fadaa1e5c92">DMX_PORTS_3</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(3)</td></tr>
+<tr class="memdesc:a9329974b95534a3985447d86f56026b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializer for 4 DMX ports.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a592c3cf2d31818300bef2f2066927108" id="r_a592c3cf2d31818300bef2f2066927108"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a592c3cf2d31818300bef2f2066927108">action_set_connection</a> (int connection)</td></tr>
+<tr class="memdesc:a592c3cf2d31818300bef2f2066927108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function for actions to update the connection method based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:a74ff98be3ac220564063ff7173742236" id="r_a74ff98be3ac220564063ff7173742236"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a74ff98be3ac220564063ff7173742236">action_set_ip_method</a> (int ip_method)</td></tr>
+<tr class="memdesc:a74ff98be3ac220564063ff7173742236"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function for actions to update the IP method based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:ad25cea1c08f7a54d51ff9b8065ce3b48" id="r_ad25cea1c08f7a54d51ff9b8065ce3b48"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ad25cea1c08f7a54d51ff9b8065ce3b48">action_set_led_brightness</a> (int brightness)</td></tr>
+<tr class="memdesc:ad25cea1c08f7a54d51ff9b8065ce3b48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Wrapper function for actions to update the LED brightness based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:a1b45f8fca9d559bcd7517764bbbdc4cb" id="r_a1b45f8fca9d559bcd7517764bbbdc4cb"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a1b45f8fca9d559bcd7517764bbbdc4cb">action_set_port_config</a> (const cJSON *ports)</td></tr>
+<tr class="memdesc:a1b45f8fca9d559bcd7517764bbbdc4cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for actions to update the DMX port configuration based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:ae44e5a7a4927b8c60807ddc25137c3b8" id="r_ae44e5a7a4927b8c60807ddc25137c3b8"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#ae44e5a7a4927b8c60807ddc25137c3b8">action_set_wifi_sta_config</a> (const cJSON *json)</td></tr>
+<tr class="memdesc:ae44e5a7a4927b8c60807ddc25137c3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for actions to update the WiFi station configuration based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:a953a106faa946387e06e4f1397546f5d" id="r_a953a106faa946387e06e4f1397546f5d"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a953a106faa946387e06e4f1397546f5d">action_set_wifi_ap_config</a> (const cJSON *json)</td></tr>
+<tr class="memdesc:a953a106faa946387e06e4f1397546f5d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Function for actions to update the WiFi access point configuration based on the validated JSON input.  <br /></td></tr>
+<tr class="memitem:a80f44651104cf24de6d5fd664c46caf2" id="r_a80f44651104cf24de6d5fd664c46caf2"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a80f44651104cf24de6d5fd664c46caf2">get_config_handler</a> (httpd_req_t *req)</td></tr>
+<tr class="memdesc:a80f44651104cf24de6d5fd664c46caf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler for GET requests to /api/config.  <br /></td></tr>
+<tr class="memitem:a4c2742039454d8db8617a376e24f8e5b" id="r_a4c2742039454d8db8617a376e24f8e5b"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a4c2742039454d8db8617a376e24f8e5b">post_config_handler</a> (httpd_req_t *req)</td></tr>
+<tr class="memdesc:a4c2742039454d8db8617a376e24f8e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handler for POST requests to /api/config.  <br /></td></tr>
+<tr class="memitem:a0fdf8dcf5f44030aa7de3e1c0d6f22c3" id="r_a0fdf8dcf5f44030aa7de3e1c0d6f22c3"><td class="memItemLeft">size_t&#160;</td><td class="memItemRight"><a class="el" href="#a0fdf8dcf5f44030aa7de3e1c0d6f22c3">get_config_routes</a> (const httpd_uri_t **routes_out)</td></tr>
+<tr class="memdesc:a0fdf8dcf5f44030aa7de3e1c0d6f22c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the array of configuration routes for the web server.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a5b60764b6d3a197186f5685e875972cd" id="r_a5b60764b6d3a197186f5685e875972cd"><td class="memItemLeft">static const <a class="el" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a5b60764b6d3a197186f5685e875972cd">wifi_config_entries_processor</a> []</td></tr>
+<tr class="memdesc:a5b60764b6d3a197186f5685e875972cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON processor definition for validating and processing the configuration for WiFi station and access point setting.  <br /></td></tr>
+<tr class="memitem:af354bfbe94bf5b33909d60b1abd656d4" id="r_af354bfbe94bf5b33909d60b1abd656d4"><td class="memItemLeft">static const <a class="el" href="structjson__processor__t.html">json_processor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af354bfbe94bf5b33909d60b1abd656d4">dmx_port_processor</a></td></tr>
+<tr class="memdesc:af354bfbe94bf5b33909d60b1abd656d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON processor definition for validating and processing the configuration for a single DMX port.  <br /></td></tr>
+<tr class="memitem:a6cc1f4b14b90950a35710478d29b94a3" id="r_a6cc1f4b14b90950a35710478d29b94a3"><td class="memItemLeft">static const <a class="el" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a6cc1f4b14b90950a35710478d29b94a3">dmx_ports_object_processor</a> []</td></tr>
+<tr class="memdesc:a6cc1f4b14b90950a35710478d29b94a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processor lookup table for DMX port JSON objects.  <br /></td></tr>
+<tr class="memitem:af6d6e1b4ad171f623ca83b3128801888" id="r_af6d6e1b4ad171f623ca83b3128801888"><td class="memItemLeft">static const <a class="el" href="structjson__processor__t.html">json_processor_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#af6d6e1b4ad171f623ca83b3128801888">processor</a></td></tr>
+<tr class="memdesc:af6d6e1b4ad171f623ca83b3128801888"><td class="mdescLeft">&#160;</td><td class="mdescRight">JSON processor definition for validating and processing the entire configuration object received in POST /api/config requests.  <br /></td></tr>
+<tr class="memitem:a5c767ca09ff9a04df6bcfd347f843a6e" id="r_a5c767ca09ff9a04df6bcfd347f843a6e"><td class="memItemLeft">static const httpd_uri_t&#160;</td><td class="memItemRight"><a class="el" href="#a5c767ca09ff9a04df6bcfd347f843a6e">routes</a> []</td></tr>
+<tr class="memdesc:a5c767ca09ff9a04df6bcfd347f843a6e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of URI handlers for the web server configuration routes.  <br /></td></tr>
+</table>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of the web server configuration routes. </p>
+
+<p class="definition">Definition in file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="a6c3db73d7a4ab9fb53144bbc61b5a695" name="a6c3db73d7a4ab9fb53144bbc61b5a695"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c3db73d7a4ab9fb53144bbc61b5a695">&#9670;&#160;</a></span>DMX_ENTRY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_ENTRY</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>n</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">{.key = #n, .required = <span class="keyword">false</span>, .entry_processor = &amp;<a class="code hl_variable" href="#af354bfbe94bf5b33909d60b1abd656d4">dmx_port_processor</a>}</div>
+<div class="ttc" id="aconfig__routes_8c_html_af354bfbe94bf5b33909d60b1abd656d4"><div class="ttname"><a href="#af354bfbe94bf5b33909d60b1abd656d4">dmx_port_processor</a></div><div class="ttdeci">static const json_processor_t dmx_port_processor</div><div class="ttdoc">JSON processor definition for validating and processing the configuration for a single DMX port.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00098">config_routes.c:98</a></div></div>
+</div><!-- fragment -->
+<p>Helper macro to initialize a single <span class="tt"><a class="el" href="structjson__processor__object__entry__t.html" title="Validator and action for entries in JSON objects.">json_processor_object_entry_t</a></span> structure. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>The port number (integer), which is automatically stringified. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00046">46</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a36d02ca02fbaad2b63912c528e660e09" name="a36d02ca02fbaad2b63912c528e660e09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36d02ca02fbaad2b63912c528e660e09">&#9670;&#160;</a></span>DMX_PORTS_1</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_1&#160;&#160;&#160;<a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(0)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializer for 1 DMX port. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00055">55</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a04884b958bd0fde4d33000f79d28c616" name="a04884b958bd0fde4d33000f79d28c616"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04884b958bd0fde4d33000f79d28c616">&#9670;&#160;</a></span>DMX_PORTS_2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_2&#160;&#160;&#160;<a class="el" href="#a36d02ca02fbaad2b63912c528e660e09">DMX_PORTS_1</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializer for 2 DMX ports. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00056">56</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a803f61ddf6dfdfc447488fadaa1e5c92" name="a803f61ddf6dfdfc447488fadaa1e5c92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a803f61ddf6dfdfc447488fadaa1e5c92">&#9670;&#160;</a></span>DMX_PORTS_3</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_3&#160;&#160;&#160;<a class="el" href="#a04884b958bd0fde4d33000f79d28c616">DMX_PORTS_2</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(2)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializer for 3 DMX ports. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00057">57</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a9329974b95534a3985447d86f56026b3" name="a9329974b95534a3985447d86f56026b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9329974b95534a3985447d86f56026b3">&#9670;&#160;</a></span>DMX_PORTS_4</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_4&#160;&#160;&#160;<a class="el" href="#a803f61ddf6dfdfc447488fadaa1e5c92">DMX_PORTS_3</a>, <a class="el" href="#a6c3db73d7a4ab9fb53144bbc61b5a695">DMX_ENTRY</a>(3)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Initializer for 4 DMX ports. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00058">58</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a1303a28a127de4c3175af169a8a959e0" name="a1303a28a127de4c3175af169a8a959e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1303a28a127de4c3175af169a8a959e0">&#9670;&#160;</a></span>DMX_PORTS_EXPAND</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_EXPAND</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>count</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line"><a class="code hl_define" href="#a65c9b4db7de291a6539c26d7ad77d71a">DMX_PORTS_EXPAND_HELPER</a>(count)</div>
+<div class="ttc" id="aconfig__routes_8c_html_a65c9b4db7de291a6539c26d7ad77d71a"><div class="ttname"><a href="#a65c9b4db7de291a6539c26d7ad77d71a">DMX_PORTS_EXPAND_HELPER</a></div><div class="ttdeci">#define DMX_PORTS_EXPAND_HELPER(count)</div><div class="ttdoc">Internal helper macro to perform token pasting after argument expansion.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00066">config_routes.c:66</a></div></div>
+</div><!-- fragment -->
+<p>Evaluates the current configuration count and expands it into the full list of port initializers. </p>
+<dl class="section note"><dt>Note</dt><dd>This indirection layer is required to force the preprocessor to resolve the value of APP_CONFIG_DMX_PORT_COUNT before gluing the tokens. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>The macro token representing the maximum port count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00075">75</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a65c9b4db7de291a6539c26d7ad77d71a" name="a65c9b4db7de291a6539c26d7ad77d71a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65c9b4db7de291a6539c26d7ad77d71a">&#9670;&#160;</a></span>DMX_PORTS_EXPAND_HELPER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DMX_PORTS_EXPAND_HELPER</td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>count</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">DMX_PORTS_##count</div>
+</div><!-- fragment -->
+<p>Internal helper macro to perform token pasting after argument expansion. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">count</td><td>The evaluated port count. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00066">66</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="ab8e55ee34bebd89db51872b2b932dbfb" name="ab8e55ee34bebd89db51872b2b932dbfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab8e55ee34bebd89db51872b2b932dbfb">&#9670;&#160;</a></span>KEY_CONNECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_CONNECTION&#160;&#160;&#160;&quot;connection&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for network connection type. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00018">18</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a4ab6f153ffae98bc3f22571ea4a39d5f" name="a4ab6f153ffae98bc3f22571ea4a39d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ab6f153ffae98bc3f22571ea4a39d5f">&#9670;&#160;</a></span>KEY_DMX_DIRECTION</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_DMX_DIRECTION&#160;&#160;&#160;&quot;direction&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for DMX direction. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00030">30</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00287">action_set_port_config()</a>, and <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="aa32b6826cbc311dfd0a48ebe4a342cbb" name="aa32b6826cbc311dfd0a48ebe4a342cbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa32b6826cbc311dfd0a48ebe4a342cbb">&#9670;&#160;</a></span>KEY_DMX_PORT_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_DMX_PORT_INDEX&#160;&#160;&#160;&quot;index&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for DMX port index. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00028">28</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a2dde8c46b28f15e15df3b44a6c9b7e68" name="a2dde8c46b28f15e15df3b44a6c9b7e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2dde8c46b28f15e15df3b44a6c9b7e68">&#9670;&#160;</a></span>KEY_DMX_PORTS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_DMX_PORTS&#160;&#160;&#160;&quot;dmx_ports&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for DMX ports configuration. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00027">27</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a77bed0fe0b0c1e623baaffe1fc77a302" name="a77bed0fe0b0c1e623baaffe1fc77a302"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77bed0fe0b0c1e623baaffe1fc77a302">&#9670;&#160;</a></span>KEY_IP_METHOD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_IP_METHOD&#160;&#160;&#160;&quot;ip_method&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for IP configuration method. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00019">19</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="ac4e16248f70d9eabd3b7331e7ac9ba01" name="ac4e16248f70d9eabd3b7331e7ac9ba01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4e16248f70d9eabd3b7331e7ac9ba01">&#9670;&#160;</a></span>KEY_LED_BRIGHTNESS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_LED_BRIGHTNESS&#160;&#160;&#160;&quot;led_brightness&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for LED brightness. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00020">20</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a11298aff27deda97c2bcbb7c12696292" name="a11298aff27deda97c2bcbb7c12696292"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a11298aff27deda97c2bcbb7c12696292">&#9670;&#160;</a></span>KEY_PASSWORD</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_PASSWORD&#160;&#160;&#160;&quot;password&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for WiFi password. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00026">26</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00332">action_set_wifi_ap_config()</a>, <a class="el" href="config__routes_8c_source.html#l00314">action_set_wifi_sta_config()</a>, and <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a6aff84331d73077c42b109e5a83de180" name="a6aff84331d73077c42b109e5a83de180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6aff84331d73077c42b109e5a83de180">&#9670;&#160;</a></span>KEY_SSID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_SSID&#160;&#160;&#160;&quot;ssid&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for WiFi SSID. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00025">25</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00332">action_set_wifi_ap_config()</a>, <a class="el" href="config__routes_8c_source.html#l00314">action_set_wifi_sta_config()</a>, and <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a0cd6bb4db4582650538223ef082b90a3" name="a0cd6bb4db4582650538223ef082b90a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0cd6bb4db4582650538223ef082b90a3">&#9670;&#160;</a></span>KEY_UNIVERSE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_UNIVERSE&#160;&#160;&#160;&quot;universe&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for DMX universe. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00029">29</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00287">action_set_port_config()</a>, and <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="ab1bfc6887f18a37734fdb5bad7655f9c" name="ab1bfc6887f18a37734fdb5bad7655f9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1bfc6887f18a37734fdb5bad7655f9c">&#9670;&#160;</a></span>KEY_WIFI_AP_CONFIG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_WIFI_AP_CONFIG&#160;&#160;&#160;&quot;ap_config&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for WiFi access point configuration. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00023">23</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a983b655d091e0753f304522c62e2cc2f" name="a983b655d091e0753f304522c62e2cc2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a983b655d091e0753f304522c62e2cc2f">&#9670;&#160;</a></span>KEY_WIFI_STATION_CONFIG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define KEY_WIFI_STATION_CONFIG&#160;&#160;&#160;&quot;station_config&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>JSON key for WiFi station configuration. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00021">21</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00175">get_config_handler()</a>.</p>
+
+</div>
+</div>
+<a id="a7ce0df38eb467e59f209470c8f5ac4e6" name="a7ce0df38eb467e59f209470c8f5ac4e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ce0df38eb467e59f209470c8f5ac4e6">&#9670;&#160;</a></span>LOG_TAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOG_TAG&#160;&#160;&#160;&quot;WEB_CFG&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Logging tag for this file. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00006">6</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a592c3cf2d31818300bef2f2066927108" name="a592c3cf2d31818300bef2f2066927108"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a592c3cf2d31818300bef2f2066927108">&#9670;&#160;</a></span>action_set_connection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_connection </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>connection</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper function for actions to update the connection method based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">connection</td><td>The new network connection type, expected to be one of the values defined in <span class="tt"><a class="el" href="config_8h.html#a8cc32e542cd74f87507fab832c4a9446" title="Network connection medium types.">config_connection_t</a></span> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00258">258</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00247">config_set_connection()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a592c3cf2d31818300bef2f2066927108_cgraph.svg" width="391" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a74ff98be3ac220564063ff7173742236" name="a74ff98be3ac220564063ff7173742236"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74ff98be3ac220564063ff7173742236">&#9670;&#160;</a></span>action_set_ip_method()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_ip_method </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>ip_method</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper function for actions to update the IP method based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ip_method</td><td>The new IP configuration method, expected to be one of the values defined in <span class="tt"><a class="el" href="config_8h.html#ac91b5e170b401c2efe0577b14d40f766" title="IP assignment method configurations.">config_ip_method_t</a></span> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00268">268</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00271">config_set_ip_method()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a74ff98be3ac220564063ff7173742236_cgraph.svg" width="387" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad25cea1c08f7a54d51ff9b8065ce3b48" name="ad25cea1c08f7a54d51ff9b8065ce3b48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad25cea1c08f7a54d51ff9b8065ce3b48">&#9670;&#160;</a></span>action_set_led_brightness()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_led_brightness </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>brightness</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Wrapper function for actions to update the LED brightness based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">brightness</td><td>The new brightness level for the LED, expected to be in the range of 0 to <span class="tt"><a class="el" href="config_8h.html#a5b0e6883c10990b02bc6312b98e78337" title="Maximum valid LED brightness value.">APP_CONFIG_MAX_LED_BRIGHTNESS</a></span> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00278">278</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00294">config_set_led_brightness()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_ad25cea1c08f7a54d51ff9b8065ce3b48_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a1b45f8fca9d559bcd7517764bbbdc4cb" name="a1b45f8fca9d559bcd7517764bbbdc4cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1b45f8fca9d559bcd7517764bbbdc4cb">&#9670;&#160;</a></span>action_set_port_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_port_config </td>
+          <td>(</td>
+          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>ports</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function for actions to update the DMX port configuration based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ports</td><td>cJSON object containing the DMX port configurations </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00287">287</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00346">config_set_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00322">config_set_dmx_universe()</a>, <a class="el" href="config__routes_8c_source.html#l00030">KEY_DMX_DIRECTION</a>, <a class="el" href="config__routes_8c_source.html#l00029">KEY_UNIVERSE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a1b45f8fca9d559bcd7517764bbbdc4cb_cgraph.svg" width="414" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a953a106faa946387e06e4f1397546f5d" name="a953a106faa946387e06e4f1397546f5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a953a106faa946387e06e4f1397546f5d">&#9670;&#160;</a></span>action_set_wifi_ap_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_wifi_ap_config </td>
+          <td>(</td>
+          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function for actions to update the WiFi access point configuration based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>cJSON object containing the WiFi access point configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00332">332</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00435">config_set_wifi_ap_password()</a>, <a class="el" href="config_8c_source.html#l00416">config_set_wifi_ap_ssid()</a>, <a class="el" href="config__routes_8c_source.html#l00026">KEY_PASSWORD</a>, and <a class="el" href="config__routes_8c_source.html#l00025">KEY_SSID</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a953a106faa946387e06e4f1397546f5d_cgraph.svg" width="374" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae44e5a7a4927b8c60807ddc25137c3b8" name="ae44e5a7a4927b8c60807ddc25137c3b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44e5a7a4927b8c60807ddc25137c3b8">&#9670;&#160;</a></span>action_set_wifi_sta_config()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void action_set_wifi_sta_config </td>
+          <td>(</td>
+          <td class="paramtype">const cJSON *</td>          <td class="paramname"><span class="paramname"><em>json</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Function for actions to update the WiFi station configuration based on the validated JSON input. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">json</td><td>cJSON object containing the WiFi station configuration </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00314">314</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00389">config_set_wifi_sta_password()</a>, <a class="el" href="config_8c_source.html#l00370">config_set_wifi_sta_ssid()</a>, <a class="el" href="config__routes_8c_source.html#l00026">KEY_PASSWORD</a>, and <a class="el" href="config__routes_8c_source.html#l00025">KEY_SSID</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_ae44e5a7a4927b8c60807ddc25137c3b8_cgraph.svg" width="382" height="107"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a80f44651104cf24de6d5fd664c46caf2" name="a80f44651104cf24de6d5fd664c46caf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80f44651104cf24de6d5fd664c46caf2">&#9670;&#160;</a></span>get_config_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t get_config_handler </td>
+          <td>(</td>
+          <td class="paramtype">httpd_req_t *</td>          <td class="paramname"><span class="paramname"><em>req</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handler for GET requests to /api/config. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">req</td><td>Pointer to the HTTP request object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, or an error code on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00175">175</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8h_source.html#l00024">APP_CONFIG_DMX_PORT_COUNT</a>, <a class="el" href="config_8c_source.html#l00238">config_get_connection()</a>, <a class="el" href="config_8c_source.html#l00337">config_get_dmx_direction()</a>, <a class="el" href="config_8c_source.html#l00313">config_get_dmx_universe()</a>, <a class="el" href="config_8c_source.html#l00262">config_get_ip_method()</a>, <a class="el" href="config_8c_source.html#l00285">config_get_led_brightness()</a>, <a class="el" href="config_8c_source.html#l00408">config_get_wifi_ap_config()</a>, <a class="el" href="config_8c_source.html#l00362">config_get_wifi_sta_config()</a>, <a class="el" href="config__routes_8c_source.html#l00018">KEY_CONNECTION</a>, <a class="el" href="config__routes_8c_source.html#l00030">KEY_DMX_DIRECTION</a>, <a class="el" href="config__routes_8c_source.html#l00027">KEY_DMX_PORTS</a>, <a class="el" href="config__routes_8c_source.html#l00019">KEY_IP_METHOD</a>, <a class="el" href="config__routes_8c_source.html#l00020">KEY_LED_BRIGHTNESS</a>, <a class="el" href="config__routes_8c_source.html#l00026">KEY_PASSWORD</a>, <a class="el" href="config__routes_8c_source.html#l00025">KEY_SSID</a>, <a class="el" href="config__routes_8c_source.html#l00029">KEY_UNIVERSE</a>, <a class="el" href="config__routes_8c_source.html#l00023">KEY_WIFI_AP_CONFIG</a>, <a class="el" href="config__routes_8c_source.html#l00021">KEY_WIFI_STATION_CONFIG</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="config_8h_source.html#l00046">app_wifi_creds_t::password</a>, and <a class="el" href="config_8h_source.html#l00045">app_wifi_creds_t::ssid</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a80f44651104cf24de6d5fd664c46caf2_cgraph.svg" width="394" height="384"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0fdf8dcf5f44030aa7de3e1c0d6f22c3" name="a0fdf8dcf5f44030aa7de3e1c0d6f22c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0fdf8dcf5f44030aa7de3e1c0d6f22c3">&#9670;&#160;</a></span>get_config_routes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t get_config_routes </td>
+          <td>(</td>
+          <td class="paramtype">const httpd_uri_t **</td>          <td class="paramname"><span class="paramname"><em>routes_out</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the array of configuration routes for the web server. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">routes_out</td><td>Output parameter that will point to the array of routes </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The number of routes in the array </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00416">416</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00403">routes</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a0fdf8dcf5f44030aa7de3e1c0d6f22c3_icgraph.svg" width="544" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4c2742039454d8db8617a376e24f8e5b" name="a4c2742039454d8db8617a376e24f8e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c2742039454d8db8617a376e24f8e5b">&#9670;&#160;</a></span>post_config_handler()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t post_config_handler </td>
+          <td>(</td>
+          <td class="paramtype">httpd_req_t *</td>          <td class="paramname"><span class="paramname"><em>req</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Handler for POST requests to /api/config. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">req</td><td>Pointer to the HTTP request object </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, or an error code on failure </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00350">350</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config_8c_source.html#l00199">config_save()</a>, <a class="el" href="web__server__util_8c_source.html#l00013">get_json_body()</a>, <a class="el" href="json__processor_8c_source.html#l00318">json_processor_process()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, and <a class="el" href="config__routes_8c_source.html#l00131">processor</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="config__routes_8c_a4c2742039454d8db8617a376e24f8e5b_cgraph.svg" width="100%" height="504"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="af354bfbe94bf5b33909d60b1abd656d4" name="af354bfbe94bf5b33909d60b1abd656d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af354bfbe94bf5b33909d60b1abd656d4">&#9670;&#160;</a></span>dmx_port_processor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structjson__processor__t.html">json_processor_t</a> dmx_port_processor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                             = {</div>
+<div class="line">.type = <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a>,</div>
+<div class="line">.processor.object = {</div>
+<div class="line">    .processors =</div>
+<div class="line">        (<a class="code hl_struct" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a>[]){</div>
+<div class="line">            {.key = <a class="code hl_define" href="#a0cd6bb4db4582650538223ef082b90a3">KEY_UNIVERSE</a>,</div>
+<div class="line">             .required = <span class="keyword">false</span>,</div>
+<div class="line">             .entry_processor =</div>
+<div class="line">                 <a class="code hl_define" href="json__processor_8h.html#a6c2918d712ddbfbae85c58612bbbf754">JSON_PROC_INT</a>(0, <a class="code hl_define" href="config_8h.html#ac692655dab72ee7b85ad6772ddc16014">APP_CONFIG_MAX_UNIVERSE</a>, NULL)},</div>
+<div class="line">            {.key = <a class="code hl_define" href="#a4ab6f153ffae98bc3f22571ea4a39d5f">KEY_DMX_DIRECTION</a>,</div>
+<div class="line">             .required = <span class="keyword">false</span>,</div>
+<div class="line">             .entry_processor = <a class="code hl_define" href="json__processor_8h.html#a6c2918d712ddbfbae85c58612bbbf754">JSON_PROC_INT</a>(<a class="code hl_enumvalue" href="config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a7bb3b960f43992541897af3f11be278d">APP_CONFIG_DIR_MIN</a>,</div>
+<div class="line">                                              <a class="code hl_enumvalue" href="config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a647c5400728a1ace36a25fa195925858">APP_CONFIG_DIR_MAX</a>, NULL)},</div>
+<div class="line">        },</div>
+<div class="line">    .num_processors = 2,</div>
+<div class="line">}}</div>
+<div class="ttc" id="aconfig_8h_html_aa73151f76d6bfc44d0ae222bf31b81d0a647c5400728a1ace36a25fa195925858"><div class="ttname"><a href="config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a647c5400728a1ace36a25fa195925858">APP_CONFIG_DIR_MAX</a></div><div class="ttdeci">@ APP_CONFIG_DIR_MAX</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00103">config.h:103</a></div></div>
+<div class="ttc" id="aconfig_8h_html_aa73151f76d6bfc44d0ae222bf31b81d0a7bb3b960f43992541897af3f11be278d"><div class="ttname"><a href="config_8h.html#aa73151f76d6bfc44d0ae222bf31b81d0a7bb3b960f43992541897af3f11be278d">APP_CONFIG_DIR_MIN</a></div><div class="ttdeci">@ APP_CONFIG_DIR_MIN</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00102">config.h:102</a></div></div>
+<div class="ttc" id="aconfig_8h_html_ac692655dab72ee7b85ad6772ddc16014"><div class="ttname"><a href="config_8h.html#ac692655dab72ee7b85ad6772ddc16014">APP_CONFIG_MAX_UNIVERSE</a></div><div class="ttdeci">#define APP_CONFIG_MAX_UNIVERSE</div><div class="ttdoc">Maximum valid DMX universe number.</div><div class="ttdef"><b>Definition</b> <a href="config_8h_source.html#l00029">config.h:29</a></div></div>
+<div class="ttc" id="aconfig__routes_8c_html_a0cd6bb4db4582650538223ef082b90a3"><div class="ttname"><a href="#a0cd6bb4db4582650538223ef082b90a3">KEY_UNIVERSE</a></div><div class="ttdeci">#define KEY_UNIVERSE</div><div class="ttdoc">JSON key for DMX universe.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00029">config_routes.c:29</a></div></div>
+<div class="ttc" id="aconfig__routes_8c_html_a4ab6f153ffae98bc3f22571ea4a39d5f"><div class="ttname"><a href="#a4ab6f153ffae98bc3f22571ea4a39d5f">KEY_DMX_DIRECTION</a></div><div class="ttdeci">#define KEY_DMX_DIRECTION</div><div class="ttdoc">JSON key for DMX direction.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00030">config_routes.c:30</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_OBJECT</div><div class="ttdoc">Processor for JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00086">json_processor.h:86</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a6c2918d712ddbfbae85c58612bbbf754"><div class="ttname"><a href="json__processor_8h.html#a6c2918d712ddbfbae85c58612bbbf754">JSON_PROC_INT</a></div><div class="ttdeci">#define JSON_PROC_INT(min_val, max_val, act_func)</div><div class="ttdoc">Macro to define a JSON processor for integer fields.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00042">json_processor.h:42</a></div></div>
+<div class="ttc" id="astructjson__processor__object__entry__t_html"><div class="ttname"><a href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a></div><div class="ttdoc">Validator and action for entries in JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00126">json_processor.h:126</a></div></div>
+</div><!-- fragment -->
+<p>JSON processor definition for validating and processing the configuration for a single DMX port. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00098">98</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="a6cc1f4b14b90950a35710478d29b94a3" name="a6cc1f4b14b90950a35710478d29b94a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cc1f4b14b90950a35710478d29b94a3">&#9670;&#160;</a></span>dmx_ports_object_processor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a> dmx_ports_object_processor[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                                                      = {</div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line"> </div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Processor lookup table for DMX port JSON objects. </p>
+<p>This array is automatically populated with entry processors up to the maximum number of ports defined by <a class="el" href="config_8h.html#adcbd84cc91f7afef3e2cfe7a0d3e327f" title="APP_CONFIG_DMX_PORT_COUNT">APP_CONFIG_DMX_PORT_COUNT</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00121">121</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+<a id="af6d6e1b4ad171f623ca83b3128801888" name="af6d6e1b4ad171f623ca83b3128801888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af6d6e1b4ad171f623ca83b3128801888">&#9670;&#160;</a></span>processor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structjson__processor__t.html">json_processor_t</a> processor</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>JSON processor definition for validating and processing the entire configuration object received in POST /api/config requests. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00131">131</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="json__processor_8c_source.html#l00266">execute_actions()</a>, <a class="el" href="json__processor_8c_source.html#l00318">json_processor_process()</a>, <a class="el" href="config__routes_8c_source.html#l00350">post_config_handler()</a>, and <a class="el" href="json__processor_8c_source.html#l00238">validate()</a>.</p>
+
+</div>
+</div>
+<a id="a5c767ca09ff9a04df6bcfd347f843a6e" name="a5c767ca09ff9a04df6bcfd347f843a6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5c767ca09ff9a04df6bcfd347f843a6e">&#9670;&#160;</a></span>routes</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const httpd_uri_t routes[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">= {{</div>
+<div class="line">         .uri = <span class="stringliteral">&quot;/api/config&quot;</span>,</div>
+<div class="line">         .method = HTTP_GET,</div>
+<div class="line">         .handler = <a class="code hl_function" href="#a80f44651104cf24de6d5fd664c46caf2">get_config_handler</a>,</div>
+<div class="line">         .user_ctx = NULL,</div>
+<div class="line">     },</div>
+<div class="line">     {</div>
+<div class="line">         .uri = <span class="stringliteral">&quot;/api/config&quot;</span>,</div>
+<div class="line">         .method = HTTP_POST,</div>
+<div class="line">         .handler = <a class="code hl_function" href="#a4c2742039454d8db8617a376e24f8e5b">post_config_handler</a>,</div>
+<div class="line">         .user_ctx = NULL,</div>
+<div class="line">     }}</div>
+<div class="ttc" id="aconfig__routes_8c_html_a4c2742039454d8db8617a376e24f8e5b"><div class="ttname"><a href="#a4c2742039454d8db8617a376e24f8e5b">post_config_handler</a></div><div class="ttdeci">static esp_err_t post_config_handler(httpd_req_t *req)</div><div class="ttdoc">Handler for POST requests to /api/config.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00350">config_routes.c:350</a></div></div>
+<div class="ttc" id="aconfig__routes_8c_html_a80f44651104cf24de6d5fd664c46caf2"><div class="ttname"><a href="#a80f44651104cf24de6d5fd664c46caf2">get_config_handler</a></div><div class="ttdeci">static esp_err_t get_config_handler(httpd_req_t *req)</div><div class="ttdoc">Handler for GET requests to /api/config.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00175">config_routes.c:175</a></div></div>
+</div><!-- fragment -->
+<p>Array of URI handlers for the web server configuration routes. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00403">403</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="config__routes_8c_source.html#l00416">get_config_routes()</a>, <a class="el" href="web__server_8c_source.html#l00219">webserver_register_handler_array()</a>, and <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
+
+</div>
+</div>
+<a id="a5b60764b6d3a197186f5685e875972cd" name="a5b60764b6d3a197186f5685e875972cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b60764b6d3a197186f5685e875972cd">&#9670;&#160;</a></span>wifi_config_entries_processor</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a> wifi_config_entries_processor[]</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                                                         = {</div>
+<div class="line">    {</div>
+<div class="line">        .key = <a class="code hl_define" href="#a6aff84331d73077c42b109e5a83de180">KEY_SSID</a>,</div>
+<div class="line">        .required = <span class="keyword">false</span>,</div>
+<div class="line">        .entry_processor = <a class="code hl_define" href="json__processor_8h.html#abce0042e50296b26051fdf509c75fde3">JSON_PROC_STR</a>(1, 32, NULL),</div>
+<div class="line">    },</div>
+<div class="line">    {</div>
+<div class="line">        .key = <a class="code hl_define" href="#a11298aff27deda97c2bcbb7c12696292">KEY_PASSWORD</a>,</div>
+<div class="line">        .required = <span class="keyword">false</span>,</div>
+<div class="line">        .entry_processor = <a class="code hl_define" href="json__processor_8h.html#abce0042e50296b26051fdf509c75fde3">JSON_PROC_STR</a>(0, 63, NULL),</div>
+<div class="line">    },</div>
+<div class="line">}</div>
+<div class="ttc" id="aconfig__routes_8c_html_a11298aff27deda97c2bcbb7c12696292"><div class="ttname"><a href="#a11298aff27deda97c2bcbb7c12696292">KEY_PASSWORD</a></div><div class="ttdeci">#define KEY_PASSWORD</div><div class="ttdoc">JSON key for WiFi password.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00026">config_routes.c:26</a></div></div>
+<div class="ttc" id="aconfig__routes_8c_html_a6aff84331d73077c42b109e5a83de180"><div class="ttname"><a href="#a6aff84331d73077c42b109e5a83de180">KEY_SSID</a></div><div class="ttdeci">#define KEY_SSID</div><div class="ttdoc">JSON key for WiFi SSID.</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00025">config_routes.c:25</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_abce0042e50296b26051fdf509c75fde3"><div class="ttname"><a href="json__processor_8h.html#abce0042e50296b26051fdf509c75fde3">JSON_PROC_STR</a></div><div class="ttdeci">#define JSON_PROC_STR(min_len, max_len, act_func)</div><div class="ttdoc">Macro to define a JSON processor for string fields.</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8h_source.html#l00051">json_processor.h:51</a></div></div>
+</div><!-- fragment -->
+<p>JSON processor definition for validating and processing the configuration for WiFi station and access point setting. </p>
+
+<p class="definition">Definition at line <a class="el" href="config__routes_8c_source.html#l00081">81</a> of file <a class="el" href="config__routes_8c_source.html">config_routes.c</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
+</div><!-- doc-content -->
+<div id="page-nav" class="page-nav-panel">
+<div id="page-nav-resize-handle"></div>
+<div id="page-nav-tree">
+<div id="page-nav-contents">
+</div><!-- page-nav-contents -->
+</div><!-- page-nav-tree -->
+</div><!-- page-nav -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_0a72549e2760402ada88361c3a2bfb8e.html">web_server</a></li><li class="navelem"><a href="dir_cf6be6a496f8649d7c849cc499bc180d.html">src</a></li><li class="navelem"><a href="config__routes_8c.html">config_routes.c</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

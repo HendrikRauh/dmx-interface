@@ -184,16 +184,17 @@ $(function(){initNavTree('web__server_8c.html','',''); });
   <div class="headertitle"><div class="title">web_server.c File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Implementation of a simple web server using ESP-IDF's HTTP server.  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="web__server_8h_source.html">web_server.h</a>&quot;</code><br />
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;stdlib.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="config__routes_8h_source.html">config_routes.h</a>&quot;</code><br />
 <code>#include &quot;esp_err.h&quot;</code><br />
-<code>#include &quot;freertos/FreeRTOS.h&quot;</code><br />
-<code>#include &quot;freertos/task.h&quot;</code><br />
 <code>#include &quot;<a class="el" href="logger_8h_source.html">logger.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="storage_8h_source.html">storage.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for web_server.c:</div>
 <div class="dyncontent">
@@ -202,6 +203,11 @@ Include dependency graph for web_server.c:</div>
 </div>
 <p><a href="web__server_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Data Structures</h2></td></tr>
+<tr class="memitem:static_5Ffile_5Ft" id="r_static_5Ffile_5Ft"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structstatic__file__t.html">static_file_t</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Structure representing a static file embedded in the firmware.  <a href="structstatic__file__t.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a7ce0df38eb467e59f209470c8f5ac4e6" id="r_a7ce0df38eb467e59f209470c8f5ac4e6"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a7ce0df38eb467e59f209470c8f5ac4e6">LOG_TAG</a>&#160;&#160;&#160;&quot;WEBSRV&quot;</td></tr>
@@ -209,37 +215,49 @@ Macros</h2></td></tr>
 <tr class="memitem:aa50f94ef5044b5cea7023b555819fca5" id="r_aa50f94ef5044b5cea7023b555819fca5"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#aa50f94ef5044b5cea7023b555819fca5">WEBSERVER_DEFAULT_PORT</a>&#160;&#160;&#160;80</td></tr>
 <tr class="memdesc:aa50f94ef5044b5cea7023b555819fca5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default port for the web server.  <br /></td></tr>
 <tr class="memitem:ad0d29fb70dddd9ec0217c2a6398318d3" id="r_ad0d29fb70dddd9ec0217c2a6398318d3"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ad0d29fb70dddd9ec0217c2a6398318d3">WEBSERVER_DEFAULT_MAX_HANDLERS</a>&#160;&#160;&#160;32</td></tr>
-<tr class="memdesc:ad0d29fb70dddd9ec0217c2a6398318d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default port for the web server.  <br /></td></tr>
+<tr class="memdesc:ad0d29fb70dddd9ec0217c2a6398318d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum number of URI handlers.  <br /></td></tr>
 <tr class="memitem:a0309f701a4de9ce2deb1542791021550" id="r_a0309f701a4de9ce2deb1542791021550"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#a0309f701a4de9ce2deb1542791021550">WEBSERVER_DEFAULT_STACK_SIZE</a>&#160;&#160;&#160;(8 * 1024)</td></tr>
-<tr class="memdesc:a0309f701a4de9ce2deb1542791021550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default maximum number of URI handlers.  <br /></td></tr>
+<tr class="memdesc:a0309f701a4de9ce2deb1542791021550"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default stack size for the web server task.  <br /></td></tr>
 <tr class="memitem:acc126d806064a26d3ebb305411f023bd" id="r_acc126d806064a26d3ebb305411f023bd"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#acc126d806064a26d3ebb305411f023bd">WEBSERVER_DEFAULT_TASK_PRIORITY</a>&#160;&#160;&#160;5</td></tr>
-<tr class="memdesc:acc126d806064a26d3ebb305411f023bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default stack size for the web server task.  <br /></td></tr>
+<tr class="memdesc:acc126d806064a26d3ebb305411f023bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default task priority for the web server task.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a40f36853d75f35777d20f32d31fcd129" id="r_a40f36853d75f35777d20f32d31fcd129"><td class="memItemLeft">static const char *&#160;</td><td class="memItemRight"><a class="el" href="#a40f36853d75f35777d20f32d31fcd129">get_mime_type</a> (const char *filename)</td></tr>
-<tr class="memdesc:a40f36853d75f35777d20f32d31fcd129"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get MIME type based on file extension.  <br /></td></tr>
+<tr class="memitem:a8b388bfbcf4b9f48d176a7c292eff6aa" id="r_a8b388bfbcf4b9f48d176a7c292eff6aa"><td class="memItemLeft">const uint8_t index_html_gz_start[]&#160;</td><td class="memItemRight"><a class="el" href="#a8b388bfbcf4b9f48d176a7c292eff6aa">asm</a> (&quot;_binary_index_html_gz_start&quot;)</td></tr>
+<tr class="memdesc:a8b388bfbcf4b9f48d176a7c292eff6aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory address of the start of the embedded index.html.gz file.  <br /></td></tr>
+<tr class="memitem:afbf3bf1dbc568e3ffe9983f8681fe425" id="r_afbf3bf1dbc568e3ffe9983f8681fe425"><td class="memItemLeft">const uint8_t index_html_gz_end[]&#160;</td><td class="memItemRight"><a class="el" href="#afbf3bf1dbc568e3ffe9983f8681fe425">asm</a> (&quot;_binary_index_html_gz_end&quot;)</td></tr>
+<tr class="memdesc:afbf3bf1dbc568e3ffe9983f8681fe425"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory address of the end of the embedded index.html.gz file.  <br /></td></tr>
+<tr class="memitem:a1c2fbfaddc4610dd33c9bf1699881b95" id="r_a1c2fbfaddc4610dd33c9bf1699881b95"><td class="memItemLeft">const uint8_t fredoka_ttf_start[]&#160;</td><td class="memItemRight"><a class="el" href="#a1c2fbfaddc4610dd33c9bf1699881b95">asm</a> (&quot;_binary_Fredoka_ttf_start&quot;)</td></tr>
+<tr class="memdesc:a1c2fbfaddc4610dd33c9bf1699881b95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory address of the start of the embedded Fredoka.ttf file.  <br /></td></tr>
+<tr class="memitem:ab54d7f7a60c847e48192e865f40a35a5" id="r_ab54d7f7a60c847e48192e865f40a35a5"><td class="memItemLeft">const uint8_t fredoka_ttf_end[]&#160;</td><td class="memItemRight"><a class="el" href="#ab54d7f7a60c847e48192e865f40a35a5">asm</a> (&quot;_binary_Fredoka_ttf_end&quot;)</td></tr>
+<tr class="memdesc:ab54d7f7a60c847e48192e865f40a35a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Memory address of the end of the embedded Fredoka.ttf file.  <br /></td></tr>
+<tr class="memitem:a953decee81f83cf17c70bebbc753b03a" id="r_a953decee81f83cf17c70bebbc753b03a"><td class="memItemLeft">static const <a class="el" href="structstatic__file__t.html">static_file_t</a> *&#160;</td><td class="memItemRight"><a class="el" href="#a953decee81f83cf17c70bebbc753b03a">get_file_data</a> (const char *path)</td></tr>
+<tr class="memdesc:a953decee81f83cf17c70bebbc753b03a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieve static file data based on the requested path.  <br /></td></tr>
 <tr class="memitem:a384bdfcbaf6b7332f9da73c0c667314f" id="r_a384bdfcbaf6b7332f9da73c0c667314f"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a384bdfcbaf6b7332f9da73c0c667314f">static_file_handler</a> (httpd_req_t *req)</td></tr>
-<tr class="memdesc:a384bdfcbaf6b7332f9da73c0c667314f"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP handler for static files from LittleFS.  <br /></td></tr>
-<tr class="memitem:af26c5903f907fb3d73fe269a81809275" id="r_af26c5903f907fb3d73fe269a81809275"><td class="memItemLeft">static esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#af26c5903f907fb3d73fe269a81809275">health_check_handler</a> (httpd_req_t *req)</td></tr>
-<tr class="memdesc:af26c5903f907fb3d73fe269a81809275"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP handler for API health check (GET /api/health).  <br /></td></tr>
-<tr class="memitem:a642a431098c8aa6cd1adb4282b063e06" id="r_a642a431098c8aa6cd1adb4282b063e06"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="#a642a431098c8aa6cd1adb4282b063e06">webserver_task</a> (void *arg)</td></tr>
-<tr class="memdesc:a642a431098c8aa6cd1adb4282b063e06"><td class="mdescLeft">&#160;</td><td class="mdescRight">FreeRTOS task function for the HTTP server. Allows non-blocking server operation and future extensibility.  <br /></td></tr>
+<tr class="memdesc:a384bdfcbaf6b7332f9da73c0c667314f"><td class="mdescLeft">&#160;</td><td class="mdescRight">HTTP handler for static files embedded in the firmware.  <br /></td></tr>
 <tr class="memitem:aaeff4de8303b44312aa851f3b7211b1d" id="r_aaeff4de8303b44312aa851f3b7211b1d"><td class="memItemLeft">httpd_handle_t&#160;</td><td class="memItemRight"><a class="el" href="#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a> (const <a class="el" href="structwebserver__config__t.html">webserver_config_t</a> *config)</td></tr>
-<tr class="memdesc:aaeff4de8303b44312aa851f3b7211b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the web server with the given configuration.  <br /></td></tr>
-<tr class="memitem:a8f90e2a598a55079be4b774202e16dbb" id="r_a8f90e2a598a55079be4b774202e16dbb"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a8f90e2a598a55079be4b774202e16dbb">webserver_stop</a> (httpd_handle_t server)</td></tr>
-<tr class="memdesc:a8f90e2a598a55079be4b774202e16dbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the web server and clean up resources.  <br /></td></tr>
+<tr class="memdesc:aaeff4de8303b44312aa851f3b7211b1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize and start the HTTP web server.  <br /></td></tr>
+<tr class="memitem:a57da21ce441188971db9deecbbf06529" id="r_a57da21ce441188971db9deecbbf06529"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a57da21ce441188971db9deecbbf06529">webserver_stop</a> ()</td></tr>
+<tr class="memdesc:a57da21ce441188971db9deecbbf06529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the web server.  <br /></td></tr>
 <tr class="memitem:a59de75410c50a6ebac8de34c4560758e" id="r_a59de75410c50a6ebac8de34c4560758e"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a59de75410c50a6ebac8de34c4560758e">webserver_register_handler</a> (httpd_handle_t server, const httpd_uri_t *uri_handler)</td></tr>
-<tr class="memdesc:a59de75410c50a6ebac8de34c4560758e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a URI handler with the web server.  <br /></td></tr>
+<tr class="memdesc:a59de75410c50a6ebac8de34c4560758e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a custom URI handler.  <br /></td></tr>
+<tr class="memitem:a16c940e907ed2e88fc378de78450a6ef" id="r_a16c940e907ed2e88fc378de78450a6ef"><td class="memItemLeft">esp_err_t&#160;</td><td class="memItemRight"><a class="el" href="#a16c940e907ed2e88fc378de78450a6ef">webserver_register_handler_array</a> (httpd_handle_t server, const httpd_uri_t *<a class="el" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e">routes</a>, size_t count)</td></tr>
+<tr class="memdesc:a16c940e907ed2e88fc378de78450a6ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register an array of custom URI handlers.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
+<tr class="memitem:a1c8281dfcfea2431dc78a1dfd6364eb1" id="r_a1c8281dfcfea2431dc78a1dfd6364eb1"><td class="memItemLeft">static const <a class="el" href="structstatic__file__t.html">static_file_t</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1c8281dfcfea2431dc78a1dfd6364eb1">static_files</a> []</td></tr>
+<tr class="memdesc:a1c8281dfcfea2431dc78a1dfd6364eb1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Array of static files embedded in the firmware.  <br /></td></tr>
+<tr class="memitem:a3153817ccce7d112711b4040d836bd82" id="r_a3153817ccce7d112711b4040d836bd82"><td class="memItemLeft">static const size_t&#160;</td><td class="memItemRight"><a class="el" href="#a3153817ccce7d112711b4040d836bd82">static_files_count</a></td></tr>
+<tr class="memdesc:a3153817ccce7d112711b4040d836bd82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of static files embedded in the firmware.  <br /></td></tr>
 <tr class="memitem:abe7b45c4156b4291f93764735fc68c13" id="r_abe7b45c4156b4291f93764735fc68c13"><td class="memItemLeft">static httpd_handle_t&#160;</td><td class="memItemRight"><a class="el" href="#abe7b45c4156b4291f93764735fc68c13">s_server_handle</a> = NULL</td></tr>
-<tr class="memdesc:abe7b45c4156b4291f93764735fc68c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default task priority for the web server task.  <br /></td></tr>
-<tr class="memitem:a92afb04210a0a9bf80ea1c9f1c58fe2c" id="r_a92afb04210a0a9bf80ea1c9f1c58fe2c"><td class="memItemLeft">static TaskHandle_t&#160;</td><td class="memItemRight"><a class="el" href="#a92afb04210a0a9bf80ea1c9f1c58fe2c">s_server_task_handle</a> = NULL</td></tr>
-<tr class="memdesc:a92afb04210a0a9bf80ea1c9f1c58fe2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for the FreeRTOS web server task.  <br /></td></tr>
+<tr class="memdesc:abe7b45c4156b4291f93764735fc68c13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Handle for the HTTP server instance.  <br /></td></tr>
 </table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Implementation of a simple web server using ESP-IDF's HTTP server. </p>
+
+<p class="definition">Definition in file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
 <a id="a7ce0df38eb467e59f209470c8f5ac4e6" name="a7ce0df38eb467e59f209470c8f5ac4e6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ce0df38eb467e59f209470c8f5ac4e6">&#9670;&#160;</a></span>LOG_TAG</h2>
 
@@ -254,7 +272,7 @@ Variables</h2></td></tr>
 
 <p>Tag used for web server logging. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00001">1</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00009">9</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
 </div>
 </div>
@@ -270,11 +288,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default port for the web server. </p>
+<p>Default maximum number of URI handlers. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00029">29</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00030">30</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -292,9 +310,9 @@ Variables</h2></td></tr>
 
 <p>Default port for the web server. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00025">25</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00026">26</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -310,11 +328,11 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default maximum number of URI handlers. </p>
+<p>Default stack size for the web server task. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00033">33</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00034">34</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
 
 </div>
 </div>
@@ -330,17 +348,17 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Default stack size for the web server task. </p>
+<p>Default task priority for the web server task. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00037">37</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00038">38</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
 
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a40f36853d75f35777d20f32d31fcd129" name="a40f36853d75f35777d20f32d31fcd129"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40f36853d75f35777d20f32d31fcd129">&#9670;&#160;</a></span>get_mime_type()</h2>
+<a id="ab54d7f7a60c847e48192e865f40a35a5" name="ab54d7f7a60c847e48192e865f40a35a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab54d7f7a60c847e48192e865f40a35a5">&#9670;&#160;</a></span>asm() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -349,9 +367,117 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * get_mime_type </td>
+          <td class="memname">const uint8_t fredoka_ttf_end[] asm </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td class="paramtype">&quot;_binary_Fredoka_ttf_end&quot;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Memory address of the end of the embedded Fredoka.ttf file. </p>
+
+</div>
+</div>
+<a id="a1c2fbfaddc4610dd33c9bf1699881b95" name="a1c2fbfaddc4610dd33c9bf1699881b95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c2fbfaddc4610dd33c9bf1699881b95">&#9670;&#160;</a></span>asm() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t fredoka_ttf_start[] asm </td>
+          <td>(</td>
+          <td class="paramtype">&quot;_binary_Fredoka_ttf_start&quot;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Memory address of the start of the embedded Fredoka.ttf file. </p>
+
+</div>
+</div>
+<a id="afbf3bf1dbc568e3ffe9983f8681fe425" name="afbf3bf1dbc568e3ffe9983f8681fe425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbf3bf1dbc568e3ffe9983f8681fe425">&#9670;&#160;</a></span>asm() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t index_html_gz_end[] asm </td>
+          <td>(</td>
+          <td class="paramtype">&quot;_binary_index_html_gz_end&quot;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Memory address of the end of the embedded index.html.gz file. </p>
+
+</div>
+</div>
+<a id="a8b388bfbcf4b9f48d176a7c292eff6aa" name="a8b388bfbcf4b9f48d176a7c292eff6aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8b388bfbcf4b9f48d176a7c292eff6aa">&#9670;&#160;</a></span>asm() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const uint8_t index_html_gz_start[] asm </td>
+          <td>(</td>
+          <td class="paramtype">&quot;_binary_index_html_gz_start&quot;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel extern">extern</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Memory address of the start of the embedded index.html.gz file. </p>
+
+</div>
+</div>
+<a id="a953decee81f83cf17c70bebbc753b03a" name="a953decee81f83cf17c70bebbc753b03a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a953decee81f83cf17c70bebbc753b03a">&#9670;&#160;</a></span>get_file_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structstatic__file__t.html">static_file_t</a> * get_file_data </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>path</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -362,51 +488,24 @@ Variables</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Get MIME type based on file extension. </p>
+<p>Retrieve static file data based on the requested path. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>The requested URI path </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the <a class="el" href="structstatic__file__t.html" title="Structure representing a static file embedded in the firmware.">static_file_t</a> structure if found, NULL otherwise </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00055">55</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00098">98</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>.</p>
+<p class="reference">References <a class="el" href="web__server_8c_source.html#l00069">static_files</a>, and <a class="el" href="web__server_8c_source.html#l00085">static_files_count</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00112">static_file_handler()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a40f36853d75f35777d20f32d31fcd129_icgraph.svg" width="631" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-
-</div>
-</div>
-<a id="af26c5903f907fb3d73fe269a81809275" name="af26c5903f907fb3d73fe269a81809275"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af26c5903f907fb3d73fe269a81809275">&#9670;&#160;</a></span>health_check_handler()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">esp_err_t health_check_handler </td>
-          <td>(</td>
-          <td class="paramtype">httpd_req_t *</td>          <td class="paramname"><span class="paramname"><em>req</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>HTTP handler for API health check (GET /api/health). </p>
-
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00134">134</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_af26c5903f907fb3d73fe269a81809275_icgraph.svg" width="482" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a953decee81f83cf17c70bebbc753b03a_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -434,22 +533,29 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>HTTP handler for static files from LittleFS. </p>
+<p>HTTP handler for static files embedded in the firmware. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">req</td><td>Pointer to the HTTP request structure </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, or an error code on failure </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00093">93</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00112">112</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="web__server_8c_source.html#l00055">get_mime_type()</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, and <a class="el" href="storage_8c_source.html#l00052">storage_get_mount_point()</a>.</p>
+<p class="reference">References <a class="el" href="web__server_8c_source.html#l00052">static_file_t::content_encoding</a>, <a class="el" href="web__server_8c_source.html#l00051">static_file_t::content_type</a>, <a class="el" href="web__server_8c_source.html#l00050">static_file_t::end</a>, <a class="el" href="web__server_8c_source.html#l00098">get_file_data()</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, and <a class="el" href="web__server_8c_source.html#l00049">static_file_t::start</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a384bdfcbaf6b7332f9da73c0c667314f_cgraph.svg" width="387" height="91"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a384bdfcbaf6b7332f9da73c0c667314f_cgraph.svg" width="304" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a384bdfcbaf6b7332f9da73c0c667314f_icgraph.svg" width="459" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a384bdfcbaf6b7332f9da73c0c667314f_icgraph.svg" width="548" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -473,20 +579,81 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Register a URI handler with the web server. </p>
-<p>Register a custom URI handler.</p>
+<p>Register a custom URI handler. </p>
+<p>This allows dynamic registration of API endpoints and other custom handlers.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">server</td><td>Handle to the HTTP server instance </td></tr>
-    <tr><td class="paramname">uri_handler</td><td>Pointer to the URI handler struct </td></tr>
+    <tr><td class="paramname">server</td><td>HTTP server handle. </td></tr>
+    <tr><td class="paramname">uri_handler</td><td>Pointer to httpd_uri_t structure. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, ESP_ERR_INVALID_ARG or other error codes on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, error code otherwise. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00278">278</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00202">202</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
 <p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, and <a class="el" href="logger_8h_source.html#l00042">LOGI</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00219">webserver_register_handler_array()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a59de75410c50a6ebac8de34c4560758e_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a16c940e907ed2e88fc378de78450a6ef" name="a16c940e907ed2e88fc378de78450a6ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16c940e907ed2e88fc378de78450a6ef">&#9670;&#160;</a></span>webserver_register_handler_array()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">esp_err_t webserver_register_handler_array </td>
+          <td>(</td>
+          <td class="paramtype">httpd_handle_t</td>          <td class="paramname"><span class="paramname"><em>server</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const httpd_uri_t *</td>          <td class="paramname"><span class="paramname"><em>routes</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>count</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Register an array of custom URI handlers. </p>
+<p>This allows dynamic registration of API endpoints and other custom handlers.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">server</td><td>HTTP server handle. </td></tr>
+    <tr><td class="paramname"><a class="el" href="config__routes_8c.html#a5c767ca09ff9a04df6bcfd347f843a6e" title="Array of URI handlers for the web server configuration routes.">routes</a></td><td>Array of URI handlers to register. </td></tr>
+    <tr><td class="paramname">count</td><td>Number of URI handlers in the array. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ESP_OK on success, error code otherwise. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00219">219</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, and <a class="el" href="web__server_8c_source.html#l00202">webserver_register_handler()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a16c940e907ed2e88fc378de78450a6ef_cgraph.svg" width="352" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a16c940e907ed2e88fc378de78450a6ef_icgraph.svg" width="554" height="56"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -505,37 +672,36 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Start the web server with the given configuration. </p>
-<p>Initialize and start the HTTP web server.</p>
-<p>Initializes storage, configures the HTTP server, registers default handlers, and starts the FreeRTOS task for async operation.</p>
+<p>Initialize and start the HTTP web server. </p>
+<p>The web server serves static files that are embedded in the firmware and supports dynamic handler registration.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">config</td><td>Pointer to webserver configuration struct (optional) </td></tr>
+    <tr><td class="paramname">config</td><td>Configuration structure. If NULL, default values are used. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Handle to the running HTTP server, or NULL on failure </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>HTTP server handle on success, NULL on failure. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00166">166</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00132">132</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="web__server_8c_source.html#l00134">health_check_handler()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>, <a class="el" href="web__server_8c_source.html#l00093">static_file_handler()</a>, <a class="el" href="storage_8c_source.html#l00015">storage_init()</a>, <a class="el" href="web__server_8c_source.html#l00029">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00025">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00033">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00037">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, and <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>.</p>
+<p class="reference">References <a class="el" href="config__routes_8c_source.html#l00416">get_config_routes()</a>, <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="logger_8h_source.html#l00040">LOGW</a>, <a class="el" href="config__routes_8c_source.html#l00403">routes</a>, <a class="el" href="web__server_8c_source.html#l00091">s_server_handle</a>, <a class="el" href="web__server_8c_source.html#l00112">static_file_handler()</a>, <a class="el" href="web__server_8c_source.html#l00030">WEBSERVER_DEFAULT_MAX_HANDLERS</a>, <a class="el" href="web__server_8c_source.html#l00026">WEBSERVER_DEFAULT_PORT</a>, <a class="el" href="web__server_8c_source.html#l00034">WEBSERVER_DEFAULT_STACK_SIZE</a>, <a class="el" href="web__server_8c_source.html#l00038">WEBSERVER_DEFAULT_TASK_PRIORITY</a>, and <a class="el" href="web__server_8c_source.html#l00219">webserver_register_handler_array()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00025">app_main()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00034">network_event_handler()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="584" height="195"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_cgraph.svg" width="526" height="159"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_icgraph.svg" width="271" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_aaeff4de8303b44312aa851f3b7211b1d_icgraph.svg" width="360" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
 </div>
-<a id="a8f90e2a598a55079be4b774202e16dbb" name="a8f90e2a598a55079be4b774202e16dbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f90e2a598a55079be4b774202e16dbb">&#9670;&#160;</a></span>webserver_stop()</h2>
+<a id="a57da21ce441188971db9deecbbf06529" name="a57da21ce441188971db9deecbbf06529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57da21ce441188971db9deecbbf06529">&#9670;&#160;</a></span>webserver_stop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -543,62 +709,24 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void webserver_stop </td>
           <td>(</td>
-          <td class="paramtype">httpd_handle_t</td>          <td class="paramname"><span class="paramname"><em>server</em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Stop the web server and clean up resources. </p>
-<p>Stop the web server and cleanup resources.</p>
-<p>Stops the HTTP server and deletes the FreeRTOS task.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">server</td><td>Handle to the HTTP server instance </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Stop the web server. </p>
+<p>Stop the HTTP server and cleanup resources. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00253">253</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00189">189</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>, and <a class="el" href="web__server_8c_source.html#l00050">s_server_task_handle</a>.</p>
+<p class="reference">References <a class="el" href="logger_8h_source.html#l00038">LOGE</a>, <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, and <a class="el" href="web__server_8c_source.html#l00091">s_server_handle</a>.</p>
 
-</div>
-</div>
-<a id="a642a431098c8aa6cd1adb4282b063e06" name="a642a431098c8aa6cd1adb4282b063e06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a642a431098c8aa6cd1adb4282b063e06">&#9670;&#160;</a></span>webserver_task()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void webserver_task </td>
-          <td>(</td>
-          <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>arg</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>FreeRTOS task function for the HTTP server. Allows non-blocking server operation and future extensibility. </p>
-
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00144">144</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
-
-<p class="reference">References <a class="el" href="logger_8h_source.html#l00042">LOGI</a>, and <a class="el" href="web__server_8c_source.html#l00045">s_server_handle</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="dmx-interface_8c_source.html#l00034">network_event_handler()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a642a431098c8aa6cd1adb4282b063e06_icgraph.svg" width="443" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="web__server_8c_a57da21ce441188971db9deecbbf06529_icgraph.svg" width="358" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -624,17 +752,16 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Default task priority for the web server task. </p>
 <p>Handle for the HTTP server instance. </p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00045">45</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00091">91</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, <a class="el" href="web__server_8c_source.html#l00253">webserver_stop()</a>, and <a class="el" href="web__server_8c_source.html#l00144">webserver_task()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00132">webserver_start()</a>, and <a class="el" href="web__server_8c_source.html#l00189">webserver_stop()</a>.</p>
 
 </div>
 </div>
-<a id="a92afb04210a0a9bf80ea1c9f1c58fe2c" name="a92afb04210a0a9bf80ea1c9f1c58fe2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92afb04210a0a9bf80ea1c9f1c58fe2c">&#9670;&#160;</a></span>s_server_task_handle</h2>
+<a id="a1c8281dfcfea2431dc78a1dfd6364eb1" name="a1c8281dfcfea2431dc78a1dfd6364eb1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c8281dfcfea2431dc78a1dfd6364eb1">&#9670;&#160;</a></span>static_files</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -643,7 +770,7 @@ Here is the caller graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">TaskHandle_t s_server_task_handle = NULL</td>
+          <td class="memname">const <a class="el" href="structstatic__file__t.html">static_file_t</a> static_files[]</td>
         </tr>
       </table>
   </td>
@@ -652,12 +779,56 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                        = {</div>
+<div class="line">    {.path = <span class="stringliteral">&quot;/&quot;</span>,</div>
+<div class="line">     .start = index_html_gz_start,</div>
+<div class="line">     .end = index_html_gz_end,</div>
+<div class="line">     .content_type = <span class="stringliteral">&quot;text/html&quot;</span>,</div>
+<div class="line">     .content_encoding = <span class="stringliteral">&quot;gzip&quot;</span>},</div>
+<div class="line">    {.path = <span class="stringliteral">&quot;/fonts/Fredoka.ttf&quot;</span>,</div>
+<div class="line">     .start = fredoka_ttf_start,</div>
+<div class="line">     .end = fredoka_ttf_end,</div>
+<div class="line">     .content_type = <span class="stringliteral">&quot;font/ttf&quot;</span>,</div>
+<div class="line">     .content_encoding = NULL},</div>
+<div class="line">}</div>
+</div><!-- fragment -->
+<p>Array of static files embedded in the firmware. </p>
 
-<p>Handle for the FreeRTOS web server task. </p>
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00069">69</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00050">50</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00098">get_file_data()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00166">webserver_start()</a>, and <a class="el" href="web__server_8c_source.html#l00253">webserver_stop()</a>.</p>
+</div>
+</div>
+<a id="a3153817ccce7d112711b4040d836bd82" name="a3153817ccce7d112711b4040d836bd82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3153817ccce7d112711b4040d836bd82">&#9670;&#160;</a></span>static_files_count</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const size_t static_files_count</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                                   =</div>
+<div class="line"><span class="keyword">sizeof</span>(<a class="code hl_variable" href="#a1c8281dfcfea2431dc78a1dfd6364eb1">static_files</a>) / <span class="keyword">sizeof</span>(<a class="code hl_struct" href="structstatic__file__t.html">static_file_t</a>)</div>
+<div class="ttc" id="astructstatic__file__t_html"><div class="ttname"><a href="structstatic__file__t.html">static_file_t</a></div><div class="ttdoc">Structure representing a static file embedded in the firmware.</div><div class="ttdef"><b>Definition</b> <a href="web__server_8c_source.html#l00047">web_server.c:47</a></div></div>
+<div class="ttc" id="aweb__server_8c_html_a1c8281dfcfea2431dc78a1dfd6364eb1"><div class="ttname"><a href="#a1c8281dfcfea2431dc78a1dfd6364eb1">static_files</a></div><div class="ttdeci">static const static_file_t static_files[]</div><div class="ttdoc">Array of static files embedded in the firmware.</div><div class="ttdef"><b>Definition</b> <a href="web__server_8c_source.html#l00069">web_server.c:69</a></div></div>
+</div><!-- fragment -->
+<p>Number of static files embedded in the firmware. </p>
+
+<p class="definition">Definition at line <a class="el" href="web__server_8c_source.html#l00085">85</a> of file <a class="el" href="web__server_8c_source.html">web_server.c</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="web__server_8c_source.html#l00098">get_file_data()</a>.</p>
 
 </div>
 </div>

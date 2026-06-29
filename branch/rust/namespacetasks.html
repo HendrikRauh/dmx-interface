@@ -188,9 +188,10 @@ $(function(){initNavTree('namespacetasks.html','',''); });
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7e34b2c5d3cc2f921141ed7eef89b001" id="r_a7e34b2c5d3cc2f921141ed7eef89b001"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7e34b2c5d3cc2f921141ed7eef89b001">_find_esp_port</a> ()</td></tr>
-<tr class="memitem:a0308a0613f3f6fa6ca7d29c0de08de1f" id="r_a0308a0613f3f6fa6ca7d29c0de08de1f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0308a0613f3f6fa6ca7d29c0de08de1f">build</a> (c, board=&quot;lolinS2mini&quot;)</td></tr>
+<tr class="memitem:ab15bfa0b4ff16ea5770c334c38454b44" id="r_ab15bfa0b4ff16ea5770c334c38454b44"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab15bfa0b4ff16ea5770c334c38454b44">build</a> (c, board=&quot;lolinS2mini&quot;, <a class="el" href="#a03e2bac12d45e95c8d42e7ad4a81ee98">release</a>=False)</td></tr>
 <tr class="memitem:af1556e714853d8c36ec135da4ca3d9dc" id="r_af1556e714853d8c36ec135da4ca3d9dc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af1556e714853d8c36ec135da4ca3d9dc">flash</a> (c, port=None)</td></tr>
 <tr class="memitem:a83c7344f678f37244547be5fc808c74a" id="r_a83c7344f678f37244547be5fc808c74a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a83c7344f678f37244547be5fc808c74a">monitor</a> (c, port=None)</td></tr>
+<tr class="memitem:a2ea8673507363fb78ba2e90de74afdf3" id="r_a2ea8673507363fb78ba2e90de74afdf3"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2ea8673507363fb78ba2e90de74afdf3">web_dev</a> (c)</td></tr>
 <tr class="memitem:a03e2bac12d45e95c8d42e7ad4a81ee98" id="r_a03e2bac12d45e95c8d42e7ad4a81ee98"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a03e2bac12d45e95c8d42e7ad4a81ee98">release</a> (c)</td></tr>
 <tr class="memitem:aaf817e12aed19a1a90f3cd4bb1aec5d4" id="r_aaf817e12aed19a1a90f3cd4bb1aec5d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aaf817e12aed19a1a90f3cd4bb1aec5d4">clean</a> (c)</td></tr>
 <tr class="memitem:a9c7192f847c16bc218f824e74eb962a1" id="r_a9c7192f847c16bc218f824e74eb962a1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9c7192f847c16bc218f824e74eb962a1">config</a> (c)</td></tr>
@@ -232,7 +233,7 @@ Variables</h2></td></tr>
 <pre class="fragment">Finds the first matching USB port based on known ESP VIDs/PIDs.</pre> 
 <p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00017">17</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="tasks_8py_source.html#l00054">flash()</a>, and <a class="el" href="tasks_8py_source.html#l00062">monitor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="tasks_8py_source.html#l00058">flash()</a>, and <a class="el" href="tasks_8py_source.html#l00066">monitor()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -241,8 +242,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a0308a0613f3f6fa6ca7d29c0de08de1f" name="a0308a0613f3f6fa6ca7d29c0de08de1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0308a0613f3f6fa6ca7d29c0de08de1f">&#9670;&#160;</a></span>build()</h2>
+<a id="ab15bfa0b4ff16ea5770c334c38454b44" name="ab15bfa0b4ff16ea5770c334c38454b44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab15bfa0b4ff16ea5770c334c38454b44">&#9670;&#160;</a></span>build()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -255,12 +256,24 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>board</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;lolinS2mini&quot;</span>&#160;)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>board</em></span><span class="paramdefsep"> = </span><span class="paramdefval">&quot;lolinS2mini&quot;</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>release</em></span><span class="paramdefsep"> = </span><span class="paramdefval">False</span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Build the project for a specific board (default: lolinS2mini)</pre> 
 <p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00040">40</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="tasks_8py_source.html#l00080">release()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespacetasks_ab15bfa0b4ff16ea5770c334c38454b44_icgraph.svg" width="260" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -279,7 +292,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Clean build artifacts</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00109">109</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00118">118</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -298,7 +311,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Open menuconfig to edit project settings</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00115">115</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00128">128</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -321,7 +334,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Generate Doxygen documentation.</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00166">166</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00182">182</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -340,7 +353,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">List doxygen coverage of documentation.</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00179">179</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00195">195</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -363,7 +376,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Flash the project to device</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00054">54</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00058">58</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 <p class="reference">References <a class="el" href="tasks_8py_source.html#l00017">_find_esp_port()</a>.</p>
 <div class="dynheader">
@@ -389,7 +402,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Format all source files using pre-commit hooks</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00160">160</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00176">176</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -412,7 +425,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Monitor serial output from device</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00062">62</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00066">66</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 <p class="reference">References <a class="el" href="tasks_8py_source.html#l00017">_find_esp_port()</a>.</p>
 <div class="dynheader">
@@ -438,7 +451,14 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Build single binaries for release across all targets</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00070">70</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00080">80</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+
+<p class="reference">References <a class="el" href="tasks_8py_source.html#l00040">build()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="namespacetasks_a03e2bac12d45e95c8d42e7ad4a81ee98_cgraph.svg" width="260" height="39"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -457,7 +477,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Reset project to clean state: remove build, config, and managed components</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00134">134</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00148">148</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -476,7 +496,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Save current config as sdkconfig.defaults</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00121">121</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00134">134</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>
@@ -495,7 +515,26 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 <pre class="fragment">Update project dependencies</pre> 
-<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00127">127</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00140">140</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
+
+</div>
+</div>
+<a id="a2ea8673507363fb78ba2e90de74afdf3" name="a2ea8673507363fb78ba2e90de74afdf3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ea8673507363fb78ba2e90de74afdf3">&#9670;&#160;</a></span>web_dev()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">tasks.web_dev </td>
+          <td>(</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<pre class="fragment">Start web development server with hot reloading</pre> 
+<p class="definition">Definition at line <a class="el" href="tasks_8py_source.html#l00074">74</a> of file <a class="el" href="tasks_8py_source.html">tasks.py</a>.</p>
 
 </div>
 </div>

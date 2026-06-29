@@ -1,0 +1,9 @@
+<map id="network_init" name="network_init">
+<area shape="rect" id="Node000001" title="Initialize the network stack." alt="" coords="5,57,108,85"/>
+<area shape="rect" id="Node000002" href="$network_8c.html#a9bd9f390af7b80b21e4b1bcd75340ea7" title="Event handler for WiFi and IP events to manage network state changes and post appropriate NETWORK_EVE..." alt="" coords="156,5,330,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,54,176,35,177,40,109,60"/>
+<area shape="rect" id="Node000003" href="$network_8c.html#a456493724a89879d5342f60479b15a6a" title="Internal helper function to initialize the WiFi driver with default configuration." alt="" coords="177,57,309,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="108,68,161,68,161,74,108,74"/>
+<area shape="rect" id="Node000004" href="$network_8c.html#ab3d78447c41c0858e4225c3a98ca07b1" title="Callback function for the WiFi reconnect timer." alt="" coords="168,109,318,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="109,83,177,102,176,107,107,88"/>
+</map>

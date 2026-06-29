@@ -1,0 +1,26 @@
+<map id="post_config_handler" name="post_config_handler">
+<area shape="rect" id="Node000001" title="Handler for POST requests to /api/config." alt="" coords="5,57,157,85"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#adbf182647ef90017c070ed7a4d0504fb" title="Flushes all staged RAM changes permanently to the non&#45;volatile storage." alt="" coords="243,5,342,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,54,227,32,228,38,141,59"/>
+<area shape="rect" id="Node000003" href="$web__server__util_8c.html#a5730b5560652e774319067d64887ab0c" title="Helper function to read the entire request body and parse it as JSON." alt="" coords="235,57,350,85"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="157,68,219,68,219,74,157,74"/>
+<area shape="rect" id="Node000004" href="$json__processor_8c.html#a115d1f829601e5e4e791051fa75104a3" title="Validates a cJSON object against the provided json_processor_t definition and executes any associated..." alt="" coords="205,109,380,137"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="141,83,219,102,218,108,140,88"/>
+<area shape="rect" id="Node000005" href="$json__processor_8c.html#a80c690cc84fe0ca03c01fc14930f29aa" title="Execute actions associated with a JSON value based on the specified processor." alt="" coords="428,83,554,110"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="380,109,413,104,413,110,381,114"/>
+<area shape="rect" id="Node000006" href="$json__processor_8c.html#a18fa9d8aaabcbad8fc925217cb1c4434" title="Validate a JSON value against the specified processor." alt="" coords="454,135,528,162"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="381,132,439,139,438,145,380,137"/>
+<area shape="poly" id="edge5_Node000005_Node000005" title=" " alt="" coords="460,83,455,74,459,64,471,58,491,56,512,59,524,65,521,70,511,64,491,61,473,63,463,68,461,73,465,81"/>
+<area shape="rect" id="Node000007" href="$json__processor_8c.html#a26db040b6f7e243d4c0398a01ca6f59d" title="Validate an array against the specified rules." alt="" coords="611,31,727,58"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="527,145,553,132,567,119,576,107,586,94,601,81,635,63,638,68,604,85,590,98,580,110,571,123,556,136,530,150"/>
+<area shape="rect" id="Node000008" href="$json__processor_8c.html#a556cb36db80168fafc9b0179e1d4f9c8" title="Validate a boolean value against the specified rules." alt="" coords="602,83,736,110"/>
+<area shape="poly" id="edge9_Node000006_Node000008" title=" " alt="" coords="528,135,604,113,606,118,530,140"/>
+<area shape="rect" id="Node000009" href="$json__processor_8c.html#aded4a089b92d327b98e2a6351a04f14f" title="Validate a number value against the specified rules." alt="" coords="603,135,735,162"/>
+<area shape="poly" id="edge10_Node000006_Node000009" title=" " alt="" coords="529,146,588,146,588,151,529,151"/>
+<area shape="rect" id="Node000010" href="$json__processor_8c.html#affcd5f5aa862f7acf97402ac896f2a3c" title="Validate an object against the specified rules." alt="" coords="608,187,730,214"/>
+<area shape="poly" id="edge11_Node000006_Node000010" title=" " alt="" coords="520,160,594,185,592,190,518,165"/>
+<area shape="rect" id="Node000011" href="$json__processor_8c.html#a2ee9216e3611025ff4fad91f31ea0697" title="Validate a string value against the specified rules." alt="" coords="610,239,728,266"/>
+<area shape="poly" id="edge13_Node000006_Node000011" title=" " alt="" coords="512,161,553,191,604,224,615,230,613,234,601,228,550,196,509,165"/>
+<area shape="poly" id="edge8_Node000007_Node000006" title=" " alt="" coords="613,56,604,61,590,74,580,86,571,99,556,112,523,130,520,125,553,108,567,95,576,83,586,70,601,57,610,51"/>
+<area shape="poly" id="edge12_Node000010_Node000006" title=" " alt="" coords="641,189,543,158,544,153,642,184"/>
+</map>

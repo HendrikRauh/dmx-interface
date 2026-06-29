@@ -1,7 +1,5 @@
 <map id="static_file_handler" name="static_file_handler">
-<area shape="rect" id="Node000001" title="HTTP handler for static files from LittleFS." alt="" coords="5,32,146,60"/>
-<area shape="rect" id="Node000002" href="$web__server_8c.html#a40f36853d75f35777d20f32d31fcd129" title="Get MIME type based on file extension." alt="" coords="226,5,349,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,34,210,26,210,31,146,40"/>
-<area shape="rect" id="Node000003" href="$storage_8c.html#ac98b76bc834defb11025b066be4ab456" title="Get the mount point for the LittleFS filesystem." alt="" coords="194,57,381,85"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="146,52,179,55,178,61,146,57"/>
+<area shape="rect" id="Node000001" title="HTTP handler for static files embedded in the firmware." alt="" coords="5,5,146,33"/>
+<area shape="rect" id="Node000002" href="$web__server_8c.html#a953decee81f83cf17c70bebbc753b03a" title="Retrieve static file data based on the requested path." alt="" coords="194,5,299,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,16,178,16,178,22,146,22"/>
 </map>

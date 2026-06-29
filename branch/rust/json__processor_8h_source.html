@@ -1,0 +1,371 @@
+<!-- cspell:enableCompoundWords -->
+<!-- cspell:words: mathjax octo octocat -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="generator" content="Doxygen 1.16.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>components/web_server/priv_include/json_processor.h Source File</title>
+    <link href="tabs.css" rel="stylesheet" type="text/css" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript" src="dynsections.js"></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-darkmode-toggle.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-fragment-copy-button.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-paragraph-link.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-interactive-toc.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="doxygen-awesome-tabs.js"
+    ></script>
+    <script type="text/javascript">
+      DoxygenAwesomeFragmentCopyButton.init();
+      DoxygenAwesomeDarkModeToggle.init();
+      DoxygenAwesomeParagraphLink.init();
+      DoxygenAwesomeInteractiveToc.init();
+      DoxygenAwesomeTabs.init();
+    </script>
+    <link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript" src="cookie.js"></script>
+ <link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+    <link href="doxygen.css" rel="stylesheet" type="text/css" />
+    <link href="doxygen-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen-awesome-sidebar-only-darkmode-toggle.css" rel="stylesheet" type="text/css"/>
+<link href="custom.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <!-- https://tholman.com/github-corners/ -->
+    <a
+      href="https://github.com/HendrikRauh/dmx-interface"
+      class="github-corner"
+      title="View source on GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <svg
+        viewBox="0 0 250 250"
+        width="40"
+        height="40"
+        style="position: absolute; top: 0; border: 0; right: 0; z-index: 99"
+        aria-hidden="true"
+      >
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path
+          d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+          fill="currentColor"
+          style="transform-origin: 130px 106px"
+          class="octo-arm"
+        ></path>
+        <path
+          d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+          fill="currentColor"
+          class="octo-body"
+        ></path></svg></a
+    ><style>
+      .github-corner:hover .octo-arm {
+        animation: octocat-wave 560ms ease-in-out;
+      }
+      @keyframes octocat-wave {
+        0%,
+        100% {
+          transform: rotate(0);
+        }
+        20%,
+        60% {
+          transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+          transform: rotate(10deg);
+        }
+      }
+      @media (max-width: 500px) {
+        .github-corner:hover .octo-arm {
+          animation: none;
+        }
+        .github-corner .octo-arm {
+          animation: octocat-wave 560ms ease-in-out;
+        }
+      }
+    </style>
+    <div id="top">
+      <!-- do not remove this div, it is closed by doxygen! -->
+      <div id="titlearea">
+        <table cellspacing="0" cellpadding="0">
+          <tbody>
+            <tr style="height: 56px">
+              <td id="projectlogo">
+                <img alt="Logo" src="favicon.svg" />
+              </td>
+              <td id="projectalign" style="padding-left: 0.5em">
+                <div id="projectname">
+                  ChaosDMX
+                </div>
+                <div id="projectbrief">Open-Source DMX-Interface</div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- end header part -->
+<!-- Generated by Doxygen 1.16.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search/",'.html');
+</script>
+<script type="text/javascript">
+$(function() { codefold.init(); });
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+$(function() {
+  initMenu('',true,false,'search.php','Search',true);
+  $(function() { init_search(); });
+});
+</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(function(){initNavTree('json__processor_8h_source.html','',''); });
+</script>
+<div id="container">
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<div id="MSearchResults">
+<div class="SRPage">
+<div id="SRIndex">
+<div id="SRResults"></div>
+<div class="SRStatus" id="Loading">Loading...</div>
+<div class="SRStatus" id="Searching">Searching...</div>
+<div class="SRStatus" id="NoMatches">No Matches</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="header">
+  <div class="headertitle"><div class="title">json_processor.h</div></div>
+</div><!--header-->
+<div class="contents">
+<a href="json__processor_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#pragma once</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#include &quot;cJSON.h&quot;</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="preprocessor">#include &quot;esp_err.h&quot;</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#include &quot;stdbool.h&quot;</span></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><span class="keyword">extern</span> <span class="stringliteral">&quot;C&quot;</span> {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="foldopen" id="foldopen00035" data-start="" data-end="">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2ef8d77a51d334944295066ad7d15f1a">   35</a></span><span class="preprocessor">#define JSON_PROC_BOOL(act_func)                                               \</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">  &amp;(json_processor_t){.type = JSON_PROCESSOR_TYPE_BOOL,                        \</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">                      .processor.boolean = {.action = (act_func)}}</span></div>
+</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
+<div class="foldopen" id="foldopen00042" data-start="" data-end="">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a6c2918d712ddbfbae85c58612bbbf754">   42</a></span><span class="preprocessor">#define JSON_PROC_INT(min_val, max_val, act_func)                              \</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">  &amp;(json_processor_t){.type = JSON_PROCESSOR_TYPE_INT,                         \</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">                      .processor.number = {.min = (min_val),                   \</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">                                           .max = (max_val),                   \</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">                                           .action = (act_func)}}</span></div>
+</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
+<div class="foldopen" id="foldopen00051" data-start="" data-end="">
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="json__processor_8h.html#abce0042e50296b26051fdf509c75fde3">   51</a></span><span class="preprocessor">#define JSON_PROC_STR(min_len, max_len, act_func)                              \</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">  &amp;(json_processor_t){.type = JSON_PROCESSOR_TYPE_STRING,                      \</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">                      .processor.string = {.min_length = (min_len),            \</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span><span class="preprocessor">                                           .max_length = (max_len),            \</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span><span class="preprocessor">                                           .action = (act_func)}}</span></div>
+</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
+<div class="foldopen" id="foldopen00060" data-start="" data-end="">
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="json__processor_8h.html#aaeaafa5e5fe0651e41d18d507ea4589c">   60</a></span><span class="preprocessor">#define JSON_PROC_OBJ(_processor, count, act_func)                             \</span></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span><span class="preprocessor">  &amp;(json_processor_t){.type = JSON_PROCESSOR_TYPE_OBJECT,                      \</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">                      .processor.object = {.processors = (_processor),         \</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">                                           .num_processors = (count),          \</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">                                           .action = (act_func)}}</span></div>
+</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span></div>
+<div class="foldopen" id="foldopen00069" data-start="" data-end="">
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a622a57891b479d2d3254a634e5655466">   69</a></span><span class="preprocessor">#define JSON_PROC_ARR(_processor, min_len, max_len, act_func)                  \</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span><span class="preprocessor">  &amp;(json_processor_t){.type = JSON_PROCESSOR_TYPE_ARRAY,                       \</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">                      .processor.array = {.min_items = (min_len),              \</span></div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">                                          .max_items = (max_len),              \</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="preprocessor">                                          .item_processor = (_processor),      \</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">                                          .action = (act_func)}}</span></div>
+</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span></div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span></div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="};">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923">   82</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span> {</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">   83</a></span>  <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">JSON_PROCESSOR_TYPE_BOOL</a>,   </div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">   84</a></span>  <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">JSON_PROCESSOR_TYPE_INT</a>,    </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">   85</a></span>  <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">JSON_PROCESSOR_TYPE_STRING</a>, </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">   86</a></span>  <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a>, </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">   87</a></span>  <a class="code hl_enumvalue" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">JSON_PROCESSOR_TYPE_ARRAY</a>,  </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>} <a class="code hl_enumeration" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923">json_processor_type_t</a>;</div>
+</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno"><a class="line" href="json__processor_8h.html#a5a5bfb6f4788167716370072134af6e6">   90</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a> <a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="};">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="structjson__processor__boolean__t.html">   95</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno"><a class="line" href="structjson__processor__boolean__t.html#a3765fb70e9bf8a8aba0b288e8259140e">   98</a></span>  void (*<a class="code hl_variable" href="structjson__processor__boolean__t.html#a3765fb70e9bf8a8aba0b288e8259140e">action</a>)(<span class="keywordtype">bool</span> <a class="code hl_variable" href="structjson__processor__t.html#af22031eff4a52bd31376dfaf11754ccf">boolean</a>);</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>} <a class="code hl_struct" href="structjson__processor__boolean__t.html">json_processor_boolean_t</a>;</div>
+</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
+<div class="foldopen" id="foldopen00104" data-start="{" data-end="};">
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno"><a class="line" href="structjson__processor__number__t.html">  104</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno"><a class="line" href="structjson__processor__number__t.html#a554af0c4df82f11b14b2636b751d4d4e">  105</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structjson__processor__number__t.html#a554af0c4df82f11b14b2636b751d4d4e">min</a>; </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno"><a class="line" href="structjson__processor__number__t.html#a4452d0ecc4e1fee40a3be6243f698a14">  106</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structjson__processor__number__t.html#a4452d0ecc4e1fee40a3be6243f698a14">max</a>; </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno"><a class="line" href="structjson__processor__number__t.html#aefb4afd876ae3664af85b6a9b8eb8ba1">  109</a></span>  void (*<a class="code hl_variable" href="structjson__processor__number__t.html#aefb4afd876ae3664af85b6a9b8eb8ba1">action</a>)(<span class="keywordtype">int</span> number);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>} <a class="code hl_struct" href="structjson__processor__number__t.html">json_processor_number_t</a>;</div>
+</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span></div>
+<div class="foldopen" id="foldopen00115" data-start="{" data-end="};">
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno"><a class="line" href="structjson__processor__string__t.html">  115</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="structjson__processor__string__t.html#a35df68af600517b13d66d323bf65df84">  116</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structjson__processor__string__t.html#a35df68af600517b13d66d323bf65df84">min_length</a>; </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="structjson__processor__string__t.html#aad92fa3e08e20a4eb96b1f4885cd6e93">  117</a></span>  <span class="keywordtype">int</span> <a class="code hl_variable" href="structjson__processor__string__t.html#aad92fa3e08e20a4eb96b1f4885cd6e93">max_length</a>; </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno"><a class="line" href="structjson__processor__string__t.html#a84030c3027c3b880c2c312c0b8c027f0">  120</a></span>  void (*<a class="code hl_variable" href="structjson__processor__string__t.html#a84030c3027c3b880c2c312c0b8c027f0">action</a>)(<span class="keywordtype">char</span> *string);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>} <a class="code hl_struct" href="structjson__processor__string__t.html">json_processor_string_t</a>;</div>
+</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
+<div class="foldopen" id="foldopen00126" data-start="{" data-end="};">
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno"><a class="line" href="structjson__processor__object__entry__t.html">  126</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno"><a class="line" href="structjson__processor__object__entry__t.html#aa14770d12a70751e7470e3cd02861edb">  127</a></span>  <span class="keyword">const</span> <span class="keywordtype">char</span> *<a class="code hl_variable" href="structjson__processor__object__entry__t.html#aa14770d12a70751e7470e3cd02861edb">key</a>;     </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="structjson__processor__object__entry__t.html#a902ac06cd151adfca6a790a882e3b40d">  128</a></span>  <span class="keyword">const</span> <span class="keywordtype">bool</span> <a class="code hl_variable" href="structjson__processor__object__entry__t.html#a902ac06cd151adfca6a790a882e3b40d">required</a>; </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno"><a class="line" href="structjson__processor__object__entry__t.html#a0b90f087137ea88738b372f8d6fb8473">  134</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a> *<a class="code hl_variable" href="structjson__processor__object__entry__t.html#a0b90f087137ea88738b372f8d6fb8473">entry_processor</a>;</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>} <a class="code hl_struct" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a>;</div>
+</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span></div>
+<div class="foldopen" id="foldopen00140" data-start="{" data-end="};">
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno"><a class="line" href="structjson__processor__object__t.html">  140</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="structjson__processor__object__t.html#a55d12a0eb963280da99e127d2bc7f530">  148</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a> *<a class="code hl_variable" href="structjson__processor__object__t.html#a55d12a0eb963280da99e127d2bc7f530">processors</a>;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno"><a class="line" href="structjson__processor__object__t.html#a8800730a6b06be44e4494d77302ad61c">  149</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structjson__processor__object__t.html#a8800730a6b06be44e4494d77302ad61c">num_processors</a>; </div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="structjson__processor__object__t.html#a0b88353199c3cfaae2c75cdaaf6e58f3">  155</a></span>  void (*<a class="code hl_variable" href="structjson__processor__object__t.html#a0b88353199c3cfaae2c75cdaaf6e58f3">action</a>)(<span class="keyword">const</span> cJSON *object);</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>} <a class="code hl_struct" href="structjson__processor__object__t.html">json_processor_object_t</a>;</div>
+</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span></div>
+<div class="foldopen" id="foldopen00161" data-start="{" data-end="};">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="structjson__processor__array__t.html">  161</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno"><a class="line" href="structjson__processor__array__t.html#aefaf8e672dd44a238fbf61bd927d241e">  162</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structjson__processor__array__t.html#aefaf8e672dd44a238fbf61bd927d241e">min_items</a>; </div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno"><a class="line" href="structjson__processor__array__t.html#a2561179437a800e9327ba6085b5ec4bc">  163</a></span>  <span class="keywordtype">size_t</span> <a class="code hl_variable" href="structjson__processor__array__t.html#a2561179437a800e9327ba6085b5ec4bc">max_items</a>; </div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="structjson__processor__array__t.html#a549f77636ff8f2f5c1aba738917828f0">  169</a></span>  <span class="keyword">const</span> <a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a> *<a class="code hl_variable" href="structjson__processor__array__t.html#a549f77636ff8f2f5c1aba738917828f0">item_processor</a>;</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno"><a class="line" href="structjson__processor__array__t.html#a01e4b382362b3f852fb976b72e8bd3c3">  175</a></span>  void (*<a class="code hl_variable" href="structjson__processor__array__t.html#a01e4b382362b3f852fb976b72e8bd3c3">action</a>)(<span class="keyword">const</span> cJSON *array);</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>} <a class="code hl_struct" href="structjson__processor__array__t.html">json_processor_array_t</a>;</div>
+</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span></div>
+<div class="foldopen" id="foldopen00181" data-start="{" data-end="};">
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno"><a class="line" href="structjson__processor__t.html">  181</a></span><span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a> {</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#aa2b2765d8d97f533776fc45d40268c9e">  182</a></span>  <a class="code hl_enumeration" href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923">json_processor_type_t</a> <a class="code hl_variable" href="structjson__processor__t.html#aa2b2765d8d97f533776fc45d40268c9e">type</a>; </div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>  <span class="keyword">union </span>{</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#af22031eff4a52bd31376dfaf11754ccf">  186</a></span>    <a class="code hl_struct" href="structjson__processor__boolean__t.html">json_processor_boolean_t</a> <a class="code hl_variable" href="structjson__processor__t.html#af22031eff4a52bd31376dfaf11754ccf">boolean</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#a7be4ddbf4c9e47bc6d8e3f499d69f203">  187</a></span>    <a class="code hl_struct" href="structjson__processor__number__t.html">json_processor_number_t</a> <a class="code hl_variable" href="structjson__processor__t.html#a7be4ddbf4c9e47bc6d8e3f499d69f203">number</a>;</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162">  188</a></span>    <a class="code hl_struct" href="structjson__processor__string__t.html">json_processor_string_t</a> <a class="code hl_variable" href="structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162">string</a>;</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#a06a4b5341d2262bf25a2749ba69ea2f0">  189</a></span>    <a class="code hl_struct" href="structjson__processor__object__t.html">json_processor_object_t</a> <a class="code hl_variable" href="structjson__processor__t.html#a06a4b5341d2262bf25a2749ba69ea2f0">object</a>;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno"><a class="line" href="structjson__processor__t.html#a91eec0d9f03bcf40393a155d7f3d5435">  190</a></span>    <a class="code hl_struct" href="structjson__processor__array__t.html">json_processor_array_t</a> <a class="code hl_variable" href="structjson__processor__t.html#a91eec0d9f03bcf40393a155d7f3d5435">array</a>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>  } <a class="code hl_variable" href="config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888">processor</a>; </div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>} <a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a>;</div>
+</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>esp_err_t <a class="code hl_function" href="json__processor_8h.html#a115d1f829601e5e4e791051fa75104a3">json_processor_process</a>(<span class="keyword">const</span> cJSON *json,</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>                                 <span class="keyword">const</span> <a class="code hl_struct" href="structjson__processor__t.html">json_processor_t</a> *<a class="code hl_variable" href="config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888">processor</a>,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>                                 <span class="keywordtype">char</span> **out_err);</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>}</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aconfig__routes_8c_html_af6d6e1b4ad171f623ca83b3128801888"><div class="ttname"><a href="config__routes_8c.html#af6d6e1b4ad171f623ca83b3128801888">processor</a></div><div class="ttdeci">static const json_processor_t processor</div><div class="ttdoc">JSON processor definition for validating and processing the entire configuration object received in P...</div><div class="ttdef"><b>Definition</b> <a href="config__routes_8c_source.html#l00131">config_routes.c:131</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a115d1f829601e5e4e791051fa75104a3"><div class="ttname"><a href="json__processor_8h.html#a115d1f829601e5e4e791051fa75104a3">json_processor_process</a></div><div class="ttdeci">esp_err_t json_processor_process(const cJSON *json, const json_processor_t *processor, char **out_err)</div><div class="ttdoc">Validates a cJSON object against the provided json_processor_t definition and executes any associated...</div><div class="ttdef"><b>Definition</b> <a href="json__processor_8c_source.html#l00318">json_processor.c:318</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923">json_processor_type_t</a></div><div class="ttdeci">json_processor_type_t</div><div class="ttdoc">Types of JSON processors that can be defined for validating and processing JSON data.</div><div class="ttdef"><b>Definition</b> <a href="#l00082">json_processor.h:82</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a56243e33b2b2a2f25df366bb09d220be">JSON_PROCESSOR_TYPE_ARRAY</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_ARRAY</div><div class="ttdoc">Processor for JSON arrays.</div><div class="ttdef"><b>Definition</b> <a href="#l00087">json_processor.h:87</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a8e31701113dca5e6a7967b4fefd552ac">JSON_PROCESSOR_TYPE_BOOL</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_BOOL</div><div class="ttdoc">Processor for boolean JSON values.</div><div class="ttdef"><b>Definition</b> <a href="#l00083">json_processor.h:83</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923a971faaa6e80f0fdef2c5fb703aae1a99">JSON_PROCESSOR_TYPE_STRING</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_STRING</div><div class="ttdoc">Processor for string JSON values.</div><div class="ttdef"><b>Definition</b> <a href="#l00085">json_processor.h:85</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923aa49489cc93ebb2eb0a459b76bb06c178">JSON_PROCESSOR_TYPE_INT</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_INT</div><div class="ttdoc">Processor for integer JSON values.</div><div class="ttdef"><b>Definition</b> <a href="#l00084">json_processor.h:84</a></div></div>
+<div class="ttc" id="ajson__processor_8h_html_a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12"><div class="ttname"><a href="json__processor_8h.html#a2b01c129765ff7e58709ae69544c9923afac64598ae6f8953e878e19f520a1e12">JSON_PROCESSOR_TYPE_OBJECT</a></div><div class="ttdeci">@ JSON_PROCESSOR_TYPE_OBJECT</div><div class="ttdoc">Processor for JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="#l00086">json_processor.h:86</a></div></div>
+<div class="ttc" id="astructjson__processor__array__t_html"><div class="ttname"><a href="structjson__processor__array__t.html">json_processor_array_t</a></div><div class="ttdoc">Validator and action for JSON arrays.</div><div class="ttdef"><b>Definition</b> <a href="#l00161">json_processor.h:161</a></div></div>
+<div class="ttc" id="astructjson__processor__array__t_html_a01e4b382362b3f852fb976b72e8bd3c3"><div class="ttname"><a href="structjson__processor__array__t.html#a01e4b382362b3f852fb976b72e8bd3c3">json_processor_array_t::action</a></div><div class="ttdeci">void(* action)(const cJSON *array)</div><div class="ttdef"><b>Definition</b> <a href="#l00175">json_processor.h:175</a></div></div>
+<div class="ttc" id="astructjson__processor__array__t_html_a2561179437a800e9327ba6085b5ec4bc"><div class="ttname"><a href="structjson__processor__array__t.html#a2561179437a800e9327ba6085b5ec4bc">json_processor_array_t::max_items</a></div><div class="ttdeci">size_t max_items</div><div class="ttdoc">Maximum number of items in the array (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00163">json_processor.h:163</a></div></div>
+<div class="ttc" id="astructjson__processor__array__t_html_a549f77636ff8f2f5c1aba738917828f0"><div class="ttname"><a href="structjson__processor__array__t.html#a549f77636ff8f2f5c1aba738917828f0">json_processor_array_t::item_processor</a></div><div class="ttdeci">const json_processor_t * item_processor</div><div class="ttdef"><b>Definition</b> <a href="#l00169">json_processor.h:169</a></div></div>
+<div class="ttc" id="astructjson__processor__array__t_html_aefaf8e672dd44a238fbf61bd927d241e"><div class="ttname"><a href="structjson__processor__array__t.html#aefaf8e672dd44a238fbf61bd927d241e">json_processor_array_t::min_items</a></div><div class="ttdeci">size_t min_items</div><div class="ttdoc">Minimum number of items in the array (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00162">json_processor.h:162</a></div></div>
+<div class="ttc" id="astructjson__processor__boolean__t_html"><div class="ttname"><a href="structjson__processor__boolean__t.html">json_processor_boolean_t</a></div><div class="ttdoc">Validator and action for boolean JSON fields.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">json_processor.h:95</a></div></div>
+<div class="ttc" id="astructjson__processor__boolean__t_html_a3765fb70e9bf8a8aba0b288e8259140e"><div class="ttname"><a href="structjson__processor__boolean__t.html#a3765fb70e9bf8a8aba0b288e8259140e">json_processor_boolean_t::action</a></div><div class="ttdeci">void(* action)(bool boolean)</div><div class="ttdef"><b>Definition</b> <a href="#l00098">json_processor.h:98</a></div></div>
+<div class="ttc" id="astructjson__processor__number__t_html"><div class="ttname"><a href="structjson__processor__number__t.html">json_processor_number_t</a></div><div class="ttdoc">Validator and action for integer JSON fields.</div><div class="ttdef"><b>Definition</b> <a href="#l00104">json_processor.h:104</a></div></div>
+<div class="ttc" id="astructjson__processor__number__t_html_a4452d0ecc4e1fee40a3be6243f698a14"><div class="ttname"><a href="structjson__processor__number__t.html#a4452d0ecc4e1fee40a3be6243f698a14">json_processor_number_t::max</a></div><div class="ttdeci">int max</div><div class="ttdoc">Maximum acceptable value (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00106">json_processor.h:106</a></div></div>
+<div class="ttc" id="astructjson__processor__number__t_html_a554af0c4df82f11b14b2636b751d4d4e"><div class="ttname"><a href="structjson__processor__number__t.html#a554af0c4df82f11b14b2636b751d4d4e">json_processor_number_t::min</a></div><div class="ttdeci">int min</div><div class="ttdoc">Minimum acceptable value (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00105">json_processor.h:105</a></div></div>
+<div class="ttc" id="astructjson__processor__number__t_html_aefb4afd876ae3664af85b6a9b8eb8ba1"><div class="ttname"><a href="structjson__processor__number__t.html#aefb4afd876ae3664af85b6a9b8eb8ba1">json_processor_number_t::action</a></div><div class="ttdeci">void(* action)(int number)</div><div class="ttdef"><b>Definition</b> <a href="#l00109">json_processor.h:109</a></div></div>
+<div class="ttc" id="astructjson__processor__object__entry__t_html"><div class="ttname"><a href="structjson__processor__object__entry__t.html">json_processor_object_entry_t</a></div><div class="ttdoc">Validator and action for entries in JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="#l00126">json_processor.h:126</a></div></div>
+<div class="ttc" id="astructjson__processor__object__entry__t_html_a0b90f087137ea88738b372f8d6fb8473"><div class="ttname"><a href="structjson__processor__object__entry__t.html#a0b90f087137ea88738b372f8d6fb8473">json_processor_object_entry_t::entry_processor</a></div><div class="ttdeci">const json_processor_t * entry_processor</div><div class="ttdef"><b>Definition</b> <a href="#l00134">json_processor.h:134</a></div></div>
+<div class="ttc" id="astructjson__processor__object__entry__t_html_a902ac06cd151adfca6a790a882e3b40d"><div class="ttname"><a href="structjson__processor__object__entry__t.html#a902ac06cd151adfca6a790a882e3b40d">json_processor_object_entry_t::required</a></div><div class="ttdeci">const bool required</div><div class="ttdef"><b>Definition</b> <a href="#l00128">json_processor.h:128</a></div></div>
+<div class="ttc" id="astructjson__processor__object__entry__t_html_aa14770d12a70751e7470e3cd02861edb"><div class="ttname"><a href="structjson__processor__object__entry__t.html#aa14770d12a70751e7470e3cd02861edb">json_processor_object_entry_t::key</a></div><div class="ttdeci">const char * key</div><div class="ttdoc">JSON key to match in the object.</div><div class="ttdef"><b>Definition</b> <a href="#l00127">json_processor.h:127</a></div></div>
+<div class="ttc" id="astructjson__processor__object__t_html"><div class="ttname"><a href="structjson__processor__object__t.html">json_processor_object_t</a></div><div class="ttdoc">Validator and action for JSON objects.</div><div class="ttdef"><b>Definition</b> <a href="#l00140">json_processor.h:140</a></div></div>
+<div class="ttc" id="astructjson__processor__object__t_html_a0b88353199c3cfaae2c75cdaaf6e58f3"><div class="ttname"><a href="structjson__processor__object__t.html#a0b88353199c3cfaae2c75cdaaf6e58f3">json_processor_object_t::action</a></div><div class="ttdeci">void(* action)(const cJSON *object)</div><div class="ttdef"><b>Definition</b> <a href="#l00155">json_processor.h:155</a></div></div>
+<div class="ttc" id="astructjson__processor__object__t_html_a55d12a0eb963280da99e127d2bc7f530"><div class="ttname"><a href="structjson__processor__object__t.html#a55d12a0eb963280da99e127d2bc7f530">json_processor_object_t::processors</a></div><div class="ttdeci">const json_processor_object_entry_t * processors</div><div class="ttdef"><b>Definition</b> <a href="#l00148">json_processor.h:148</a></div></div>
+<div class="ttc" id="astructjson__processor__object__t_html_a8800730a6b06be44e4494d77302ad61c"><div class="ttname"><a href="structjson__processor__object__t.html#a8800730a6b06be44e4494d77302ad61c">json_processor_object_t::num_processors</a></div><div class="ttdeci">size_t num_processors</div><div class="ttdoc">Number of entries in the processors array.</div><div class="ttdef"><b>Definition</b> <a href="#l00149">json_processor.h:149</a></div></div>
+<div class="ttc" id="astructjson__processor__string__t_html"><div class="ttname"><a href="structjson__processor__string__t.html">json_processor_string_t</a></div><div class="ttdoc">Validator and action for string JSON fields.</div><div class="ttdef"><b>Definition</b> <a href="#l00115">json_processor.h:115</a></div></div>
+<div class="ttc" id="astructjson__processor__string__t_html_a35df68af600517b13d66d323bf65df84"><div class="ttname"><a href="structjson__processor__string__t.html#a35df68af600517b13d66d323bf65df84">json_processor_string_t::min_length</a></div><div class="ttdeci">int min_length</div><div class="ttdoc">Minimum acceptable string length (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00116">json_processor.h:116</a></div></div>
+<div class="ttc" id="astructjson__processor__string__t_html_a84030c3027c3b880c2c312c0b8c027f0"><div class="ttname"><a href="structjson__processor__string__t.html#a84030c3027c3b880c2c312c0b8c027f0">json_processor_string_t::action</a></div><div class="ttdeci">void(* action)(char *string)</div><div class="ttdef"><b>Definition</b> <a href="#l00120">json_processor.h:120</a></div></div>
+<div class="ttc" id="astructjson__processor__string__t_html_aad92fa3e08e20a4eb96b1f4885cd6e93"><div class="ttname"><a href="structjson__processor__string__t.html#aad92fa3e08e20a4eb96b1f4885cd6e93">json_processor_string_t::max_length</a></div><div class="ttdeci">int max_length</div><div class="ttdoc">Maximum acceptable string length (inclusive).</div><div class="ttdef"><b>Definition</b> <a href="#l00117">json_processor.h:117</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html"><div class="ttname"><a href="structjson__processor__t.html">json_processor_t</a></div><div class="ttdoc">Union of all possible JSON processor types.</div><div class="ttdef"><b>Definition</b> <a href="#l00181">json_processor.h:181</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_a06a4b5341d2262bf25a2749ba69ea2f0"><div class="ttname"><a href="structjson__processor__t.html#a06a4b5341d2262bf25a2749ba69ea2f0">json_processor_t::object</a></div><div class="ttdeci">json_processor_object_t object</div><div class="ttdef"><b>Definition</b> <a href="#l00189">json_processor.h:189</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_a3a57febd6e732dc22450b7fb601d9162"><div class="ttname"><a href="structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162">json_processor_t::string</a></div><div class="ttdeci">json_processor_string_t string</div><div class="ttdef"><b>Definition</b> <a href="#l00188">json_processor.h:188</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_a7be4ddbf4c9e47bc6d8e3f499d69f203"><div class="ttname"><a href="structjson__processor__t.html#a7be4ddbf4c9e47bc6d8e3f499d69f203">json_processor_t::number</a></div><div class="ttdeci">json_processor_number_t number</div><div class="ttdef"><b>Definition</b> <a href="#l00187">json_processor.h:187</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_a91eec0d9f03bcf40393a155d7f3d5435"><div class="ttname"><a href="structjson__processor__t.html#a91eec0d9f03bcf40393a155d7f3d5435">json_processor_t::array</a></div><div class="ttdeci">json_processor_array_t array</div><div class="ttdef"><b>Definition</b> <a href="#l00190">json_processor.h:190</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_aa2b2765d8d97f533776fc45d40268c9e"><div class="ttname"><a href="structjson__processor__t.html#aa2b2765d8d97f533776fc45d40268c9e">json_processor_t::type</a></div><div class="ttdeci">json_processor_type_t type</div><div class="ttdef"><b>Definition</b> <a href="#l00182">json_processor.h:182</a></div></div>
+<div class="ttc" id="astructjson__processor__t_html_af22031eff4a52bd31376dfaf11754ccf"><div class="ttname"><a href="structjson__processor__t.html#af22031eff4a52bd31376dfaf11754ccf">json_processor_t::boolean</a></div><div class="ttdeci">json_processor_boolean_t boolean</div><div class="ttdef"><b>Definition</b> <a href="#l00186">json_processor.h:186</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+</div><!-- container -->
+<!-- cspell: words: navpath -->
+<!-- HTML footer for doxygen 1.16.1-->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><ul>
+    <li class="navelem"><a href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a href="dir_0a72549e2760402ada88361c3a2bfb8e.html">web_server</a></li><li class="navelem"><a href="dir_57fc089c359d53fb5cddb346ad8a25b3.html">priv_include</a></li><li class="navelem"><a href="json__processor_8h.html">json_processor.h</a></li>
+    <li class="footer">Found an issue or bug? <a href="https://github.com/HendrikRauh/dmx-interface/issues/new">Open an issue on GitHub</a></li>
+  </ul>
+</div>
+</body>
+</html>

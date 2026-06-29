@@ -1,0 +1,15 @@
+<map id="validate_object" name="validate_object">
+<area shape="rect" id="Node000001" title="Validate an object against the specified rules." alt="" coords="5,57,127,85"/>
+<area shape="rect" id="Node000002" href="$json__processor_8c.html#a18fa9d8aaabcbad8fc925217cb1c4434" title="Validate a JSON value against the specified processor." alt="" coords="175,57,249,85"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,77,159,77,159,83,127,83"/>
+<area shape="poly" id="edge6_Node000002_Node000001" title=" " alt="" coords="174,66,142,65,142,60,174,61"/>
+<area shape="rect" id="Node000003" href="$json__processor_8c.html#a26db040b6f7e243d4c0398a01ca6f59d" title="Validate an array against the specified rules." alt="" coords="306,5,421,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,64,326,37,328,42,251,69"/>
+<area shape="rect" id="Node000004" href="$json__processor_8c.html#a556cb36db80168fafc9b0179e1d4f9c8" title="Validate a boolean value against the specified rules." alt="" coords="297,57,430,85"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="250,68,281,68,281,74,250,74"/>
+<area shape="rect" id="Node000005" href="$json__processor_8c.html#aded4a089b92d327b98e2a6351a04f14f" title="Validate a number value against the specified rules." alt="" coords="298,109,429,137"/>
+<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="251,81,308,101,306,106,249,86"/>
+<area shape="rect" id="Node000006" href="$json__processor_8c.html#a2ee9216e3611025ff4fad91f31ea0697" title="Validate a string value against the specified rules." alt="" coords="304,161,423,189"/>
+<area shape="poly" id="edge7_Node000002_Node000006" title=" " alt="" coords="227,83,258,115,298,146,308,152,306,157,296,151,255,118,224,87"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="306,33,250,53,248,48,305,28"/>
+</map>

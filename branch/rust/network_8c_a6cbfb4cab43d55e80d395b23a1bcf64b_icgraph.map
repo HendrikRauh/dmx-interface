@@ -1,0 +1,5 @@
+<map id="network_stop_wifi" name="network_stop_wifi">
+<area shape="rect" id="Node000001" title="Stop the WiFi interface, works for both AP and STA mode." alt="" coords="228,5,367,33"/>
+<area shape="rect" id="Node000002" href="$dmx-interface_8c.html#a9bd9f390af7b80b21e4b1bcd75340ea7" title="Event handler for network events." alt="" coords="5,5,180,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,22,180,22,180,16,212,16"/>
+</map>

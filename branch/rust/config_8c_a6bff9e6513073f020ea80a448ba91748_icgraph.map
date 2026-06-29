@@ -1,0 +1,5 @@
+<map id="config_get_dmx_direction" name="config_get_dmx_direction">
+<area shape="rect" id="Node000001" title="Gets the data direction for a specific port." alt="" coords="198,5,386,33"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#a80f44651104cf24de6d5fd664c46caf2" title="Handler for GET requests to /api/config." alt="" coords="5,5,150,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="182,22,150,22,150,16,182,16"/>
+</map>

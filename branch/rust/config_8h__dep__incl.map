@@ -1,9 +1,18 @@
 <map id="components/config/include/config.h" name="components/config/include/config.h">
-<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="216,5,412,50"/>
+<area shape="rect" id="Node000001" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="374,5,569,50"/>
 <area shape="rect" id="Node000002" href="$button__actions_8c.html" title="Dynamic hardware button execution mapped directly to app configuration." alt="" coords="5,98,207,143"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="251,59,157,100,155,95,249,54"/>
-<area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="230,98,398,143"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="317,66,317,98,311,98,311,66"/>
-<area shape="rect" id="Node000004" href="$dmx-interface_8c.html" title=" " alt="" coords="421,106,583,134"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="374,55,476,104,474,108,372,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="370,57,194,100,193,95,368,52"/>
+<area shape="rect" id="Node000003" href="$config_8c.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32. Implements the private storage structure..." alt="" coords="161,191,328,235"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="360,48,312,68,291,83,272,100,259,121,251,145,246,190,241,190,246,144,254,118,268,96,287,78,310,64,358,43"/>
+<area shape="rect" id="Node000004" href="$mac_8h.html" title="MAC address retrieval for different connection types." alt="" coords="282,98,466,143"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="439,63,399,99,395,96,435,59"/>
+<area shape="rect" id="Node000006" href="$network_8c.html" title="Implementation of network management for WiFi AP and STA modes." alt="" coords="491,98,649,143"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="508,59,548,96,545,99,504,63"/>
+<area shape="rect" id="Node000007" href="$config__routes_8c.html" title="Implementation of the web server configuration routes." alt="" coords="673,98,854,143"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="556,52,694,95,693,100,555,58"/>
+<area shape="rect" id="Node000008" href="$dmx-interface_8c.html" title=" " alt="" coords="877,106,1039,134"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="585,45,867,95,903,103,902,108,865,101,584,50"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="333,154,277,192,274,188,330,149"/>
+<area shape="rect" id="Node000005" href="$mac_8c.html" title="Implementation of MAC address retrieval for different connection types." alt="" coords="352,191,508,235"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="398,155,419,189,415,192,393,157"/>
 </map>

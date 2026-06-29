@@ -1,0 +1,22 @@
+<map id="components/mac/src/mac.c" name="components/mac/src/mac.c">
+<area shape="rect" id="Node000001" title="Implementation of MAC address retrieval for different connection types." alt="" coords="333,5,489,50"/>
+<area shape="rect" id="Node000002" href="$mac_8h.html" title="MAC address retrieval for different connection types." alt="" coords="280,98,342,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="386,52,340,90,337,86,383,48"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="365,98,456,126"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="414,50,414,82,408,82,408,50"/>
+<area shape="rect" id="Node000009" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="481,98,554,126"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="440,48,490,86,487,90,437,53"/>
+<area shape="rect" id="Node000003" href="$config_8h.html" title="Thread&#45;safe configuration component utilizing NVS for ESP32." alt="" coords="225,174,298,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="304,128,281,162,277,159,300,125"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="326,249,397,277"/>
+<area shape="poly" id="edge7_Node000002_Node000007" title=" " alt="" coords="318,125,355,233,350,235,313,127"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,249,86,277"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="226,204,99,246,98,241,224,199"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="110,249,197,277"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="244,204,187,243,184,238,241,200"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="221,249,302,277"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="264,202,264,234,259,234,259,202"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="281,200,333,238,330,242,278,204"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="476,174,559,201"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="520,126,520,158,515,158,515,126"/>
+</map>

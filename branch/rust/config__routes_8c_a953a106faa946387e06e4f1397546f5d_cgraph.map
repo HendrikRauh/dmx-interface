@@ -1,0 +1,7 @@
+<map id="action_set_wifi_ap_config" name="action_set_wifi_ap_config">
+<area shape="rect" id="Node000001" title="Function for actions to update the WiFi access point configuration based on the validated JSON input." alt="" coords="5,36,147,81"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#a5f24f074f99539c2e6606a0eb8c20511" title="Sets the Wi&#45;Fi Access Point password in RAM." alt="" coords="211,5,352,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="147,45,196,38,196,43,147,50"/>
+<area shape="rect" id="Node000003" href="$config_8c.html#a28bbd2f521c109a86d548e23181fc583" title="Sets the Wi&#45;Fi Access Point SSID in RAM." alt="" coords="195,74,368,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="147,66,179,70,178,76,147,71"/>
+</map>

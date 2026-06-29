@@ -1,0 +1,18 @@
+var searchData=
+[
+  ['saveconfig_0',['saveconfig',['../namespacetasks.html#af9e439267dd9694d2c0afaee1c1519e1',1,'tasks']]],
+  ['set_5fpwm_5fduty_1',['set_pwm_duty',['../led_8c.html#aecd6c57a0c34616eda567d5ce860979a',1,'led.c']]],
+  ['static_5ffile_5fhandler_2',['static_file_handler',['../web__server_8c.html#a384bdfcbaf6b7332f9da73c0c667314f',1,'web_server.c']]],
+  ['system_5fget_5fchip_5finfo_3',['system_get_chip_info',['../system_8h.html#a35a3eca001fb8d752a25d1e250a172e8',1,'system_get_chip_info(sys_chip_info_t *chip_info):&#160;system.c'],['../system_8c.html#a35a3eca001fb8d752a25d1e250a172e8',1,'system_get_chip_info(sys_chip_info_t *chip_info):&#160;system.c']]],
+  ['system_5fget_5fcpu_5fusage_4',['system_get_cpu_usage',['../system_8h.html#aab046ddb36be0a40014a68aa1937946d',1,'system_get_cpu_usage(void):&#160;system.c'],['../system_8c.html#aab046ddb36be0a40014a68aa1937946d',1,'system_get_cpu_usage(void):&#160;system.c']]],
+  ['system_5fget_5ffree_5fheap_5',['system_get_free_heap',['../system_8h.html#a6740350e2d604ebb43ec714105f12409',1,'system_get_free_heap(void):&#160;system.c'],['../system_8c.html#a6740350e2d604ebb43ec714105f12409',1,'system_get_free_heap(void):&#160;system.c']]],
+  ['system_5fget_5fmax_5ftemperature_6',['system_get_max_temperature',['../system_8h.html#af602c1b7e752d8a22c7c9148e69fb6dd',1,'system_get_max_temperature(void):&#160;system.c'],['../system_8c.html#af602c1b7e752d8a22c7c9148e69fb6dd',1,'system_get_max_temperature(void):&#160;system.c']]],
+  ['system_5fget_5fmin_5ffree_5fheap_7',['system_get_min_free_heap',['../system_8h.html#a504a18da557fcf0a5b13da55ac34e0e6',1,'system_get_min_free_heap(void):&#160;system.c'],['../system_8c.html#a504a18da557fcf0a5b13da55ac34e0e6',1,'system_get_min_free_heap(void):&#160;system.c']]],
+  ['system_5fget_5freset_5freason_8',['system_get_reset_reason',['../system_8h.html#a156703ab0b846a3a693e7a796ecb7dd7',1,'system_get_reset_reason(void):&#160;system.c'],['../system_8c.html#a156703ab0b846a3a693e7a796ecb7dd7',1,'system_get_reset_reason(void):&#160;system.c']]],
+  ['system_5fget_5ftasks_5flist_9',['system_get_tasks_list',['../system_8h.html#a2ad975db1e5954a7b988ca8e070361f4',1,'system_get_tasks_list(char *buffer, size_t buffer_len):&#160;system.c'],['../system_8c.html#a2ad975db1e5954a7b988ca8e070361f4',1,'system_get_tasks_list(char *buffer, size_t buffer_len):&#160;system.c']]],
+  ['system_5fget_5ftemperature_10',['system_get_temperature',['../system_8h.html#aa0583f6910d1eeab9673273fa671d893',1,'system_get_temperature(void):&#160;system.c'],['../system_8c.html#aa0583f6910d1eeab9673273fa671d893',1,'system_get_temperature(void):&#160;system.c']]],
+  ['system_5fget_5fuptime_5fms_11',['system_get_uptime_ms',['../system_8h.html#ac343b65a1fb9cad2adbfc56fd2c6f226',1,'system_get_uptime_ms(void):&#160;system.c'],['../system_8c.html#ac343b65a1fb9cad2adbfc56fd2c6f226',1,'system_get_uptime_ms(void):&#160;system.c']]],
+  ['system_5fget_5fversion_12',['system_get_version',['../system_8h.html#a4f473a857c4604ea0a1ab4181ec1b401',1,'system_get_version(void):&#160;system.c'],['../system_8c.html#a4f473a857c4604ea0a1ab4181ec1b401',1,'system_get_version(void):&#160;system.c']]],
+  ['system_5finit_13',['system_init',['../system_8h.html#a596afcad2656a8d9fd7f168c7373031c',1,'system_init(void):&#160;system.c'],['../system_8c.html#a596afcad2656a8d9fd7f168c7373031c',1,'system_init(void):&#160;system.c']]],
+  ['system_5fprint_5finfo_14',['system_print_info',['../system_8h.html#a73f9966aa1dae91fff486754fd3088b2',1,'system_print_info(void):&#160;system.c'],['../system_8c.html#a73f9966aa1dae91fff486754fd3088b2',1,'system_print_info(void):&#160;system.c']]]
+];

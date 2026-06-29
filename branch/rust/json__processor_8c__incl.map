@@ -1,0 +1,19 @@
+<map id="components/web_server/src/json_processor.c" name="components/web_server/src/json_processor.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="287,5,468,50"/>
+<area shape="rect" id="Node000002" href="$json__processor_8h.html" title="Header file for JSON processing utilities used in the web server component." alt="" coords="120,98,249,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="327,53,230,94,228,89,325,48"/>
+<area shape="rect" id="Node000006" href="$logger_8h.html" title="Project&#45;wide logging macros based on ESP&#45;IDF&#39;s logging library." alt="" coords="294,98,368,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="368,52,348,86,344,83,363,49"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="392,98,457,126"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="392,49,411,83,407,86,387,52"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="481,98,551,126"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="416,48,482,87,479,92,413,53"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,174,78,201"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="160,129,81,169,79,164,157,124"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="101,174,182,201"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="179,128,159,162,154,159,174,125"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="206,174,288,201"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="197,124,228,160,224,164,193,128"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="312,174,395,201"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="337,125,348,158,342,160,332,127"/>
+</map>

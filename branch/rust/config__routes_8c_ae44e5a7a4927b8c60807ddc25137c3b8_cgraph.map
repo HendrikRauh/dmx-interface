@@ -1,0 +1,7 @@
+<map id="action_set_wifi_sta_config" name="action_set_wifi_sta_config">
+<area shape="rect" id="Node000001" title="Function for actions to update the WiFi station configuration based on the validated JSON input." alt="" coords="5,36,151,81"/>
+<area shape="rect" id="Node000002" href="$config_8c.html#a6eb48f4d3ea6ddb02a72918e67a6604d" title="Sets the Wi&#45;Fi Station password in RAM." alt="" coords="215,5,360,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,45,200,38,200,43,151,50"/>
+<area shape="rect" id="Node000003" href="$config_8c.html#ac45d897af07e006a406c307d54f1d85f" title="Sets the Wi&#45;Fi Station SSID in RAM." alt="" coords="199,74,376,102"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="151,66,183,70,182,76,151,71"/>
+</map>

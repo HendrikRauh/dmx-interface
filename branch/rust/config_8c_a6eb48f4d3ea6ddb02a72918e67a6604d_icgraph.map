@@ -1,0 +1,5 @@
+<map id="config_set_wifi_sta_password" name="config_set_wifi_sta_password">
+<area shape="rect" id="Node000001" title="Sets the Wi&#45;Fi Station password in RAM." alt="" coords="199,5,343,50"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#ae44e5a7a4927b8c60807ddc25137c3b8" title="Function for actions to update the WiFi station configuration based on the validated JSON input." alt="" coords="5,5,151,50"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="183,30,151,30,151,25,183,25"/>
+</map>

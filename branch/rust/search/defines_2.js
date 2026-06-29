@@ -1,16 +1,10 @@
 var searchData=
 [
-  ['led_5fchannel_0',['LED_CHANNEL',['../led_8c.html#a9e917f20402c4bc2dacf745cbdfdd14e',1,'led.c']]],
-  ['led_5fduty_5fres_1',['LED_DUTY_RES',['../led_8c.html#a50ff37c4a32566999d28872ec4162290',1,'led.c']]],
-  ['led_5ffrequency_2',['LED_FREQUENCY',['../led_8c.html#a69f809713e1cc5b7e17539d28dce4cf5',1,'led.c']]],
-  ['led_5fgpio_5fpin_3',['LED_GPIO_PIN',['../led_8c.html#aeaffaa5768d0aaceb2d963a109f702f5',1,'led.c']]],
-  ['led_5fspeed_5fmode_4',['LED_SPEED_MODE',['../led_8c.html#a7b73e39614fabb990c3ee7b0efb831f0',1,'led.c']]],
-  ['led_5ftimer_5',['LED_TIMER',['../led_8c.html#ade3a58ca3fc05681b689884e377a37d5',1,'led.c']]],
-  ['lock_6',['LOCK',['../config_8c.html#aefb7db7456a848e7cefe90816a5aaa88',1,'config.c']]],
-  ['log_5ftag_7',['LOG_TAG',['../button__actions_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;button_actions.c'],['../config_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;config.c'],['../led_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;led.c'],['../logger_8h.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;logger.h'],['../storage_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;storage.c'],['../system_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;system.c'],['../web__server_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;web_server.c'],['../wifi_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;wifi.c'],['../dmx-interface_8c.html#a7ce0df38eb467e59f209470c8f5ac4e6',1,'LOG_TAG:&#160;dmx-interface.c']]],
-  ['logd_8',['LOGD',['../logger_8h.html#aa839997a58e14061861cd634fdb7664d',1,'logger.h']]],
-  ['loge_9',['LOGE',['../logger_8h.html#ae02538a80ad5fc009caec73487d11a8d',1,'logger.h']]],
-  ['logi_10',['LOGI',['../logger_8h.html#a5512e59d578a380a441a70256af997d0',1,'logger.h']]],
-  ['logv_11',['LOGV',['../logger_8h.html#ab78bd305488c62caf8515ee765b1ed49',1,'logger.h']]],
-  ['logw_12',['LOGW',['../logger_8h.html#a07f1b0d507acedeb7550353eba4f6e66',1,'logger.h']]]
+  ['dmx_5fentry_0',['DMX_ENTRY',['../config__routes_8c.html#a6c3db73d7a4ab9fb53144bbc61b5a695',1,'config_routes.c']]],
+  ['dmx_5fports_5f1_1',['DMX_PORTS_1',['../config__routes_8c.html#a36d02ca02fbaad2b63912c528e660e09',1,'config_routes.c']]],
+  ['dmx_5fports_5f2_2',['DMX_PORTS_2',['../config__routes_8c.html#a04884b958bd0fde4d33000f79d28c616',1,'config_routes.c']]],
+  ['dmx_5fports_5f3_3',['DMX_PORTS_3',['../config__routes_8c.html#a803f61ddf6dfdfc447488fadaa1e5c92',1,'config_routes.c']]],
+  ['dmx_5fports_5f4_4',['DMX_PORTS_4',['../config__routes_8c.html#a9329974b95534a3985447d86f56026b3',1,'config_routes.c']]],
+  ['dmx_5fports_5fexpand_5',['DMX_PORTS_EXPAND',['../config__routes_8c.html#a1303a28a127de4c3175af169a8a959e0',1,'config_routes.c']]],
+  ['dmx_5fports_5fexpand_5fhelper_6',['DMX_PORTS_EXPAND_HELPER',['../config__routes_8c.html#a65c9b4db7de291a6539c26d7ad77d71a',1,'config_routes.c']]]
 ];

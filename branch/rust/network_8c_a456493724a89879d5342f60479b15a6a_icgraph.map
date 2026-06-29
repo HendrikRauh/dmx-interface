@@ -1,0 +1,7 @@
+<map id="network_init_wifi" name="network_init_wifi">
+<area shape="rect" id="Node000001" title="Internal helper function to initialize the WiFi driver with default configuration." alt="" coords="289,5,421,33"/>
+<area shape="rect" id="Node000002" href="$network_8c.html#a1129e850b1115fb36f2f96b8f69bc786" title="Initialize the network stack." alt="" coords="139,5,241,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="273,22,241,22,241,16,273,16"/>
+<area shape="rect" id="Node000003" href="$dmx-interface_8c.html#a630544a7f0a2cc40d8a7fefab7e2fe70" title="Main entry point for the DMX Interface application." alt="" coords="5,5,91,33"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="123,22,91,22,91,16,123,16"/>
+</map>

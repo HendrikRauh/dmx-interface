@@ -1,0 +1,5 @@
+<map id="config_set_ip_method" name="config_set_ip_method">
+<area shape="rect" id="Node000001" title="Sets the IP assignment method in RAM." alt="" coords="218,5,381,33"/>
+<area shape="rect" id="Node000002" href="$config__routes_8c.html#a74ff98be3ac220564063ff7173742236" title="Wrapper function for actions to update the IP method based on the validated JSON input." alt="" coords="5,5,170,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="202,22,170,22,170,16,202,16"/>
+</map>

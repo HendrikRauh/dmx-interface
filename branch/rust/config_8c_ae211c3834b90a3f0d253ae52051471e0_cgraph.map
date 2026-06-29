@@ -1,0 +1,5 @@
+<map id="load_factory_defaults" name="load_factory_defaults">
+<area shape="rect" id="Node000001" title="Restores all configuration fields to their factory&#45;defined values in RAM." alt="" coords="5,5,168,33"/>
+<area shape="rect" id="Node000002" href="$mac_8c.html#a91cc2340f5641254431157944fce5ebc" title="Retrieves the MAC address for the specified connection type." alt="" coords="216,5,293,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="168,16,200,16,200,22,168,22"/>
+</map>

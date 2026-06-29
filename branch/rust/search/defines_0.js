@@ -15,5 +15,7 @@ var searchData=
   ['app_5fconfig_5fdmx_5fport_5fcount_12',['APP_CONFIG_DMX_PORT_COUNT',['../config_8h.html#adcbd84cc91f7afef3e2cfe7a0d3e327f',1,'config.h']]],
   ['app_5fconfig_5finvalid_5funiverse_13',['APP_CONFIG_INVALID_UNIVERSE',['../config_8h.html#a5c48372c1b5a9cf28d2204dc3421ece7',1,'config.h']]],
   ['app_5fconfig_5fmagic_14',['APP_CONFIG_MAGIC',['../config_8c.html#aea0a66f4bdc7a4a2f837024fe55c8567',1,'config.c']]],
-  ['app_5fconfig_5fversion_15',['APP_CONFIG_VERSION',['../config_8c.html#ab49cfbb693d17f7996a155add59c7ee4',1,'config.c']]]
+  ['app_5fconfig_5fmax_5fled_5fbrightness_15',['APP_CONFIG_MAX_LED_BRIGHTNESS',['../config_8h.html#a5b0e6883c10990b02bc6312b98e78337',1,'config.h']]],
+  ['app_5fconfig_5fmax_5funiverse_16',['APP_CONFIG_MAX_UNIVERSE',['../config_8h.html#ac692655dab72ee7b85ad6772ddc16014',1,'config.h']]],
+  ['app_5fconfig_5fversion_17',['APP_CONFIG_VERSION',['../config_8c.html#ab49cfbb693d17f7996a155add59c7ee4',1,'config.c']]]
 ];

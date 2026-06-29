@@ -1,5 +1,23 @@
 var searchData=
 [
-  ['wifi_5fap_0',['wifi_ap',['../struct____attribute____.html#ae6af4ebd541e245e3bda15ddb144003a',1,'__attribute__']]],
-  ['wifi_5fsta_1',['wifi_sta',['../struct____attribute____.html#aaeb12ec68255635e1afded9213c248d7',1,'__attribute__']]]
+  ['s_5factive_5fmax_5fbrightness_0',['s_active_max_brightness',['../led_8c.html#ad719978006336a2053aa202a4aecd173',1,'led.c']]],
+  ['s_5fbtn_5fhandle_1',['s_btn_handle',['../button__actions_8c.html#a91dfe019b128afd05a05f3fe50fcd17e',1,'button_actions.c']]],
+  ['s_5fconfig_2',['s_config',['../config_8c.html#a5f638f7893b9b83c0a241170e893395f',1,'config.c']]],
+  ['s_5fconfig_5fbrightness_3',['s_config_brightness',['../led_8c.html#a2b57f0aeb4f65479f4d887a232110d67',1,'led.c']]],
+  ['s_5fconfig_5fmutex_4',['s_config_mutex',['../config_8c.html#aff85db3a742d550fef5f0c3ea3159146',1,'config.c']]],
+  ['s_5fcurrent_5fmode_5',['s_current_mode',['../led_8c.html#ae0c620a39bc88aa343c1972ac1d82818',1,'led.c']]],
+  ['s_5fgenerator_5ftask_5fhandle_6',['s_generator_task_handle',['../led_8c.html#aaee427f32cb91674001e5110382ee2f3',1,'led.c']]],
+  ['s_5fis_5fdirty_7',['s_is_dirty',['../config_8c.html#a2d43871dcf1c3652057d980300d323b3',1,'config.c']]],
+  ['s_5fis_5finitialized_8',['s_is_initialized',['../config_8c.html#ac576f774ee93ff7a2fe7ab44e55d2451',1,'config.c']]],
+  ['s_5fled_5fmutex_9',['s_led_mutex',['../led_8c.html#ab7031427fc69226ac2e6f7fe974a14ac',1,'led.c']]],
+  ['s_5fparam_5fbreathing_10',['s_param_breathing',['../led_8c.html#a77da4146a6d7c0e787c7814281eda3cb',1,'led.c']]],
+  ['s_5fparam_5fperiod_5fms_11',['s_param_period_ms',['../led_8c.html#a98a9af025001b92cb5f5bf3a062f29d8',1,'led.c']]],
+  ['s_5fserver_5fhandle_12',['s_server_handle',['../web__server_8c.html#abe7b45c4156b4291f93764735fc68c13',1,'web_server.c']]],
+  ['ssid_13',['ssid',['../structapp__wifi__creds__t.html#a364b0a40731e3f67eb1ed82737e0148b',1,'app_wifi_creds_t']]],
+  ['sta_5freconnect_14',['sta_reconnect',['../network_8c.html#a452540dbf861801b6862781cdc276522',1,'network.c']]],
+  ['stack_5fsize_15',['stack_size',['../structwebserver__config__t.html#abddc42e655b1a474da760a152a093921',1,'webserver_config_t']]],
+  ['start_16',['start',['../structstatic__file__t.html#a31471656202d6f5d5638c283bdce8096',1,'static_file_t']]],
+  ['static_5ffiles_17',['static_files',['../web__server_8c.html#a1c8281dfcfea2431dc78a1dfd6364eb1',1,'web_server.c']]],
+  ['static_5ffiles_5fcount_18',['static_files_count',['../web__server_8c.html#a3153817ccce7d112711b4040d836bd82',1,'web_server.c']]],
+  ['string_19',['string',['../structjson__processor__t.html#a3a57febd6e732dc22450b7fb601d9162',1,'json_processor_t']]]
 ];

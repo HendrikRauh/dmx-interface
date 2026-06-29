@@ -1,0 +1,17 @@
+<map id="json_processor_array_t" name="json_processor_array_t">
+<area shape="rect" id="Node000001" title="Validator and action for JSON arrays." alt="" coords="14,32,186,60"/>
+<area shape="rect" id="Node000002" href="$structjson__processor__t.html" title="Union of all possible JSON processor types." alt="" coords="351,116,481,144"/>
+<area shape="poly" id="edge8_Node000002_Node000001" title=" " alt="" coords="201,28,265,30,297,35,328,45,353,59,375,77,407,114,403,117,371,81,350,63,326,50,296,40,264,35,201,34"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="354,114,326,106,161,63,162,58,327,101,355,109"/>
+<area shape="rect" id="Node000007" href="$structjson__processor__object__entry__t.html" title="Validator and action for entries in JSON objects." alt="" coords="641,57,806,102"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="496,114,640,90,641,95,497,119"/>
+<area shape="rect" id="Node000003" href="$structjson__processor__boolean__t.html" title="Validator and action for boolean JSON fields." alt="" coords="5,116,195,144"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="210,127,350,127,350,133,210,133"/>
+<area shape="rect" id="Node000004" href="$structjson__processor__number__t.html" title="Validator and action for integer JSON fields." alt="" coords="6,172,194,200"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="209,176,267,168,326,158,378,142,379,147,327,163,268,174,210,181"/>
+<area shape="rect" id="Node000005" href="$structjson__processor__string__t.html" title="Validator and action for string JSON fields." alt="" coords="13,228,187,256"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="202,236,265,225,326,204,348,191,369,175,401,142,405,146,373,178,351,195,328,209,266,230,203,241"/>
+<area shape="rect" id="Node000006" href="$structjson__processor__object__t.html" title="Validator and action for JSON objects." alt="" coords="932,116,1110,144"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="917,138,806,142,641,142,481,136,481,130,641,136,806,136,917,132"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="822,93,936,113,935,118,821,98"/>
+</map>

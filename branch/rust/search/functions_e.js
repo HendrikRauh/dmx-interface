@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['update_0',['update',['../namespacetasks.html#ae6a442521548b207b0e52ce48913e7ac',1,'tasks']]],
-  ['update_5fled_5fgenerator_5funsafe_1',['update_led_generator_unsafe',['../led_8c.html#a1959f7ea0ce47c473c6abdf58dbc22a3',1,'led.c']]]
+  ['post_5fconfig_5fhandler_0',['post_config_handler',['../config__routes_8c.html#a4c2742039454d8db8617a376e24f8e5b',1,'config_routes.c']]]
 ];
