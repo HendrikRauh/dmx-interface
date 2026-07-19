@@ -280,28 +280,30 @@ $(function(){initNavTree('dmx-interface_8c_source.html','',''); });
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span>;</div>
 <div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>  }</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  httpd_handle_t server = <a class="code hl_function" href="web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a>(NULL);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>  <span class="keywordflow">if</span> (server == NULL) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start web server!&quot;</span>);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>  }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Web server started successfully&quot;</span>);</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Open http://192.168.4.1 in your browser&quot;</span>);</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <a class="code hl_function" href="storage_8h.html#af04e3358a0cbdeaa66b72fc40ee015aa">storage_print_info</a>();</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>  vTaskDelay(pdMS_TO_TICKS(1000));</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>  httpd_handle_t server = <a class="code hl_function" href="web__server_8h.html#aaeff4de8303b44312aa851f3b7211b1d">webserver_start</a>(NULL);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>  <span class="keywordflow">if</span> (server == NULL) {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <a class="code hl_define" href="logger_8h.html#ae02538a80ad5fc009caec73487d11a8d">LOGE</a>(<span class="stringliteral">&quot;Failed to start web server!&quot;</span>);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>  }</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Web server started successfully&quot;</span>);</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>  <a class="code hl_define" href="logger_8h.html#a5512e59d578a380a441a70256af997d0">LOGI</a>(<span class="stringliteral">&quot;Open http://192.168.4.1 in your browser&quot;</span>);</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  vTaskDelay(pdMS_TO_TICKS(5000));</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>  <a class="code hl_function" href="storage_8h.html#af04e3358a0cbdeaa66b72fc40ee015aa">storage_print_info</a>();</div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  <a class="code hl_function" href="led_8h.html#a0e14d5bbab37c68be83bb93f0327c328">led_set_brightness</a>(<a class="code hl_function" href="config_8h.html#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a>());</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>  <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a>);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  <a class="code hl_function" href="system_8h.html#a73f9966aa1dae91fff486754fd3088b2">system_print_info</a>();</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>  vTaskDelay(pdMS_TO_TICKS(3000));</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>  <a class="code hl_function" href="led_8h.html#a0e14d5bbab37c68be83bb93f0327c328">led_set_brightness</a>(<a class="code hl_function" href="config_8h.html#a30bb8db7736fceae486f36005a411f5e">config_get_led_brightness</a>());</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>  <a class="code hl_function" href="led_8h.html#a9b0c70ca11b0bdd9e2ea1ec47ba472c4">led_set_mode</a>(<a class="code hl_enumvalue" href="led_8h.html#a6ad21e6046b97022390d7b38aa87ca7ea2f2a18942a0d27f6b3072ba9f64d35f5">LED_MODE_NORMAL</a>);</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  <span class="keywordflow">while</span> (1) {</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    vTaskDelay(pdMS_TO_TICKS(1000));</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  }</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  <a class="code hl_function" href="system_8h.html#a73f9966aa1dae91fff486754fd3088b2">system_print_info</a>();</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  <span class="keywordflow">while</span> (1) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    vTaskDelay(pdMS_TO_TICKS(1000));</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>}</div>
 </div>
 <div class="ttc" id="abutton__actions_8h_html"><div class="ttname"><a href="button__actions_8h.html">button_actions.h</a></div><div class="ttdoc">Hardware button abstraction layer for short and long press detection.</div></div>
 <div class="ttc" id="abutton__actions_8h_html_a4ce0d66c4bf23769fc2c42cf3986b2e3"><div class="ttname"><a href="button__actions_8h.html#a4ce0d66c4bf23769fc2c42cf3986b2e3">button_is_pressed</a></div><div class="ttdeci">bool button_is_pressed(void)</div><div class="ttdoc">Checks if the button is currently physically pressed.</div><div class="ttdef"><b>Definition</b> <a href="button__actions_8c_source.html#l00163">button_actions.c:163</a></div></div>
