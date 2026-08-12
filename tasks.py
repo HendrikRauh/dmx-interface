@@ -10,7 +10,7 @@ import webbrowser
 ## @brief Dictionary mapping supported target boards to their respective sdkconfig.defaults files.
 TARGET_BOARDS = {
     "lolinS2mini": "sdkconfig.defaults",
-    # "lolinS3mini": "sdkconfig.defaults.lolinS3mini", <-- can be added automatically for releases
+    "lolinS3mini": "sdkconfig.defaults.lolinS3mini",
 }
 
 
