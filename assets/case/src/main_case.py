@@ -57,7 +57,7 @@ with BuildPart() as main_body:
     with Locations(
         (box_size[0] / 2, box_size[1] / 4, 0),
         (box_size[0] / 2, -1 * box_size[1] / 4, 0),
-    ): 
+    ):
         Cylinder(
             xlr_main_diameter,
             wall_thickness * 2,
@@ -75,9 +75,8 @@ with BuildPart() as main_body:
     hole_faces = esp.faces().filter_by(GeomType.CYLINDER)
     mounting_holes = [f for f in hole_faces if abs(f.radius - target_radius) < 0.3]
     mounting_holes_pos = [f.center() for f in mounting_holes]
-    
-    
-    support_top_z = esp.bounding_box().min.Z 
+
+    support_top_z = esp.bounding_box().min.Z
     support_height = support_top_z - -main_body.faces().sort_by(Axis.Z)[-2].center().Z
 
     for x, y, z in mounting_holes_pos:
