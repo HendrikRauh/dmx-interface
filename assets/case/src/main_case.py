@@ -10,7 +10,6 @@ except ImportError:
     in_vscode = False
 
 from build123d import (
-    Align,
     Axis,
     Locations,
     Box,
