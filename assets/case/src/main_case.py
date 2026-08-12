@@ -16,6 +16,7 @@ from build123d import (
     Color,
     Compound,
     Cylinder,
+    GeomType,
     Keep,
     Locations,
     Mode,
@@ -41,8 +42,10 @@ xlr_count = 2
 ## Base size of the case (length, width, height)
 box_size = (110, 65, 40)
 
+# %%
+print("Importing STEP file for S2 Mini Board...")
 esp = import_step(f"{PARTS_DIR}/S2 Mini Board_no_hdr.step")
-
+print("STEP file imported successfully.")
 # %%
 
 with BuildPart() as main_body:
@@ -66,6 +69,22 @@ with BuildPart() as main_body:
         -main_body.faces().sort_by(Axis.Y)[-2].center().Y,
         -main_body.faces().sort_by(Axis.Z)[-2].center().Z,
     )
+
+    target_radius = 1.6
+    hole_faces = esp.faces().filter_by(GeomType.CYLINDER)
+    mounting_holes = [f for f in hole_faces if abs(f.radius - target_radius) < 0.3]
+    mounting_holes_pos = [f.center() for f in mounting_holes]
+
+    support_top_z = esp.bounding_box().min.Z
+    support_height = support_top_z - -main_body.faces().sort_by(Axis.Z)[-2].center().Z
+
+    for x, y, z in mounting_holes_pos:
+        with Locations((x, y, z)):
+            Cylinder(
+                target_radius * 2,
+                support_height,
+            )
+
     # Get the Z coordinate of the inner top face
     inner_top_z = main_body.faces().sort_by(Axis.Z)[-2].center().Z
 
