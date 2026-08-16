@@ -2,8 +2,8 @@
   "recommendations": [
     "oxc.oxc-vscode",
     "ms-vscode.cpptools-extension-pack",
+    "xaver.clang-format",
     "streetsidesoftware.code-spell-checker",
-    "esbenp.prettier-vscode",
     "davidanson.vscode-markdownlint",
     "pinage404.nix-extension-pack",
     "yoavbls.pretty-ts-errors",

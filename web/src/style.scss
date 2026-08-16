@@ -1,0 +1,109 @@
+@import "@catppuccin/palette/css/catppuccin.css";
+
+@mixin catppuccin-colors($flavor, $ctp-color, $color) {
+  --color-#{$color}: var(--ctp-#{$flavor}-#{$ctp-color});
+  --color-#{$color}-rgb: var(--ctp-#{$flavor}-#{$ctp-color}-rgb);
+  --color-#{$color}-hsl: var(--ctp-#{$flavor}-#{$ctp-color}-hsl);
+  --color-#{$color}-oklch: var(--ctp-#{$flavor}-#{$ctp-color}-oklch);
+}
+
+@mixin catppuccin-theme($flavor, $accent) {
+  $colors:
+    crust, mantle, base, surface0, surface1, surface2, overlay0, overlay1, overlay2, text, subtext0,
+    subtext1;
+
+  $semantic-colors: (
+    accent: $accent,
+    error: red,
+    warning: yellow,
+    success: green,
+    info: blue,
+  );
+
+  @each $color in $colors {
+    @include catppuccin-colors($flavor, $color, $color);
+  }
+
+  @each $color-name, $ctp-color in $semantic-colors {
+    @include catppuccin-colors($flavor, $ctp-color, $color-name);
+  }
+}
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("/fonts/Fredoka.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    @include catppuccin-theme(latte, teal);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    @include catppuccin-theme(mocha, teal);
+  }
+}
+
+:root {
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+
+  --border-radius-small: 8px;
+  --border-radius-medium: 16px;
+  --border-radius-large: 24px;
+
+  --transition-duration: 0.2s;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 16px;
+  background-color: var(--color-base);
+  color: var(--color-text);
+}
+
+body,
+input,
+select,
+button,
+textarea {
+  font-family: "Fredoka", sans-serif;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--spacing-large);
+}
+
+.centered {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button {
+  background-color: var(--color-accent);
+  color: var(--color-surface0);
+  border: none;
+  border-radius: var(--border-radius-small);
+  padding: var(--spacing-small) var(--spacing-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-duration);
+}

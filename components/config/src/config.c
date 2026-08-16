@@ -13,6 +13,7 @@
 #include "freertos/semphr.h"
 #include "led.h"
 #include "logger.h"
+#include "mac.h"
 #include "nvs.h"
 #include <stdio.h>
 #include <string.h>
@@ -27,14 +28,6 @@
 /* --- Magic & Version Constants --- */
 #define APP_CONFIG_MAGIC 0x43444D58 /**< ASCII for 'CDMX' */
 #define APP_CONFIG_VERSION 4 /**< Incremented when struct layout changes */
-
-/**
- * @brief WIFI credentials structure for both Station and Access Point modes.
- */
-typedef struct {
-  char ssid[32];
-  char password[64];
-} app_wifi_creds_t;
 
 /**
  * @brief Internal configuration storage layout.
@@ -123,8 +116,10 @@ static void load_factory_defaults(void) {
   snprintf(s_config.wifi_sta.password, sizeof(s_config.wifi_sta.password), "%s",
            APP_CONFIG_DEFAULT_STA_PASSWORD);
 
-  snprintf(s_config.wifi_ap.ssid, sizeof(s_config.wifi_ap.ssid), "%s",
-           APP_CONFIG_DEFAULT_AP_SSID_PREFIX);
+  uint8_t mac[6];
+  get_mac(mac, APP_CONFIG_CONN_WIFI_AP);
+  snprintf(s_config.wifi_ap.ssid, sizeof(s_config.wifi_ap.ssid), "%s%02X%02X",
+           APP_CONFIG_DEFAULT_AP_SSID_PREFIX, mac[4], mac[5]);
   snprintf(s_config.wifi_ap.password, sizeof(s_config.wifi_ap.password), "%s",
            APP_CONFIG_DEFAULT_AP_PASSWORD);
 
@@ -364,75 +359,93 @@ bool config_set_dmx_direction(uint8_t port_index,
   return true;
 }
 
-void config_get_wifi_sta_config(wifi_config_t *dest) {
+void config_get_wifi_sta_config(app_wifi_creds_t *dest) {
   if (!s_is_initialized || !dest)
     return;
   LOCK();
-  memset(dest, 0, sizeof(wifi_config_t));
-  memcpy(dest->sta.ssid, s_config.wifi_sta.ssid,
-         sizeof(s_config.wifi_sta.ssid));
-  memcpy(dest->sta.password, s_config.wifi_sta.password,
-         sizeof(s_config.wifi_sta.password));
+  *dest = s_config.wifi_sta;
   UNLOCK();
 }
 
-bool config_set_wifi_sta_config(const wifi_config_t *src) {
-  if (!s_is_initialized || !src)
+bool config_set_wifi_sta_ssid(const char *ssid) {
+  if (!s_is_initialized || !ssid)
     return false;
 
-  if (strnlen((const char *)src->sta.ssid, 32) == 32 ||
-      strnlen((const char *)src->sta.password, 64) == 64) {
-    LOGE("Wi-Fi credentials are not null-terminated or too long!");
+  if (strlen(ssid) > 32) {
+    LOGE("SSID exceeds maximum length (32 characters)");
     return false;
   }
   LOCK();
-  if (memcmp(s_config.wifi_sta.ssid, src->sta.ssid,
-             sizeof(s_config.wifi_sta.ssid)) == 0 &&
-      memcmp(s_config.wifi_sta.password, src->sta.password,
-             sizeof(s_config.wifi_sta.password)) == 0) {
+  if (strcmp(s_config.wifi_sta.ssid, ssid) == 0) {
     UNLOCK();
     return false;
   }
-  memcpy(s_config.wifi_sta.ssid, src->sta.ssid, sizeof(s_config.wifi_sta.ssid));
-  memcpy(s_config.wifi_sta.password, src->sta.password,
-         sizeof(s_config.wifi_sta.password));
+  strcpy(s_config.wifi_sta.ssid, ssid);
   s_is_dirty = true;
   UNLOCK();
   return true;
 }
 
-void config_get_wifi_ap_config(wifi_config_t *dest) {
-  if (!s_is_initialized || !dest)
-    return;
-  LOCK();
-  memset(dest, 0, sizeof(wifi_config_t));
-  memcpy(dest->ap.ssid, s_config.wifi_ap.ssid, sizeof(s_config.wifi_ap.ssid));
-  memcpy(dest->ap.password, s_config.wifi_ap.password,
-         sizeof(s_config.wifi_ap.password));
-  UNLOCK();
-}
-
-bool config_set_wifi_ap_config(const wifi_config_t *src) {
-  if (!s_is_initialized || !src)
+bool config_set_wifi_sta_password(const char *password) {
+  if (!s_is_initialized || !password)
     return false;
 
-  if (strnlen((const char *)src->ap.ssid, 32) == 32 ||
-      strnlen((const char *)src->ap.password, 64) == 64) {
-    LOGE("Wi-Fi credentials are not null-terminated or too long!");
+  if (strlen(password) > 63) {
+    LOGE("Password exceeds maximum length (63 characters)");
     return false;
   }
-
   LOCK();
-  if (memcmp(s_config.wifi_ap.ssid, src->ap.ssid,
-             sizeof(s_config.wifi_ap.ssid)) == 0 &&
-      memcmp(s_config.wifi_ap.password, src->ap.password,
-             sizeof(s_config.wifi_ap.password)) == 0) {
+  if (strcmp(s_config.wifi_sta.password, password) == 0) {
     UNLOCK();
     return false;
   }
-  memcpy(s_config.wifi_ap.ssid, src->ap.ssid, sizeof(s_config.wifi_ap.ssid));
-  memcpy(s_config.wifi_ap.password, src->ap.password,
-         sizeof(s_config.wifi_ap.password));
+  strcpy(s_config.wifi_sta.password, password);
+  s_is_dirty = true;
+  UNLOCK();
+  return true;
+}
+
+void config_get_wifi_ap_config(app_wifi_creds_t *dest) {
+  if (!s_is_initialized || !dest)
+    return;
+  LOCK();
+  *dest = s_config.wifi_ap;
+  UNLOCK();
+}
+
+bool config_set_wifi_ap_ssid(const char *ssid) {
+  if (!s_is_initialized || !ssid)
+    return false;
+
+  if (strlen(ssid) > 32) {
+    LOGE("SSID exceeds maximum length (32 characters)");
+    return false;
+  }
+  LOCK();
+  if (strcmp(s_config.wifi_ap.ssid, ssid) == 0) {
+    UNLOCK();
+    return false;
+  }
+  strcpy(s_config.wifi_ap.ssid, ssid);
+  s_is_dirty = true;
+  UNLOCK();
+  return true;
+}
+
+bool config_set_wifi_ap_password(const char *password) {
+  if (!s_is_initialized || !password)
+    return false;
+
+  if (strlen(password) > 63) {
+    LOGE("Password exceeds maximum length (63 characters)");
+    return false;
+  }
+  LOCK();
+  if (strcmp(s_config.wifi_ap.password, password) == 0) {
+    UNLOCK();
+    return false;
+  }
+  strcpy(s_config.wifi_ap.password, password);
   s_is_dirty = true;
   UNLOCK();
   return true;
@@ -476,7 +489,7 @@ config_button_action_t config_get_button_action(app_button_event_t event) {
  */
 bool config_set_button_action(app_button_event_t event,
                               config_button_action_t action) {
-  if (!s_is_initialized || action >= APP_BUTTON_ACTION_MAX)
+  if (!s_is_initialized || action > APP_BUTTON_ACTION_MAX)
     return false;
   LOCK();
   uint8_t *target = NULL;

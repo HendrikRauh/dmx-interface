@@ -35,6 +35,10 @@
       '';
     };
 
+    npm-wrapper = pkgs.writeShellScriptBin "npm" ''
+      exec ${pkgs.nodejs}/bin/npm --prefix "''${PROJECT_ROOT:-$(pwd)}/web" "$@"
+    '';
+
     pre-commit-check = git-hooks.lib.${system}.run {
       src = ./.;
 
@@ -63,7 +67,11 @@
           args = ["--maxkb=1000"];
         };
         check-case-conflicts.enable = true;
-        check-symlinks.enable = true;
+        check-symlinks = {
+          enable = true;
+          always_run = true;
+          entry = "bash -c 'check-symlinks $(git ls-files)'";
+        };
         editorconfig-checker = {
           enable = true;
           excludes = [
@@ -145,22 +153,18 @@
         cmake-format.enable = true;
 
         # Web-Files
-        prettier = {
+        html-tidy = {
           enable = true;
-          types_or = [
-            "javascript"
-            "jsx"
-            "json"
-            "css"
-            "scss"
-            "html"
-            "yaml"
-          ];
-          excludes = ["\\.md$"];
-          args = [
-            "--write"
-            "--ignore-unknown"
-          ];
+          files = "\\.(html|htm)$";
+          excludes = ["^assets/doxygen/.*$"];
+        };
+        oxfmt = {
+          enable = true;
+          excludes = ["\\.svg"];
+        };
+        oxlint = {
+          enable = true;
+          excludes = ["\\.svg"];
         };
 
         # Nix
@@ -177,22 +181,52 @@
     checks.${system}.pre-commit-check = pre-commit-check;
 
     devShells.${system}.default = pkgs.mkShell {
-      inherit (pre-commit-check) shellHook;
       buildInputs =
         pre-commit-check.enabledPackages
         ++ [
           esp-idf
+          npm-wrapper
           pkgs.clang-tools
           pkgs.doxygen
           pkgs.graphviz
           pkgs.python3
           pkgs.python3Packages.invoke
           pkgs.svgo
+          pkgs.nodejs
         ];
       env = {
         ESPTOOL_BEFORE = "usb_reset";
         GERMAN_DICT_PATH = "${germanDict}";
       };
+      shellHook =
+        pre-commit-check.shellHook
+        + ''
+          # PATH cannot be set in the env attribute set via nix because it causes conflicts
+          export PATH="$PWD/web/node_modules/.bin:$PATH"
+
+          # Install packages from package.json in a sub shell if there are changes in package-lock.json
+          (
+            set -euo pipefail
+
+            alias npm="${pkgs.nodejs}/bin/npm --prefix \"''${PROJECT_ROOT:-$(pwd)}/web\""
+
+            LOCKFILE="web/package-lock.json"
+            HASH_STORE="web/node_modules/.nix-lockfile.hash"
+
+            if [ -f "$LOCKFILE" ]; then
+              CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
+              if [ ! -d "web/node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+                echo "Changes detected in $LOCKFILE. Running npm install..."
+                npm install
+
+                # Update the stored hash so we don't install again next time
+                echo "$CURRENT_HASH" > "$HASH_STORE"
+              fi
+            else
+              echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+            fi
+          )
+        '';
     };
   };
 }

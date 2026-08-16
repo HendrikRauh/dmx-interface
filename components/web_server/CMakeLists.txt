@@ -1,16 +1,22 @@
 idf_component_register(
   SRCS
+  "src/config_routes.c"
+  "src/json_processor.c"
   "src/web_server.c"
-  "src/wifi.c"
+  "src/web_server_util.c"
   INCLUDE_DIRS
   "include"
+  PRIV_INCLUDE_DIRS
+  "priv_include"
   REQUIRES
   esp_http_server
-  storage
   PRIV_REQUIRES
-  freertos
   esp_wifi
   esp_event
   esp_netif
-  nvs_flash
-  logger)
+  cjson
+  config
+  logger
+  EMBED_FILES
+  "../../web/dist/index.html.gz"
+  "../../web/dist/fonts/Fredoka.ttf")

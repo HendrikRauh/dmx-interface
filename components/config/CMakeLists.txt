@@ -7,4 +7,6 @@ idf_component_register(
   nvs_flash
   logger
   led
-  esp_wifi)
+  esp_wifi
+  PRIV_REQUIRES
+  mac)

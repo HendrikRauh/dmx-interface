@@ -168,7 +168,7 @@ Here is a small selection of the most common tasks:
 
 | Command | Description |
 | --- | --- |
-| `inv build` | Build the firmware using ESP-IDF |
+| `inv build` | Build the firmware using ESP-IDF and bundle the website |
 | `inv flash` | Flash the firmware to the ESP32 |
 | `inv monitor` | Monitor the serial output |
 | `inv docs -o` | Generate the documentation using Doxygen and open it in your browser |

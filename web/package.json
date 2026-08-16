@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@catppuccin/palette": "^1.8.0",
+    "lucide-preact": "^1.20.0",
+    "preact": "^10.26.9"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.2",
+    "@types/node": "^25.9.3",
+    "oxlint-tsgolint": "^0.23.0",
+    "sass": "^1.100.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-mock-dev-server": "^2.4.0",
+    "vite-plugin-singlefile": "^2.3.3"
+  }
+}

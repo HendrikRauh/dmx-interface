@@ -13,6 +13,16 @@ dependencies:
       registry_url: https://components.espressif.com/
       type: service
     version: 4.2.0
+  espressif/cjson:
+    component_hash: e788323270d90738662d66fffa910bfe1fba019bba087f01557e70c40485b469
+    dependencies:
+    - name: idf
+      require: private
+      version: '>=5.0'
+    source:
+      registry_url: https://components.espressif.com/
+      type: service
+    version: 1.7.19~2
   espressif/cmake_utilities:
     component_hash: 05165f30922b422b4b90c08845e6d449329b97370fbd06309803d8cb539d79e3
     dependencies:
@@ -27,16 +37,6 @@ dependencies:
     source:
       type: idf
     version: 5.5.2
-  joltwallet/littlefs:
-    component_hash: 150ca47225f7c9917f7f610a5f85e5e93fe3c15402234c23496ff045ad558b0b
-    dependencies:
-    - name: idf
-      require: private
-      version: '>=5.0'
-    source:
-      registry_url: https://components.espressif.com/
-      type: service
-    version: 1.20.2
   someweisguy/esp_dmx:
     component_hash: 9a7cdcf093ef6f44337f2a254bbadbe4c8089c12aec4991cf43a83831a8389f4
     dependencies: []
@@ -47,9 +47,9 @@ dependencies:
     version: 93cd565bb07d6bf9a56b5c62c96f2552a8fc6194
 direct_dependencies:
 - espressif/button
+- espressif/cjson
 - idf
-- joltwallet/littlefs
 - someweisguy/esp_dmx
-manifest_hash: 5bcb669891ec0f98973093f014bb402c65b5e551851f4ac87a3dd0edc0667122
+manifest_hash: 7e804bb9e14750e550d42a00bb0d720933730fd21053c94d2d591739d1639fe3
 target: esp32s2
 version: 2.0.0

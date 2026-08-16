@@ -1,7 +1,12 @@
 /**
  * @file web_server.h
- * @brief Simple HTTP web server component for ESP32 with async FreeRTOS
- * support.
+ * @brief Simple HTTP web server component
+ *
+ * This header defines the interface for a simple web server that serves static
+ * files embedded in the firmware and allows dynamic registration of URI
+ * handlers for API endpoints. The web server is built on top of the ESP-IDF
+ * HTTP server library and provides a convenient way to start, stop, and manage
+ * the server.
  */
 
 #pragma once
@@ -25,9 +30,8 @@ typedef struct {
 /**
  * @brief Initialize and start the HTTP web server.
  *
- * This function creates a FreeRTOS task that manages the HTTP server.
- * It serves static files from the data/ folder and supports dynamic handler
- * registration.
+ * The web server serves static files that are embedded in the firmware and
+ * supports dynamic handler registration.
  *
  * @param config Configuration structure. If NULL, default values are used.
  * @return HTTP server handle on success, NULL on failure.
@@ -35,12 +39,11 @@ typedef struct {
 httpd_handle_t webserver_start(const webserver_config_t *config);
 
 /**
- * @brief Stop the web server and cleanup resources.
+ * @brief Stop the web server
  *
- * @param server HTTP server handle returned by webserver_start().
- *                Safe to pass NULL.
+ * Stop the HTTP server and cleanup resources.
  */
-void webserver_stop(httpd_handle_t server);
+void webserver_stop();
 
 /**
  * @brief Register a custom URI handler.
@@ -53,6 +56,20 @@ void webserver_stop(httpd_handle_t server);
  */
 esp_err_t webserver_register_handler(httpd_handle_t server,
                                      const httpd_uri_t *uri_handler);
+
+/**
+ * @brief Register an array of custom URI handlers.
+ *
+ * This allows dynamic registration of API endpoints and other custom handlers.
+ *
+ * @param server HTTP server handle.
+ * @param routes Array of URI handlers to register.
+ * @param count Number of URI handlers in the array.
+ * @return ESP_OK on success, error code otherwise.
+ */
+esp_err_t webserver_register_handler_array(httpd_handle_t server,
+                                           const httpd_uri_t *routes,
+                                           size_t count);
 
 #ifdef __cplusplus
 }

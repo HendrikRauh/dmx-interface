@@ -1,0 +1,13 @@
+.slider {
+  display: flex;
+  gap: var(--spacing-small);
+
+  input {
+    flex-grow: 1;
+  }
+
+  span {
+    width: 3em;
+    text-align: end;
+  }
+}

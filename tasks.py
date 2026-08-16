@@ -37,17 +37,21 @@ def _find_esp_port():
 
 
 @task
-def build(c, board="lolinS2mini"):
+def build(c, board="lolinS2mini", release=False):
     """Build the project for a specific board (default: lolinS2mini)"""
     if board not in TARGET_BOARDS:
         print(f"❌ Error: Board '{board}' is not defined in TARGET_BOARDS.")
         print(f"Available boards: {', '.join(TARGET_BOARDS.keys())}")
         raise Exit(code=1)
 
-    defaults_file = TARGET_BOARDS[board]
+    c.run("npm run build")
 
+    defaults_file = TARGET_BOARDS[board]
     print(f"-> Building for board: {board} using {defaults_file}")
-    c.run(f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file} build", pty=True)
+
+    # Add Release flag if requested by release task
+    release_flag = " -D CMAKE_BUILD_TYPE=Release" if release else ""
+    c.run(f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file}{release_flag} build", pty=True)
 
 
 @task
@@ -64,6 +68,12 @@ def monitor(c, port=None):
     target_port = port if port else _find_esp_port()
     print(f"-> Using serial port: {target_port}")
     c.run(f"idf.py monitor -p {target_port}", pty=True)
+
+
+@task
+def web_dev(c):
+    """Start web development server with hot reloading"""
+    c.run("npm run dev", pty=True)
 
 
 @task
@@ -89,8 +99,7 @@ def release(c):
         if os.path.exists("sdkconfig"):
             os.remove("sdkconfig")
 
-        build_cmd = f"idf.py -D SDKCONFIG_DEFAULTS={defaults_file} -D CMAKE_BUILD_TYPE=Release build"
-        c.run(build_cmd, pty=True)
+        build(c, board=board, release=True)
 
         c.run("idf.py merge-bin", pty=True)
 
@@ -110,11 +119,15 @@ def clean(c):
     """Clean build artifacts"""
     c.run("idf.py fullclean", pty=True)
 
+    path = "web/dist"
+    if os.path.exists(path):
+        shutil.rmtree(path)
+
 
 @task
 def config(c):
     """Open menuconfig to edit project settings"""
-    c.run("idf.py menuconfig", pty=True)
+    c.run("idf.py menuconfig --color-scheme monochrome", pty=True)
 
 
 @task
@@ -127,6 +140,7 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies", pty=True)
+    c.run("npm update", pty=True)
     c.run("nix flake update", pty=True)
 
 
@@ -145,6 +159,8 @@ def reset(c):
         "build",
         "docs/doxygen",
         "managed_components",
+        "web/dist",
+        "web/node_modules",
     ]
 
     for f in files_to_remove:
