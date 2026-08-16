@@ -127,6 +127,7 @@ def saveconfig(c):
 def update(c):
     """Update project dependencies"""
     c.run("idf.py update-dependencies", pty=True)
+    c.run("uv lock", pty=True)
     c.run("nix flake update", pty=True)
 
 
@@ -179,3 +180,9 @@ def docs(c, o=False):
 def docs_coverage(c):
     """List doxygen coverage of documentation."""
     c.run("python tools/doxy-coverage.py docs/doxygen/xml --no-error", pty=True)
+
+
+@task
+def generate_case(c):
+    """Generate 3D model of the case and export STL/STEP files."""
+    c.run("python assets/case/src/main_case.py", pty=True)

@@ -53,6 +53,7 @@ __pycache__/
 venv/
 venv*/
 .env
+tempCodeRunnerFile.py
 
 # Logs / temp
 *.log
@@ -64,6 +65,7 @@ docs/doxygen/*
 
 # Misc
 *.local
+assets/case/output/*
 
 # Keep Snyk instructions file tracked (project policy)
 # .github/instructions/snyk_rules.instructions.md

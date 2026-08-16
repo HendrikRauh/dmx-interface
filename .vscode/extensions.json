@@ -8,6 +8,8 @@
     "pinage404.nix-extension-pack",
     "yoavbls.pretty-ts-errors",
     "ms-python.python",
-    "ms-python.black-formatter"
+    "ms-python.black-formatter",
+    "bernhard-42.ocp-cad-viewer",
+    "ms-toolsai.jupyter"
   ]
 }
