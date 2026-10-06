@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["USB_PID","USB_VID"],"fn":["control_monitor","enter_bootloader","set_force_download","task"],"static":["BOS_DESCRIPTOR","CDC_STATE","CONFIG_DESCRIPTOR","CONTROL_BUF","EP_OUT_BUFFER"]};

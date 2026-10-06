@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["KEY_CFG","NS_CONFIG","NVS_OFFSET","NVS_SIZE"],"struct":["ConfigStorage"]};

@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"mod":["boards","config","hardware","storage"],"static":["ESP_APP_DESC"]};
