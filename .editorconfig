@@ -12,6 +12,10 @@ trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
 
+# Rust files - 4 space indent
+[*.rs]
+indent_size = 4
+
 # Python files - 4 space indent
 [*.py]
 indent_size = 4

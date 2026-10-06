@@ -142,7 +142,7 @@ export function DmxForm() {
                 }}
               />
             </LabeledInput>
-            <LabeledInput label={`Art-Net Universe for Port ${index}`}>
+            <LabeledInput label={`DMX Universe for Port ${index}`}>
               <input
                 type="number"
                 name={`universe-${index}`}

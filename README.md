@@ -1,9 +1,7 @@
 # ChaosDMX
 
-> [!WARNING]
-> This project is currently in a rewrite phase, we are currently switching the Framework from [Arduino](https://www.arduino.cc/) to [ESP-IDF](https://developer.espressif.com/tags/esp-idf/) and are reworking the codebase.
-> The current state is not stable, but you can check out the [legacy/arduino](https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino) branch.
-> Feel free to help us by [contributing](#-contributing) to the project!
+> [!NOTE]
+> Built with Rust (`esp-hal`, `no_std`, embassy). The legacy Arduino-based firmware lives in the [legacy/arduino branch](https://github.com/HendrikRauh/dmx-interface/tree/legacy/arduino).
 
 ChaosDMX is an open-source, multi-protocol DIY [DMX](https://en.wikipedia.org/wiki/DMX512) interface that acts as a versatile bridge between lighting
 control software (e.g., [QLC+](https://www.qlcplus.org/)) and physical stage equipment like fixtures, spotlights, moving heads, and fog machines.
@@ -68,7 +66,7 @@ ______________________________________________________________________
 ## 🚀 Installation
 
 1. Connect the ESP32 to your computer using a USB cable.
-2. Flash the firmware to the ESP32 using the provided [flash tool](https://hendrikrauh.github.io/dmx-interface/flasher/) or by using a command line tool of your choice (e.g., `esptool.py`).<br>You can find the latest firmware release on the [releases page](https://github.com/HendrikRauh/dmx-interface/releases).
+2. Flash the firmware to the ESP32 using the provided [flash tool](https://hendrikrauh.github.io/dmx-interface/flasher/) or by using a command line tool of your choice (e.g., `espflash`).<br>You can find the latest firmware release on the [releases page](https://github.com/HendrikRauh/dmx-interface/releases).
 3. Connect to the WiFi network with the [default configuration](#default-config) and access the web interface.
 
 > [!TIP]
@@ -168,30 +166,28 @@ Here is a small selection of the most common tasks:
 
 | Command | Description |
 | --- | --- |
-| `inv build` | Build the firmware using ESP-IDF and bundle the website |
-| `inv flash` | Flash the firmware to the ESP32 |
+| `inv build` | Build the firmware and bundle the website |
+| `inv flash` | Build (if needed) and flash the firmware, then start the monitor |
+| `inv release` | Build release binaries for all supported targets |
 | `inv monitor` | Monitor the serial output |
-| `inv docs -o` | Generate the documentation using Doxygen and open it in your browser |
+| `inv docs` | Generate the documentation using rustdoc |
+| `inv format` | Run all pre-commit hooks |
+
+> [!NOTE]
+> The xtensa target and `-Zbuild-std` are preconfigured in `.cargo/config.toml`,
+> so plain `cargo build` / `cargo check` work inside the dev shell.
 
 ### Pre-commit hooks
 
 This project uses [git-hooks.nix](https://github.com/cachix/git-hooks.nix) to run code quality, formatting, and consistency checks. When using the dev-shell, these run before your commit and format the code etc.
 If you are not using the dev-shell, the action runner will do the check on the repository again and check it for you.
 
-### Documentation
-
-Further documentation including data structures and code can be found on [hendrikrauh.github.io/dmx-interface](https://hendrikrauh.github.io/dmx-interface/).
-[Doxygen](https://www.doxygen.nl/) is used to generate the documentation from the source code, you can also generate it locally by running `inv docs` or `inv docs -o` to open it in your browser after generation.
-Functions, variables, and data structures should be documented using Doxygen comments, look at the [Doxygen manual](https://www.doxygen.nl/manual/docblocks.html) for more information on how to write these comments.
-
-The documentation for your branch will be automatically generated and published under `https://hendrikrauh.github.io/dmx-interface/branch/<your-branch-name>` when you push your changes.
-
 ### Troubleshooting
 
-We had an issue that the `inv flash` fails with a protocol error, to fix it we put the ESP in bootloader-mode and flash directly
+We had an issue that the `flash` command fails with a protocol error. To fix it, put the ESP in bootloader-mode and flash directly using `espflash`:
 
 ```bash
-ESPTOOL_BEFORE=usb_reset esptool.py --chip esp32s2 -p /dev/ttyACM0 -b 460800 write_flash --flash_mode dio --flash_freq 80m --flash_size 4MB 0x1000 build/bootloader/bootloader.bin 0x10000 build/dmx-interface.bin 0x8000 build/partition_table/partition-table.bin 0x110000 build/storage.bin
+espflash flash --monitor target/xtensa-esp32s2-none-elf/debug/dmx-interface --port /dev/ttyACM0
 ```
 
 ______________________________________________________________________

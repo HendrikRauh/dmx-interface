@@ -21,17 +21,29 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
-        with:
-          submodules: recursive
 
       - name: Install Nix and pre-warm flake devShell
         if: github.event_name == 'push'
         uses: ./.github/actions/install-nix
 
-      - name: Build Doxygen Documentation from flake devShell
+      - name: Build Documentation from flake devShell
         if: github.event_name == 'push'
         run: |
           nix develop --command invoke docs
+        shell: bash
+
+      - name: Get documentation path
+        if: github.event_name == 'push'
+        id: docpath
+        run: |
+          # The devShell shellHook (npm install, pre-commit install) prints to
+          # stdout as well, so only keep the final line printed by `invoke`.
+          DOC_PATH=$(nix develop --command invoke docspath 2>/dev/null | tail -n1)
+          if [[ ! -d "$DOC_PATH" ]]; then
+            echo "Documentation path does not exist: $DOC_PATH" >&2
+            exit 1
+          fi
+          echo "path=$DOC_PATH" >> "$GITHUB_OUTPUT"
         shell: bash
 
       - name: Deploy Branch Docs
@@ -39,7 +51,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: docs/doxygen/html
+          folder: ${{ steps.docpath.outputs.path }}
           target-folder: branch/${{ github.ref_name }}
           clean: true
 

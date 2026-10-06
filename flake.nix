@@ -1,233 +1,232 @@
 # cspell:words: ESPTOOL_BEFORE
 {
-  description = "dmx-interface development environment";
+  description = "dmx-interface ESP32 Rust development environment (esp-hal, no_std)";
 
   inputs = {
-    esp-dev.url = "github:mirrexagon/nixpkgs-esp-dev";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
     git-hooks.inputs.nixpkgs.follows = "nixpkgs";
     git-hooks.url = "github:cachix/git-hooks.nix";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+
+    esp-rs-nix.url = "github:leighleighleigh/esp-rs-nix";
+
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = {
-    esp-dev,
-    git-hooks,
     nixpkgs,
+    flake-utils,
+    git-hooks,
+    esp-rs-nix,
     ...
-  }: let
-    esp-idf = esp-dev.packages.${system}.esp-idf-full;
-    pkgs = nixpkgs.legacyPackages.${system};
-    system = "x86_64-linux";
+  }:
+    flake-utils.lib.eachDefaultSystem (
+      system: let
+        pkgs = import nixpkgs {inherit system;};
 
-    germanDict = pkgs.stdenv.mkDerivation {
-      name = "cspell-dict-de";
-      src = pkgs.fetchurl {
-        url = "https://registry.npmjs.org/@cspell/dict-de-de/-/dict-de-de-4.1.2.tgz";
-        hash = "sha256-bikoewusguLv1UvP2x3k9/KpSfBfNP1H88Xfqa1zaUE=";
-      };
+        esp-rs = esp-rs-nix.packages.${system}.esp-rs;
 
-      # cspell:ignore-words dont
-      dontBuild = true;
-      dontConfigure = true;
-      installPhase = ''
-        mkdir -p $out
-        cp -r * $out/
-      '';
-    };
+        germanDict = pkgs.stdenv.mkDerivation {
+          name = "cspell-dict-de";
+          src = pkgs.fetchurl {
+            url = "https://registry.npmjs.org/@cspell/dict-de-de/-/dict-de-de-4.1.2.tgz";
+            hash = "sha256-bikoewusguLv1UvP2x3k9/KpSfBfNP1H88Xfqa1zaUE=";
+          };
 
-    npm-wrapper = pkgs.writeShellScriptBin "npm" ''
-      exec ${pkgs.nodejs}/bin/npm --prefix "''${PROJECT_ROOT:-$(pwd)}/web" "$@"
-    '';
-
-    pre-commit-check = git-hooks.lib.${system}.run {
-      src = ./.;
-
-      excludes = [
-        "\\.bin$"
-        "\\.elf$"
-        "\\.hex$"
-        "\\.o$"
-        "^assets/case/"
-        "^build/"
-        "^dependencies\\.lock$"
-        "^docs/doxygen/"
-        "^docs/external/"
-        "^flake\\.lock$"
-        "^latex/"
-        "^managed_components/"
-        "^sdkconfig$"
-      ];
-
-      hooks = {
-        # General
-        action-validator.enable = true;
-        actionlint.enable = true;
-        check-added-large-files = {
-          enable = true;
-          args = ["--maxkb=1000"];
+          # cspell:ignore-words dont
+          dontBuild = true;
+          dontConfigure = true;
+          installPhase = ''
+            mkdir -p $out
+            cp -r * $out/
+          '';
         };
-        check-case-conflicts.enable = true;
-        check-symlinks = {
-          enable = true;
-          always_run = true;
-          entry = "bash -c 'check-symlinks $(git ls-files)'";
-        };
-        editorconfig-checker = {
-          enable = true;
+
+        pre-commit-check = git-hooks.lib.${system}.run {
+          src = ./.;
+
           excludes = [
-            "\\.c$"
-            "\\.cpp$"
-            "\\.h$"
-            "\\.hpp$"
-            "\\.md$"
+            "\\.bin$"
+            "\\.elf$"
+            "\\.hex$"
+            "\\.o$"
+            "^build/"
+            "^web/dist/"
+            "^web/node_modules/"
+            "^flake\\.lock$"
             "^\\.envrc$"
-            "CMakeLists\\.txt$"
           ];
+
+          hooks = {
+            # General
+            check-added-large-files = {
+              enable = true;
+              args = ["--maxkb=1000"];
+            };
+            check-case-conflicts.enable = true;
+            check-merge-conflicts.enable = true;
+            check-toml.enable = true;
+            check-yaml.enable = true;
+            check-json.enable = true;
+            end-of-file-fixer.enable = true;
+            fix-byte-order-marker.enable = true;
+            mixed-line-endings = {
+              enable = true;
+              args = ["--fix=lf"];
+            };
+            trim-trailing-whitespace.enable = true;
+
+            # Secrets
+            detect-private-keys.enable = true;
+            ripsecrets.enable = true;
+
+            # Shell
+            check-executables-have-shebangs.enable = true;
+            check-shebang-scripts-are-executable = {
+              enable = true;
+              excludes = ["\\.rs$"];
+            };
+            shellcheck = {
+              enable = true;
+              excludes = ["^\\.envrc$"];
+            };
+            shfmt.enable = true;
+
+            # Python
+            python-debug-statements.enable = true;
+            ruff-format.enable = true;
+            ruff.enable = true;
+
+            # Rust
+            rustfmt.enable = true;
+            # Sorting only: cargo-sort's formatter indents TOML arrays differently
+            # than taplo, so both hooks would rewrite Cargo.toml back and forth.
+            cargo-sort = {
+              enable = true;
+              entry = "${pkgs.cargo-sort}/bin/cargo-sort --no-format";
+            };
+            rust-docs = {
+              enable = true;
+              name = "rust-docs";
+              description = "Check Rust doc coverage (LEVEL/FILE_DOC in check-rust-docs.sh)";
+              entry = "bash ${./.}/scripts/check-rust-docs.sh";
+              files = "\\.rs$";
+              excludes = ["^build\\.rs$"];
+              types = ["file"];
+              language = "unsupported";
+              pass_filenames = true;
+            };
+            # clippy disabled: ICE on xtensa target (clippy can't create LLVM TargetMachine for xtensa-none-elf)
+            cargo-check = {
+              enable = true;
+              name = "cargo-check";
+              entry = "cargo check --features esp32s2";
+              files = "\\.rs$";
+              excludes = ["^build\\.rs$"];
+              types = ["file"];
+              language = "system";
+              pass_filenames = false;
+            };
+
+            # TOML
+            taplo = {
+              enable = true;
+              excludes = ["^\\.direnv/"];
+            };
+
+            # TypeScript / JSX
+            oxfmt = {
+              enable = true;
+              excludes = ["\\.svg"];
+            };
+            oxlint = {
+              enable = true;
+              excludes = ["\\.svg"];
+            };
+
+            # Nix
+            alejandra.enable = true;
+            deadnix.enable = true;
+            flake-checker.enable = true;
+            statix.enable = true;
+
+            # Documentation / Spelling
+            markdownlint.enable = true;
+            mdformat = {
+              enable = true;
+              args = ["--number"];
+            };
+            cspell = {
+              enable = true;
+              args = ["--no-must-find-files"];
+            };
+
+            # SCSS / CSS
+            prettier = {
+              enable = true;
+              types_or = [
+                "scss"
+                "css"
+              ];
+            };
+          };
         };
-        end-of-file-fixer.enable = true;
-        fix-byte-order-marker.enable = true;
-        mixed-line-endings = {
-          enable = true;
-          args = ["--fix=lf"];
+      in {
+        checks.pre-commit-check = pre-commit-check;
+
+        devShells.default = pkgs.mkShell {
+          buildInputs =
+            pre-commit-check.enabledPackages
+            ++ [
+              esp-rs
+              pkgs.rustup
+              pkgs.rust-analyzer
+              pkgs.espflash
+              pkgs.esptool
+              pkgs.nodejs
+              pkgs.taplo
+
+              pkgs.git
+              pkgs.libclang
+              pkgs.python3.pkgs.invoke
+              pkgs.python3.pkgs.pyserial
+              pkgs.python3
+              pkgs.svgo
+              pkgs.renovate
+            ];
+
+          env = {
+            RUSTUP_TOOLCHAIN = "${esp-rs}";
+            LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
+            GERMAN_DICT_PATH = "${germanDict}";
+          };
+
+          shellHook =
+            pre-commit-check.shellHook
+            + ''
+              export PATH="$PWD/web/node_modules/.bin:$PATH"
+
+              (
+                set -euo pipefail
+                cd web
+
+                LOCKFILE="package-lock.json"
+                HASH_STORE="node_modules/.nix-lockfile.hash"
+
+                if [ -f "$LOCKFILE" ]; then
+                  CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
+                  if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+                    echo "Changes detected in $LOCKFILE. Running npm install..."
+                    npm install
+
+                    echo "$CURRENT_HASH" > "$HASH_STORE"
+                  fi
+                else
+                  echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+                fi
+              )
+            '';
         };
-        trim-trailing-whitespace.enable = true;
-
-        # YAML, JSON & TOML
-        check-json.enable = true;
-        check-toml.enable = true;
-        check-yaml.enable = true;
-        yamllint = {
-          enable = true;
-          args = [
-            "--strict"
-            "-d"
-            "{extends: default, rules: {line-length: {max: 120}, document-start: disable}}"
-          ];
-        };
-
-        # Secrets
-        detect-private-keys.enable = true;
-        ripsecrets.enable = true;
-
-        # Shell
-        check-executables-have-shebangs.enable = true;
-        check-shebang-scripts-are-executable.enable = true;
-        shellcheck = {
-          enable = true;
-          excludes = ["^\\.envrc$"];
-        };
-        shfmt.enable = true;
-
-        # Python
-        python-debug-statements.enable = true;
-        ruff-format.enable = true;
-        ruff.enable = true;
-
-        # Documentation
-        doxygen-coverage = {
-          enable = true;
-          name = "doxygen code coverage";
-          entry = "tools/doxy-coverage.py docs/doxygen/xml --threshold=100 --generate-docs";
-          files = "\\.(c|cc|cxx|cxxm|cpp|cppm|ccm|c++|c++m|java|ii|ixx|ipp|i++|inl|idl|ddl|odl|h|hh|hxx|hpp|h++|l|cs|d|php|php4|php5|phtml|inc|m|markdown|md|mm|dox|py|pyw|f90|f95|f03|f08|f18|f|for|vhd|vhdl|ucf|qsf|ice)$"; # cspell:disable-line
-          pass_filenames = false;
-        };
-        markdownlint.enable = true;
-        mdformat = {
-          enable = true;
-          args = ["--number"];
-        };
-        cspell = {
-          enable = true;
-          args = ["--no-must-find-files"];
-        };
-
-        # C/C++ & Build-Systems
-        clang-format = {
-          enable = true;
-          types_or = [
-            "c"
-            "c++"
-          ];
-          args = ["-i"];
-        };
-        cmake-format.enable = true;
-
-        # Web-Files
-        html-tidy = {
-          enable = true;
-          files = "\\.(html|htm)$";
-          excludes = ["^assets/doxygen/.*$"];
-        };
-        oxfmt = {
-          enable = true;
-          excludes = ["\\.svg"];
-        };
-        oxlint = {
-          enable = true;
-          excludes = ["\\.svg"];
-        };
-
-        # Nix
-        alejandra.enable = true;
-        deadnix.enable = true;
-        flake-checker.enable = true;
-        statix.enable = true;
-
-        # Git
-        check-merge-conflicts.enable = true;
-        convco.enable = true;
-      };
-    };
-  in {
-    checks.${system}.pre-commit-check = pre-commit-check;
-
-    devShells.${system}.default = pkgs.mkShell {
-      buildInputs =
-        pre-commit-check.enabledPackages
-        ++ [
-          esp-idf
-          npm-wrapper
-          pkgs.clang-tools
-          pkgs.doxygen
-          pkgs.graphviz
-          pkgs.python3
-          pkgs.python3Packages.invoke
-          pkgs.svgo
-          pkgs.nodejs
-        ];
-      env = {
-        ESPTOOL_BEFORE = "usb_reset";
-        GERMAN_DICT_PATH = "${germanDict}";
-      };
-      shellHook =
-        pre-commit-check.shellHook
-        + ''
-          # PATH cannot be set in the env attribute set via nix because it causes conflicts
-          export PATH="$PWD/web/node_modules/.bin:$PATH"
-
-          # Install packages from package.json in a sub shell if there are changes in package-lock.json
-          (
-            set -euo pipefail
-
-            alias npm="${pkgs.nodejs}/bin/npm --prefix \"''${PROJECT_ROOT:-$(pwd)}/web\""
-
-            LOCKFILE="web/package-lock.json"
-            HASH_STORE="web/node_modules/.nix-lockfile.hash"
-
-            if [ -f "$LOCKFILE" ]; then
-              CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
-              if [ ! -d "web/node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
-                echo "Changes detected in $LOCKFILE. Running npm install..."
-                npm install
-
-                # Update the stored hash so we don't install again next time
-                echo "$CURRENT_HASH" > "$HASH_STORE"
-              fi
-            else
-              echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
-            fi
-          )
-        '';
-    };
-  };
+      }
+    );
 }

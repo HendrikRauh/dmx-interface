@@ -1,0 +1,47 @@
+[package]
+name = "dmx-interface"
+version = "0.1.0"
+edition = "2024"
+description = "ESP32-S2 based DMX interface with web configuration (no_std)"
+license = "MIT OR Apache-2.0"
+
+[features]
+esp32s2 = [
+  "esp-backtrace/esp32s2",
+  "esp-bootloader-esp-idf/esp32s2",
+  "esp-hal/esp32s2",
+  "esp-rtos/esp32s2",
+]
+
+[dependencies]
+embassy-executor = "0.10.0"
+embassy-futures = "0.1"
+embassy-time = "0.5.0"
+embassy-usb = { version = "0.6.0", default-features = false }
+enumset = "1"
+esp-alloc = "0.7"
+esp-backtrace = { version = "0.19.0", features = ["panic-handler", "println"] }
+esp-bootloader-esp-idf = "0.5.0"
+esp-hal = { version = "1.1.0", features = ["log-04", "unstable"] }
+esp-nvs = { version = "0.5", features = ["esp32s2"] }
+esp-println = { version = "0.17.0", default-features = false, features = [
+  "esp32s2",
+  "log-04",
+  "no-op",
+] }
+esp-rtos = { version = "0.3.0", features = ["embassy", "log-04"] }
+esp-storage = "0.9"
+esp32s2 = { version = "0.31", features = ["critical-section", "rt"] }
+heapless = { version = "0.7", features = ["serde"] }
+postcard = "1"
+serde = { version = "1", default-features = false, features = ["derive"] }
+static_cell = "2"
+
+[profile.dev]
+opt-level = 1
+
+[profile.release]
+lto = true
+codegen-units = 1
+opt-level = "s"
+strip = true

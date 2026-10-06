@@ -1,9 +1,0 @@
-## IDF Component Manager Manifest File
-dependencies:
-  idf:
-    version: '>=4.1.0'
-  someweisguy/esp_dmx:
-    git: https://github.com/davispolito/esp_dmx.git
-    # version: v4.1.0
-  espressif/button: ^4.1.7
-  espressif/cjson: ^1.7.19~2

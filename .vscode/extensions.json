@@ -1,13 +1,14 @@
 {
   "recommendations": [
+    "rust-lang.rust-analyzer",
+    "vadimcn.vscode-lldb",
+    "tamasfe.even-better-toml",
     "oxc.oxc-vscode",
-    "ms-vscode.cpptools-extension-pack",
-    "xaver.clang-format",
     "streetsidesoftware.code-spell-checker",
     "davidanson.vscode-markdownlint",
     "pinage404.nix-extension-pack",
     "yoavbls.pretty-ts-errors",
     "ms-python.python",
-    "ms-python.black-formatter"
+    "charliermarsh.ruff"
   ]
 }

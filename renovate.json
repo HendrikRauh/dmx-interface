@@ -3,10 +3,43 @@
   "extends": [
     "config:recommended"
   ],
+  "baseBranchPatterns": ["main", "idf", "rust", "no-std"],
+  "timezone": "Europe/Berlin",
+  "schedule": ["before 4am"],
   "nix": {
     "enabled": true
   },
-  "git-submodules": {
-    "enabled": true
-  }
+  "dependencyDashboard": false,
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 0,
+  "platformAutomerge": true,
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "description": "Automerge patch and minor updates for Cargo crates",
+      "matchManagers": ["cargo"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge patch and minor updates for npm packages",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge patch and minor for GitHub Actions",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "minor"],
+      "automerge": true
+    },
+    {
+      "description": "Disable automerge for Nix updates (can break dev shell)",
+      "matchManagers": ["nix"],
+      "automerge": false
+    }
+  ]
 }

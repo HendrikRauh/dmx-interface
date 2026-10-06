@@ -3,6 +3,7 @@ import { defineMock, MockRequest } from "vite-plugin-mock-dev-server";
 import { deepMerged } from "../src/util/deep-merge";
 
 let data: Config = {
+  version: 0,
   connection: 0,
   ip_method: 1,
   led_brightness: 20,
@@ -12,6 +13,12 @@ let data: Config = {
     0: { universe: 1, direction: 0 },
     1: { universe: 2, direction: 1 },
   } as { [index: number]: DmxPort },
+  button_actions: {
+    0: 1,
+    1: 0,
+    2: 2,
+    3: 0,
+  } as { [index: number]: ButtonAction },
 };
 
 export default defineMock([

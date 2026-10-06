@@ -1,20 +1,7 @@
 # Ignore build artifacts and generated files
-build/
-managed_components/
-docs/doxygen/
-docs/external/
+target/
 .direnv/
 *.lock
 
-# Ignore sdkconfig (generated)
-sdkconfig
-sdkconfig.old
-
 # SVGs are formatted with svgo instead
 *.svg
-# Ignore dependencies
-dependencies.lock
-
-# Ignore doxygen header / footer (unclosed / unopened div that is required)
-assets/doxygen/header.html
-assets/doxygen/footer.html
