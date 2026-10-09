@@ -30,7 +30,7 @@ pub struct ConfigStorage<'a> {
     nvs: Nvs<FlashStorage<'a>>,
 }
 
-impl<'a> ConfigStorage<'a> {
+impl ConfigStorage<'_> {
     /// Initialize NVS storage.
     ///
     /// Must be called once at startup before any load/save operations.

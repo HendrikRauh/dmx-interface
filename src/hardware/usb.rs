@@ -83,17 +83,17 @@ pub async fn task(usb0: USB0<'static>, dp: GPIO20<'static>, dm: GPIO19<'static>)
         &mut [],
         CONTROL_BUF.init([0u8; 64]),
     );
-    let mut class = CdcAcmClass::new(&mut builder, CDC_STATE.init(State::new()), 64);
+    let class = CdcAcmClass::new(&mut builder, CDC_STATE.init(State::new()), 64);
     let mut device = builder.build();
 
     println!("USB-CDC ready");
-    join(device.run(), control_monitor(&mut class)).await;
+    join(device.run(), control_monitor(&class)).await;
     unreachable!()
 }
 
 /// Polls the DTR/RTS control lines and mirrors them onto the strapping
 /// semantics (see module docs).
-async fn control_monitor(class: &mut CdcAcmClass<'static, Driver<'static>>) -> ! {
+async fn control_monitor(class: &CdcAcmClass<'static, Driver<'static>>) -> ! {
     let mut prev = (class.dtr(), class.rts());
     loop {
         Timer::after(Duration::from_millis(10)).await;
@@ -116,6 +116,9 @@ async fn control_monitor(class: &mut CdcAcmClass<'static, Driver<'static>>) -> !
 /// The register lives in the RTC domain and survives a software reset, so
 /// the ROM bootloader sees it on the next boot.
 fn set_force_download(armed: bool) {
+    // SAFETY: RTC registers are always memory-mapped; `steal()` only bypasses
+    // singleton ownership of the peripheral and `modify` leaves every other
+    // bit of `RTC_CNTL_OPTION1` untouched.
     let rtc_cntl = unsafe { esp32s2::RTC_CNTL::steal() };
     rtc_cntl
         .options1()

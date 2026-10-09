@@ -23,7 +23,7 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | `inv build --release` | Release build (LTO, `opt-level=s`) |
 | `inv flash` | Build → convert to bin → flash via esptool (USB CDC) |
 | `inv monitor` | Serial monitor via espflash |
-| `inv check` | `cargo check --features esp32s2` |
+| `inv check` | Strict clippy for the xtensa target (flags in `tasks.py`) |
 | `inv clean` | `cargo clean` |
 | `inv format` | `pre-commit run --all-files` |
 | `inv docs` | Generate rustdoc + redirect |
@@ -38,7 +38,10 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 - **build-std**: `["alloc", "core"]` in `.cargo/config.toml` — do NOT pass `-Zbuild-std` on command line.
 - **Linker**: `linkall.x` + `nostartfiles` via `.cargo/config.toml` rustflags (no `ldproxy`).
 - **esp_bootloader_esp_idf::esp_app_desc!()**: required in `main.rs` even with no_std (bootloader compatibility).
-- **Clippy disabled**: ICE on xtensa target (`clippy can't create LLVM TargetMachine for xtensa-none-elf`). `rustfmt` is the only Rust linter.
+- **Clippy**: works on the xtensa target (the old ICE is gone) and runs strict — `-D warnings` plus `-D clippy::pedantic` and cherry-picked restriction/nursery lints for
+  no_std firmware (arithmetic overflow, undocumented `unsafe`, `as` conversions, indexing/slicing, `unwrap`, needless `&mut`, std-instead-of-core drift, etc.). Flags live
+  in `tasks.py` (`_CLIPPY_ARGS`), used by `inv check` and by the pre-commit hook (`entry = "invoke check"`). Never pass `--all-targets`: the `test` crate does not exist
+  for this target, so `cargo test`/`--all-targets` cannot build.
 
 ## Flake env vars
 
@@ -92,7 +95,7 @@ After flashing, `inv flash` clears `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` via es
 
 Configured in `flake.nix` via `git-hooks.nix`. Key formatters/linters:
 
-- **Rust**: rustfmt + cargo-check (no clippy — ICE)
+- **Rust**: rustfmt + cargo-clippy (`inv check`: warnings as errors, pedantic, plus firmware restriction/nursery lints — full set in `tasks.py` `_CLIPPY_ARGS`, replaces cargo-check)
 - **Rust docs**: `scripts/check-rust-docs.sh` (LEVEL/FILE_DOC toggles)
 - **Python**: ruff + ruff-format
 - **Nix**: alejandra + deadnix + statix + flake-checker

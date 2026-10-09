@@ -116,11 +116,15 @@
               language = "unsupported";
               pass_filenames = true;
             };
-            # clippy disabled: ICE on xtensa target (clippy can't create LLVM TargetMachine for xtensa-none-elf)
-            cargo-check = {
+            # Clippy lints the whole crate; it subsumes `cargo check`.
+            # Flags live in tasks.py (`_CLIPPY_ARGS`) so there is one source
+            # of truth. Must not use --all-targets: `cargo test` cannot build
+            # on the no_std xtensa target (no `test` crate).
+            cargo-clippy = {
               enable = true;
-              name = "cargo-check";
-              entry = "cargo check --features esp32s2";
+              name = "cargo-clippy";
+              description = "Strict clippy for the xtensa target (via invoke check)";
+              entry = "invoke check";
               files = "\\.rs$";
               excludes = ["^build\\.rs$"];
               types = ["file"];

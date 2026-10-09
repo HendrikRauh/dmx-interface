@@ -169,11 +169,40 @@ def format(c):
     c.run("pre-commit run --all-files", pty=True)
 
 
+# Clippy flags: everything is an error. Groups: default lints (via -D
+# warnings) + pedantic. Cherry-picked restriction/nursery lints that matter
+# for no_std firmware: panic-prone indexing/slicing, silent `as` conversions,
+# `unwrap` without context, needless `&mut`, std-instead-of-core drift,
+# forgotten guards (`mem_forget`), string slicing, wildcard enum matches,
+# `todo!`/`dbg!`, stale SAFETY comments, and multiple unsafe ops per block.
+# The pre-commit hook runs the same thing via `invoke check` (see flake.nix).
+_CLIPPY_ARGS = (
+    "-D warnings "
+    "-D clippy::pedantic "
+    "-D clippy::arithmetic_side_effects "
+    "-D clippy::undocumented_unsafe_blocks "
+    "-D clippy::as_conversions "
+    "-D clippy::indexing_slicing "
+    "-D clippy::unwrap_used "
+    "-D clippy::needless_pass_by_ref_mut "
+    "-D clippy::std_instead_of_core "
+    "-D clippy::std_instead_of_alloc "
+    "-D clippy::alloc_instead_of_core "
+    "-D clippy::mem_forget "
+    "-D clippy::string_slice "
+    "-D clippy::wildcard_enum_match_arm "
+    "-D clippy::todo "
+    "-D clippy::dbg_macro "
+    "-D clippy::unnecessary_safety_comment "
+    "-D clippy::multiple_unsafe_ops_per_block"
+)
+
+
 @task
 def check(c, board=_DEFAULT_BOARD):
-    """Run cargo check for a specific board."""
+    """Type-check and lint a specific board (clippy subsumes cargo check)."""
     _, _, features = _board_args(board)
-    c.run(f"cargo check --features {features}", pty=True)
+    c.run(f"cargo clippy --features {features} -- {_CLIPPY_ARGS}", pty=True)
 
 
 @task(help={"o": "Open documentation in the default browser after generation."})

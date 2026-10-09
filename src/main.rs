@@ -52,12 +52,21 @@ async fn main(spawner: Spawner) -> ! {
         const HEAP_SIZE: usize = 8 * 1024;
         /// Backing memory for the heap allocator.
         static mut HEAP_MEM: [u8; HEAP_SIZE] = [0u8; HEAP_SIZE];
-        unsafe {
-            esp_alloc::HEAP.add_region(HeapRegion::new(
-                core::ptr::addr_of_mut!(HEAP_MEM) as *mut u8,
+        let heap_ptr = core::ptr::addr_of_mut!(HEAP_MEM).cast::<u8>();
+        // SAFETY: `heap_ptr` points to the whole `HEAP_MEM` array, which is
+        // valid for `'static`, exclusively owned by the allocator afterwards,
+        // handed over exactly once, and `size > 0`.
+        let region = unsafe {
+            HeapRegion::new(
+                heap_ptr,
                 HEAP_SIZE,
                 esp_alloc::MemoryCapability::Internal.into(),
-            ));
+            )
+        };
+        // SAFETY: the heap region is registered exactly once at init time,
+        // before anything allocates.
+        unsafe {
+            esp_alloc::HEAP.add_region(region);
         }
     }
 
@@ -83,7 +92,7 @@ async fn main(spawner: Spawner) -> ! {
             clock_source: LSClockSource::APBClk,
             frequency: Rate::from_khz(1),
         })
-        .unwrap();
+        .expect("LEDC timer0 config failed");
 
     let mut led = ledc.channel(channel::Number::Channel0, peripherals.GPIO7);
     led.configure(channel::config::Config {
@@ -91,7 +100,7 @@ async fn main(spawner: Spawner) -> ! {
         duty_pct: 0,
         drive_mode: esp_hal::gpio::DriveMode::PushPull,
     })
-    .unwrap();
+    .expect("LEDC channel0 config failed");
 
     println!("Init complete — LED blink");
 
@@ -103,10 +112,10 @@ async fn main(spawner: Spawner) -> ! {
     let start = Instant::now();
 
     loop {
-        let elapsed = start.elapsed().as_millis() as u64;
-        hardware::led::apply(&mut led, &effect, 100, elapsed);
-        diag_ticks += 1;
-        if diag_ticks % 50 == 0 {
+        let elapsed = start.elapsed().as_millis();
+        hardware::led::apply(&led, &effect, 100, elapsed);
+        diag_ticks = diag_ticks.wrapping_add(1);
+        if diag_ticks.is_multiple_of(50) {
             diag.toggle();
         }
         Timer::after(Duration::from_millis(10)).await;

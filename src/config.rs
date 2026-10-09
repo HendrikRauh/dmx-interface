@@ -25,7 +25,7 @@ impl Default for DmxMode {
     }
 }
 
-/// WiFi operating mode.
+/// `WiFi` operating mode.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum WifiMode {
     /// Access Point mode (creates its own network).
@@ -60,12 +60,12 @@ impl Default for DmxPortConfig {
     }
 }
 
-/// WiFi station configuration.
+/// `WiFi` station configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WifiStaConfig {
     /// SSID to connect to.
     pub ssid: String<MAX_STR_LEN>,
-    /// WiFi password.
+    /// `WiFi` password.
     pub password: String<MAX_STR_LEN>,
 }
 
@@ -79,7 +79,7 @@ impl Default for WifiStaConfig {
     }
 }
 
-/// WiFi access point configuration.
+/// `WiFi` access point configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WifiApConfig {
     /// AP SSID (default: derived from MAC address).
@@ -101,11 +101,11 @@ impl Default for WifiApConfig {
 /// Complete device configuration.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Config {
-    /// WiFi mode (AP or STA).
+    /// `WiFi` mode (AP or STA).
     pub wifi_mode: WifiMode,
-    /// WiFi AP configuration.
+    /// `WiFi` AP configuration.
     pub wifi_ap: WifiApConfig,
-    /// WiFi STA configuration.
+    /// `WiFi` STA configuration.
     pub wifi_sta: WifiStaConfig,
     /// DMX port 0 configuration.
     pub dmx0: DmxPortConfig,
