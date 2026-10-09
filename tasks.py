@@ -2,12 +2,16 @@
 
 import os
 import shutil
+import time
 import webbrowser
 
 from invoke import task
-from invoke.exceptions import Exit
+from invoke.exceptions import Exit, UnexpectedExit
 
 _ELF = "dmx-interface"
+
+# Shown when the device is unreachable (no port / connect failure) — see flash().
+_FIRST_FLASH_HINT = "ℹ️  First flash? Hold BOOT + press RESET, then wait ~5s."
 
 
 def _target_triple(chip: str) -> str:
@@ -31,6 +35,86 @@ def _board_args(board):
         raise Exit(code=1)
     chip = TARGET_BOARDS[board]
     return _target_triple(chip), chip, chip
+
+
+_ESPRESSIF_VID = "303a"
+_APP_PID = "3001"  # running firmware; 0002 = ROM bootloader
+
+
+def _sys_attr(path: str, name: str) -> str | None:
+    """Read a single-line USB device attribute."""
+    try:
+        with open(os.path.join(path, name)) as f:
+            return f.read().strip()
+    except OSError:
+        return None
+
+
+def _espressif_ports() -> list[tuple[str, str, str]]:
+    """List connected Espressif USB devices (VID 303a) as (tty, pid, description).
+
+    Covers both the ROM bootloader (303a:0002) and the running CDC firmware
+    (303a:3001); interfaces without a tty are ignored.
+    """
+    found = []
+    usb_root = "/sys/bus/usb/devices"
+    for entry in sorted(os.listdir(usb_root)):
+        base = os.path.join(usb_root, entry)
+        if _sys_attr(base, "idVendor") != _ESPRESSIF_VID:
+            continue
+        tty = None
+        for iface in sorted(os.listdir(base)):
+            tty_dir = os.path.join(base, iface, "tty")
+            if not os.path.isdir(tty_dir):
+                continue
+            names = [n for n in os.listdir(tty_dir) if n.startswith("tty")]
+            if names:
+                tty = f"/dev/{names[0]}"
+                break
+        if not tty:
+            continue
+        pid = _sys_attr(base, "idProduct") or "????"
+        product = _sys_attr(base, "product") or "ESP32"
+        found.append((tty, pid, f"{_ESPRESSIF_VID}:{pid} {product}"))
+    return found
+
+
+def _usb_pid(tty: str) -> str | None:
+    """Return the USB product id of the Espressif device owning tty, if any."""
+    for port_tty, pid, _ in _espressif_ports():
+        if port_tty == tty:
+            return pid
+    return None
+
+
+def _wait_for_port(tty: str, timeout: float = 3.0) -> None:
+    """Wait until the tty node exists again (re-enumeration after run 1)."""
+    deadline = time.monotonic() + timeout
+    while not os.path.exists(tty) and time.monotonic() < deadline:
+        time.sleep(0.1)
+
+
+def _flash_port(port: str | None) -> str:
+    """Resolve the flash port: explicit --port wins, else the sole Espressif device."""
+    if port:
+        if not os.path.exists(port):
+            print(f"❌ {port} not found — board not connected or not enumerated.")
+            raise Exit(code=1)
+        return port
+
+    devices = _espressif_ports()
+    if len(devices) == 1:
+        tty, _, desc = devices[0]
+        print(f"-> {tty} ({desc})")
+        return tty
+    if devices:
+        print("❌ Multiple Espressif devices found — pass --port:")
+        for tty, _, desc in devices:
+            print(f"   {tty} ({desc})")
+        raise Exit(code=1)
+    print(f"❌ No Espressif device (VID {_ESPRESSIF_VID}) found on USB.")
+    print(_FIRST_FLASH_HINT)
+    raise Exit(code=1)
 
 
 @task
@@ -108,6 +192,11 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     hold BOOT + press RESET, then esptool.py will connect within ~5s.
     """
     target, chip, _ = _board_args(board)
+    # Fail fast when the board is absent or ambiguous — no point in building
+    # or invoking esptool then. A blank chip does not enumerate before the
+    # manual bootloader entry, so it shows up as "no device" below.
+    port_path = _flash_port(port)
+
     profile = "release" if release else "debug"
     elf_path = f"target/{target}/{profile}/{_ELF}"
 
@@ -115,7 +204,7 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
         build(c, board=board, release=release)
 
     bin_path = f"target/{target}/{profile}/{_ELF}.bin"
-    port_arg = f"--port {port}" if port else "--port /dev/ttyACM0"
+    port_arg = f"--port {port_path}"
 
     print(f"-> Converting ELF to bin for {chip}")
     c.run(
@@ -132,15 +221,56 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     # (bit 0) after a USB-CDC download session. Without clearing it, the
     # post-flash reset lands in the ROM bootloader again — the device stays
     # stuck (next flash then hits `OSError: [Errno 71] Protocol error`).
-    # So we clear bit 0 via write-mem through the stub, then reset via the
-    # RTC watchdog, which boots the application.
-    print("ℹ️  First flash? Hold BOOT + press RESET, then wait ~5s.")
-    c.run(
-        f"ESPTOOL_BEFORE=usb-reset esptool --chip {chip} {port_arg} --baud 74880 "
-        f"--after watchdog-reset write-flash 0x0000 {bin_path} "
-        f"write-mem 0x3F408128 0 0x1",
-        pty=True,
-    )
+    #
+    # esptool's CLI runs exactly one operation per invocation (argparse in
+    # v4, click in v5) — the old one-liner `write-flash … write-mem …`
+    # never parsed. Two runs instead:
+    #   1. DTR/RTS walk enters the bootloader, flash, stay in the stub
+    #      (--after no-reset-stub keeps the stub resident for run 2).
+    #   2. Reconnect without a reset walk (a walk would re-arm
+    #      FORCE_DOWNLOAD_BOOT), clear bit 0 through the stub, then reset via
+    #      the RTC watchdog, which boots the application.
+    # Run 2 is silent (banner/chip block are noise), run 1 keeps the progress
+    # bar. ESPTOOL_OPEN_PORT_ATTEMPTS retries the port open (Errno 71 above).
+    #
+    # Between the runs the chip can re-enumerate (a reset while the stub was
+    # resident: port-close line glitch or a button press). Wait for the node
+    # and look at what came back:
+    #   - firmware (3001) → it booted the app, so the flag is clear — done
+    #   - ROM bootloader / stub (0002) → run 2 as planned
+    try:
+        c.run(
+            f"ESPTOOL_BEFORE=usb-reset ESPTOOL_OPEN_PORT_ATTEMPTS=5 "
+            f"esptool --chip {chip} {port_arg} --baud 74880 "
+            f"--after no-reset-stub write-flash 0x0000 {bin_path}",
+            pty=True,
+        )
+    except UnexpectedExit as exc:
+        out = getattr(getattr(exc, "result", None), "stdout", "") or ""
+        if "Could not connect" in out or "Failed to connect" in out:
+            print(_FIRST_FLASH_HINT)
+        raise
+
+    _wait_for_port(port_path)
+    if _usb_pid(port_path) == _APP_PID:
+        print(
+            "✓ App came back after run 1 — FORCE_DOWNLOAD_BOOT already clear, cleanup skipped"
+        )
+        return
+
+    try:
+        c.run(
+            f"ESPTOOL_OPEN_PORT_ATTEMPTS=5 esptool --silent --chip {chip} {port_arg} --baud 74880 "
+            f"--before no-reset --after watchdog-reset write-mem 0x3F408128 0 0x1",
+            pty=True,
+        )
+    except UnexpectedExit:
+        print(
+            "⚠ Firmware was flashed, but the cleanup reset failed — the device may "
+            "stay in the bootloader. Power-cycle it or run `inv flash` again."
+        )
+        raise
+    print("✓ FORCE_DOWNLOAD_BOOT cleared → watchdog reset, booting app")
 
 
 @task

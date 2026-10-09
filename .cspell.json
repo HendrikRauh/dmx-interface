@@ -123,6 +123,7 @@
     "TIMG",
     "tlinkall",
     "tsgolint",
+    "ttyACM",
     "UART",
     "uart",
     "ungated",

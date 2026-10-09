@@ -206,6 +206,19 @@ ioctl, because the idle ROM bootloader drops the first control request.
 
 The fix lives in `inv flash` (`tasks.py`): after `write-flash`, it clears bit 0 via `write-mem 0x3F408128 0 0x1` through the stub and resets via `--after watchdog-reset` (register-based, ungated), which boots the application. Only a power-on reset clears the flag by hardware.
 
+**esptool's CLI takes exactly one operation per invocation** (argparse in v4, click in v5) — chaining `write-flash 0x0 file.bin write-mem 0x3F408128 0 0x1` dies with `Invalid value for '<address> <filename>...': Address "write-mem" must be a number`
+on every version; the old one-liner in `tasks.py` never parsed. `tasks.py` therefore runs two invocations:
+the flash run ends with `--after no-reset-stub` (chip stays in the stub, no reset), the second reconnects with `--before no-reset` (a walk would re-arm the flag), clears bit 0, does `--after watchdog-reset` and runs `--silent` (banner/chip block are noise; the progress bar lives in run 1).
+Both runs set `ESPTOOL_OPEN_PORT_ATTEMPTS=5` so an Errno 71 on the port open is retried instead of aborting. `inv flash` picks the port by scanning `/sys/bus/usb/devices` for Espressif USB devices (VID `303a` — ROM bootloader `0002` and firmware `3001` both match; `--port` overrides):
+
+- exactly one → use it
+- none → fail fast before build/conversion/esptool and print the first-flash BOOT+RESET hint
+- several → list them and require `--port`
+
+The port may re-enumerate between the two runs (reset while the stub was resident — port-close glitch or button press): `inv flash` waits for the node and skips run 2 if the firmware (PID `3001`) came back, since an app boot implies the flag is already clear.
+
+The hint also prints when the connect fails.
+
 Do **not** switch the state machine to poll the CDC `control_changed()` event — it fires per-state-change and misses the bootloader-reset semantics; 10 ms polling of `dtr()`/`rts()` is deliberate.
 
 ### No debug output without UART
