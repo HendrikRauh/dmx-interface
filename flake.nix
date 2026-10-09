@@ -116,6 +116,19 @@
               language = "unsupported";
               pass_filenames = true;
             };
+            # Crate-wide rustdoc build; fails on any rustdoc warning (broken
+            # intra-doc links etc.). RUSTDOCFLAGS lives in tasks.py (`docs`).
+            rustdoc = {
+              enable = true;
+              name = "rustdoc";
+              description = "Rustdoc must build warning-free (via invoke docs)";
+              entry = "invoke docs";
+              files = "\\.rs$";
+              excludes = ["^build\\.rs$"];
+              types = ["file"];
+              language = "system";
+              pass_filenames = false;
+            };
             # Clippy lints the whole crate; it subsumes `cargo check`.
             # Flags live in tasks.py (`_CLIPPY_ARGS`) so there is one source
             # of truth. Must not use --all-targets: `cargo test` cannot build

@@ -11,17 +11,15 @@
 
 extern crate alloc;
 
-/// Board pin definitions (cfg-gated per target).
+// Module docs live as `//!` at the top of each module file. Do NOT also put
+// `///` docs on these declarations: rustdoc then resolves the module's
+// intra-doc links in this (parent) module's scope and every unqualified link
+// breaks — see AGENTS.md "Module docs: `//!` only".
 mod boards;
-/// Configuration data model.
 mod config;
-/// Hardware abstraction (LED, button, eFuse, USB).
 mod hardware;
-/// Log ring buffer drained over the USB-CDC connection.
 mod logging;
-/// Panic capture and last-panic persistence.
 mod panic_report;
-/// NVS-backed persistent storage.
 mod storage;
 
 use embassy_executor::Spawner;

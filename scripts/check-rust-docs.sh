@@ -18,6 +18,11 @@ check_item_doc() {
 
 	if echo "$line" | grep -qE 'pub\s+mod\s+'; then return; fi
 
+	# Out-of-line module (`mod x;`): documented via `//!` at the top of the
+	# module file — checked by check_file_doc, not by the `///` lines above
+	# the declaration (which must stay bare, see AGENTS.md).
+	if echo "$line" | grep -qE '^\s*(pub(\(.+\))?\s+)?mod\s+\w+\s*;'; then return; fi
+
 	if [ "$lineno" -le 1 ]; then
 		echo "MISSING DOCS: $file:$lineno:$line"
 		errors=$((errors + 1))

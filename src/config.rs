@@ -1,6 +1,6 @@
 //! Configuration data model for the DMX interface.
 //!
-//! Uses `heapless` fixed-size types for no_std compatibility.
+//! Uses `heapless` fixed-size types for `no_std` compatibility.
 //! Config is serialized with `postcard` (binary) for NVS storage.
 
 use heapless::{String, Vec};

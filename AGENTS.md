@@ -29,7 +29,7 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | `inv check` | Strict clippy for the xtensa target (flags in `tasks.py`) |
 | `inv clean` | `cargo clean` |
 | `inv format` | `pre-commit run --all-files` |
-| `inv docs` | Generate rustdoc + redirect |
+| `inv docs` | Generate rustdoc + redirect — **fails on any rustdoc warning** (`RUSTDOCFLAGS=-D warnings` in `tasks.py`) |
 | `inv docspath` | Print doc output path (for CI) |
 | `inv web:build` | Vite build → `web/dist/` (single HTML) |
 | `inv web:dev` | Vite dev server with mock API |
@@ -104,7 +104,7 @@ After flashing, `inv flash` clears `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` via es
 Configured in `flake.nix` via `git-hooks.nix`. Key formatters/linters:
 
 - **Rust**: rustfmt + cargo-clippy (`inv check`: warnings as errors, pedantic, plus firmware restriction/nursery lints — full set in `tasks.py` `_CLIPPY_ARGS`, replaces cargo-check)
-- **Rust docs**: `scripts/check-rust-docs.sh` (LEVEL/FILE_DOC toggles)
+- **Rust docs**: rustdoc (`invoke docs`, fails on any rustdoc warning) + `scripts/check-rust-docs.sh` (LEVEL/FILE_DOC toggles)
 - **Python**: ruff + ruff-format
 - **Nix**: alejandra + deadnix + statix + flake-checker
 - **TS**: oxfmt + oxlint
@@ -126,6 +126,23 @@ Run `inv format` (or `pre-commit run --all-files`) to re-run all hooks.
 ## Pitfalls (hard-won)
 
 These are non-obvious issues encountered during development. **Read this before changing firmware or build logic.**
+
+### Module docs: `//!` only — never also `///` on `mod x;`
+
+A module documented **both** with `///` on its declaration (e.g. in `main.rs`)
+**and** with `//!` at the top of its file gets its `//!` docs resolved by
+rustdoc in the **parent module's scope**. Every unqualified intra-doc link then
+breaks (a link like `[task]` reports "no item named … in scope") and links to
+private children cannot resolve at all (`[dhcp]`, `[MAX_PANICS]`); absolute
+public paths like `crate::net::task` still work. Clippy's `doc_markdown` also
+silently stops firing on the `//!` text while the `///` duplicate exists — the
+problem only shows once the duplicate is removed. Reproduced on stable rustdoc
+1.98 and the esp nightly alike.
+
+So: declare modules bare in `main.rs` / `boards/mod.rs`, module docs live only
+as `//!` in the module file. `inv docs` (and the `rustdoc` pre-commit hook /
+CI) builds docs with `RUSTDOCFLAGS=-D warnings` (`tasks.py`), so broken links
+fail instead of scrolling by.
 
 ### Flash: `--merge` is mandatory
 

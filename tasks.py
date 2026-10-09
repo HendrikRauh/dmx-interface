@@ -493,6 +493,7 @@ def docs(c, o=False):
     c.run(
         f"cargo doc --features {features} --no-deps --document-private-items",
         pty=True,
+        env={"RUSTDOCFLAGS": "-D warnings"},
     )
 
     redirect_src = "assets/docs/redirect.html"

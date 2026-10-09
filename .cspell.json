@@ -108,6 +108,7 @@
     "rssi",
     "rustflags",
     "rustdoc",
+    "RUSTDOCFLAGS",
     "rustup",
     "RUSTUP",
     "sdkconfig",
