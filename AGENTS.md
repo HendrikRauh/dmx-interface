@@ -65,7 +65,7 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | `src/panic_report.rs` | Own `#[panic_handler]`, RTC/NVS persist, boot-loop guard, replay | Wired |
 | `src/boards/mod.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
 | `src/boards/s2_mini.rs` | S2 Mini pin constants | Implemented, not wired |
-| `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM effects) | Wired |
+| `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM, 14-bit raw duty via `set_duty_hw`) | Wired |
 | `src/hardware/button.rs` | Debounced button | Implemented, not wired |
 | `src/hardware/efuse.rs` | MAC address helpers (esp-hal::efuse) | Implemented, not wired |
 | `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader) + log drain | Wired |
@@ -143,12 +143,8 @@ Flash the merged binary at offset `0x0000` — the internal offsets are already 
 
 ### Two LEDs: GPIO7 (external) vs GPIO15 (onboard)
 
-The Lolin S2 Mini has **two** status LEDs. The onboard LED is on **GPIO15**, not GPIO7. GPIO7 is for an external LED-Button module.
-
-- `ONBOARD_LED_GPIO = 15` — what you see on the board
-- `LED_GPIO = 7` — external module (if wired)
-
-Use GPIO15 for debugging/verification.
+The Lolin S2 Mini has **two** LEDs. The firmware drives the **external** LED-Button module on **GPIO7** (`hardware::led`); the onboard LED sits on **GPIO15** (active-low, `ONBOARD_LED_GPIO` in `boards/s2_mini.rs`) and is **not driven** — it stays dark, so don't use it to verify firmware state.
+Debug output goes over USB-CDC (`inv monitor`).
 
 ### `#[esp_rtos::main]` does NOT call `esp_rtos::start()`
 

@@ -167,7 +167,7 @@ Here is a small selection of the most common tasks:
 | Command | Description |
 | --- | --- |
 | `inv build` | Build the firmware and bundle the website |
-| `inv flash` | Build (if needed) and flash the firmware, then start the monitor |
+| `inv flash` | Build (if needed) and flash the firmware via USB-CDC |
 | `inv release` | Build release binaries for all supported targets |
 | `inv monitor` | Monitor the serial output |
 | `inv docs` | Generate the documentation using rustdoc |
@@ -184,11 +184,8 @@ If you are not using the dev-shell, the action runner will do the check on the r
 
 ### Troubleshooting
 
-We had an issue that the `flash` command fails with a protocol error. To fix it, put the ESP in bootloader-mode and flash directly using `espflash`:
-
-```bash
-espflash flash --monitor target/xtensa-esp32s2-none-elf/debug/dmx-interface --port /dev/ttyACM0
-```
+If `inv flash` fails to connect (e.g., a protocol error), power-cycle the board and run `inv flash` again.
+On the very first flash (no firmware on the board) you have to enter the bootloader manually: hold **BOOT**, press **RESET**, release **BOOT**, then run `inv flash`. Monitor the firmware output separately with `inv monitor`.
 
 ______________________________________________________________________
 

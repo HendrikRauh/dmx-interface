@@ -12,7 +12,7 @@
 - [x] Button debounce via GPIO5
 - [x] Extract LED effects into `src/hardware/led.rs`
 - [x] Extract debounce into `src/hardware/button.rs`
-- [x] LED as embassy task with status enum (`LedStatus`, timings from `assets/led/*.svg` + old IDF firmware)
+- [x] LED as embassy task with status enum (`LedStatus`, timings from `assets/led/*.svg`)
 - [x] `tasks.py` für no_std target
 
 ## Phase 2 — Config ✅
