@@ -3,7 +3,8 @@
 ## Target: no_std pure Rust (esp-hal + embassy)
 
 > ✅ means implemented and compiling, **not** necessarily wired into `main.rs`.
-> Still unused: `config`, `storage`, `boards`, `hardware::button`, `hardware::efuse`.
+> Still unused: `boards`, `hardware::button`, `hardware::efuse`.
+> Partially wired: `config` + `storage` (boot-time `storage::load().apply()`, panic snapshot).
 
 ## Phase 1 — LED + Button ✅
 
@@ -11,6 +12,7 @@
 - [x] Button debounce via GPIO5
 - [x] Extract LED effects into `src/hardware/led.rs`
 - [x] Extract debounce into `src/hardware/button.rs`
+- [x] LED as embassy task with status enum (`LedStatus`, timings from `assets/led/*.svg` + old IDF firmware)
 - [x] `tasks.py` für no_std target
 
 ## Phase 2 — Config ✅
@@ -43,6 +45,7 @@
 - [ ] WiFi AP mode (`esp-radio` + `embassy-net`)
 - [ ] WiFi STA mode with reconnection + fallback to AP
 - [ ] DHCP
+- [ ] Switch LED to `LedStatus::Ok` once the network is ready (currently set right after boot)
 
 ## Phase 7 — Web Server
 
@@ -60,14 +63,14 @@
 
 ```text
 src/
-├── main.rs              ← entry point, peripheral init, main loop
+├── main.rs              ← entry point, peripheral init, task spawns
 ├── config.rs            ← Config data model (heapless, serde, postcard)
 ├── storage.rs           ← NVS persistent storage (esp-nvs)
 ├── boards/
 │   ├── mod.rs           ← cfg-gated board re-exports
 │   └── s2_mini.rs       ← pin definitions (Lolin S2 Mini)
 └── hardware/
-    ├── led.rs           ← LED effect logic (LEDC PWM)
+    ├── led.rs           ← status LED task (`LedStatus` effects, LEDC PWM)
     ├── button.rs        ← debounced button
     ├── efuse.rs         ← MAC address helpers (esp-hal::efuse)
     ├── usb.rs           ← USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader)

@@ -1,9 +1,8 @@
 //! DMX interface firmware for ESP32-S2 (Lolin S2 Mini).
 //!
-//! Current scope: LED effect on GPIO7 (LEDC PWM), USB-CDC with esptool
-//! auto-reset, ring-buffer logging over the CDC port, panic reports
-//! persisted across resets, and a diagnostic blink on the onboard LED
-//! (GPIO15).
+//! Current scope: status LED on GPIO7 (LEDC PWM, own embassy task), USB-CDC
+//! with esptool auto-reset, ring-buffer logging over the CDC port, and
+//! panic reports persisted across resets.
 
 #![no_std]
 #![no_main]
@@ -26,22 +25,13 @@ mod panic_report;
 mod storage;
 
 use embassy_executor::Spawner;
-use embassy_time::{Duration, Instant, Timer};
+use embassy_time::{Duration, Timer};
 use esp_alloc::HeapRegion;
 use esp_hal::{
-    clock::CpuClock,
-    gpio::{Level, Output, OutputConfig},
-    interrupt::software::SoftwareInterruptControl,
-    ledc::{
-        LSGlobalClkSource, Ledc, LowSpeed,
-        channel::{self, ChannelIFace},
-        timer::{self, LSClockSource, TimerIFace},
-    },
-    time::Rate,
-    timer::timg::TimerGroup,
+    clock::CpuClock, interrupt::software::SoftwareInterruptControl, timer::timg::TimerGroup,
 };
 
-use hardware::led::LedEffect;
+use hardware::led::LedStatus;
 
 esp_bootloader_esp_idf::esp_app_desc!();
 
@@ -93,6 +83,8 @@ async fn main(spawner: Spawner) -> ! {
     // ring when the first host connects.
     logging::init();
     storage::init(peripherals.FLASH);
+    // Load the persisted config and push it into every consumer (LED brightness).
+    storage::load().apply();
     panic_report::report_last_panic();
 
     // ── USB-CDC (esptool auto-reset + log drain) ───────────────────────────
@@ -102,44 +94,23 @@ async fn main(spawner: Spawner) -> ! {
     );
     spawner.spawn(stable_marker().expect("stable marker spawn failed"));
 
-    // ── LEDC PWM (status LED) ──────────────────────────────────────────────
-    let mut ledc = Ledc::new(peripherals.LEDC);
-    ledc.set_global_slow_clock(LSGlobalClkSource::APBClk);
+    // ── Status LED (LEDC PWM, own task) ─────────────────────────────────────
+    hardware::led::set(LedStatus::Startup);
+    spawner.spawn(
+        hardware::led::task(peripherals.LEDC, peripherals.GPIO7).expect("LED task spawn failed"),
+    );
 
-    let mut timer0 = ledc.timer::<LowSpeed>(timer::Number::Timer0);
-    timer0
-        .configure(timer::config::Config {
-            duty: timer::config::Duty::Duty14Bit,
-            clock_source: LSClockSource::APBClk,
-            frequency: Rate::from_khz(1),
-        })
-        .expect("LEDC timer0 config failed");
+    log::info!("Init complete");
 
-    let mut led = ledc.channel(channel::Number::Channel0, peripherals.GPIO7);
-    led.configure(channel::config::Config {
-        timer: &timer0,
-        duty_pct: 0,
-        drive_mode: esp_hal::gpio::DriveMode::PushPull,
-    })
-    .expect("LEDC channel0 config failed");
+    // TODO(phase 6): switch to Ok only once the network is up — the old
+    // firmware waited for NETWORK_READY + 2 s before LED_MODE_NORMAL.
+    // Until then, keep the Startup breathing visible for 3 s (three full
+    // breaths at the 1 s period) before settling into the steady Ok state.
+    Timer::after(Duration::from_secs(3)).await;
+    hardware::led::set(LedStatus::Ok);
 
-    log::info!("Init complete — LED blink");
-
-    // Onboard LED (GPIO15): 1 Hz blink = main loop is alive (no serial out).
-    let mut diag = Output::new(peripherals.GPIO15, Level::Low, OutputConfig::default());
-    let mut diag_ticks = 0u32;
-
-    let effect = LedEffect::Blinking;
-    let start = Instant::now();
-
+    // No main-loop duties yet — Phase 8 moves system work into tasks.
     loop {
-        let elapsed = start.elapsed().as_millis();
-        hardware::led::apply(&led, &effect, 100, elapsed);
-        diag_ticks = diag_ticks.wrapping_add(1);
-        if diag_ticks.is_multiple_of(50) {
-            diag.toggle();
-            log::debug!("LOOP tick - build in led toggles");
-        }
-        Timer::after(Duration::from_millis(10)).await;
+        core::future::pending::<()>().await;
     }
 }

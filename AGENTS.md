@@ -6,7 +6,8 @@ Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi AP with JSON con
 
 **Current state**: no_std pure Rust with esp-hal + embassy. Phases 1–3 implemented (LED + Button, Config, NVS Storage) and USB-CDC-ACM with esptool auto-reset (Phase 4, partial) — see `TODO.md` for the remaining phases (DMX UART, System, WiFi, Web server, Integration).
 
-Only LED, USB and the diagnostic blink are wired into `src/main.rs` today. `config`, `storage`, `boards`, `hardware::button` and `hardware::efuse` are implemented but **not used yet** (hidden by `#![allow(dead_code)]`); wiring them up is part of the open phases.
+Wired into `src/main.rs` today: the status LED (own embassy task, `hardware::led`), USB-CDC, logging/panic report, and boot-time config load (`storage::load().apply()`).
+`boards`, `hardware::button` and `hardware::efuse` are implemented but **not used yet** (hidden by `#![allow(dead_code)]`); wiring them up is part of the open phases.
 
 ## Dev shell
 
@@ -57,14 +58,14 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 
 | Module | Role | Status |
 | --- | --- | --- |
-| `src/main.rs` | Entry point, peripherals, main loop | LED + USB wired |
-| `src/config.rs` | Config data model (heapless, serde, postcard) | Implemented, not wired |
-| `src/storage.rs` | NVS persistent storage (esp-nvs), global singleton + panic snapshot keys | `init()` wired (called at boot), config ops not yet used |
+| `src/main.rs` | Entry point, peripheral init, task spawns | LED task + USB + logging wired |
+| `src/config.rs` | Config data model (heapless, serde, postcard), `apply()` propagation | `apply()` wired (boot load → LED brightness), rest not yet |
+| `src/storage.rs` | NVS persistent storage (esp-nvs), global singleton + panic snapshot keys | `init()` + boot-time `load()` wired, `save()`/`clear()` not yet used |
 | `src/logging.rs` | `log` backend → static 4 KiB ring → CDC flush API | Wired |
 | `src/panic_report.rs` | Own `#[panic_handler]`, RTC/NVS persist, boot-loop guard, replay | Wired |
 | `src/boards/mod.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
 | `src/boards/s2_mini.rs` | S2 Mini pin constants | Implemented, not wired |
-| `src/hardware/led.rs` | LED effect logic (LEDC PWM) | Wired |
+| `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM effects) | Wired |
 | `src/hardware/button.rs` | Debounced button | Implemented, not wired |
 | `src/hardware/efuse.rs` | MAC address helpers (esp-hal::efuse) | Implemented, not wired |
 | `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader) + log drain | Wired |
@@ -74,6 +75,7 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | Crate | Version | Why |
 | --- | --- | --- |
 | `heapless` | 0.7 | 0.8 incompatible with postcard (heapless type mismatch) |
+| `libm` | 0.2 | `sinf` for the LED breathing curve — `no_std` core has no float math; used by `hardware::led` |
 | `esp-alloc` | 0.7 | Global allocator via `HEAP.add_region(HeapRegion::new(...))` — no `.init()` method, no chip features |
 | `esp-nvs` | 0.5 | Takes `&Key` refs, `Key::from_str()` for const keys |
 | `static_cell` | 2.1 | `StaticCell::init()` for `'static` embassy-usb buffers (edition 2024 forbids `&mut static mut`); already a transitive dep of esp-hal |

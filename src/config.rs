@@ -147,6 +147,15 @@ impl Config {
     pub fn from_bytes(data: &[u8]) -> Result<Self, postcard::Error> {
         postcard::from_bytes(data)
     }
+
+    /// Pushes this configuration into every driver that consumes it.
+    ///
+    /// Called once at boot after loading and again whenever the config
+    /// changes (web API, factory reset) — the single place mapping config
+    /// fields onto driver state.
+    pub fn apply(&self) {
+        crate::hardware::led::set_brightness(self.led_brightness);
+    }
 }
 
 /// Serialization round-trip tests.
