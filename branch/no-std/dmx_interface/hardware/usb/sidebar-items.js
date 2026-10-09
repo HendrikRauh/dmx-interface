@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":["USB_PID","USB_VID"],"fn":["control_monitor","enter_bootloader","set_force_download","task"],"static":["BOS_DESCRIPTOR","CDC_STATE","CONFIG_DESCRIPTOR","CONTROL_BUF","EP_OUT_BUFFER"]};
+window.SIDEBAR_ITEMS = {"constant":["LOG_CHUNK","POLL_INTERVAL","USB_PID","USB_VID"],"fn":["control_and_log","enter_bootloader","flush_logs","set_force_download","task"],"static":["BOS_DESCRIPTOR","CDC_STATE","CONFIG_DESCRIPTOR","CONTROL_BUF","EP_OUT_BUFFER"]};

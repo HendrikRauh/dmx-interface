@@ -1,2 +1,2 @@
-createSrcSidebar('[["dmx_interface",["",[["boards",[],["mod.rs","s2_mini.rs"]],["hardware",[],["button.rs","efuse.rs","led.rs","mod.rs","usb.rs"]]],["config.rs","main.rs","storage.rs"]]]]');
-//{"start":19,"fragment_lengths":[167]}
+createSrcSidebar('[["dmx_interface",["",[["boards",[],["mod.rs","s2_mini.rs"]],["hardware",[],["button.rs","efuse.rs","led.rs","mod.rs","usb.rs"]]],["config.rs","logging.rs","main.rs","panic_report.rs","storage.rs"]]]]');
+//{"start":19,"fragment_lengths":[198]}

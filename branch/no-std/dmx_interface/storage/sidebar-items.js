@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":["KEY_CFG","NS_CONFIG","NVS_OFFSET","NVS_SIZE"],"struct":["ConfigStorage"]};
+window.SIDEBAR_ITEMS = {"constant":["KEY_CFG","KEY_PANIC","NS_CONFIG","NS_DIAG","NVS_OFFSET","NVS_SIZE"],"fn":["busy_clear","busy_swap","clear","init","load","load_panic","persist_panic","save","with_nvs"],"static":["NVS","NVS_BUSY"],"type":["Storage"]};
