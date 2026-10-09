@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"enum":["LedEffect"],"fn":["apply"]};
+window.SIDEBAR_ITEMS = {"enum":["LedEffect"],"fn":["apply","brightness_pct"]};

@@ -83,17 +83,17 @@
 <a href=#83 id=83 data-nosnippet>83</a>        <span class="kw-2">&amp;mut </span>[],
 <a href=#84 id=84 data-nosnippet>84</a>        CONTROL_BUF.init([<span class="number">0u8</span>; <span class="number">64</span>]),
 <a href=#85 id=85 data-nosnippet>85</a>    );
-<a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">let </span><span class="kw-2">mut </span>class = CdcAcmClass::new(<span class="kw-2">&amp;mut </span>builder, CDC_STATE.init(State::new()), <span class="number">64</span>);
+<a href=#86 id=86 data-nosnippet>86</a>    <span class="kw">let </span>class = CdcAcmClass::new(<span class="kw-2">&amp;mut </span>builder, CDC_STATE.init(State::new()), <span class="number">64</span>);
 <a href=#87 id=87 data-nosnippet>87</a>    <span class="kw">let </span><span class="kw-2">mut </span>device = builder.build();
 <a href=#88 id=88 data-nosnippet>88</a>
 <a href=#89 id=89 data-nosnippet>89</a>    <span class="macro">println!</span>(<span class="string">"USB-CDC ready"</span>);
-<a href=#90 id=90 data-nosnippet>90</a>    join(device.run(), control_monitor(<span class="kw-2">&amp;mut </span>class)).<span class="kw">await</span>;
+<a href=#90 id=90 data-nosnippet>90</a>    join(device.run(), control_monitor(<span class="kw-2">&amp;</span>class)).<span class="kw">await</span>;
 <a href=#91 id=91 data-nosnippet>91</a>    <span class="macro">unreachable!</span>()
 <a href=#92 id=92 data-nosnippet>92</a>}
 <a href=#93 id=93 data-nosnippet>93</a>
 <a href=#94 id=94 data-nosnippet>94</a><span class="doccomment">/// Polls the DTR/RTS control lines and mirrors them onto the strapping
 <a href=#95 id=95 data-nosnippet>95</a>/// semantics (see module docs).
-<a href=#96 id=96 data-nosnippet>96</a></span><span class="kw">async fn </span>control_monitor(class: <span class="kw-2">&amp;mut </span>CdcAcmClass&lt;<span class="lifetime">'static</span>, Driver&lt;<span class="lifetime">'static</span>&gt;&gt;) -&gt; ! {
+<a href=#96 id=96 data-nosnippet>96</a></span><span class="kw">async fn </span>control_monitor(class: <span class="kw-2">&amp;</span>CdcAcmClass&lt;<span class="lifetime">'static</span>, Driver&lt;<span class="lifetime">'static</span>&gt;&gt;) -&gt; ! {
 <a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">let </span><span class="kw-2">mut </span>prev = (class.dtr(), class.rts());
 <a href=#98 id=98 data-nosnippet>98</a>    <span class="kw">loop </span>{
 <a href=#99 id=99 data-nosnippet>99</a>        Timer::after(Duration::from_millis(<span class="number">10</span>)).<span class="kw">await</span>;
@@ -116,20 +116,23 @@
 <a href=#116 id=116 data-nosnippet>116</a>/// The register lives in the RTC domain and survives a software reset, so
 <a href=#117 id=117 data-nosnippet>117</a>/// the ROM bootloader sees it on the next boot.
 <a href=#118 id=118 data-nosnippet>118</a></span><span class="kw">fn </span>set_force_download(armed: bool) {
-<a href=#119 id=119 data-nosnippet>119</a>    <span class="kw">let </span>rtc_cntl = <span class="kw">unsafe </span>{ esp32s2::RTC_CNTL::steal() };
-<a href=#120 id=120 data-nosnippet>120</a>    rtc_cntl
-<a href=#121 id=121 data-nosnippet>121</a>        .options1()
-<a href=#122 id=122 data-nosnippet>122</a>        .modify(|<span class="kw">_</span>, w| w.force_download_boot().bit(armed));
-<a href=#123 id=123 data-nosnippet>123</a>}
-<a href=#124 id=124 data-nosnippet>124</a>
-<a href=#125 id=125 data-nosnippet>125</a><span class="doccomment">/// Resets into the ROM USB-CDC download mode (bootloader).
-<a href=#126 id=126 data-nosnippet>126</a>///
-<a href=#127 id=127 data-nosnippet>127</a>/// `(0,1)` is a plain reset: the boot target is decided by the
-<a href=#128 id=128 data-nosnippet>128</a>/// `FORCE_DOWNLOAD_BOOT` flag, which the `(1,0)` state arms. esptool's
-<a href=#129 id=129 data-nosnippet>129</a>/// `--before usb-reset` walk therefore lands in the bootloader. The flag is
-<a href=#130 id=130 data-nosnippet>130</a>/// only cleared again by `inv flash` after flashing (esptool `write-reg`)
-<a href=#131 id=131 data-nosnippet>131</a>/// — the ROM bootloader does not clear it itself.
-<a href=#132 id=132 data-nosnippet>132</a></span><span class="kw">fn </span>enter_bootloader() -&gt; ! {
-<a href=#133 id=133 data-nosnippet>133</a>    esp_hal::system::software_reset()
-<a href=#134 id=134 data-nosnippet>134</a>}
+<a href=#119 id=119 data-nosnippet>119</a>    <span class="comment">// SAFETY: RTC registers are always memory-mapped; `steal()` only bypasses
+<a href=#120 id=120 data-nosnippet>120</a>    // singleton ownership of the peripheral and `modify` leaves every other
+<a href=#121 id=121 data-nosnippet>121</a>    // bit of `RTC_CNTL_OPTION1` untouched.
+<a href=#122 id=122 data-nosnippet>122</a>    </span><span class="kw">let </span>rtc_cntl = <span class="kw">unsafe </span>{ esp32s2::RTC_CNTL::steal() };
+<a href=#123 id=123 data-nosnippet>123</a>    rtc_cntl
+<a href=#124 id=124 data-nosnippet>124</a>        .options1()
+<a href=#125 id=125 data-nosnippet>125</a>        .modify(|<span class="kw">_</span>, w| w.force_download_boot().bit(armed));
+<a href=#126 id=126 data-nosnippet>126</a>}
+<a href=#127 id=127 data-nosnippet>127</a>
+<a href=#128 id=128 data-nosnippet>128</a><span class="doccomment">/// Resets into the ROM USB-CDC download mode (bootloader).
+<a href=#129 id=129 data-nosnippet>129</a>///
+<a href=#130 id=130 data-nosnippet>130</a>/// `(0,1)` is a plain reset: the boot target is decided by the
+<a href=#131 id=131 data-nosnippet>131</a>/// `FORCE_DOWNLOAD_BOOT` flag, which the `(1,0)` state arms. esptool's
+<a href=#132 id=132 data-nosnippet>132</a>/// `--before usb-reset` walk therefore lands in the bootloader. The flag is
+<a href=#133 id=133 data-nosnippet>133</a>/// only cleared again by `inv flash` after flashing (esptool `write-reg`)
+<a href=#134 id=134 data-nosnippet>134</a>/// — the ROM bootloader does not clear it itself.
+<a href=#135 id=135 data-nosnippet>135</a></span><span class="kw">fn </span>enter_bootloader() -&gt; ! {
+<a href=#136 id=136 data-nosnippet>136</a>    esp_hal::system::software_reset()
+<a href=#137 id=137 data-nosnippet>137</a>}
 </code></pre></div></section></main></body></html>

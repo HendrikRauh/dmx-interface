@@ -52,64 +52,73 @@
 <a href=#52 id=52 data-nosnippet>52</a>        </span><span class="kw">const </span>HEAP_SIZE: usize = <span class="number">8 </span>* <span class="number">1024</span>;
 <a href=#53 id=53 data-nosnippet>53</a>        <span class="doccomment">/// Backing memory for the heap allocator.
 <a href=#54 id=54 data-nosnippet>54</a>        </span><span class="kw">static </span><span class="kw-2">mut </span>HEAP_MEM: [u8; HEAP_SIZE] = [<span class="number">0u8</span>; HEAP_SIZE];
-<a href=#55 id=55 data-nosnippet>55</a>        <span class="kw">unsafe </span>{
-<a href=#56 id=56 data-nosnippet>56</a>            esp_alloc::HEAP.add_region(HeapRegion::new(
-<a href=#57 id=57 data-nosnippet>57</a>                <span class="macro">core::ptr::addr_of_mut!</span>(HEAP_MEM) <span class="kw">as </span><span class="kw-2">*mut </span>u8,
-<a href=#58 id=58 data-nosnippet>58</a>                HEAP_SIZE,
-<a href=#59 id=59 data-nosnippet>59</a>                esp_alloc::MemoryCapability::Internal.into(),
-<a href=#60 id=60 data-nosnippet>60</a>            ));
-<a href=#61 id=61 data-nosnippet>61</a>        }
-<a href=#62 id=62 data-nosnippet>62</a>    }
-<a href=#63 id=63 data-nosnippet>63</a>
-<a href=#64 id=64 data-nosnippet>64</a>    <span class="comment">// ── Embassy scheduler ──────────────────────────────────────────────────
-<a href=#65 id=65 data-nosnippet>65</a>    </span><span class="kw">let </span>timg0 = TimerGroup::new(peripherals.TIMG0);
-<a href=#66 id=66 data-nosnippet>66</a>    <span class="kw">let </span>sw_int = SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
-<a href=#67 id=67 data-nosnippet>67</a>    esp_rtos::start(timg0.timer0, sw_int.software_interrupt0);
-<a href=#68 id=68 data-nosnippet>68</a>
-<a href=#69 id=69 data-nosnippet>69</a>    <span class="comment">// ── USB-CDC (esptool auto-reset) ───────────────────────────────────────
-<a href=#70 id=70 data-nosnippet>70</a>    </span>spawner.spawn(
-<a href=#71 id=71 data-nosnippet>71</a>        hardware::usb::task(peripherals.USB0, peripherals.GPIO20, peripherals.GPIO19)
-<a href=#72 id=72 data-nosnippet>72</a>            .expect(<span class="string">"USB task spawn failed"</span>),
-<a href=#73 id=73 data-nosnippet>73</a>    );
-<a href=#74 id=74 data-nosnippet>74</a>
-<a href=#75 id=75 data-nosnippet>75</a>    <span class="comment">// ── LEDC PWM (status LED) ──────────────────────────────────────────────
-<a href=#76 id=76 data-nosnippet>76</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>ledc = Ledc::new(peripherals.LEDC);
-<a href=#77 id=77 data-nosnippet>77</a>    ledc.set_global_slow_clock(LSGlobalClkSource::APBClk);
-<a href=#78 id=78 data-nosnippet>78</a>
-<a href=#79 id=79 data-nosnippet>79</a>    <span class="kw">let </span><span class="kw-2">mut </span>timer0 = ledc.timer::&lt;LowSpeed&gt;(timer::Number::Timer0);
-<a href=#80 id=80 data-nosnippet>80</a>    timer0
-<a href=#81 id=81 data-nosnippet>81</a>        .configure(timer::config::Config {
-<a href=#82 id=82 data-nosnippet>82</a>            duty: timer::config::Duty::Duty14Bit,
-<a href=#83 id=83 data-nosnippet>83</a>            clock_source: LSClockSource::APBClk,
-<a href=#84 id=84 data-nosnippet>84</a>            frequency: Rate::from_khz(<span class="number">1</span>),
-<a href=#85 id=85 data-nosnippet>85</a>        })
-<a href=#86 id=86 data-nosnippet>86</a>        .unwrap();
+<a href=#55 id=55 data-nosnippet>55</a>        <span class="kw">let </span>heap_ptr = <span class="macro">core::ptr::addr_of_mut!</span>(HEAP_MEM).cast::&lt;u8&gt;();
+<a href=#56 id=56 data-nosnippet>56</a>        <span class="comment">// SAFETY: `heap_ptr` points to the whole `HEAP_MEM` array, which is
+<a href=#57 id=57 data-nosnippet>57</a>        // valid for `'static`, exclusively owned by the allocator afterwards,
+<a href=#58 id=58 data-nosnippet>58</a>        // handed over exactly once, and `size &gt; 0`.
+<a href=#59 id=59 data-nosnippet>59</a>        </span><span class="kw">let </span>region = <span class="kw">unsafe </span>{
+<a href=#60 id=60 data-nosnippet>60</a>            HeapRegion::new(
+<a href=#61 id=61 data-nosnippet>61</a>                heap_ptr,
+<a href=#62 id=62 data-nosnippet>62</a>                HEAP_SIZE,
+<a href=#63 id=63 data-nosnippet>63</a>                esp_alloc::MemoryCapability::Internal.into(),
+<a href=#64 id=64 data-nosnippet>64</a>            )
+<a href=#65 id=65 data-nosnippet>65</a>        };
+<a href=#66 id=66 data-nosnippet>66</a>        <span class="comment">// SAFETY: the heap region is registered exactly once at init time,
+<a href=#67 id=67 data-nosnippet>67</a>        // before anything allocates.
+<a href=#68 id=68 data-nosnippet>68</a>        </span><span class="kw">unsafe </span>{
+<a href=#69 id=69 data-nosnippet>69</a>            esp_alloc::HEAP.add_region(region);
+<a href=#70 id=70 data-nosnippet>70</a>        }
+<a href=#71 id=71 data-nosnippet>71</a>    }
+<a href=#72 id=72 data-nosnippet>72</a>
+<a href=#73 id=73 data-nosnippet>73</a>    <span class="comment">// ── Embassy scheduler ──────────────────────────────────────────────────
+<a href=#74 id=74 data-nosnippet>74</a>    </span><span class="kw">let </span>timg0 = TimerGroup::new(peripherals.TIMG0);
+<a href=#75 id=75 data-nosnippet>75</a>    <span class="kw">let </span>sw_int = SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
+<a href=#76 id=76 data-nosnippet>76</a>    esp_rtos::start(timg0.timer0, sw_int.software_interrupt0);
+<a href=#77 id=77 data-nosnippet>77</a>
+<a href=#78 id=78 data-nosnippet>78</a>    <span class="comment">// ── USB-CDC (esptool auto-reset) ───────────────────────────────────────
+<a href=#79 id=79 data-nosnippet>79</a>    </span>spawner.spawn(
+<a href=#80 id=80 data-nosnippet>80</a>        hardware::usb::task(peripherals.USB0, peripherals.GPIO20, peripherals.GPIO19)
+<a href=#81 id=81 data-nosnippet>81</a>            .expect(<span class="string">"USB task spawn failed"</span>),
+<a href=#82 id=82 data-nosnippet>82</a>    );
+<a href=#83 id=83 data-nosnippet>83</a>
+<a href=#84 id=84 data-nosnippet>84</a>    <span class="comment">// ── LEDC PWM (status LED) ──────────────────────────────────────────────
+<a href=#85 id=85 data-nosnippet>85</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>ledc = Ledc::new(peripherals.LEDC);
+<a href=#86 id=86 data-nosnippet>86</a>    ledc.set_global_slow_clock(LSGlobalClkSource::APBClk);
 <a href=#87 id=87 data-nosnippet>87</a>
-<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">let </span><span class="kw-2">mut </span>led = ledc.channel(channel::Number::Channel0, peripherals.GPIO7);
-<a href=#89 id=89 data-nosnippet>89</a>    led.configure(channel::config::Config {
-<a href=#90 id=90 data-nosnippet>90</a>        timer: <span class="kw-2">&amp;</span>timer0,
-<a href=#91 id=91 data-nosnippet>91</a>        duty_pct: <span class="number">0</span>,
-<a href=#92 id=92 data-nosnippet>92</a>        drive_mode: esp_hal::gpio::DriveMode::PushPull,
-<a href=#93 id=93 data-nosnippet>93</a>    })
-<a href=#94 id=94 data-nosnippet>94</a>    .unwrap();
-<a href=#95 id=95 data-nosnippet>95</a>
-<a href=#96 id=96 data-nosnippet>96</a>    <span class="macro">println!</span>(<span class="string">"Init complete — LED blink"</span>);
-<a href=#97 id=97 data-nosnippet>97</a>
-<a href=#98 id=98 data-nosnippet>98</a>    <span class="comment">// Onboard LED (GPIO15): 1 Hz blink = main loop is alive (no serial out).
-<a href=#99 id=99 data-nosnippet>99</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>diag = Output::new(peripherals.GPIO15, Level::Low, OutputConfig::default());
-<a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">let </span><span class="kw-2">mut </span>diag_ticks = <span class="number">0u32</span>;
-<a href=#101 id=101 data-nosnippet>101</a>
-<a href=#102 id=102 data-nosnippet>102</a>    <span class="kw">let </span>effect = LedEffect::Blinking;
-<a href=#103 id=103 data-nosnippet>103</a>    <span class="kw">let </span>start = Instant::now();
+<a href=#88 id=88 data-nosnippet>88</a>    <span class="kw">let </span><span class="kw-2">mut </span>timer0 = ledc.timer::&lt;LowSpeed&gt;(timer::Number::Timer0);
+<a href=#89 id=89 data-nosnippet>89</a>    timer0
+<a href=#90 id=90 data-nosnippet>90</a>        .configure(timer::config::Config {
+<a href=#91 id=91 data-nosnippet>91</a>            duty: timer::config::Duty::Duty14Bit,
+<a href=#92 id=92 data-nosnippet>92</a>            clock_source: LSClockSource::APBClk,
+<a href=#93 id=93 data-nosnippet>93</a>            frequency: Rate::from_khz(<span class="number">1</span>),
+<a href=#94 id=94 data-nosnippet>94</a>        })
+<a href=#95 id=95 data-nosnippet>95</a>        .expect(<span class="string">"LEDC timer0 config failed"</span>);
+<a href=#96 id=96 data-nosnippet>96</a>
+<a href=#97 id=97 data-nosnippet>97</a>    <span class="kw">let </span><span class="kw-2">mut </span>led = ledc.channel(channel::Number::Channel0, peripherals.GPIO7);
+<a href=#98 id=98 data-nosnippet>98</a>    led.configure(channel::config::Config {
+<a href=#99 id=99 data-nosnippet>99</a>        timer: <span class="kw-2">&amp;</span>timer0,
+<a href=#100 id=100 data-nosnippet>100</a>        duty_pct: <span class="number">0</span>,
+<a href=#101 id=101 data-nosnippet>101</a>        drive_mode: esp_hal::gpio::DriveMode::PushPull,
+<a href=#102 id=102 data-nosnippet>102</a>    })
+<a href=#103 id=103 data-nosnippet>103</a>    .expect(<span class="string">"LEDC channel0 config failed"</span>);
 <a href=#104 id=104 data-nosnippet>104</a>
-<a href=#105 id=105 data-nosnippet>105</a>    <span class="kw">loop </span>{
-<a href=#106 id=106 data-nosnippet>106</a>        <span class="kw">let </span>elapsed = start.elapsed().as_millis() <span class="kw">as </span>u64;
-<a href=#107 id=107 data-nosnippet>107</a>        hardware::led::apply(<span class="kw-2">&amp;mut </span>led, <span class="kw-2">&amp;</span>effect, <span class="number">100</span>, elapsed);
-<a href=#108 id=108 data-nosnippet>108</a>        diag_ticks += <span class="number">1</span>;
-<a href=#109 id=109 data-nosnippet>109</a>        <span class="kw">if </span>diag_ticks % <span class="number">50 </span>== <span class="number">0 </span>{
-<a href=#110 id=110 data-nosnippet>110</a>            diag.toggle();
-<a href=#111 id=111 data-nosnippet>111</a>        }
-<a href=#112 id=112 data-nosnippet>112</a>        Timer::after(Duration::from_millis(<span class="number">10</span>)).<span class="kw">await</span>;
-<a href=#113 id=113 data-nosnippet>113</a>    }
-<a href=#114 id=114 data-nosnippet>114</a>}
+<a href=#105 id=105 data-nosnippet>105</a>    <span class="macro">println!</span>(<span class="string">"Init complete — LED blink"</span>);
+<a href=#106 id=106 data-nosnippet>106</a>
+<a href=#107 id=107 data-nosnippet>107</a>    <span class="comment">// Onboard LED (GPIO15): 1 Hz blink = main loop is alive (no serial out).
+<a href=#108 id=108 data-nosnippet>108</a>    </span><span class="kw">let </span><span class="kw-2">mut </span>diag = Output::new(peripherals.GPIO15, Level::Low, OutputConfig::default());
+<a href=#109 id=109 data-nosnippet>109</a>    <span class="kw">let </span><span class="kw-2">mut </span>diag_ticks = <span class="number">0u32</span>;
+<a href=#110 id=110 data-nosnippet>110</a>
+<a href=#111 id=111 data-nosnippet>111</a>    <span class="kw">let </span>effect = LedEffect::Blinking;
+<a href=#112 id=112 data-nosnippet>112</a>    <span class="kw">let </span>start = Instant::now();
+<a href=#113 id=113 data-nosnippet>113</a>
+<a href=#114 id=114 data-nosnippet>114</a>    <span class="kw">loop </span>{
+<a href=#115 id=115 data-nosnippet>115</a>        <span class="kw">let </span>elapsed = start.elapsed().as_millis();
+<a href=#116 id=116 data-nosnippet>116</a>        hardware::led::apply(<span class="kw-2">&amp;</span>led, <span class="kw-2">&amp;</span>effect, <span class="number">100</span>, elapsed);
+<a href=#117 id=117 data-nosnippet>117</a>        diag_ticks = diag_ticks.wrapping_add(<span class="number">1</span>);
+<a href=#118 id=118 data-nosnippet>118</a>        <span class="kw">if </span>diag_ticks.is_multiple_of(<span class="number">50</span>) {
+<a href=#119 id=119 data-nosnippet>119</a>            diag.toggle();
+<a href=#120 id=120 data-nosnippet>120</a>        }
+<a href=#121 id=121 data-nosnippet>121</a>        Timer::after(Duration::from_millis(<span class="number">10</span>)).<span class="kw">await</span>;
+<a href=#122 id=122 data-nosnippet>122</a>    }
+<a href=#123 id=123 data-nosnippet>123</a>}
 </code></pre></div></section></main></body></html>

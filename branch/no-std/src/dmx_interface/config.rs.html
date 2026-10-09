@@ -25,7 +25,7 @@
 <a href=#25 id=25 data-nosnippet>25</a>    }
 <a href=#26 id=26 data-nosnippet>26</a>}
 <a href=#27 id=27 data-nosnippet>27</a>
-<a href=#28 id=28 data-nosnippet>28</a><span class="doccomment">/// WiFi operating mode.
+<a href=#28 id=28 data-nosnippet>28</a><span class="doccomment">/// `WiFi` operating mode.
 <a href=#29 id=29 data-nosnippet>29</a></span><span class="attr">#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 <a href=#30 id=30 data-nosnippet>30</a></span><span class="kw">pub enum </span>WifiMode {
 <a href=#31 id=31 data-nosnippet>31</a>    <span class="doccomment">/// Access Point mode (creates its own network).
@@ -60,12 +60,12 @@
 <a href=#60 id=60 data-nosnippet>60</a>    }
 <a href=#61 id=61 data-nosnippet>61</a>}
 <a href=#62 id=62 data-nosnippet>62</a>
-<a href=#63 id=63 data-nosnippet>63</a><span class="doccomment">/// WiFi station configuration.
+<a href=#63 id=63 data-nosnippet>63</a><span class="doccomment">/// `WiFi` station configuration.
 <a href=#64 id=64 data-nosnippet>64</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 <a href=#65 id=65 data-nosnippet>65</a></span><span class="kw">pub struct </span>WifiStaConfig {
 <a href=#66 id=66 data-nosnippet>66</a>    <span class="doccomment">/// SSID to connect to.
 <a href=#67 id=67 data-nosnippet>67</a>    </span><span class="kw">pub </span>ssid: String&lt;MAX_STR_LEN&gt;,
-<a href=#68 id=68 data-nosnippet>68</a>    <span class="doccomment">/// WiFi password.
+<a href=#68 id=68 data-nosnippet>68</a>    <span class="doccomment">/// `WiFi` password.
 <a href=#69 id=69 data-nosnippet>69</a>    </span><span class="kw">pub </span>password: String&lt;MAX_STR_LEN&gt;,
 <a href=#70 id=70 data-nosnippet>70</a>}
 <a href=#71 id=71 data-nosnippet>71</a>
@@ -79,7 +79,7 @@
 <a href=#79 id=79 data-nosnippet>79</a>    }
 <a href=#80 id=80 data-nosnippet>80</a>}
 <a href=#81 id=81 data-nosnippet>81</a>
-<a href=#82 id=82 data-nosnippet>82</a><span class="doccomment">/// WiFi access point configuration.
+<a href=#82 id=82 data-nosnippet>82</a><span class="doccomment">/// `WiFi` access point configuration.
 <a href=#83 id=83 data-nosnippet>83</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 <a href=#84 id=84 data-nosnippet>84</a></span><span class="kw">pub struct </span>WifiApConfig {
 <a href=#85 id=85 data-nosnippet>85</a>    <span class="doccomment">/// AP SSID (default: derived from MAC address).
@@ -101,11 +101,11 @@
 <a href=#101 id=101 data-nosnippet>101</a><span class="doccomment">/// Complete device configuration.
 <a href=#102 id=102 data-nosnippet>102</a></span><span class="attr">#[derive(Debug, Clone, Serialize, Deserialize)]
 <a href=#103 id=103 data-nosnippet>103</a></span><span class="kw">pub struct </span>Config {
-<a href=#104 id=104 data-nosnippet>104</a>    <span class="doccomment">/// WiFi mode (AP or STA).
+<a href=#104 id=104 data-nosnippet>104</a>    <span class="doccomment">/// `WiFi` mode (AP or STA).
 <a href=#105 id=105 data-nosnippet>105</a>    </span><span class="kw">pub </span>wifi_mode: WifiMode,
-<a href=#106 id=106 data-nosnippet>106</a>    <span class="doccomment">/// WiFi AP configuration.
+<a href=#106 id=106 data-nosnippet>106</a>    <span class="doccomment">/// `WiFi` AP configuration.
 <a href=#107 id=107 data-nosnippet>107</a>    </span><span class="kw">pub </span>wifi_ap: WifiApConfig,
-<a href=#108 id=108 data-nosnippet>108</a>    <span class="doccomment">/// WiFi STA configuration.
+<a href=#108 id=108 data-nosnippet>108</a>    <span class="doccomment">/// `WiFi` STA configuration.
 <a href=#109 id=109 data-nosnippet>109</a>    </span><span class="kw">pub </span>wifi_sta: WifiStaConfig,
 <a href=#110 id=110 data-nosnippet>110</a>    <span class="doccomment">/// DMX port 0 configuration.
 <a href=#111 id=111 data-nosnippet>111</a>    </span><span class="kw">pub </span>dmx0: DmxPortConfig,
