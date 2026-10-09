@@ -32,6 +32,8 @@
 
 ## Phase 5 — System
 
+- [x] Logging over USB-CDC (`src/logging.rs` → ring → `inv monitor`)
+- [x] Panic report + persistence (RTC + NVS, auto-reset, boot-loop guard)
 - [ ] System info (heap, uptime, reset reason, chip info)
 - [ ] Factory reset via button hold (3s)
 - [ ] Boot-time button detection

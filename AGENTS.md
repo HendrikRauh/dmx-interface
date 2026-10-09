@@ -1,5 +1,7 @@
 # dmx-interface — AGENTS.md
 
+<!-- cspell:ignore xtal -->
+
 Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi AP with JSON config persisted to NVS.
 
 **Current state**: no_std pure Rust with esp-hal + embassy. Phases 1–3 implemented (LED + Button, Config, NVS Storage) and USB-CDC-ACM with esptool auto-reset (Phase 4, partial) — see `TODO.md` for the remaining phases (DMX UART, System, WiFi, Web server, Integration).
@@ -22,7 +24,7 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | `inv build` | Debug build → `target/xtensa-esp32s2-none-elf/debug/dmx-interface` |
 | `inv build --release` | Release build (LTO, `opt-level=s`) |
 | `inv flash` | Build → convert to bin → flash via esptool (USB CDC) |
-| `inv monitor` | Serial monitor via espflash |
+| `inv monitor` | Raw serial monitor, reconnecting, colored levels (in `tasks.py`) |
 | `inv check` | Strict clippy for the xtensa target (flags in `tasks.py`) |
 | `inv clean` | `cargo clean` |
 | `inv format` | `pre-commit run --all-files` |
@@ -57,13 +59,15 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | --- | --- | --- |
 | `src/main.rs` | Entry point, peripherals, main loop | LED + USB wired |
 | `src/config.rs` | Config data model (heapless, serde, postcard) | Implemented, not wired |
-| `src/storage.rs` | NVS persistent storage (esp-nvs) | Implemented, not wired |
+| `src/storage.rs` | NVS persistent storage (esp-nvs), global singleton + panic snapshot keys | `init()` wired (called at boot), config ops not yet used |
+| `src/logging.rs` | `log` backend → static 4 KiB ring → CDC flush API | Wired |
+| `src/panic_report.rs` | Own `#[panic_handler]`, RTC/NVS persist, boot-loop guard, replay | Wired |
 | `src/boards/mod.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
 | `src/boards/s2_mini.rs` | S2 Mini pin constants | Implemented, not wired |
 | `src/hardware/led.rs` | LED effect logic (LEDC PWM) | Wired |
 | `src/hardware/button.rs` | Debounced button | Implemented, not wired |
 | `src/hardware/efuse.rs` | MAC address helpers (esp-hal::efuse) | Implemented, not wired |
-| `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader) | Wired |
+| `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader) + log drain | Wired |
 
 ## Key crate versions
 
@@ -73,6 +77,8 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 | `esp-alloc` | 0.7 | Global allocator via `HEAP.add_region(HeapRegion::new(...))` — no `.init()` method, no chip features |
 | `esp-nvs` | 0.5 | Takes `&Key` refs, `Key::from_str()` for const keys |
 | `static_cell` | 2.1 | `StaticCell::init()` for `'static` embassy-usb buffers (edition 2024 forbids `&mut static mut`); already a transitive dep of esp-hal |
+| `log` | 0.4 | Logging facade; backend in `src/logging.rs` uses `set_logger_racy`/`set_max_level_racy` in a critical section (Xtensa has no CAS, so the plain setters are cfg'd out) |
+| `esp-backtrace` | 0.19 | `Backtrace::capture()` only — `panic-handler` feature **off** (own handler in `panic_report.rs`); needs `println` feature to satisfy `build.rs` |
 
 ## USB CDC flashing (ESP32-S2)
 
@@ -219,10 +225,26 @@ The port may re-enumerate between the two runs (reset while the stub was residen
 
 The hint also prints when the connect fails.
 
+`inv monitor` resolves the port the same way (single device only, no first-flash hint), waiting up to 8 s for the device to (re-)enumerate after a flash, and streams through pyserial inside the task.
+Do **not** point espflash's `monitor --before no-reset-no-sync` at the running app instead: its connect path queries chip registers over SLIP (`detect_sdm`, `device_info`, `xtal_frequency`),
+which an application never answers — the command dies with an I/O error after ~19 s (the flags only skip the reset, not the queries; the default connect dance would reset the app anyway).
+
 Do **not** switch the state machine to poll the CDC `control_changed()` event — it fires per-state-change and misses the bootloader-reset semantics; 10 ms polling of `dtr()`/`rts()` is deliberate.
 
-### No debug output without UART
+### Debug output: log over USB-CDC, not UART
 
-The Lolin S2 Mini has **no USB-UART bridge** on GPIO43/44. `esp-println` with `uart` feature produces no visible output. Use `no-op` for release or `println!` (goes to no-op) — the panic handler uses `esp-backtrace` with `println` feature (also no-op). There is no way to see
-serial output unless you wire a UART adapter to
-GPIO43/44.
+The Lolin S2 Mini has **no USB-UART bridge** on GPIO43/44 — raw `esp-println` (kept at `no-op` feature only to satisfy esp-backtrace's `build.rs`) produces no output.
+All diagnostics go through `src/logging.rs`: the `log` crate backend writes `[<ms>:>7ms][<L>] <msg>` lines into a static 4 KiB ring (drop-oldest).
+`control_and_log` in `src/hardware/usb.rs` drains the ring to the CDC-ACM class — visible in `inv monitor` (raw passthrough in `tasks.py`, which reconnects across panic resets).
+
+**Panics**: `src/panic_report.rs` owns the `#[panic_handler]` (esp-backtrace's `panic-handler` feature is _disabled_; the crate stays a dep only for `Backtrace::capture()` + `println` feature).
+It logs Panic + Location + backtrace frames to the ring, then persists a snapshot twice — `.rtc_slow.persistent` RTC section (survives soft reset, zeroed only on power-on) and NVS `diag/last_panic` (if flash is idle, guarded against a concurrent writer).
+It clears the RTC boot-loop counter (`mark_stable()` arms it via a 30 s task in `main.rs`), resets via `esp_hal::system::software_reset()`, and halts instead after **3 panics without a stable 30 s run**.
+On the next boot `report_last_panic()` replays the report into the ring (`=== LAST PANIC (previous run) ===`) — it shows up in `inv monitor` after reconnect; there is no live panic output (the executor owns the USB pipeline).
+Symbolize the `0x…` frame addresses with `addr2line -e target/xtensa-esp32s2-none-elf/debug/dmx-interface`.
+
+Snapshot details (hard-won): the replay is verbatim (`push_raw`) — re-splitting the stored bytes on `\\n` and pushing the pieces without them strips every line break.
+Snapshots only capture ring bytes appended after `mark_snapshot_floor()` (set at the end of `report_last_panic()`); without the floor, `drain_snapshot()` re-swallows the replayed report and every stored report grows into a loop of its predecessors.
+
+`inv flash` writes the full 4 MB merged image over `0x0000–0x400000`, covering the NVS partition at `0x9000`: persisted data (the stored panic report, later the config)
+does **not** survive flashing — the report replays across reboots only, and the RTC fallback did not survive the flash reset chain either (observed, mechanism not fully traced).

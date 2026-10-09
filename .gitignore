@@ -19,6 +19,10 @@ result
 web/node_modules/
 web/dist/
 
+# Python
+__pycache__/
+*.pyc
+
 # OS
 .DS_Store
 *.swp

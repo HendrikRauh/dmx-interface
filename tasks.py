@@ -1,7 +1,9 @@
 # cspell:ignore: JTAG UART FTDI Espressif CDC
 
 import os
+import re
 import shutil
+import sys
 import time
 import webbrowser
 
@@ -94,8 +96,8 @@ def _wait_for_port(tty: str, timeout: float = 3.0) -> None:
         time.sleep(0.1)
 
 
-def _flash_port(port: str | None) -> str:
-    """Resolve the flash port: explicit --port wins, else the sole Espressif device."""
+def _resolve_port(port: str | None, hint: str | None = None) -> str:
+    """Resolve a serial port: explicit --port wins, else the sole Espressif device."""
     if port:
         if not os.path.exists(port):
             print(f"❌ {port} not found — board not connected or not enumerated.")
@@ -113,7 +115,8 @@ def _flash_port(port: str | None) -> str:
             print(f"   {tty} ({desc})")
         raise Exit(code=1)
     print(f"❌ No Espressif device (VID {_ESPRESSIF_VID}) found on USB.")
-    print(_FIRST_FLASH_HINT)
+    if hint:
+        print(hint)
     raise Exit(code=1)
 
 
@@ -195,7 +198,7 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     # Fail fast when the board is absent or ambiguous — no point in building
     # or invoking esptool then. A blank chip does not enumerate before the
     # manual bootloader entry, so it shows up as "no device" below.
-    port_path = _flash_port(port)
+    port_path = _resolve_port(port, hint=_FIRST_FLASH_HINT)
 
     profile = "release" if release else "debug"
     elf_path = f"target/{target}/{profile}/{_ELF}"
@@ -273,11 +276,157 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     print("✓ FORCE_DOWNLOAD_BOOT cleared → watchdog reset, booting app")
 
 
+# ANSI colors for the firmware's log line prefix `[<ms>ms][<L>] <msg>`
+# (level markers from `logging.rs::level_marker`, `!` from the panic
+# handler). Applied host-side by `monitor` — the ring and any persisted
+# report stay plain bytes.
+_LOG_RE = re.compile(r"^(\[\s*\d+ms\])\[(.)\] ")
+# Byte twin of `_LOG_RE` for the raw stream the monitor's line sync sees.
+_LOG_RE_B = re.compile(_LOG_RE.pattern.encode())
+_LOG_COLORS = {
+    "T": "\x1b[90m",  # trace — gray
+    "D": "\x1b[34m",  # debug — blue
+    "I": "\x1b[32m",  # info — green
+    "W": "\x1b[33m",  # warn — yellow
+    "E": "\x1b[31m",  # error — red
+    "!": "\x1b[1;31m",  # panic — bold red
+}
+_ANSI_DIM = "\x1b[2m"
+_ANSI_RESET = "\x1b[0m"
+
+
+def _format_log_line(raw: bytes, color: bool) -> str:
+    """Decode one log line (without newline) and tint it when it matches
+    the firmware's log prefix. Non-matching lines pass through unchanged."""
+    text = raw.decode("utf-8", "replace")
+    match = _LOG_RE.match(text) if color else None
+    tint = _LOG_COLORS.get(match.group(2)) if match else None
+    if tint is None:
+        return text
+    # Timestamp dim, marker + message in the level color.
+    return (
+        f"{_ANSI_DIM}{match.group(1)}{_ANSI_RESET}"
+        f"{tint}{text[match.end(1) :]}{_ANSI_RESET}"
+    )
+
+
 @task
 def monitor(c, port=None):
-    """Monitor serial output from device."""
-    port_arg = f"--port {port}" if port else ""
-    c.run(f"espflash monitor {port_arg}", pty=True)
+    """
+    Stream the device's serial output (raw byte passthrough, reconnecting).
+
+    Shows the firmware log ring (`src/logging.rs`) incl. the last-panic
+    replay after a reboot. espflash's monitor cannot be used here: its
+    connect path queries chip registers over SLIP, which the running app
+    never answers, so it dies with an I/O error after ~19 s. The port is
+    opened without touching DTR/RTS beyond pyserial's asserted (1,1)
+    default, which the firmware's bootloader state machine treats as a
+    no-op; a vanished device (panic reset, flashing) is waited for. The
+    first (possibly partial) line of a connection is dropped when it does
+    not look like a log line — the ring may be joined where drop-oldest
+    cut a line in half.
+
+    On a TTY, levels are colorized (trace gray, debug blue, info green,
+    warn yellow, error red, panic bold red); set `NO_COLOR` to disable.
+    """
+    del c  # no shell needed — the loop runs in-process
+    import serial  # pyserial from the flake devShell; lazy import keeps other tasks independent
+
+    color = sys.stdout.isatty() and not os.environ.get("NO_COLOR")
+    tint_notes = sys.stderr.isatty() and not os.environ.get("NO_COLOR")
+    sys.stdout.reconfigure(errors="replace")
+
+    def note(msg: str, tint: str) -> None:
+        """Status line on stderr, dimmed/colored when stderr is a TTY."""
+        if tint_notes:
+            msg = f"{tint}{msg}{_ANSI_RESET}"
+        print(msg, file=sys.stderr)
+
+    # After `inv ... flash` the board is gone for a moment (watchdog reset
+    # + USB re-enumeration, ~1-3 s) — without this wait the chained
+    # `inv build flash monitor` would die on "No Espressif device" here.
+    deadline = time.monotonic() + 8.0
+    waiting = False
+    while True:
+        ready = os.path.exists(port) if port else bool(_espressif_ports())
+        if ready:
+            break
+        if not waiting:
+            note("-> waiting for device ...", _ANSI_DIM)
+            waiting = True
+        if time.monotonic() >= deadline:
+            break
+        time.sleep(0.5)
+    preferred = _resolve_port(port)
+
+    def wait_for_tty() -> str:
+        """Wait until a tty exists again, following re-enumeration."""
+        while True:
+            if os.path.exists(preferred):
+                return preferred
+            devices = _espressif_ports()
+            if len(devices) == 1:
+                return devices[0][0]
+            time.sleep(0.5)
+
+    def emit(raw: bytes) -> None:
+        sys.stdout.write(_format_log_line(raw, color) + "\n")
+        sys.stdout.flush()
+
+    pending = b""  # bytes of the line still being received
+    sync = True  # leading bytes may be a ring fragment — drop to the next line
+    try:
+        while True:
+            node = wait_for_tty()
+            note(f"-> monitoring {node}", _ANSI_DIM)
+            try:
+                with serial.Serial(node, 115_200, timeout=0.2) as link:
+                    while True:
+                        data = link.read(4096)
+                        if not data:
+                            continue
+                        pending += data
+                        if sync:
+                            # The ring can be joined mid-line (drop-oldest
+                            # cut a wrapped buffer somewhere inside a line).
+                            # Every log line starts with `[<ms>ms][<L>] ` —
+                            # wait until we can tell, then drop the fragment
+                            # up to the first newline.
+                            if _LOG_RE_B.match(pending):
+                                sync = False
+                            else:
+                                idx = pending.find(b"\n")
+                                if idx < 0:
+                                    continue
+                                pending = pending[idx + 1 :]
+                                sync = False
+                        while b"\n" in pending:
+                            line, pending = pending.split(b"\n", 1)
+                            emit(line)
+            except BrokenPipeError:
+                raise  # stdout gone — handled by the outer handler
+            except (OSError, serial.SerialException) as exc:
+                if pending and not sync:
+                    # Device died mid-line: flush what arrived so far.
+                    emit(pending)
+                pending = b""
+                sync = True
+                note(
+                    f"! device lost ({exc.__class__.__name__}), waiting ...",
+                    _LOG_COLORS["W"],
+                )
+                time.sleep(0.5)  # let the node disappear fully before re-opening
+    except BrokenPipeError:
+        # Downstream closed the pipe (`inv monitor | head`) — point stdout's
+        # fd at /dev/null so the interpreter-shutdown flush stays quiet.
+        with open(os.devnull, "w", encoding="utf-8") as devnull:
+            os.dup2(devnull.fileno(), sys.stdout.fileno())
+        raise Exit(code=0) from None
+    except KeyboardInterrupt:
+        if pending and not sync:
+            emit(pending)
+        print(file=sys.stderr)
+        raise Exit(code=0) from None
 
 
 @task

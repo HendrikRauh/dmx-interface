@@ -1,7 +1,9 @@
 //! DMX interface firmware for ESP32-S2 (Lolin S2 Mini).
 //!
 //! Current scope: LED effect on GPIO7 (LEDC PWM), USB-CDC with esptool
-//! auto-reset, and a diagnostic blink on the onboard LED (GPIO15).
+//! auto-reset, ring-buffer logging over the CDC port, panic reports
+//! persisted across resets, and a diagnostic blink on the onboard LED
+//! (GPIO15).
 
 #![no_std]
 #![no_main]
@@ -16,13 +18,16 @@ mod boards;
 mod config;
 /// Hardware abstraction (LED, button, eFuse, USB).
 mod hardware;
+/// Log ring buffer drained over the USB-CDC connection.
+mod logging;
+/// Panic capture and last-panic persistence.
+mod panic_report;
 /// NVS-backed persistent storage.
 mod storage;
 
 use embassy_executor::Spawner;
 use embassy_time::{Duration, Instant, Timer};
 use esp_alloc::HeapRegion;
-use esp_backtrace as _;
 use esp_hal::{
     clock::CpuClock,
     gpio::{Level, Output, OutputConfig},
@@ -35,11 +40,17 @@ use esp_hal::{
     time::Rate,
     timer::timg::TimerGroup,
 };
-use esp_println::println;
 
 use hardware::led::LedEffect;
 
 esp_bootloader_esp_idf::esp_app_desc!();
+
+/// Clears the panic boot-loop counter once the firmware ran stably for 30 s.
+#[embassy_executor::task]
+async fn stable_marker() {
+    Timer::after(Duration::from_secs(30)).await;
+    panic_report::mark_stable();
+}
 
 /// Entry point.
 #[esp_rtos::main]
@@ -48,8 +59,9 @@ async fn main(spawner: Spawner) -> ! {
 
     // ── Heap allocator ─────────────────────────────────────────────────────
     {
-        /// Heap size in bytes (8 KiB internal RAM).
-        const HEAP_SIZE: usize = 8 * 1024;
+        /// Heap size in bytes (32 KiB internal RAM — the panic-report replay
+        /// and NVS blob reads allocate, 8 KiB was too tight).
+        const HEAP_SIZE: usize = 32 * 1024;
         /// Backing memory for the heap allocator.
         static mut HEAP_MEM: [u8; HEAP_SIZE] = [0u8; HEAP_SIZE];
         let heap_ptr = core::ptr::addr_of_mut!(HEAP_MEM).cast::<u8>();
@@ -75,11 +87,20 @@ async fn main(spawner: Spawner) -> ! {
     let sw_int = SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
     esp_rtos::start(timg0.timer0, sw_int.software_interrupt0);
 
-    // ── USB-CDC (esptool auto-reset) ───────────────────────────────────────
+    // ── Logging + last-panic report ────────────────────────────────────────
+    // Must follow esp_rtos::start (uptime timestamps need the time driver)
+    // and precede the USB spawn, so a stored panic report is already in the
+    // ring when the first host connects.
+    logging::init();
+    storage::init(peripherals.FLASH);
+    panic_report::report_last_panic();
+
+    // ── USB-CDC (esptool auto-reset + log drain) ───────────────────────────
     spawner.spawn(
         hardware::usb::task(peripherals.USB0, peripherals.GPIO20, peripherals.GPIO19)
             .expect("USB task spawn failed"),
     );
+    spawner.spawn(stable_marker().expect("stable marker spawn failed"));
 
     // ── LEDC PWM (status LED) ──────────────────────────────────────────────
     let mut ledc = Ledc::new(peripherals.LEDC);
@@ -102,7 +123,7 @@ async fn main(spawner: Spawner) -> ! {
     })
     .expect("LEDC channel0 config failed");
 
-    println!("Init complete — LED blink");
+    log::info!("Init complete — LED blink");
 
     // Onboard LED (GPIO15): 1 Hz blink = main loop is alive (no serial out).
     let mut diag = Output::new(peripherals.GPIO15, Level::Low, OutputConfig::default());
@@ -117,6 +138,7 @@ async fn main(spawner: Spawner) -> ! {
         diag_ticks = diag_ticks.wrapping_add(1);
         if diag_ticks.is_multiple_of(50) {
             diag.toggle();
+            log::debug!("LOOP tick - build in led toggles");
         }
         Timer::after(Duration::from_millis(10)).await;
     }

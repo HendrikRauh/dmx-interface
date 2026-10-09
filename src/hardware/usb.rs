@@ -22,9 +22,15 @@
 //! therefore clears the flag itself after flashing (esptool `write-reg
 //! 0x3F408128 0 0x1` through the stub) and then resets via the RTC watchdog,
 //! which boots the application.
+//!
+//! The same task also drains the log ring from [`crate::logging`] over the
+//! CDC data endpoint, so `inv monitor` shows the firmware log output.
 
-use embassy_futures::join::join;
-use embassy_time::{Duration, Timer};
+use embassy_futures::{
+    join::join,
+    select::{Either, select},
+};
+use embassy_time::{Duration, Instant, Timer};
 use embassy_usb::{
     Builder,
     class::cdc_acm::{CdcAcmClass, State},
@@ -36,14 +42,21 @@ use esp_hal::{
     },
     peripherals::{GPIO19, GPIO20, USB0},
 };
-use esp_println::println;
 use static_cell::StaticCell;
+
+use crate::logging;
 
 /// Espressif USB vendor ID (same as the ROM bootloader).
 const USB_VID: u16 = 0x303A;
 
 /// Espressif generic CDC-ACM product ID.
 const USB_PID: u16 = 0x3001;
+
+/// Line-poll interval of the DTR/RTS state machine.
+const POLL_INTERVAL: Duration = Duration::from_millis(10);
+
+/// Log chunk size handed to the CDC endpoint (matches `max_packet_size`).
+const LOG_CHUNK: usize = 64;
 
 /// The S2 peripheral types are invariant in their lifetime, which pins the
 /// USB driver to `'static`; the embassy-usb buffers therefore must be
@@ -83,31 +96,80 @@ pub async fn task(usb0: USB0<'static>, dp: GPIO20<'static>, dm: GPIO19<'static>)
         &mut [],
         CONTROL_BUF.init([0u8; 64]),
     );
-    let class = CdcAcmClass::new(&mut builder, CDC_STATE.init(State::new()), 64);
+    let mut class = CdcAcmClass::new(&mut builder, CDC_STATE.init(State::new()), 64);
     let mut device = builder.build();
 
-    println!("USB-CDC ready");
-    join(device.run(), control_monitor(&class)).await;
+    log::info!("USB-CDC ready");
+    join(device.run(), control_and_log(&mut class)).await;
     unreachable!()
 }
 
-/// Polls the DTR/RTS control lines and mirrors them onto the strapping
-/// semantics (see module docs).
-async fn control_monitor(class: &CdcAcmClass<'static, Driver<'static>>) -> ! {
+/// Runs the DTR/RTS state machine and drains the log ring into the host.
+///
+/// Both roles live in one task because the line poll needs `&class` while
+/// the log flush needs `&mut class` — a single `&mut` serves both (`dtr()`
+/// and `rts()` take `&self`).
+///
+/// The future is a `select` of two branches:
+///
+/// * a deadline-based 10 ms timer that re-checks the control lines (the
+///   deadline is only re-armed when the timer actually fired, so log traffic
+///   can never starve the esptool reset walk), and
+/// * a log flush that copies one chunk out of the ring and awaits
+///   `write_packet`. Bytes are only committed after the driver accepted the
+///   packet, so a cancelled flush (timer branch won) loses nothing and
+///   duplicates nothing.
+///
+/// The flush has no connection gate: before the host has configured us the
+/// endpoint is disabled and the write errors out right away (the flush then
+/// waits a poll interval instead of spinning, so the timer branch keeps
+/// running), and an idle ring waits 10 ms between polls instead of spinning.
+async fn control_and_log(class: &mut CdcAcmClass<'static, Driver<'static>>) -> ! {
     let mut prev = (class.dtr(), class.rts());
+    let mut deadline = Instant::now().saturating_add(POLL_INTERVAL);
     loop {
-        Timer::after(Duration::from_millis(10)).await;
-        let now = (class.dtr(), class.rts());
-        if now == prev {
-            continue;
+        let outcome = select(Timer::at(deadline), flush_logs(class)).await;
+        match outcome {
+            Either::First(()) => {
+                deadline = Instant::now().saturating_add(POLL_INTERVAL);
+                let now = (class.dtr(), class.rts());
+                if now == prev {
+                    continue;
+                }
+                prev = now;
+                match now {
+                    (false, false) => set_force_download(false),
+                    (true, false) => set_force_download(true),
+                    (false, true) => enter_bootloader(),
+                    (true, true) => {}
+                }
+            }
+            Either::Second(()) => {}
         }
-        prev = now;
-        match now {
-            (false, false) => set_force_download(false),
-            (true, false) => set_force_download(true),
-            (false, true) => enter_bootloader(),
-            (true, true) => {}
+    }
+}
+
+/// Copies pending log lines from the ring into the CDC endpoint until the
+/// ring is empty or the endpoint errors out. See [`control_and_log`] for the
+/// cancellation-safety argument.
+async fn flush_logs(class: &mut CdcAcmClass<'static, Driver<'static>>) {
+    loop {
+        let mut chunk = [0u8; LOG_CHUNK];
+        let n = logging::cdc_peek(&mut chunk);
+        if n == 0 {
+            Timer::after(POLL_INTERVAL).await;
+            return;
         }
+        let (data, _) = chunk.split_at(n);
+        if class.write_packet(data).await.is_err() {
+            // The endpoint is disabled (host has not configured us yet) —
+            // returning immediately would let `select` complete over and
+            // over without ever yielding, starving `device.run()` and
+            // stalling enumeration. Wait instead of spinning.
+            Timer::after(POLL_INTERVAL).await;
+            return;
+        }
+        logging::cdc_commit(n);
     }
 }
 
