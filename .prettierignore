@@ -1,7 +1,0 @@
-# Ignore build artifacts and generated files
-target/
-.direnv/
-*.lock
-
-# SVGs are formatted with svgo instead
-*.svg

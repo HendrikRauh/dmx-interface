@@ -59,15 +59,14 @@
 
           hooks = {
             # General
+            action-validator.enable = true;
+            actionlint.enable = true;
             check-added-large-files = {
               enable = true;
               args = ["--maxkb=1000"];
             };
             check-case-conflicts.enable = true;
-            check-merge-conflicts.enable = true;
-            check-toml.enable = true;
-            check-yaml.enable = true;
-            check-json.enable = true;
+            check-symlinks.enable = true;
             end-of-file-fixer.enable = true;
             fix-byte-order-marker.enable = true;
             mixed-line-endings = {
@@ -75,6 +74,19 @@
               args = ["--fix=lf"];
             };
             trim-trailing-whitespace.enable = true;
+
+            # YAML, JSON & TOML
+            check-json.enable = true;
+            check-toml.enable = true;
+            check-yaml.enable = true;
+            yamllint = {
+              enable = true;
+              args = [
+                "--strict"
+                "-d"
+                "{extends: default, rules: {line-length: {max: 120}, document-start: disable}}"
+              ];
+            };
 
             # Secrets
             detect-private-keys.enable = true;
@@ -154,11 +166,17 @@
             # TypeScript / JSX
             oxfmt = {
               enable = true;
-              excludes = ["\\.svg"];
+              types_or = [
+                "javascript"
+                "jsx"
+                "ts"
+                "tsx"
+                "css"
+                "scss"
+              ];
             };
             oxlint = {
               enable = true;
-              excludes = ["\\.svg"];
             };
 
             # Nix
@@ -178,14 +196,9 @@
               args = ["--no-must-find-files"];
             };
 
-            # SCSS / CSS
-            prettier = {
-              enable = true;
-              types_or = [
-                "scss"
-                "css"
-              ];
-            };
+            # Git
+            check-merge-conflicts.enable = true;
+            convco.enable = true;
           };
         };
       in {
