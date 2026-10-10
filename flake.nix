@@ -1,4 +1,4 @@
-# cspell:words: ESPTOOL_BEFORE pyproject cadquery Patchelf virtualenv opencascade occt dont vtkmodules
+# cspell:words: ESPTOOL_BEFORE pyproject cadquery Patchelf virtualenv opencascade occt dont vtkmodules libstdc zlib expat soname unpatchelf manylinux libvtk IGES PYTHONPATH
 {
   description = "dmx-interface ESP32 Rust development environment (esp-hal, no_std)";
 
@@ -248,14 +248,12 @@
 
               pkgs.git
               pkgs.libclang
-              pkgs.opencascade-occt
-              pkgs.python313.pkgs.invoke
-              pkgs.python313.pkgs.pyserial
-              pkgs.python313
+              python
+              python.pkgs.invoke
+              python.pkgs.pyserial
               pkgs.svgo
               pkgs.renovate
               pkgs.uv
-              pkgs.vtk
               virtualenv
             ];
 
@@ -263,20 +261,37 @@
             RUSTUP_TOOLCHAIN = "${esp-rs}";
             LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
             GERMAN_DICT_PATH = "${germanDict}";
+            # Native libraries needed by the OCP/build123d wheels: the venv is
+            # built from unpatchelf'ed manylinux wheels, so their ELF deps are
+            # only resolved through LD_LIBRARY_PATH (nix's ld.so reads the
+            # store's ld.so.cache and never /usr/lib). Every entry is
+            # load-bearing — dropping one makes `import build123d` fail with a
+            # missing .so, see AGENTS.md "Pitfalls (hard-won)".
+            # The bundled VTK 9.3 libs (libvtk*-9.3.so) are *not* listed here:
+            # they ship inside the cadquery-ocp wheel as site-packages/
+            # vtkmodules, which is appended below. nixpkgs' vtk has different
+            # SONAMEs and does not satisfy OCP.
             LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+              # OCP.so links libstdc++ directly
               pkgs.stdenv.cc.cc.lib
-              pkgs.vtk
+              # OCCT visualization (TKService/TKOpenGl): libGL, libX11
               pkgs.libGL
               pkgs.libX11
+              # OCCT STEP/IGES readers: expat, zlib
               pkgs.expat
               pkgs.zlib
-            ]}:${virtualenv}/lib/python3.13/site-packages/vtkmodules:${virtualenv}/lib/python3.13/site-packages/cadquery_vtk:$LD_LIBRARY_PATH";
+            ]}:${virtualenv}/lib/${python.libPrefix}/site-packages/vtkmodules:$LD_LIBRARY_PATH";
             UV_NO_SYNC = "1";
             UV_PYTHON = python.interpreter;
             UV_PYTHON_DOWNLOADS = "never";
           };
 
           shellHook = ''
+            # The venv must lead PATH: git-hooks' enabledPackages put nixpkgs'
+            # python3 (currently 3.14) ahead of python313, and such a 3.14
+            # interpreter still finds build123d via PYTHONPATH but cannot load
+            # the cp313 extension module -> "No module named 'OCP.OCP'".
+            export PATH="${virtualenv}/bin:$PATH"
             git lfs install --local --force
             ${pre-commit-check.shellHook}
             export PATH="$PWD/web/node_modules/.bin:$PATH"

@@ -1,6 +1,6 @@
 # dmx-interface — AGENTS.md
 
-<!-- cspell:ignore xtal -->
+<!-- cspell:ignore xtal libstdc libexpat libz libvtk vtkmodules zlib expat cadquery occt manylinux patchelf soname PYTHONPATH build123d ocp_vscode vscode uv python313 libPrefix virtualenv sdist pyproject novtk unpatchelf dont IGES -->
 
 Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi AP with JSON config persisted to NVS.
 
@@ -263,3 +263,39 @@ Snapshots only capture ring bytes appended after `mark_snapshot_floor()` (set at
 
 `inv flash` writes the full 4 MB merged image over `0x0000–0x400000`, covering the NVS partition at `0x9000`: persisted data (the stored panic report, later the config)
 does **not** survive flashing — the report replays across reboots only, and the RTC fallback did not survive the flash reset chain either (observed, mechanism not fully traced).
+
+### Python/CAD env: `python` is pinned to 3.13 on purpose
+
+`flake.nix` has exactly **one** `python` binding (`python = pkgs.python313;`) and everything derives from it: `buildInputs` (`python`, `python.pkgs.invoke`, `python.pkgs.pyserial`), `UV_PYTHON`,
+and the venv path inside `LD_LIBRARY_PATH` (`${virtualenv}/lib/${python.libPrefix}/site-packages/vtkmodules` — note the `lib/`, `libPrefix` alone is just `python3.13`).
+Do not "simplify" any of these back to `pkgs.python3` — on current nixpkgs that is 3.14, and the locked wheel stack is cp313-only:
+
+- `cadquery-ocp` **7.8.1.1.post1** ships cp313-only manylinux wheels and **no sdist**, and the locked `build123d` 0.10 requires cadquery-ocp 7.8 — so `uv` fails at lock time with `No compatible wheel, nor sdist found for package 'cadquery-ocp'`.
+  `requires-python = ">=3.13,<3.14"` in `pyproject.toml` keeps that failure explicit instead of mysterious.
+- Upstream now has cp314 wheels (cadquery-ocp 8.0, build123d 0.13), but that is a major bump, not a flake tweak: build123d ≥ 0.13 depends on `cadquery-ocp-novtk>=8.0` (a _different_ package, and VTK-free, which would drop the `vtkmodules` entry below), plus `ocp-vscode` 4.x and a port of `assets/case/src/main_case.py`.
+
+The failure mode that cost the most time (reproduced twice): the nixpkgs python setup hook puts a buildInput's `site-packages` on `PYTHONPATH` **only when its interpreter version matches**.
+With nixpkgs `python3` = 3.14 and a 3.13 venv, `dmx-env` never reaches `PYTHONPATH` and `python -c "import build123d"` dies with `ModuleNotFoundError` — while the shell's `python` itself looks perfectly fine (`python -V` prints 3.14.7).
+On a nixpkgs where `python3` is still 3.13 it works by accident, which is why the `refactor/case` branch behaved differently at identical flake text.
+
+Second trap, even with that bridge in place: bare `python` is **not** guaranteed to be the pinned interpreter.
+`pre-commit-check.enabledPackages` puts nixpkgs' python3 (3.14) and its hook packages on `PATH` _ahead_ of `python313`.
+So `python -c "import build123d"` finds the pure-python package via `PYTHONPATH` and then fails deep inside with `ModuleNotFoundError: No module named 'OCP.OCP'` — a cp313 extension module is invisible to a 3.14 ABI.
+Therefore the `shellHook` prepends `${virtualenv}/bin` to `PATH`: the venv interpreter must lead, and PATH order elsewhere is not to be trusted.
+
+### OCP/build123d: native libs come from `LD_LIBRARY_PATH`, not the system
+
+The venv is built from unpatchelf'ed manylinux wheels (`dontAutoPatchelf` for cadquery-ocp), so OCP's ELF dependencies resolve only through `LD_LIBRARY_PATH`; nix's `ld.so` consults the store's `ld.so.cache` and **never** `/usr/lib`, so a working host toolchain does not leak in.
+Each entry below is load-bearing — every single one was removed and re-added after an `ImportError`:
+
+| `LD_LIBRARY_PATH` entry | Needed by | Error without it |
+| --- | --- | --- |
+| `stdenv.cc.cc.lib` | `OCP.so` links libstdc++ directly | `ImportError: libstdc++.so.6` |
+| `expat` | OCCT STEP/IGES readers | `ImportError: libexpat.so.1` |
+| `zlib` | OCCT | `ImportError: libz.so.1` |
+| `libGL`, `libX11` | OCCT visualization (TKService / TKOpenGl) | `ImportError: libGL.so.1` |
+| `…/site-packages/vtkmodules` | bundled VTK 9.3 (`libvtk*-9.3.so`) shipped _inside_ the cadquery-ocp wheel | `ImportError: libvtkWrappingPythonCore3.13-9.3.so` |
+
+Do **not** substitute nixpkgs `vtk` or `occt` for the last row: nixpkgs ships VTK 9.5 / OCCT 7.9 with different SONAMEs and cannot satisfy those `NEEDED` entries.
+`site-packages/cadquery_vtk` (referenced by an older revision of this flake) does not exist at all — a nonexistent dir in `LD_LIBRARY_PATH` is silently ignored.
+Sanity check after touching any of this: `nix develop -c python -c "import build123d, ocp_vscode"`.
