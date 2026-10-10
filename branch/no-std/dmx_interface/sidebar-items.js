@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"fn":["stable_marker"],"mod":["boards","config","hardware","logging","panic_report","storage"],"static":["ESP_APP_DESC"]};
+window.SIDEBAR_ITEMS = {"fn":["stable_marker"],"mod":["boards","config","hardware","logging","net","panic_report","storage"],"static":["ESP_APP_DESC"]};
