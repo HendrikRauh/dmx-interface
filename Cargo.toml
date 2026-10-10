@@ -10,17 +10,31 @@ esp32s2 = [
   "esp-backtrace/esp32s2",
   "esp-bootloader-esp-idf/esp32s2",
   "esp-hal/esp32s2",
+  "esp-radio/esp32s2",
   "esp-rtos/esp32s2",
 ]
 
 [dependencies]
+base64 = { version = "0.22", default-features = false, features = ["alloc"] }
 critical-section = "1"
 embassy-executor = "0.10.0"
 embassy-futures = "0.1"
+embassy-net = { version = "0.9", features = [
+  "auto-icmp-echo-reply",
+  "dhcpv4",
+  "icmp",
+  "log",
+  "medium-ethernet",
+  "medium-ip",
+  "proto-ipv4",
+  "tcp",
+  "udp",
+] }
 embassy-time = "0.5.0"
 embassy-usb = { version = "0.6.0", default-features = false }
+embedded-io-async = "0.7"
 enumset = "1"
-esp-alloc = "0.7"
+esp-alloc = "0.10"
 esp-backtrace = { version = "0.19.0", default-features = false, features = [
   "println",
 ] }
@@ -31,7 +45,12 @@ esp-println = { version = "0.17.0", default-features = false, features = [
   "esp32s2",
   "no-op",
 ] }
-esp-rtos = { version = "0.3.0", features = ["embassy", "log-04"] }
+esp-radio = { version = "0.18", default-features = false, features = [
+  "log-04",
+  "unstable",
+  "wifi",
+] }
+esp-rtos = { version = "0.3.0", features = ["embassy", "esp-radio", "log-04"] }
 esp-storage = "0.9"
 esp32s2 = { version = "0.33", features = ["critical-section", "rt"] }
 heapless = { version = "0.7", features = ["serde"] }
@@ -39,13 +58,23 @@ libm = "0.2"
 log = "0.4"
 postcard = "1"
 serde = { version = "1", default-features = false, features = ["derive"] }
+serde-json-core = "0.6"
+sha1 = { version = "0.10", default-features = false }
 static_cell = "2"
 
 [profile.dev]
 opt-level = 1
+
+# esp-radio requires aggressive optimization — WiFi timing breaks at lower
+# opt levels (see the esp-radio README).
+[profile.dev.package.esp-radio]
+opt-level = 3
 
 [profile.release]
 lto = true
 codegen-units = 1
 opt-level = "s"
 strip = true
+
+[profile.release.package.esp-radio]
+opt-level = 3

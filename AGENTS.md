@@ -2,12 +2,18 @@
 
 <!-- cspell:ignore xtal -->
 
-Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi AP with JSON config persisted to NVS.
+Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi (access point
+or station mode), JSON config persisted to NVS.
 
-**Current state**: no_std pure Rust with esp-hal + embassy. Phases 1–3 implemented (LED + Button, Config, NVS Storage) and USB-CDC-ACM with esptool auto-reset (Phase 4, partial) — see `TODO.md` for the remaining phases (DMX UART, System, WiFi, Web server, Integration).
-
-Wired into `src/main.rs` today: the status LED (own embassy task, `hardware::led`), USB-CDC, logging/panic report, and boot-time config load (`storage::load().apply()`).
-`boards`, `hardware::button` and `hardware::efuse` are implemented but **not used yet** (hidden by `#![allow(dead_code)]`); wiring them up is part of the open phases.
+**Current state** (branch `no-std`): no_std pure Rust with esp-hal + embassy.
+Wired into `src/main.rs`: status LED task, USB-CDC + esptool auto-reset, log
+ring drain, panic report, boot-time `storage::load().apply()`, and `net::task`
+(WiFi AP + DHCP server — verified on hardware, SSID `ChaosDMX-<last two MAC bytes>` — or station mode with a 15 s AP fallback) and an HTTP/WebSocket
+server (reference API: static UI + `GET/POST /api/config` + WS envelopes on
+`/ws`). **Scope split**: this repo owns the network + server infrastructure;
+UI logic, tests and UX polish are handed to an external contributor —
+see “Web tier” below. Open phases (see `TODO.md`): DMX UART output,
+button-driven factory reset.
 
 ## Dev shell
 
@@ -16,17 +22,19 @@ nix develop                    # enter shell (direnv also works)
 nix develop -c inv build       # one-shot build
 ```
 
-All `inv` commands **must** run inside `nix develop` (or prefixed with `nix develop -c`), as they depend on `esptool`, `espflash`, `cargo`, and other flake-provided tools.
+All `inv` commands **must** run inside `nix develop` (or prefixed with
+`nix develop -c`), as they depend on `esptool`, `espflash`, `cargo`, and other
+flake-provided tools.
 
 ## Tasks (invoke)
 
 | Command | What |
 | --- | --- |
 | `inv build` | Debug build → `target/xtensa-esp32s2-none-elf/debug/dmx-interface` |
-| `inv build --release` | Release build (LTO, `opt-level=s`) |
+| `inv build --release` | Release build (LTO, `opt-level="s"`) |
 | `inv flash` | Build → convert to bin → flash via esptool (USB CDC) |
 | `inv monitor` | Raw serial monitor, reconnecting, colored levels (in `tasks.py`) |
-| `inv check` | Strict clippy for the xtensa target (flags in `tasks.py`) |
+| `inv check` | Strict clippy for the xtensa target (flags in `tasks.py`) — **this is the test gate; there is no `cargo test` (no harness for this target)** |
 | `inv clean` | `cargo clean` |
 | `inv format` | `pre-commit run --all-files` |
 | `inv docs` | Generate rustdoc + redirect — **fails on any rustdoc warning** (`RUSTDOCFLAGS=-D warnings` in `tasks.py`) |
@@ -36,15 +44,29 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 
 ## Hard constraints
 
-- **Toolchain**: nightly esp-rs fork via `RUSTUP_TOOLCHAIN` (set in flake, sourced from `esp-rs-nix`).
-- **Target**: `xtensa-esp32s2-none-elf` (no_std, pure Rust).
-- **build-std**: `["alloc", "core"]` in `.cargo/config.toml` — do NOT pass `-Zbuild-std` on command line.
-- **Linker**: `linkall.x` + `nostartfiles` via `.cargo/config.toml` rustflags (no `ldproxy`).
-- **esp_bootloader_esp_idf::esp_app_desc!()**: required in `main.rs` even with no_std (bootloader compatibility).
-- **Clippy**: works on the xtensa target (the old ICE is gone) and runs strict — `-D warnings` plus `-D clippy::pedantic` and cherry-picked restriction/nursery lints for
-  no_std firmware (arithmetic overflow, undocumented `unsafe`, `as` conversions, indexing/slicing, `unwrap`, needless `&mut`, std-instead-of-core drift, etc.). Flags live
-  in `tasks.py` (`_CLIPPY_ARGS`), used by `inv check` and by the pre-commit hook (`entry = "invoke check"`). Never pass `--all-targets`: the `test` crate does not exist
-  for this target, so `cargo test`/`--all-targets` cannot build.
+- **Toolchain**: nightly esp-rs fork via `RUSTUP_TOOLCHAIN` (set in flake,
+  sourced from `esp-rs-nix`).
+- **Target**: `xtensa-esp32s2-none-elf` (no_std, pure Rust, edition 2024).
+- **build-std**: `["alloc", "core"]` via `[unstable]` in `.cargo/config.toml` —
+  do NOT pass `-Zbuild-std` on the command line.
+- **Linker**: `linkall.x` + `nostartfiles` via `.cargo/config.toml` rustflags
+  (no `ldproxy`).
+- **`esp_bootloader_esp_idf::esp_app_desc!()`** required in `main.rs` even with
+  no_std (bootloader compatibility).
+- **Clippy**: strict — `-D warnings` plus pedantic and cherry-picked
+  restriction/nursery lints (arithmetic overflow, undocumented `unsafe`, `as`
+  conversions, indexing/slicing, `unwrap`, std-vs-core drift, …); full set in
+  `tasks.py` `_CLIPPY_ARGS`, used by `inv check` and the pre-commit hook
+  (`entry = "invoke check"`). Never pass `--all-targets`: the `test` crate does
+  not exist for this target.
+- **Profiles**: dev `opt-level = 1`; release LTO + `codegen-units = 1` +
+  `opt-level = "s"` + strip. **`package.esp-radio` is pinned to
+  `opt-level = 3` in both profiles** — WiFi timing breaks at lower opt levels
+  (esp-radio README); do not "optimize" that override away.
+- **esp-alloc must keep its default features**: `compat` supplies the C symbols
+  (`malloc`, `malloc_internal`, `free`, `free_internal`, `realloc_internal`,
+  `calloc`, `calloc_internal`, `get_free_internal_heap_size`) that esp-radio
+  links against; disabling defaults yields undefined-symbol link errors.
 
 ## Flake env vars
 
@@ -58,60 +80,97 @@ All `inv` commands **must** run inside `nix develop` (or prefixed with `nix deve
 
 | Module | Role | Status |
 | --- | --- | --- |
-| `src/main.rs` | Entry point, peripheral init, task spawns | LED task + USB + logging wired |
-| `src/config.rs` | Config data model (heapless, serde, postcard), `apply()` propagation | `apply()` wired (boot load → LED brightness), rest not yet |
-| `src/storage.rs` | NVS persistent storage (esp-nvs), global singleton + panic snapshot keys | `init()` + boot-time `load()` wired, `save()`/`clear()` not yet used |
-| `src/logging.rs` | `log` backend → static 4 KiB ring → CDC flush API | Wired |
+| `src/main.rs` | Entry point, heap init, peripheral init, task spawns | LED + USB + logging + panic + net wired |
+| `src/config.rs` | Config data model (heapless, serde, postcard for NVS); JSON wire shape = web contract (`config.d.ts`), `ConfigPatch` + `merge_patch` for partial updates | `ap_config`/`station_config`/`connection` consumed by `net`, LED brightness via `apply()` |
+| `src/storage.rs` | NVS storage (esp-nvs), global singleton + panic snapshot keys | `init()` + boot-time `load()` wired; `save()`/`clear()` wired into HTTP/WS config handlers |
+| `src/logging.rs` | `log` backend → static 4 KiB ring → CDC flush API | Wired; max level baked at build time (`build.rs` sets `LOG_LEVEL`: release=`info`, debug=`debug`) |
 | `src/panic_report.rs` | Own `#[panic_handler]`, RTC/NVS persist, boot-loop guard, replay | Wired |
-| `src/boards/mod.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
-| `src/boards/s2_mini.rs` | S2 Mini pin constants | Implemented, not wired |
-| `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM, 14-bit raw duty via `set_duty_hw`) | Wired |
-| `src/hardware/button.rs` | Debounced button | Implemented, not wired |
-| `src/hardware/efuse.rs` | MAC address helpers (esp-hal::efuse) | Implemented, not wired |
-| `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS → bootloader) + log drain | Wired |
+| `src/boards/mod.rs` + `s2_mini.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
+| `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM, GPIO7) | Wired |
+| `src/hardware/button.rs` | Debounced button (GPIO5) | Implemented, not wired |
+| `src/hardware/efuse.rs` | MAC helpers (`mac_bytes`, `default_ap_ssid`) | Wired via `net` |
+| `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS) + log drain | Wired |
+| `src/net/mod.rs` | `WiFi` AP **or** station bring-up (`esp-radio` + `embassy-net`): AP static `192.168.4.1/24`, station DHCP with 15 s AP fallback; event loop = controller keep-alive | Wired (`net::task` from main) |
+| `src/net/dhcp.rs` | Minimal DHCPv4 server (`DISCOVER`/`REQUEST` → `OFFER`/`ACK`/`NAK`, 8 leases from `.10`) | Wired (spawned by `net::task` in AP mode) |
+| `src/net/http.rs` | HTTP/1.1 server: 4 fixed connection-slot tasks (static UI + `GET/POST /api/config`), `/ws` upgrade handoff | Wired (spawned by `net::task` in AP **and** STA mode) |
+| `src/net/ws.rs` | RFC 6455 subset + JSON envelopes (`config.get`/`config.set`/`system.get`/`reset`/`ping` as reference handlers) | Wired (invoked from `http` on `/ws` upgrade) |
 
 ## Key crate versions
 
-| Crate | Version | Why |
+| Crate | Version | Why / gotcha |
 | --- | --- | --- |
-| `heapless` | 0.7 | 0.8 incompatible with postcard (heapless type mismatch) |
-| `libm` | 0.2 | `sinf` for the LED breathing curve — `no_std` core has no float math; used by `hardware::led` |
-| `esp-alloc` | 0.7 | Global allocator via `HEAP.add_region(HeapRegion::new(...))` — no `.init()` method, no chip features |
+| `heapless` | 0.7 | 0.8 incompatible with postcard |
+| `esp-alloc` | 0.10 | `HEAP.add_region(HeapRegion::new(...))` (no `.init()`); default features **on** — C malloc shims for esp-radio |
+| `esp-radio` | 0.18 | WiFi driver; `default-features = false`, features `log-04`/`unstable`/`wifi`; requires `opt-level = 3` (see Hard constraints) |
+| `esp-rtos` | 0.3 | Executor + WiFi glue; features `["embassy", "esp-radio", "log-04"]` |
+| `embassy-net` | 0.9 | TCP/IP; every protocol opt-in via features (see `Cargo.toml`) — enabled: `dhcpv4`/`udp`/`icmp`/`tcp`; sockets share `StackResources<8>` (4 TCP slots + DHCP + headroom) |
+| `embassy-time` | 0.5 | `Instant`/`Timer` (LED, USB poll, DHCP leases); `Instant::from_nanos(0)` for const zero (no `ZERO` const) |
+| `embassy-futures` | 0.1 | `join!`/`select!` helpers |
+| `embassy-executor` | 0.10 | Task fn call returns `Result<SpawnToken, SpawnError>` → `.expect(...)`/`match` then `spawner.spawn(token)` |
+| `static_cell` | 2 | `StaticCell::init()` for `'static` embassy-usb buffers (edition 2024 forbids `&mut static mut`); transitive dep of esp-hal |
+| `log` | 0.4 | Backend in `src/logging.rs` uses `set_logger_racy`/`set_max_level_racy` in a critical section (Xtensa has no CAS) |
+| `esp-backtrace` | 0.19 | `Backtrace::capture()` only — `panic-handler` feature **off** (own handler in `panic_report.rs`); needs `println` for `build.rs` |
 | `esp-nvs` | 0.5 | Takes `&Key` refs, `Key::from_str()` for const keys |
-| `static_cell` | 2.1 | `StaticCell::init()` for `'static` embassy-usb buffers (edition 2024 forbids `&mut static mut`); already a transitive dep of esp-hal |
-| `log` | 0.4 | Logging facade; backend in `src/logging.rs` uses `set_logger_racy`/`set_max_level_racy` in a critical section (Xtensa has no CAS, so the plain setters are cfg'd out) |
-| `esp-backtrace` | 0.19 | `Backtrace::capture()` only — `panic-handler` feature **off** (own handler in `panic_report.rs`); needs `println` feature to satisfy `build.rs` |
+| `libm` | 0.2 | `sinf` for the LED breathing curve (`no_std` has no float math) |
+| `base64` | 0.22 | `default-features = false, features = ["alloc"]`; WS accept key via `encode_slice` (no heap) |
+| `sha1` | 0.10 | `default-features = false`; WS accept key digest |
+| `serde-json-core` | 0.6 | `no_std` JSON; `from_slice` returns `(value, bytes_consumed)` — a tuple, not the value; **no internally tagged enums** (needs serde alloc buffering) |
+| `embedded-io-async` | 0.7 | `Write`/`write_all` on `TcpSocket` (reads are inherent methods) |
 
 ## USB CDC flashing (ESP32-S2)
 
-Lolin S2 Mini uses native USB-OTG CDC — no external UART, no DTR/RTS pins. The firmware itself exposes the USB port as a CDC-ACM device and implements the classic DTR/RTS reset protocol in software (see `src/hardware/usb.rs`). This gives esptool **auto-reset** support via `ESPTOOL_BEFORE=usb-reset`.
+Lolin S2 Mini uses native USB-OTG CDC — no external UART, no DTR/RTS pins. The
+firmware exposes the USB port as a CDC-ACM device and implements the classic
+DTR/RTS reset protocol in software (see `src/hardware/usb.rs`), giving esptool
+**auto-reset** via `ESPTOOL_BEFORE=usb-reset`.
 
-**First flash** (no firmware yet): Hold **BOOT** + press **RESET** to enter the ROM bootloader manually, then run `inv flash`.
+- **First flash** (no firmware yet): hold **BOOT** + press **RESET** for the
+  ROM bootloader, then `inv flash`.
+- **Subsequent flashes**: `inv flash` resets into the bootloader itself.
+- esptool reports the chip as ESP32-S2FNR2 with **2 MB embedded PSRAM**
+  (not enabled in firmware yet).
 
-**Subsequent flashes**: firmware is already running, so `inv flash` resets into the bootloader itself — no button pressing needed.
+After flashing, `inv flash` clears `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` via
+esptool `write-mem 0x3F408128 0 0x1` (through the stub) and resets via the RTC
+watchdog (`--after watchdog-reset`) so the app boots and re-enumerates as
+USB-CDC automatically. `inv monitor` can be re-run without pressing RESET.
 
-After flashing, `inv flash` clears `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` via esptool `write-mem 0x3F408128 0 0x1` (through the stub) and resets via the RTC watchdog (`--after watchdog-reset`) — the device boots the application and re-enumerates as USB-CDC automatically. `inv monitor` (or
-`inv flash`) can be re-run without pressing RESET.
+## Web tier — server ours, UI + tests handed off
 
-## Web frontend (`web/`)
+The firmware **serves HTTP/WebSocket itself** (`src/net/http.rs` +
+`src/net/ws.rs`, reference API below). What lives in the tree:
 
+- **Server (this repo, hardware-verified)**: embedded single-file UI at `/`,
+  font at `/fonts/Fredoka.ttf`, `GET/POST /api/config` (merge-patch semantics
+  via `ConfigPatch`), WebSocket `/ws` with JSON envelopes —
+  `config.get`/`config.set`/`system.get`/`reset`/`ping` as working examples.
+  The wire JSON matches `web/src/types/config.d.ts` exactly.
+- **Backbone (this repo)**: routing, fixed connection slots, WS framing +
+  envelope parsing, persistence hook (`ConfigPatch` → NVS → `apply()`).
+  The routes/envelopes below are a **replaceable reference**, not a contract.
+- **Contributor scope**: API design (the shape beyond these reference
+  endpoints), UI logic/UX, config diffing, `inv web:dev` mock upkeep, log
+  streaming (not implemented server-side), web tests, transport refinements
+  (keep-alive, extra routes, envelope extensions).
 - **Stack**: Preact + TypeScript + Vite + SCSS
-- **Build**: `vite build` → single HTML file (`vite-plugin-singlefile`) + gzip (`vite-plugin-compression`)
-- **Dev**: `web/dev/` mock server (`vite-plugin-mock-dev-server`) — mocks `/api/config`
+- **Build**: `vite build` → single HTML file (`vite-plugin-singlefile`) + gzip
+  (`vite-plugin-compression`)
+- **Dev**: `web/mock/config.mock.ts` (`vite-plugin-mock-dev-server`) mocks
+  `GET/POST /api/config` — `inv web:dev` runs the UI against the mock
+- **Firmware needs `web/dist/`**: `net/http.rs` `include_bytes!`s
+  `web/dist/index.html` + `web/dist/fonts/Fredoka.ttf` — run `inv web:build`
+  before `inv build`/`inv flash` (compile error otherwise).
 
 ## Pre-commit hooks (Nix-generated, do not edit `.pre-commit-config.yaml`)
 
-Configured in `flake.nix` via `git-hooks.nix`. Key formatters/linters:
+Configured in `flake.nix` via `git-hooks.nix`: rustfmt, cargo-clippy
+(`invoke check`), rustdoc (`invoke docs`, warning-free docs), `scripts/check-rust-docs.sh`
+(doc coverage), ruff + ruff-format, alejandra + deadnix + statix + flake-checker,
+oxfmt + oxlint, prettier, markdownlint + mdformat + cspell, shellcheck + shfmt,
+ripsecrets + detect-private-keys.
 
-- **Rust**: rustfmt + cargo-clippy (`inv check`: warnings as errors, pedantic, plus firmware restriction/nursery lints — full set in `tasks.py` `_CLIPPY_ARGS`, replaces cargo-check)
-- **Rust docs**: rustdoc (`invoke docs`, fails on any rustdoc warning) + `scripts/check-rust-docs.sh` (LEVEL/FILE_DOC toggles)
-- **Python**: ruff + ruff-format
-- **Nix**: alejandra + deadnix + statix + flake-checker
-- **TS**: oxfmt + oxlint
-- **CSS/SCSS**: prettier
-- **Markdown**: markdownlint + mdformat + cspell
-- **Shell**: shellcheck + shfmt
-- **Secrets**: ripsecrets + detect-private-keys
+New project jargon (chip/protocol spellings like `dhcpv4`, `smoltcp`) must be
+added to `.cspell.json` — the hook checks every file, including Rust sources.
 
 Run `inv format` (or `pre-commit run --all-files`) to re-run all hooks.
 
@@ -125,7 +184,7 @@ Run `inv format` (or `pre-commit run --all-files`) to re-run all hooks.
 
 ## Pitfalls (hard-won)
 
-These are non-obvious issues encountered during development. **Read this before changing firmware or build logic.**
+Read this before changing firmware or memory/build logic.
 
 ### Module docs: `//!` only — never also `///` on `mod x;`
 
@@ -144,48 +203,49 @@ as `//!` in the module file. `inv docs` (and the `rustdoc` pre-commit hook /
 CI) builds docs with `RUSTDOCFLAGS=-D warnings` (`tasks.py`), so broken links
 fail instead of scrolling by.
 
-### Flash: `--merge` is mandatory
+### Heap placement: `.dram2_uninit`, not the default data segment
 
-`espflash save-image` **must** use `--merge`. Without it, only the bare app binary is produced — **no bootloader, no partition table** — and the firmware silently never boots (LED stays off, no crash output).
+Adding WiFi statics overflows the main DRAM segment (171 KiB) — the linker
+fails with `stack.x:11 cannot move location counter backwards (from 3ffeb388 to 3ffde000)`. The 128 KiB heap therefore lives in esp-hal's
+`.dram2_uninit` (a 136 KiB region that is free after boot, `dram2.x`):
 
-```sh
-# Correct — produces merged image (bootloader @ 0x1000 + part-table @ 0x8000 + app @ 0x10000):
-espflash save-image --chip esp32s2 --flash-size 4mb --merge target/.../dmx-interface target/.../dmx-interface.bin
-
-# Wrong — only app binary, no bootloader:
-espflash save-image --chip esp32s2 --flash-size 4mb target/.../dmx-interface target/.../dmx-interface.bin
+```rust
+#[unsafe(link_section = ".dram2_uninit")] // edition 2024: unsafe attribute
+static mut HEAP_MEM: [u8; HEAP_SIZE] = [0u8; HEAP_SIZE];
+let heap_ptr = core::ptr::addr_of_mut!(HEAP_MEM).cast::<u8>();
 ```
 
-Flash the merged binary at offset `0x0000` — the internal offsets are already embedded.
+Resulting layout: stack ~80 KiB (`_stack_end` 0x3FFCA0D8 → `_stack_start`
+0x3FFDE000, grows down), heap 0x3FFDE000–0x3FFFE000 (grows up), 8 KiB margin to
+RAM top. `HeapRegion::new(ptr, size, MemoryCapability::Internal)` then
+`esp_alloc::HEAP.add_region(region)` — 0.10 has no `.init()` and no chip
+features. New large statics will hit the same linker error; move them to
+`.dram2_uninit` or shrink something.
+
+### Flash: `--merge` is mandatory
+
+`espflash save-image` **must** use `--merge`, otherwise only the bare app
+binary is produced — **no bootloader, no partition table** — and the firmware
+silently never boots (LED stays off, no crash output). Flash the merged binary
+at offset `0x0000` (internal offsets are embedded).
 
 ### Two LEDs: GPIO7 (external) vs GPIO15 (onboard)
 
-The Lolin S2 Mini has **two** LEDs. The firmware drives the **external** LED-Button module on **GPIO7** (`hardware::led`); the onboard LED sits on **GPIO15** (active-low, `ONBOARD_LED_GPIO` in `boards/s2_mini.rs`) and is **not driven** — it stays dark, so don't use it to verify firmware state.
-Debug output goes over USB-CDC (`inv monitor`).
+The firmware drives the **external** LED-Button module on **GPIO7**
+(`hardware::led`); the onboard LED sits on **GPIO15** (active-low,
+`ONBOARD_LED_GPIO` in `boards/s2_mini.rs`) and is **not driven** — it stays
+dark, so don't use it to verify firmware state. Debug output goes over
+USB-CDC (`inv monitor`).
 
 ### `#[esp_rtos::main]` does NOT call `esp_rtos::start()`
 
-The macro only sets up the embassy executor. You **must** call `esp_rtos::start()` manually inside the async main:
+The macro only sets up the embassy executor. You **must** call
+`esp_rtos::start()` manually inside the async main:
 
 ```rust
 let timg0 = TimerGroup::new(peripherals.TIMG0);
 let sw_int = SoftwareInterruptControl::new(peripherals.SW_INTERRUPT);
 esp_rtos::start(timg0.timer0, sw_int.software_interrupt0);
-```
-
-### `esp-alloc` HeapRegion API
-
-`HeapRegion::new()` takes `*mut u8` (not `*mut [u8; N]`). Use a cast:
-
-```rust
-static mut HEAP_MEM: [u8; HEAP_SIZE] = [0u8; HEAP_SIZE];
-unsafe {
-    esp_alloc::HEAP.add_region(HeapRegion::new(
-        core::ptr::addr_of_mut!(HEAP_MEM) as *mut u8,
-        HEAP_SIZE,
-        esp_alloc::MemoryCapability::Internal.into(),
-    ));
-}
 ```
 
 ### `InputConfig` is a struct (builder pattern)
@@ -198,9 +258,11 @@ Input::new(pin, InputConfig::default().with_pull(Pull::Up))
 
 ### USB-CDC buffers must be `'static`
 
-The S2 USB peripheral types are lifetime-invariant (`PhantomData<&'a mut ()>`, and `UsbPeripheral` config forces `'static`), so the `embassy-usb` driver is pinned to `'static`. That means all device buffers (`EP_OUT_BUFFER`, `CONFIG_DESCRIPTOR`, `BOS_DESCRIPTOR`, `CONTROL_BUF`,
-`State`) must be `'static` too. Edition 2024 forbids `&mut static mut`, so use `static_cell::StaticCell<T>` with `.init(...)` (returns `&'static mut T`,
-panics on double init — safe, the task runs once):
+The S2 USB peripheral types are lifetime-invariant, so the `embassy-usb`
+driver — and all its device buffers (`EP_OUT_BUFFER`, descriptors,
+`CONTROL_BUF`, `State`) — must be `'static`. Edition 2024 forbids
+`&mut static mut`; use `static_cell::StaticCell<T>` with `.init(...)`
+(returns `&'static mut T`, panics on double init — safe, tasks run once):
 
 ```rust
 static EP_OUT_BUFFER: StaticCell<[u8; 1024]> = StaticCell::new();
@@ -209,7 +271,7 @@ let driver = Driver::new(usb, EP_OUT_BUFFER.init([0u8; 1024]), Config::default()
 
 ### esptool auto-reset: DTR/RTS are simulated in software
 
-esptool's `--before usb-reset` walk is `(DTR,RTS) = (0,0) → (1,0) → (0,1) → (0,0)`. The firmware mirrors it onto the ROM strapping semantics:
+esptool's `--before usb-reset` walk is `(DTR,RTS) = (0,0) → (1,0) → (0,1) → (0,0)`. The firmware mirrors it onto ROM strapping semantics:
 
 | DTR | RTS | Action |
 | ----- | ----- | -------- |
@@ -218,48 +280,139 @@ esptool's `--before usb-reset` walk is `(DTR,RTS) = (0,0) → (1,0) → (0,1) �
 | 0 | 0 | clear the flag |
 | 1 | 1 | no-op |
 
-The `(0,1)` state must **not** set the force flag itself: the `--before` walk arms it via the preceding `(1,0)`. Setting the flag unconditionally was the original bug — but even the "clean" `(0,1)`-reset design leaves the device stuck after flashing, because the flag survives the
-whole download session:
+The ROM bootloader does **not** clear `FORCE_DOWNLOAD_BOOT`; with
+`--after hard-reset` esptool's S2-specific reset then leaves the chip in the
+bootloader (USB PID 0x0002) and the next flash dies with
+`OSError: [Errno 71] Protocol error` on the idle ROM's first control request.
+`inv flash` (`tasks.py`) therefore runs **two** esptool invocations (the CLI
+accepts exactly one operation per invocation): run 1 flashes with
+`--after no-reset-stub`, run 2 reconnects (`--before no-reset`), clears bit 0
+via `write-mem 0x3F408128 0 0x1`, and resets with `--after watchdog-reset`.
+Both set `ESPTOOL_OPEN_PORT_ATTEMPTS=5` (Errno 71 retries). The port is found
+by scanning `/sys/bus/usb/devices` for VID `303a` (ROM `0002` + app `3001`);
+exactly one device required, `--port` overrides, none → fail-fast with
+first-flash BOOT+RESET hint, several → list + require `--port`. The port may
+re-enumerate between the two runs (reset while the stub was resident): run 2
+waits for the node and is skipped if the firmware (PID `3001`) came back.
 
-**The ROM bootloader does NOT clear `FORCE_DOWNLOAD_BOOT` on entry.** The flag lives in the RTC domain and survives software resets, so after esptool's `--before` walk set it, it is still set when the post-flash reset runs. With `--after hard-reset`, esptool's S2-specific
-`hard_reset()` (esptool/targets/esp32s2.py) checks the flag — if set, it skips the clean watchdog reset and falls back to an RTS-only pulse that leaves the chip in the bootloader (USB PID 0x0002). The next flash then hits `OSError: [Errno 71] Protocol error` on the first modem
-ioctl, because the idle ROM bootloader drops the first control request.
+`inv monitor` resolves the port the same way (waits up to 8 s for
+re-enumeration after a flash) and streams via pyserial with reconnects. Do
+**not** point espflash's `monitor --before no-reset-no-sync` at the running
+app: its connect path queries chip registers over SLIP and dies with an I/O
+error after ~19 s (the flags only skip the reset, not the queries).
 
-The fix lives in `inv flash` (`tasks.py`): after `write-flash`, it clears bit 0 via `write-mem 0x3F408128 0 0x1` through the stub and resets via `--after watchdog-reset` (register-based, ungated), which boots the application. Only a power-on reset clears the flag by hardware.
+### Debug/panic output: log over USB-CDC, not UART
 
-**esptool's CLI takes exactly one operation per invocation** (argparse in v4, click in v5) — chaining `write-flash 0x0 file.bin write-mem 0x3F408128 0 0x1` dies with `Invalid value for '<address> <filename>...': Address "write-mem" must be a number`
-on every version; the old one-liner in `tasks.py` never parsed. `tasks.py` therefore runs two invocations:
-the flash run ends with `--after no-reset-stub` (chip stays in the stub, no reset), the second reconnects with `--before no-reset` (a walk would re-arm the flag), clears bit 0, does `--after watchdog-reset` and runs `--silent` (banner/chip block are noise; the progress bar lives in run 1).
-Both runs set `ESPTOOL_OPEN_PORT_ATTEMPTS=5` so an Errno 71 on the port open is retried instead of aborting. `inv flash` picks the port by scanning `/sys/bus/usb/devices` for Espressif USB devices (VID `303a` — ROM bootloader `0002` and firmware `3001` both match; `--port` overrides):
+The Lolin S2 Mini has **no USB-UART bridge** on GPIO43/44 — raw `esp-println`
+(kept at `no-op` feature only to satisfy esp-backtrace's `build.rs`) produces
+no output. All diagnostics go through `src/logging.rs`: the `log` backend
+writes `[<ms>:>7ms][<L>] <msg>` lines into a static 4 KiB ring (drop-oldest);
+`control_and_log` in `src/hardware/usb.rs` drains it to CDC — visible in
+`inv monitor`.
 
-- exactly one → use it
-- none → fail fast before build/conversion/esptool and print the first-flash BOOT+RESET hint
-- several → list them and require `--port`
+**Panics**: `src/panic_report.rs` owns the `#[panic_handler]`. It logs the
+report into the ring, persists it twice (RTC slow section + NVS `diag/last_panic`),
+clears the RTC boot-loop counter (`mark_stable()` arms a 30 s task in
+`main.rs`), resets via `esp_hal::system::software_reset()`, and halts after
+**3 panics without a stable 30 s run**. The next boot replays the report into
+the ring (`=== LAST PANIC (previous run) ===`); symbolize `0x…` frames with
+`addr2line -e target/xtensa-esp32s2-none-elf/debug/dmx-interface`. Snapshots
+must be pushed verbatim (`push_raw`) and only cover bytes after
+`mark_snapshot_floor()` — re-splitting stored bytes or missing the floor loops
+stored reports into themselves. Note: `inv flash` writes the full 4 MB merged
+image, so NVS (and the stored panic report) is wiped on every flash; the RTC
+fallback did not survive the flash reset chain either (observed).
 
-The port may re-enumerate between the two runs (reset while the stub was resident — port-close glitch or button press): `inv flash` waits for the node and skips run 2 if the firmware (PID `3001`) came back, since an app boot implies the flag is already clear.
+- **esp-hal API spellings**: `esp_hal::rtc_cntl::reset_reason(esp_hal::system::Cpu::ProCpu)`
+  → `Option<impl Debug>`; `esp_hal::system::software_reset() -> !`.
 
-The hint also prints when the connect fails.
+### WiFi/net stack specifics
 
-`inv monitor` resolves the port the same way (single device only, no first-flash hint), waiting up to 8 s for the device to (re-)enumerate after a flash, and streams through pyserial inside the task.
-Do **not** point espflash's `monitor --before no-reset-no-sync` at the running app instead: its connect path queries chip registers over SLIP (`detect_sdm`, `device_info`, `xtal_frequency`),
-which an application never answers — the command dies with an I/O error after ~19 s (the flags only skip the reset, not the queries; the default connect dance would reset the app anyway).
+- **`WifiController` must stay alive**: dropping it de-initializes the radio.
+  `net::task`'s event loop (`controller.subscribe()` → `next_event().await`) is
+  the keep-alive — don't restructure it into something that drops the
+  controller, and don't let the task return.
+- **`net::task` must never return** (see above); `Wifi init failed` is handled
+  with an eternal `core::future::pending()` instead of a panic.
+- **AP mode**: static `192.168.4.1/24` (`net::AP_IP`/`AP_PREFIX`
+  consts; the DHCP server replies from `AP_IP` and derives its pool log
+  from it — the `/24` pool layout itself is documented in `dhcp.rs`), no
+  gateway, no DNS servers. SSID: configured `ap_config.ssid` or `efuse::default_ap_ssid()`
+  (`ChaosDMX-` + last two MAC bytes as uppercase hex). WPA2 only when the
+  password is ≥ 8 chars; otherwise open + warning (RFC minimum).
+- **Station mode** (`connection == WifiSta` + non-empty `station_config.ssid`): the
+  radio starts with `WifiConfig::Station` as `initial_config`, then
+  `controller.connect_async()` is raced against `STA_CONNECT_TIMEOUT`
+  (15 s) via `embassy_futures::select`. Success → embassy-net DHCP client
+  on `interfaces.station` (`start_station` polls `stack.config_v4()`,
+  warns once after 10 s, gives up after `STA_DHCP_TIMEOUT` (15 s)).
+  Association error/timeout **or lease timeout** → AP fallback:
+  `controller.set_config(&WifiConfig::AccessPoint(...))` — esp-radio stops
+  and restarts the WiFi mode internally on a mode change. The abandoned
+  station stack idles safely (`tx_token()` requires link up, and
+  `esp_wifi_send_data` additionally guards on the mode) and uses its own
+  `STACK_STA` cell, so `start_ap` can init `STACK_AP` beside it. An empty
+  SSID degrades straight to the AP with a warning (never a radio-less boot).
+  After a successful boot the keep-alive loop reacts to
+  `EventInfo::StationDisconnected` with `try_station()` retries every
+  `STA_RECONNECT_DELAY` (5 s), forever — esp-radio never reconnects on its
+  own (`connect_async` covers a single attempt). No runtime AP fallback:
+  the HTTP slots already live on `STACK_STA`, so a vanished AP leaves the
+  device unreachable until reboot.
+- **Subscribe after the mutable controller work**: `controller.subscribe()`
+  borrows the controller, so `connect_async()`/`set_config()` (both `&mut`)
+  must run first — subscription happens right before the keep-alive loop.
+- **DHCP server** (`src/net/dhcp.rs`): hand-rolled RFC 2131 subset over an
+  `embassy_net::udp::UdpSocket` bound to port 67; replies broadcast to
+  `255.255.255.255:68` until the client has an address (sender `0.0.0.0` or
+  broadcast flag), unicast for renewals. 8 fixed leases starting at `.10`,
+  MAC-keyed, 1 h. UDP sockets need their own `PacketMetadata` arrays + ring
+  buffers (`UdpSocket::new` takes four slices); the two modes keep
+  separate 8-slot `StackResources` pools (`STACK_STA`/`STACK_AP` — within
+  one stack the DHCP server XOR the DHCP client occupies a slot;
+  embassy-net's DHCP client takes one pool slot as well).
+- **DHCP options are TLV** (type, length, value): option 53/54/50 are _not_
+  bare values — reading the length byte as data derails the parser (fixed in
+  `dhcp::parse_client`).
+- **`embassy_net::Ipv4Address` is `core::net::Ipv4Addr`** (smoltcp 0.13
+  re-export): use `octets()`, `is_unspecified()`, `Ipv4Address::UNSPECIFIED`/
+  `BROADCAST` — no smoltcp-specific address API. `smoltcp::wire::dhcpv4` is
+  _not_ reachable through embassy-net (would need smoltcp as a direct dep);
+  `src/net/dhcp.rs` hand-parses the wire format with bounds-checked
+  `Reader`/`Writer` cursors instead.
+- **`embassy_time::Instant` has no `ZERO`** — use `Instant::from_nanos(0)` in
+  const contexts, `Instant::now()` + `saturating_add(Duration)` for deadlines.
+- **Task spawn pattern** (embassy-executor 0.10): the task fn call yields
+  `Result<SpawnToken, SpawnError>` — `match` + `log::error!` (no `.expect` in
+  public fns, `missing_panics_doc` is pedantic), then `spawner.spawn(token)`.
 
-Do **not** switch the state machine to poll the CDC `control_changed()` event — it fires per-state-change and misses the bootloader-reset semantics; 10 ms polling of `dtr()`/`rts()` is deliberate.
+### HTTP/WebSocket server (`src/net/http.rs`, `src/net/ws.rs`)
 
-### Debug output: log over USB-CDC, not UART
-
-The Lolin S2 Mini has **no USB-UART bridge** on GPIO43/44 — raw `esp-println` (kept at `no-op` feature only to satisfy esp-backtrace's `build.rs`) produces no output.
-All diagnostics go through `src/logging.rs`: the `log` crate backend writes `[<ms>:>7ms][<L>] <msg>` lines into a static 4 KiB ring (drop-oldest).
-`control_and_log` in `src/hardware/usb.rs` drains the ring to the CDC-ACM class — visible in `inv monitor` (raw passthrough in `tasks.py`, which reconnects across panic resets).
-
-**Panics**: `src/panic_report.rs` owns the `#[panic_handler]` (esp-backtrace's `panic-handler` feature is _disabled_; the crate stays a dep only for `Backtrace::capture()` + `println` feature).
-It logs Panic + Location + backtrace frames to the ring, then persists a snapshot twice — `.rtc_slow.persistent` RTC section (survives soft reset, zeroed only on power-on) and NVS `diag/last_panic` (if flash is idle, guarded against a concurrent writer).
-It clears the RTC boot-loop counter (`mark_stable()` arms it via a 30 s task in `main.rs`), resets via `esp_hal::system::software_reset()`, and halts instead after **3 panics without a stable 30 s run**.
-On the next boot `report_last_panic()` replays the report into the ring (`=== LAST PANIC (previous run) ===`) — it shows up in `inv monitor` after reconnect; there is no live panic output (the executor owns the USB pipeline).
-Symbolize the `0x…` frame addresses with `addr2line -e target/xtensa-esp32s2-none-elf/debug/dmx-interface`.
-
-Snapshot details (hard-won): the replay is verbatim (`push_raw`) — re-splitting the stored bytes on `\\n` and pushing the pieces without them strips every line break.
-Snapshots only capture ring bytes appended after `mark_snapshot_floor()` (set at the end of `report_last_panic()`); without the floor, `drain_snapshot()` re-swallows the replayed report and every stored report grows into a loop of its predecessors.
-
-`inv flash` writes the full 4 MB merged image over `0x0000–0x400000`, covering the NVS partition at `0x9000`: persisted data (the stored panic report, later the config)
-does **not** survive flashing — the report replays across reboots only, and the RTC fallback did not survive the flash reset chain either (observed, mechanism not fully traced).
+- **Fixed connection slots, no `TcpSocket::new` churn**: creating a fresh
+  socket per connection rebooted the board _without a panic log_ in an
+  earlier iteration. Each of the 4 slot tasks owns its socket for life:
+  `accept` → handle → `close` → wait for `State::Closed` (3 s deadline,
+  else `abort()`) → `accept` again. Calling `accept()` while the socket is
+  still `CloseWait`/`LastAck` returns `AcceptError::InvalidState` — that is
+  what `recycle()` waits out.
+- **smoltcp allows several `listen()` sockets on the same port**: incoming
+  segments go to the first socket whose `accepts()` matches (pool order), so
+  N slot tasks = N parallel connections; SYNs beyond that get an RST and the
+  browser retries (fine for the single-file UI: page + font + config + WS
+  ≤ 4 concurrent).
+- **WebSocket sessions leave the request budget**: `route()` only sniffs the
+  upgrade (key → owned `String`), `serve()` runs `ws::serve` with the socket
+  timeout cleared and a per-frame 120 s idle timeout, then resets the
+  timeout before recycling.
+- **serde internally tagged enums don't compile in no_std**: `#[serde(tag = "type")]` on a `Deserialize` needs `TaggedContentVisitor`, which is
+  `cfg(any(feature = "std", feature = "alloc"))`-gated. `ws.rs` therefore
+  parses a `MessageHead` first and a typed payload second (same slice); the
+  `Reply` is a flat struct with `skip_serializing_if`.
+- **`serde_json_core::from_slice` returns `(value, bytes_consumed)`** — a
+  tuple, not the value; ignore the count with `(patch, _used)`.
+- **`TcpSocket::accept` takes a `u16` port** (`IpListenEndpoint: From<u16>` — `usize` does not implement it).
+- **Embedded UI assets**: `include_bytes!(concat!(env!("CARGO_MANIFEST_DIR"), "/web/dist/index.html"))` tracks rebuilds automatically, but a clean tree
+  needs `inv web:build` first or compilation fails.
+- **Spawn tokens are distinct opaque types**: `slot0(stack)` … `slot3(stack)`
+  return different `impl` types — don't collect them in one array; spawn via
+  the `spawn_slot!` macro inside `http::spawn_all`.

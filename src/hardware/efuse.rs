@@ -3,6 +3,7 @@
 //! Reads the factory-programmed MAC address from eFuse
 //! and formats it for use as `WiFi` SSID suffix, etc.
 
+use core::fmt::Write;
 use heapless::String;
 
 /// Read the `WiFi` station MAC address from eFuse.
@@ -29,28 +30,19 @@ pub fn mac_bytes() -> [u8; 6] {
     bytes
 }
 
-/// Append a two-character hex byte to a string.
+/// Append a two-character uppercase hex byte to a string.
 fn push_hex_byte<const N: usize>(s: &mut String<N>, byte: u8) {
-    /// Lowercase hex digits indexed by nibble value.
-    const HEX: &[char] = &[
-        '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f',
-    ];
-    for nibble in [byte >> 4, byte & 0x0f] {
-        // Nibbles are < 16 by construction, so `get` always succeeds.
-        if let Some(&digit) = HEX.get(usize::from(nibble)) {
-            s.push(digit).ok();
-        }
-    }
+    let _ = write!(s, "{byte:02X}");
 }
 
 /// Generate a default AP SSID from the MAC address.
 ///
-/// Returns something like `"ChaosDMX-AA:BB"`.
+/// Returns `"ChaosDMX-"` followed by the last two MAC bytes as
+/// uppercase hex digits.
 pub fn default_ap_ssid() -> String<32> {
     let mac = mac_bytes();
     let mut s: String<32> = String::from("ChaosDMX-");
     push_hex_byte(&mut s, mac[4]);
-    s.push(':').ok();
     push_hex_byte(&mut s, mac[5]);
     s
 }
