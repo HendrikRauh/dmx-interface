@@ -59,7 +59,7 @@ log = "0.4"
 postcard = "1"
 serde = { version = "1", default-features = false, features = ["derive"] }
 serde-json-core = "0.7"
-sha1 = { version = "0.10", default-features = false }
+sha1 = { version = "0.11", default-features = false }
 static_cell = "2"
 
 [profile.dev]
