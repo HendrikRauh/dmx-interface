@@ -715,16 +715,16 @@ checksum = "877a4ace8713b0bcf2a4e7eec82529c029f1d0619886d18145fea96c3ffe5c0f"
 
 [[package]]
 name = "esp-alloc"
-version = "0.10.0"
+version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "46ced060d4085858283df950b80a4da2348e1707d7d07b1e966308582dae79f5"
+checksum = "f73e8d355019c740f6a5a78429633040617d28a378c271464caadc52c78216e3"
 dependencies = [
  "allocator-api2",
- "cfg-if",
  "document-features",
  "enumset",
- "esp-config",
- "esp-sync",
+ "esp-config 0.8.0",
+ "esp-metadata-generated 0.5.3",
+ "esp-sync 0.3.0",
  "linked_list_allocator",
  "rlsf",
 ]
@@ -737,8 +737,8 @@ checksum = "37950e24b2dfd98f1581102d1798281d4d9547af881e6bffc2c2b534c026ec8f"
 dependencies = [
  "cfg-if",
  "document-features",
- "esp-config",
- "esp-metadata-generated",
+ "esp-config 0.7.0",
+ "esp-metadata-generated 0.4.0",
  "esp-println",
  "heapless 0.9.3",
  "riscv",
@@ -755,9 +755,9 @@ dependencies = [
  "cfg-if",
  "document-features",
  "embedded-storage",
- "esp-config",
+ "esp-config 0.7.0",
  "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-rom-sys",
  "jiff",
  "strum",
@@ -770,10 +770,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d9b92fd9cfb0b4f8f1b6219b9763269a335571e307b014903b8201619374b80"
 dependencies = [
  "document-features",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "serde",
  "serde_yaml",
- "somni-expr",
+ "somni-expr 0.2.0",
+]
+
+[[package]]
+name = "esp-config"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fcd577a122ec917691f6820a3df54388ecebc750f071b060f5e83707bc415512"
+dependencies = [
+ "document-features",
+ "esp-metadata-generated 0.5.3",
+ "serde",
+ "serde_yaml",
+ "somni-expr 0.3.2",
 ]
 
 [[package]]
@@ -803,12 +816,12 @@ dependencies = [
  "embedded-io-async 0.6.1",
  "embedded-io-async 0.7.0",
  "enumset",
- "esp-config",
+ "esp-config 0.7.0",
  "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-riscv-rt",
  "esp-rom-sys",
- "esp-sync",
+ "esp-sync 0.2.1",
  "esp-synopsys-usb-otg",
  "esp32",
  "esp32c2",
@@ -855,6 +868,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42c2ee95b945a4780796e4359e72c033aed3b45073880e8029458f538532db8a"
 
 [[package]]
+name = "esp-metadata-generated"
+version = "0.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "911aadae41ec99104efa865bd0b6e486b4b735999f9b571963748a46d16495ab"
+
+[[package]]
 name = "esp-nvs"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -876,10 +895,10 @@ dependencies = [
  "cfg-if",
  "document-features",
  "embassy-sync 0.8.0",
- "esp-config",
+ "esp-config 0.7.0",
  "esp-hal",
- "esp-metadata-generated",
- "esp-sync",
+ "esp-metadata-generated 0.4.0",
+ "esp-sync 0.2.1",
  "esp-wifi-sys-esp32s2",
  "esp32s2 0.31.2",
  "log",
@@ -892,8 +911,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42dee1e9ac7c3539bf6464db1707b0edd7557168f98278cf3c84fe70e63c6ce6"
 dependencies = [
  "document-features",
- "esp-metadata-generated",
- "esp-sync",
+ "esp-metadata-generated 0.4.0",
+ "esp-sync 0.2.1",
  "log",
 ]
 
@@ -914,13 +933,13 @@ dependencies = [
  "embedded-io-async 0.6.1",
  "embedded-io-async 0.7.0",
  "enumset",
- "esp-config",
+ "esp-config 0.7.0",
  "esp-hal",
  "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-phy",
  "esp-radio-rtos-driver",
- "esp-sync",
+ "esp-sync 0.2.1",
  "esp-wifi-sys-esp32",
  "esp-wifi-sys-esp32c2",
  "esp-wifi-sys-esp32c3",
@@ -946,7 +965,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0bd75cd9073a90ffaa53db0bf17df7dc14164f2407a6ff36c725d2d1f78ff494"
 dependencies = [
  "cfg-if",
- "esp-sync",
+ "esp-sync 0.2.1",
  "portable-atomic",
 ]
 
@@ -969,7 +988,7 @@ checksum = "eae852ccb08971155023d1371c96d5490cbc26860f06aee2d629ef73f1a890c3"
 dependencies = [
  "cfg-if",
  "document-features",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp32s2 0.31.2",
 ]
 
@@ -986,13 +1005,13 @@ dependencies = [
  "embassy-sync 0.8.0",
  "embassy-time-driver",
  "embassy-time-queue-utils",
- "esp-config",
+ "esp-config 0.7.0",
  "esp-hal",
  "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-radio-rtos-driver",
  "esp-rom-sys",
- "esp-sync",
+ "esp-sync 0.2.1",
  "log",
  "portable-atomic",
  "riscv",
@@ -1009,9 +1028,9 @@ dependencies = [
  "embedded-storage",
  "esp-hal",
  "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-rom-sys",
- "esp-sync",
+ "esp-sync 0.2.1",
 ]
 
 [[package]]
@@ -1025,7 +1044,22 @@ dependencies = [
  "embassy-sync 0.6.2",
  "embassy-sync 0.7.2",
  "embassy-sync 0.8.0",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
+ "riscv",
+ "xtensa-lx",
+]
+
+[[package]]
+name = "esp-sync"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "064fd57eed12b5cbb669b3935e1f647fd6945b89938116d61153fb45fd703422"
+dependencies = [
+ "document-features",
+ "embassy-sync 0.6.2",
+ "embassy-sync 0.7.2",
+ "embassy-sync 0.8.0",
+ "esp-metadata-generated 0.5.3",
  "riscv",
  "xtensa-lx",
 ]
@@ -1890,7 +1924,17 @@ version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3ed9b7648d5e8b2df6c5e49940c54bcdd2b4dd71eafc6e8f1c714eb4581b0f53"
 dependencies = [
- "somni-parser",
+ "somni-parser 0.2.2",
+]
+
+[[package]]
+name = "somni-expr"
+version = "0.3.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f024812d1302010ff9227b80650469e58a3ef129ec5fda36c7a0b6b14ce07371"
+dependencies = [
+ "indexmap",
+ "somni-parser 0.3.1",
 ]
 
 [[package]]
@@ -1898,6 +1942,12 @@ name = "somni-parser"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a0f368519fc6c85fc1afdb769fb5a51123f6158013e143656e25a3485a0d401c"
+
+[[package]]
+name = "somni-parser"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4ba0fb59df288988d1f80eab8a0a32b18222e87b48d07b065c2f69cfc54d946c"
 
 [[package]]
 name = "spin"
