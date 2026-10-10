@@ -34,14 +34,14 @@ embassy-time = "0.5.0"
 embassy-usb = { version = "0.6.0", default-features = false }
 embedded-io-async = "0.7"
 enumset = "1"
-esp-alloc = "0.10"
-esp-backtrace = { version = "0.19.0", default-features = false, features = [
+esp-alloc = "0.11"
+esp-backtrace = { version = "0.20.0", default-features = false, features = [
   "println",
 ] }
-esp-bootloader-esp-idf = "0.5.0"
+esp-bootloader-esp-idf = "0.6.0"
 esp-hal = { version = "1.1.0", features = ["log-04", "unstable"] }
 esp-nvs = { version = "0.6", features = ["esp32s2"] }
-esp-println = { version = "0.17.0", default-features = false, features = [
+esp-println = { version = "0.18.0", default-features = false, features = [
   "esp32s2",
   "no-op",
 ] }
@@ -50,8 +50,8 @@ esp-radio = { version = "0.18", default-features = false, features = [
   "unstable",
   "wifi",
 ] }
-esp-rtos = { version = "0.3.0", features = ["embassy", "esp-radio", "log-04"] }
-esp-storage = "0.9"
+esp-rtos = { version = "0.4.0", features = ["embassy", "esp-radio", "log-04"] }
+esp-storage = "0.10"
 esp32s2 = { version = "0.33", features = ["critical-section", "rt"] }
 heapless = { version = "0.7", features = ["serde"] }
 libm = "0.2"
