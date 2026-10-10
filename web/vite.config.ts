@@ -19,7 +19,7 @@ export default defineConfig({
       name: "inline-favicon",
       transformIndexHtml(html) {
         const generateFavicon = (file: string, colorscheme?: string) => {
-          const faviconPath = path.resolve(__dirname, file);
+          const faviconPath = path.resolve(import.meta.dirname, file);
           const base64 = fs.readFileSync(faviconPath).toString("base64");
           const mimeType = "image/svg+xml";
           const dataUri = `data:${mimeType};base64,${base64}`;
