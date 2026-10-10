@@ -7,7 +7,7 @@
 
 use core::fmt;
 
-use heapless::{FnvIndexMap, String, Vec};
+use heapless::{String, Vec, index_map::FnvIndexMap};
 use serde::{Deserialize, Serialize};
 
 /// Maximum length for string configuration fields.
@@ -241,7 +241,7 @@ mod index_map {
     use core::fmt::{self, Write as _};
     use core::marker::PhantomData;
 
-    use heapless::{FnvIndexMap, String};
+    use heapless::{String, index_map::FnvIndexMap};
     use serde::de::{self, MapAccess, Visitor};
     use serde::ser::{SerializeMap, Serializer};
     use serde::{Deserialize, Deserializer, Serialize};
@@ -334,7 +334,7 @@ impl Default for Config {
     /// universe 2, dim LED.
     fn default() -> Self {
         let ap_config = WifiConfig {
-            password: String::from("ChaosDMX"),
+            password: String::try_from("ChaosDMX").expect("default password fits"),
             ..WifiConfig::default()
         };
         let mut dmx_ports = FnvIndexMap::new();
@@ -364,7 +364,9 @@ impl Config {
     ///
     /// Returns a `Vec` with max [`MAX_CONFIG_BYTES`] capacity.
     pub fn to_bytes(&self) -> Result<Vec<u8, MAX_CONFIG_BYTES>, postcard::Error> {
-        postcard::to_vec(self)
+        let mut buf = [0u8; MAX_CONFIG_BYTES];
+        let used = postcard::to_slice(self, &mut buf)?;
+        Vec::from_slice(used).map_err(|_| postcard::Error::SerializeBufferFull)
     }
 
     /// Deserialize config from bytes.

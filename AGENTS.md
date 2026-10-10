@@ -99,7 +99,7 @@ flake-provided tools.
 
 | Crate | Version | Why / gotcha |
 | --- | --- | --- |
-| `heapless` | 0.7 | 0.8 incompatible with postcard |
+| `heapless` | 0.9 | `String` has only `TryFrom<&str>` (no `From`), `FnvIndexMap` lives in `heapless::index_map`; postcard runs with `default-features = false` — its `heapless-cas` default pins heapless 0.7, we serialize via `to_slice`/`from_bytes` instead of `to_vec` |
 | `esp-alloc` | 0.10 | `HEAP.add_region(HeapRegion::new(...))` (no `.init()`); default features **on** — C malloc shims for esp-radio |
 | `esp-radio` | 0.18 | WiFi driver; `default-features = false`, features `log-04`/`unstable`/`wifi`; requires `opt-level = 3` (see Hard constraints) |
 | `esp-rtos` | 0.3 | Executor + WiFi glue; features `["embassy", "esp-radio", "log-04"]` |

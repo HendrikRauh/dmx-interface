@@ -41,7 +41,7 @@ fn push_hex_byte<const N: usize>(s: &mut String<N>, byte: u8) {
 /// uppercase hex digits.
 pub fn default_ap_ssid() -> String<32> {
     let mac = mac_bytes();
-    let mut s: String<32> = String::from("ChaosDMX-");
+    let mut s: String<32> = String::try_from("ChaosDMX-").expect("SSID prefix fits");
     push_hex_byte(&mut s, mac[4]);
     push_hex_byte(&mut s, mac[5]);
     s
