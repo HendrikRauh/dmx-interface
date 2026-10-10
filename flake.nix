@@ -1,16 +1,29 @@
-# cspell:words: ESPTOOL_BEFORE
+# cspell:words: ESPTOOL_BEFORE pyproject cadquery Patchelf virtualenv opencascade occt dont vtkmodules libstdc zlib expat soname unpatchelf manylinux libvtk IGES PYTHONPATH
 {
   description = "dmx-interface ESP32 Rust development environment (esp-hal, no_std)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils.url = "github:numtide/flake-utils";
 
     git-hooks.inputs.nixpkgs.follows = "nixpkgs";
     git-hooks.url = "github:cachix/git-hooks.nix";
 
     esp-rs-nix.url = "github:leighleighleigh/esp-rs-nix";
 
-    flake-utils.url = "github:numtide/flake-utils";
+    pyproject-nix.url = "github:pyproject-nix/pyproject.nix";
+    uv2nix = {
+      url = "github:pyproject-nix/uv2nix";
+      inputs.pyproject-nix.follows = "pyproject-nix";
+    };
+    pyproject-build-systems = {
+      url = "github:pyproject-nix/build-system-pkgs";
+      inputs = {
+        pyproject-nix.follows = "pyproject-nix";
+        uv2nix.follows = "uv2nix";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
   };
 
   outputs = {
@@ -18,6 +31,9 @@
     flake-utils,
     git-hooks,
     esp-rs-nix,
+    pyproject-build-systems,
+    pyproject-nix,
+    uv2nix,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (
@@ -50,6 +66,8 @@
             "\\.elf$"
             "\\.hex$"
             "\\.o$"
+            "^assets/case/output/"
+            "^assets/case/parts/"
             "^build/"
             "^web/dist/"
             "^web/node_modules/"
@@ -188,6 +206,31 @@
             };
           };
         };
+
+        workspace = uv2nix.lib.workspace.loadWorkspace {workspaceRoot = ./.;};
+
+        python = pkgs.python313;
+
+        pythonBase = pkgs.callPackage pyproject-nix.build.packages {inherit python;};
+
+        overlay = workspace.mkPyprojectOverlay {
+          sourcePreference = "wheel";
+        };
+
+        pythonSet = pythonBase.overrideScope (
+          pkgs.lib.composeManyExtensions [
+            pyproject-build-systems.overlays.wheel
+            overlay
+
+            (_: prev: {
+              cadquery-ocp = prev.cadquery-ocp.overrideAttrs (_: {
+                dontAutoPatchelf = true;
+              });
+            })
+          ]
+        );
+
+        virtualenv = pythonSet.mkVirtualEnv "dmx-env" workspace.deps.default;
       in {
         checks.pre-commit-check = pre-commit-check;
 
@@ -205,44 +248,74 @@
 
               pkgs.git
               pkgs.libclang
-              pkgs.python3.pkgs.invoke
-              pkgs.python3.pkgs.pyserial
-              pkgs.python3
+              python
+              python.pkgs.invoke
+              python.pkgs.pyserial
               pkgs.svgo
               pkgs.renovate
+              pkgs.uv
+              virtualenv
             ];
 
           env = {
             RUSTUP_TOOLCHAIN = "${esp-rs}";
             LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
             GERMAN_DICT_PATH = "${germanDict}";
+            # Native libraries needed by the OCP/build123d wheels: the venv is
+            # built from unpatchelf'ed manylinux wheels, so their ELF deps are
+            # only resolved through LD_LIBRARY_PATH (nix's ld.so reads the
+            # store's ld.so.cache and never /usr/lib). Every entry is
+            # load-bearing — dropping one makes `import build123d` fail with a
+            # missing .so, see AGENTS.md "Pitfalls (hard-won)".
+            # The bundled VTK 9.3 libs (libvtk*-9.3.so) are *not* listed here:
+            # they ship inside the cadquery-ocp wheel as site-packages/
+            # vtkmodules, which is appended below. nixpkgs' vtk has different
+            # SONAMEs and does not satisfy OCP.
+            LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+              # OCP.so links libstdc++ directly
+              pkgs.stdenv.cc.cc.lib
+              # OCCT visualization (TKService/TKOpenGl): libGL, libX11
+              pkgs.libGL
+              pkgs.libX11
+              # OCCT STEP/IGES readers: expat, zlib
+              pkgs.expat
+              pkgs.zlib
+            ]}:${virtualenv}/lib/${python.libPrefix}/site-packages/vtkmodules:$LD_LIBRARY_PATH";
+            UV_NO_SYNC = "1";
+            UV_PYTHON = python.interpreter;
+            UV_PYTHON_DOWNLOADS = "never";
           };
 
-          shellHook =
-            pre-commit-check.shellHook
-            + ''
-              export PATH="$PWD/web/node_modules/.bin:$PATH"
+          shellHook = ''
+            # The venv must lead PATH: git-hooks' enabledPackages put nixpkgs'
+            # python3 (currently 3.14) ahead of python313, and such a 3.14
+            # interpreter still finds build123d via PYTHONPATH but cannot load
+            # the cp313 extension module -> "No module named 'OCP.OCP'".
+            export PATH="${virtualenv}/bin:$PATH"
+            git lfs install --local --force
+            ${pre-commit-check.shellHook}
+            export PATH="$PWD/web/node_modules/.bin:$PATH"
 
-              (
-                set -euo pipefail
-                cd web
+            (
+              set -euo pipefail
+              cd web
 
-                LOCKFILE="package-lock.json"
-                HASH_STORE="node_modules/.nix-lockfile.hash"
+              LOCKFILE="package-lock.json"
+              HASH_STORE="node_modules/.nix-lockfile.hash"
 
-                if [ -f "$LOCKFILE" ]; then
-                  CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
-                  if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
-                    echo "Changes detected in $LOCKFILE. Running npm install..."
-                    npm install
+              if [ -f "$LOCKFILE" ]; then
+                CURRENT_HASH=$(sha256sum "$LOCKFILE" | cut -d' ' -f1)
+                if [ ! -d "node_modules" ] || [ ! -f "$HASH_STORE" ] || [ "$(cat "$HASH_STORE")" != "$CURRENT_HASH" ]; then
+                  echo "Changes detected in $LOCKFILE. Running npm install..."
+                  npm install
 
-                    echo "$CURRENT_HASH" > "$HASH_STORE"
-                  fi
-                else
-                  echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+                  echo "$CURRENT_HASH" > "$HASH_STORE"
                 fi
-              )
-            '';
+              else
+                echo "Warning: No $LOCKFILE found. Run 'npm install' manually to create one."
+              fi
+            )
+          '';
         };
       }
     );
