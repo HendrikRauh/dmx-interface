@@ -41,7 +41,7 @@
 <a href=#41 id=41 data-nosnippet>41</a>/// uppercase hex digits.
 <a href=#42 id=42 data-nosnippet>42</a></span><span class="kw">pub fn </span>default_ap_ssid() -&gt; String&lt;<span class="number">32</span>&gt; {
 <a href=#43 id=43 data-nosnippet>43</a>    <span class="kw">let </span>mac = mac_bytes();
-<a href=#44 id=44 data-nosnippet>44</a>    <span class="kw">let </span><span class="kw-2">mut </span>s: String&lt;<span class="number">32</span>&gt; = String::from(<span class="string">"ChaosDMX-"</span>);
+<a href=#44 id=44 data-nosnippet>44</a>    <span class="kw">let </span><span class="kw-2">mut </span>s: String&lt;<span class="number">32</span>&gt; = String::try_from(<span class="string">"ChaosDMX-"</span>).expect(<span class="string">"SSID prefix fits"</span>);
 <a href=#45 id=45 data-nosnippet>45</a>    push_hex_byte(<span class="kw-2">&amp;mut </span>s, mac[<span class="number">4</span>]);
 <a href=#46 id=46 data-nosnippet>46</a>    push_hex_byte(<span class="kw-2">&amp;mut </span>s, mac[<span class="number">5</span>]);
 <a href=#47 id=47 data-nosnippet>47</a>    s
