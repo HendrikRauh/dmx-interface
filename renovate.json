@@ -16,9 +16,6 @@
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "platformAutomerge": true,
-  "lockFileMaintenance": {
-    "enabled": true
-  },
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
