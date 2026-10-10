@@ -35,6 +35,7 @@ __pycache__/
 # Generated
 .pre-commit-config.yaml
 .cspellcache
+TODO.md
 
 # Release artifacts
 dist/
