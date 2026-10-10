@@ -4,14 +4,14 @@ import { useState } from "preact/hooks";
 
 import style from "./PasswordInput.module.scss";
 
-type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
+type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type" | "role" | "list">;
 
 export function PasswordInput({ ...props }: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div class={style.passwordInput}>
-      <input type={showPassword ? "text" : "password"} {...props} />
+      {showPassword ? <input type="text" {...props} /> : <input type="password" {...props} />}
       <button
         type="button"
         onClick={() => setShowPassword((prevState) => !prevState)}
