@@ -64,6 +64,7 @@
     "esptool",
     "favicons",
     "fetchurl",
+    "flakehub",
     "flashable",
     "fredoka",
     "fromenv",
