@@ -51,7 +51,7 @@ esp-radio = { version = "0.18", default-features = false, features = [
   "wifi",
 ] }
 esp-rtos = { version = "0.3.0", features = ["embassy", "esp-radio", "log-04"] }
-esp-storage = "0.9"
+esp-storage = "0.10"
 esp32s2 = { version = "0.33", features = ["critical-section", "rt"] }
 heapless = { version = "0.7", features = ["serde"] }
 libm = "0.2"

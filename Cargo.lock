@@ -333,7 +333,7 @@ dependencies = [
  "esp-println",
  "esp-radio",
  "esp-rtos",
- "esp-storage",
+ "esp-storage 0.10.0",
  "esp32s2 0.33.0",
  "heapless 0.7.17",
  "libm",
@@ -738,7 +738,7 @@ dependencies = [
  "cfg-if",
  "document-features",
  "esp-config",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-println",
  "heapless 0.9.3",
  "riscv",
@@ -756,8 +756,8 @@ dependencies = [
  "document-features",
  "embedded-storage",
  "esp-config",
- "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-hal-procmacros 0.22.0",
+ "esp-metadata-generated 0.4.0",
  "esp-rom-sys",
  "jiff",
  "strum",
@@ -770,7 +770,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d9b92fd9cfb0b4f8f1b6219b9763269a335571e307b014903b8201619374b80"
 dependencies = [
  "document-features",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "serde",
  "serde_yaml",
  "somni-expr",
@@ -804,8 +804,8 @@ dependencies = [
  "embedded-io-async 0.7.0",
  "enumset",
  "esp-config",
- "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-hal-procmacros 0.22.0",
+ "esp-metadata-generated 0.4.0",
  "esp-riscv-rt",
  "esp-rom-sys",
  "esp-sync",
@@ -849,10 +849,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "esp-hal-procmacros"
+version = "0.23.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1a8733fdeadc349ba1e4a345c7bfb74d195d8c98fd3be9d2c15bfd78601cbc44"
+dependencies = [
+ "document-features",
+ "proc-macro-crate",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.119",
+ "termcolor",
+]
+
+[[package]]
 name = "esp-metadata-generated"
 version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42c2ee95b945a4780796e4359e72c033aed3b45073880e8029458f538532db8a"
+
+[[package]]
+name = "esp-metadata-generated"
+version = "0.5.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "911aadae41ec99104efa865bd0b6e486b4b735999f9b571963748a46d16495ab"
 
 [[package]]
 name = "esp-nvs"
@@ -862,7 +882,7 @@ checksum = "fe94ff32323389591a43f90589698586d7375322d8d4e3ba3bf9efc54b3f6b76"
 dependencies = [
  "embedded-storage",
  "esp-hal",
- "esp-storage",
+ "esp-storage 0.9.0",
  "strum",
  "thiserror",
 ]
@@ -878,7 +898,7 @@ dependencies = [
  "embassy-sync 0.8.0",
  "esp-config",
  "esp-hal",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-sync",
  "esp-wifi-sys-esp32s2",
  "esp32s2 0.31.2",
@@ -892,7 +912,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "42dee1e9ac7c3539bf6464db1707b0edd7557168f98278cf3c84fe70e63c6ce6"
 dependencies = [
  "document-features",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp-sync",
  "log",
 ]
@@ -916,8 +936,8 @@ dependencies = [
  "enumset",
  "esp-config",
  "esp-hal",
- "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-hal-procmacros 0.22.0",
+ "esp-metadata-generated 0.4.0",
  "esp-phy",
  "esp-radio-rtos-driver",
  "esp-sync",
@@ -969,7 +989,7 @@ checksum = "eae852ccb08971155023d1371c96d5490cbc26860f06aee2d629ef73f1a890c3"
 dependencies = [
  "cfg-if",
  "document-features",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "esp32s2 0.31.2",
 ]
 
@@ -988,8 +1008,8 @@ dependencies = [
  "embassy-time-queue-utils",
  "esp-config",
  "esp-hal",
- "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-hal-procmacros 0.22.0",
+ "esp-metadata-generated 0.4.0",
  "esp-radio-rtos-driver",
  "esp-rom-sys",
  "esp-sync",
@@ -1008,10 +1028,21 @@ dependencies = [
  "document-features",
  "embedded-storage",
  "esp-hal",
- "esp-hal-procmacros",
- "esp-metadata-generated",
+ "esp-hal-procmacros 0.22.0",
+ "esp-metadata-generated 0.4.0",
  "esp-rom-sys",
  "esp-sync",
+]
+
+[[package]]
+name = "esp-storage"
+version = "0.10.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6ef0e785f54e316f64a1e14a7a2f061a2ea0b038b284902ca71e1e1f5574cf47"
+dependencies = [
+ "document-features",
+ "esp-hal-procmacros 0.23.0",
+ "esp-metadata-generated 0.5.3",
 ]
 
 [[package]]
@@ -1025,7 +1056,7 @@ dependencies = [
  "embassy-sync 0.6.2",
  "embassy-sync 0.7.2",
  "embassy-sync 0.8.0",
- "esp-metadata-generated",
+ "esp-metadata-generated 0.4.0",
  "riscv",
  "xtensa-lx",
 ]
