@@ -3,7 +3,7 @@ name: check
 "on":
   workflow_dispatch: {}
   push:
-    branches: ["main", "idf", "rust", "no-std"]
+    branches: ["main"]
   pull_request:
     branches: ["**"]
 
