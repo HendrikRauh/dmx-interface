@@ -303,7 +303,7 @@ dependencies = [
  "esp-println",
  "esp-rtos",
  "esp-storage",
- "esp32s2",
+ "esp32s2 0.33.0",
  "heapless 0.7.17",
  "libm",
  "log",
@@ -722,7 +722,7 @@ dependencies = [
  "esp32c3",
  "esp32c6",
  "esp32h2",
- "esp32s2",
+ "esp32s2 0.31.2",
  "esp32s3",
  "fugit",
  "instability",
@@ -806,7 +806,7 @@ dependencies = [
  "cfg-if",
  "document-features",
  "esp-metadata-generated",
- "esp32s2",
+ "esp32s2 0.31.2",
 ]
 
 [[package]]
@@ -927,6 +927,15 @@ name = "esp32s2"
 version = "0.31.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0ad6f21cdf6ec7b06b7f7e0fbe51f0d975fd6a5fa67c3f8a5a910d3981af531"
+dependencies = [
+ "vcell",
+]
+
+[[package]]
+name = "esp32s2"
+version = "0.33.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4a4d3aacde708234b93372de368fd7866f63c150c5e863ab9b9950b85a5103a5"
 dependencies = [
  "vcell",
 ]
