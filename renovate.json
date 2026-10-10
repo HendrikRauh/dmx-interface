@@ -3,16 +3,23 @@
   "extends": [
     "config:recommended"
   ],
-  "baseBranchPatterns": ["main", "idf", "rust", "no-std"],
+  "baseBranchPatterns": ["no-std"],
   "timezone": "Europe/Berlin",
   "schedule": ["before 4am"],
   "nix": {
+    "enabled": true
+  },
+  "git-submodules": {
     "enabled": true
   },
   "dependencyDashboard": false,
   "prHourlyLimit": 0,
   "prConcurrentLimit": 0,
   "platformAutomerge": true,
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
     "enabled": true,
     "labels": ["security"]
@@ -39,6 +46,13 @@
     {
       "description": "Disable automerge for Nix updates (can break dev shell)",
       "matchManagers": ["nix"],
+      "automerge": false
+    },
+    {
+      "description": "esp-rs crates are version-locked via links - must bump together",
+      "matchManagers": ["cargo"],
+      "matchPackageNames": ["/^esp/"],
+      "groupName": "esp-rs stack",
       "automerge": false
     }
   ]
