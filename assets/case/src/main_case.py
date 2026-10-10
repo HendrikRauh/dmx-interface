@@ -78,12 +78,12 @@ with BuildPart() as main_body:
     support_top_z = esp.bounding_box().min.Z
     support_height = support_top_z - -main_body.faces().sort_by(Axis.Z)[-2].center().Z
 
-    for x, y, z in mounting_holes_pos:
-        with Locations((x, y, z)):
-            Cylinder(
-                target_radius * 2,
-                support_height,
-            )
+    # for x, y, z in mounting_holes_pos:
+    #     with Locations((x, y, z)):
+    #         Cylinder(
+    #             target_radius * 2,
+    #             support_height,
+    #         )
 
     # Get the Z coordinate of the inner top face
     inner_top_z = main_body.faces().sort_by(Axis.Z)[-2].center().Z
