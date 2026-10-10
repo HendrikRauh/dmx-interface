@@ -15,7 +15,7 @@ esp32s2 = [
 ]
 
 [dependencies]
-base64 = { version = "0.22", default-features = false, features = ["alloc"] }
+base64 = { version = "0.23", default-features = false, features = ["alloc"] }
 critical-section = "1"
 embassy-executor = "0.10.0"
 embassy-futures = "0.1"
