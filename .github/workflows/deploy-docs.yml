@@ -26,6 +26,13 @@ jobs:
         if: github.event_name == 'push'
         uses: ./.github/actions/install-nix
 
+      - name: Build web UI (include_bytes! needs web/dist)
+        if: github.event_name == 'push'
+        run: |
+          # src/net/http.rs include_bytes!s web/dist — gitignored, so build it here
+          nix develop --command invoke web:build
+        shell: bash
+
       - name: Build Documentation from flake devShell
         if: github.event_name == 'push'
         run: |
