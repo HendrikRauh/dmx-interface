@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended"
   ],
-  "baseBranchPatterns": ["no-std"],
+  "baseBranchPatterns": ["main"],
   "timezone": "Europe/Berlin",
   "schedule": ["before 4am"],
   "nix": {
