@@ -38,7 +38,7 @@ esp-alloc = "0.10"
 esp-backtrace = { version = "0.19.0", default-features = false, features = [
   "println",
 ] }
-esp-bootloader-esp-idf = "0.5.0"
+esp-bootloader-esp-idf = "0.6.0"
 esp-hal = { version = "1.1.0", features = ["log-04", "unstable"] }
 esp-nvs = { version = "0.6", features = ["esp32s2"] }
 esp-println = { version = "0.17.0", default-features = false, features = [
