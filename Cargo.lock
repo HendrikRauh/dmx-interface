@@ -763,9 +763,9 @@ checksum = "42c2ee95b945a4780796e4359e72c033aed3b45073880e8029458f538532db8a"
 
 [[package]]
 name = "esp-nvs"
-version = "0.5.0"
+version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b61bade3acc39e566697bd215068384afba840999fcd8e9366702f267034c7c0"
+checksum = "fe94ff32323389591a43f90589698586d7375322d8d4e3ba3bf9efc54b3f6b76"
 dependencies = [
  "embedded-storage",
  "esp-hal",
