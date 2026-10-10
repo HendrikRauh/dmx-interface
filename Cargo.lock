@@ -363,7 +363,7 @@ dependencies = [
  "esp-rtos",
  "esp-storage",
  "esp32s2 0.33.0",
- "heapless 0.7.17",
+ "heapless 0.9.3",
  "libm",
  "log",
  "postcard",
