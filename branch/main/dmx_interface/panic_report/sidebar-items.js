@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["MAX_PANICS","RTC_MAGIC","SNAPSHOT_LEN"],"fn":["halt","mark_stable","panic_handler","report_last_panic"],"static":["IN_PANIC","RTC"],"struct":["RtcCell","RtcSnapshot"]};
