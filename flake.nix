@@ -249,9 +249,9 @@
               pkgs.git
               pkgs.libclang
               pkgs.opencascade-occt
-              pkgs.python3.pkgs.invoke
-              pkgs.python3.pkgs.pyserial
-              pkgs.python3
+              pkgs.python313.pkgs.invoke
+              pkgs.python313.pkgs.pyserial
+              pkgs.python313
               pkgs.svgo
               pkgs.renovate
               pkgs.uv
@@ -264,9 +264,12 @@
             LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
             GERMAN_DICT_PATH = "${germanDict}";
             LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath [
+              pkgs.stdenv.cc.cc.lib
               pkgs.vtk
               pkgs.libGL
               pkgs.libX11
+              pkgs.expat
+              pkgs.zlib
             ]}:${virtualenv}/lib/python3.13/site-packages/vtkmodules:${virtualenv}/lib/python3.13/site-packages/cadquery_vtk:$LD_LIBRARY_PATH";
             UV_NO_SYNC = "1";
             UV_PYTHON = python.interpreter;
