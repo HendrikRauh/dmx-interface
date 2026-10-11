@@ -1,1 +1,1 @@
-window.SIDEBAR_ITEMS = {"constant":["DEBOUNCE_MS"],"struct":["DebouncedButton"]};
+window.SIDEBAR_ITEMS = {"constant":["BRIGHTNESS_LEVELS","CLICK_GAP","DEBOUNCE","HOLD_LOG_EVERY","LONG_HOLD","POLL","REBOOT_DELAY","RESET_HOLD"],"enum":["ButtonEvent","State"],"fn":["boot_factory_reset","dispatch","input","next_brightness","task","wait_release"],"struct":["Classifier","Debouncer"]};
