@@ -331,7 +331,8 @@ pub struct Config {
 
 impl Default for Config {
     /// Factory defaults: AP mode, DMX0 output on universe 1, DMX1 input on
-    /// universe 2, dim LED.
+    /// universe 2, dim LED, single click toggles the LED, triple click
+    /// reboots.
     fn default() -> Self {
         let ap_config = WifiConfig {
             password: String::try_from("ChaosDMX").expect("default password fits"),
@@ -346,6 +347,19 @@ impl Default for Config {
                 universe: 2,
             },
         );
+        // Keys are the `ButtonEvent` discriminants handled by
+        // `hardware::button` (0 single, 1 double, 2 multi, 3 long hold);
+        // defaults mirror the ESP-IDF firmware (single → ToggleLed,
+        // multi → Reboot, the rest unbound).
+        let mut button_actions = FnvIndexMap::new();
+        for (key, action) in [
+            (0, ButtonAction::ToggleLed),
+            (1, ButtonAction::None),
+            (2, ButtonAction::Reboot),
+            (3, ButtonAction::None),
+        ] {
+            let _ = button_actions.insert(key, action);
+        }
         Self {
             version: 1,
             connection: ConnectionType::default(),
@@ -354,7 +368,7 @@ impl Default for Config {
             station_config: WifiConfig::default(),
             ap_config,
             dmx_ports,
-            button_actions: FnvIndexMap::new(),
+            button_actions,
         }
     }
 }

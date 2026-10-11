@@ -48,6 +48,7 @@
     "codegen",
     "convco",
     "deadnix",
+    "debouncer",
     "deinitializes",
     "dhcpv4",
     "direnv",

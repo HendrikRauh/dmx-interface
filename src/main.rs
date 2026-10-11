@@ -1,9 +1,10 @@
 //! DMX interface firmware for ESP32-S2 (Lolin S2 Mini).
 //!
-//! Current scope: status LED on GPIO7 (LEDC PWM, own embassy task), USB-CDC
-//! with esptool auto-reset, ring-buffer logging over the CDC port, panic
-//! reports persisted across resets, and a `WiFi` network stack (AP with DHCP
-//! server or station mode, AP fallback).
+//! Current scope: status LED on GPIO7 (LEDC PWM, own embassy task), user
+//! button on GPIO5 (power-up factory-reset hold plus click actions),
+//! USB-CDC with esptool auto-reset, ring-buffer logging over the CDC port,
+//! panic reports persisted across resets, and a `WiFi` network stack (AP
+//! with DHCP server or station mode, AP fallback).
 
 #![no_std]
 #![no_main]
@@ -106,6 +107,13 @@ async fn main(spawner: Spawner) -> ! {
     spawner.spawn(
         hardware::led::task(peripherals.LEDC, peripherals.GPIO7).expect("LED task spawn failed"),
     );
+
+    // ── User button (GPIO5): power-up factory reset, then click actions ────
+    // The hold check must finish before the network starts, so a triggered
+    // reset never brings the radio up just to reboot again.
+    let button = hardware::button::input(peripherals.GPIO5);
+    hardware::button::boot_factory_reset(&button).await;
+    spawner.spawn(hardware::button::task(button).expect("button task spawn failed"));
 
     // ── WiFi (AP/STA bring-up + embassy-net stack) ─────────────────────────
     spawner.spawn(net::task(peripherals.WIFI, config, spawner).expect("network task spawn failed"));
