@@ -6,14 +6,14 @@ Rust firmware for ESP32-S2 (Lolin S2 Mini) — DMX512 over WiFi (access point
 or station mode), JSON config persisted to NVS.
 
 **Current state** (branch `no-std`): no_std pure Rust with esp-hal + embassy.
-Wired into `src/main.rs`: status LED task, USB-CDC + esptool auto-reset, log
+Wired into `src/main.rs`: status LED task, user button (power-up factory-reset
+hold + click-action dispatcher on GPIO5), USB-CDC + esptool auto-reset, log
 ring drain, panic report, boot-time `storage::load().apply()`, and `net::task`
 (WiFi AP + DHCP server — verified on hardware, SSID `ChaosDMX-<last two MAC bytes>` — or station mode with a 15 s AP fallback) and an HTTP/WebSocket
 server (reference API: static UI + `GET/POST /api/config` + WS envelopes on
 `/ws`). **Scope split**: this repo owns the network + server infrastructure;
 UI logic, tests and UX polish are handed to an external contributor —
-see “Web tier” below. Open phases (see `TODO.md`): DMX UART output,
-button-driven factory reset.
+see “Web tier” below. Open phases (see `TODO.md`): DMX UART output.
 
 ## Dev shell
 
@@ -80,14 +80,14 @@ flake-provided tools.
 
 | Module | Role | Status |
 | --- | --- | --- |
-| `src/main.rs` | Entry point, heap init, peripheral init, task spawns | LED + USB + logging + panic + net wired |
-| `src/config.rs` | Config data model (heapless, serde, postcard for NVS); JSON wire shape = web contract (`config.d.ts`), `ConfigPatch` + `merge_patch` for partial updates | `ap_config`/`station_config`/`connection` consumed by `net`, LED brightness via `apply()` |
+| `src/main.rs` | Entry point, heap init, peripheral init, task spawns | LED + button + USB + logging + panic + net wired |
+| `src/config.rs` | Config data model (heapless, serde, postcard/NVS); JSON wire shape = web contract (`config.d.ts`), `ConfigPatch` + `merge_patch` for partial updates | `ap_config`/`station_config`/`connection` → `net`, LED brightness via `apply()`, `button_actions` → `hardware::button` |
 | `src/storage.rs` | NVS storage (esp-nvs), global singleton + panic snapshot keys | `init()` + boot-time `load()` wired; `save()`/`clear()` wired into HTTP/WS config handlers |
 | `src/logging.rs` | `log` backend → static 4 KiB ring → CDC flush API | Wired; max level baked at build time (`build.rs` sets `LOG_LEVEL`: release=`info`, debug=`debug`) |
 | `src/panic_report.rs` | Own `#[panic_handler]`, RTC/NVS persist, boot-loop guard, replay | Wired |
 | `src/boards/mod.rs` + `s2_mini.rs` | Pin definitions (cfg-gated) | Implemented, not wired |
 | `src/hardware/led.rs` | Status LED: `LedStatus` enum + embassy task (LEDC PWM, GPIO7) | Wired |
-| `src/hardware/button.rs` | Debounced button (GPIO5) | Implemented, not wired |
+| `src/hardware/button.rs` | User button (GPIO5): `boot_factory_reset` power-up hold (3 s → clear → reboot, early release aborts) + `task` click dispatcher (single/double/multi click, 1.5 s long hold) → `Config::button_actions` | Wired (boot check before `net::task`, then spawned) |
 | `src/hardware/efuse.rs` | MAC helpers (`mac_bytes`, `default_ap_ssid`) | Wired via `net` |
 | `src/hardware/usb.rs` | USB-CDC-ACM + esptool auto-reset (DTR/RTS) + log drain | Wired |
 | `src/net/mod.rs` | `WiFi` AP **or** station bring-up (`esp-radio` + `embassy-net`): AP static `192.168.4.1/24`, station DHCP with 15 s AP fallback; event loop = controller keep-alive | Wired (`net::task` from main) |
