@@ -76,7 +76,11 @@
             trim-trailing-whitespace.enable = true;
 
             # YAML, JSON & TOML
-            check-json.enable = true;
+            # devcontainer.json is JSONC (comments) — plain check-json would fail
+            check-json = {
+              enable = true;
+              excludes = ["^\\.devcontainer/devcontainer\\.json$"];
+            };
             check-toml.enable = true;
             check-yaml.enable = true;
             yamllint = {
@@ -234,7 +238,10 @@
           shellHook =
             pre-commit-check.shellHook
             + ''
-              export PATH="$PWD/web/node_modules/.bin:$PATH"
+              # esp-rs ships rustup proxies (incl. rust-analyzer), which
+              # shadow pkgs.rust-analyzer and loop on their own fallback —
+              # put the real binary first.
+              export PATH="${pkgs.rust-analyzer}/bin:$PWD/web/node_modules/.bin:$PATH"
 
               (
                 set -euo pipefail

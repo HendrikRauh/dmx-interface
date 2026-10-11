@@ -1,5 +1,6 @@
 # cspell:ignore: JTAG UART FTDI Espressif CDC
 
+import glob
 import os
 import re
 import shutil
@@ -60,7 +61,11 @@ def _espressif_ports() -> list[tuple[str, str, str]]:
     """
     found = []
     usb_root = "/sys/bus/usb/devices"
-    for entry in sorted(os.listdir(usb_root)):
+    try:
+        entries = sorted(os.listdir(usb_root))
+    except OSError:
+        entries = []  # no USB sysfs (container/VM) → serial fallback below
+    for entry in entries:
         base = os.path.join(usb_root, entry)
         if _sys_attr(base, "idVendor") != _ESPRESSIF_VID:
             continue
@@ -78,6 +83,13 @@ def _espressif_ports() -> list[tuple[str, str, str]]:
         pid = _sys_attr(base, "idProduct") or "????"
         product = _sys_attr(base, "product") or "ESP32"
         found.append((tty, pid, f"{_ESPRESSIF_VID}:{pid} {product}"))
+    if not found:
+        # Container/VM hosts (e.g. Docker Desktop on Windows) may not expose
+        # USB sysfs inside the container. A lone CDC node is then the best
+        # guess; the PID stays unknown, which just keeps the cleanup path.
+        nodes = sorted(glob.glob("/dev/ttyACM*"))
+        if len(nodes) == 1:
+            found.append((nodes[0], "????", "serial fallback (no USB sysfs)"))
     return found
 
 
@@ -89,11 +101,41 @@ def _usb_pid(tty: str) -> str | None:
     return None
 
 
-def _wait_for_port(tty: str, timeout: float = 3.0) -> None:
-    """Wait until the tty node exists again (re-enumeration after run 1)."""
+def _wait_for_device(tty: str, timeout: float = 8.0) -> tuple[str, str | None]:
+    """Wait for the Espressif device to settle after run 1 releases the port.
+
+    Closing the port can glitch DTR/RTS and reset the chip even with the stub
+    resident: the tty node then vanishes for ~1-2 s and may come back under a
+    new name (ttyACM0 → ttyACM1). Polls the USB scan until the same
+    (tty, pid) pair is observed twice in a row, i.e. the re-enumeration has
+    settled. Returns (tty, pid); pid is None when nothing settled in time.
+    """
     deadline = time.monotonic() + timeout
-    while not os.path.exists(tty) and time.monotonic() < deadline:
-        time.sleep(0.1)
+    last: tuple[str, str | None] | None = None
+    stable = 0
+    while time.monotonic() < deadline:
+        ports = _espressif_ports()
+        chosen: tuple[str, str | None] | None = None
+        for port_tty, pid, _ in ports:
+            if port_tty == tty:
+                chosen = (port_tty, pid)
+                break
+        if chosen is None and len(ports) == 1:
+            chosen = (ports[0][0], ports[0][1])
+        if chosen and os.path.exists(chosen[0]):
+            if chosen == last:
+                stable += 1
+                if stable >= 2:
+                    return chosen
+            else:
+                last, stable = chosen, 0
+        else:
+            last, stable = None, 0
+        time.sleep(0.25)
+    # Timed out: best effort with the original path (esptool still retries).
+    if os.path.exists(tty):
+        return tty, _usb_pid(tty)
+    return tty, None
 
 
 def _resolve_port(port: str | None, hint: str | None = None) -> str:
@@ -236,9 +278,10 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     # Run 2 is silent (banner/chip block are noise), run 1 keeps the progress
     # bar. ESPTOOL_OPEN_PORT_ATTEMPTS retries the port open (Errno 71 above).
     #
-    # Between the runs the chip can re-enumerate (a reset while the stub was
-    # resident: port-close line glitch or a button press). Wait for the node
-    # and look at what came back:
+    # Between the runs the chip can re-enumerate: closing run 1's port can
+    # glitch DTR/RTS and reset the chip even with the stub resident, so the
+    # node vanishes for ~1-2 s and may return under a new tty name. Wait for
+    # the device to settle and look at what came back:
     #   - firmware (3001) → it booted the app, so the flag is clear — done
     #   - ROM bootloader / stub (0002) → run 2 as planned
     try:
@@ -254,12 +297,13 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
             print(_FIRST_FLASH_HINT)
         raise
 
-    _wait_for_port(port_path)
-    if _usb_pid(port_path) == _APP_PID:
+    port_path, settled_pid = _wait_for_device(port_path)
+    if settled_pid == _APP_PID:
         print(
             "✓ App came back after run 1 — FORCE_DOWNLOAD_BOOT already clear, cleanup skipped"
         )
         return
+    port_arg = f"--port {port_path}"
 
     try:
         c.run(

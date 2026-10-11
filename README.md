@@ -131,7 +131,7 @@ ______________________________________________________________________
 ## 🧑‍💻 Development
 
 We provide a ready-to-use development environment using Nix, but you can also set up the environment manually if you prefer to do so. If you do not want to use Nix make sure to install the required tools listed in the `buildInputs` section in `flake.nix`.
-If you are on Windows we recommend using [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and following the instructions below inside the WSL session. You might need to install [usbipd-win](https://github.com/dorssel/usbipd-win#how-to-install) for usage of the usb pass-through
+If you are on Windows you can either use [WSL](https://learn.microsoft.com/en-us/windows/wsl/) and follow the instructions below inside the WSL session, or use the [development container](#development-container) which needs no local Nix setup. For the USB pass-through you might need to install [usbipd-win](https://github.com/dorssel/usbipd-win#how-to-install).
 
 ### Setup NIX
 
@@ -156,6 +156,67 @@ Optionally, you are able to use direnv to automatically enter the development en
 
 When using it for the first time, you need to allow the `.envrc` file by running `direnv allow` in the project folder.
 Afterwards, you can simply navigate to the project folder and you will automatically enter the development environment.
+
+### Development container
+
+Instead of installing Nix locally (e.g. on Windows), you can run the whole development environment in a [development container](https://containers.dev/).
+The `.devcontainer/` setup layers the official Nix feature on a plain Ubuntu base — all tools still come from `flake.nix` via `nix develop`, exactly like a native setup.
+
+Requirements: [Docker](https://docs.docker.com/get-started/) (on Windows: [Docker Desktop](https://docs.docker.com/desktop/)) and VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+
+The configuration is engine-neutral: `devcontainer.json` contains no container-engine flags.
+The Dev Containers tooling probes the configured Docker CLI (default `docker -v`) and, when that reports Podman, injects the workspace-ownership mapping (`--userns=keep-id`) on Linux automatically; Docker Desktop and rootful Docker need no setup at all.
+Rootless Docker on Linux is **not covered** — its UID mapping breaks the workspace ownership just like Podman without keep-id, and the tooling only injects that fix for Podman.
+Hosts where `docker` is Podman in disguise need the VS Code user setting `"dev.containers.dockerPath": "podman"` (CLI users pass `--docker-path podman` instead): that is the case on NixOS (`/usr/bin/docker` is a Podman symlink reporting itself as "docker")
+and on hosts with only Podman installed (no docker shim at all). Docker users skip this.
+
+macOS is unsupported: USB devices cannot reach Docker Desktop's VM there at all, so the board never shows up on `/host-dev` — the usbipd/WSL mechanism has no macOS equivalent.
+
+1. Open the repository in VS Code and run **Dev Containers: Reopen in Container** from the command palette.
+2. The first build downloads the Xtensa toolchain during `postCreateCommand` (5–15 minutes — `esp-rs-nix` ships pre-built artifacts but has no binary cache).
+3. Work as described below: `inv build`, `inv check`, `inv format`, `inv web:dev` (Vite dev server — port 5173 is forwarded to your host automatically). Integrated terminals start in `nix develop` automatically.
+
+#### Flashing
+
+The container bind-mounts the host's `/dev` at `/host-dev` — a direct `/dev` bind would replace the container's own devpts and break terminals on rootless engines.
+`.devcontainer/ensure-tty.sh` runs in a loop after every start: it creates a private `mknod` node for the board (leaving the host's permissions untouched) or falls back to symlinking `/dev/ttyACM0` and `/dev/serial` to `/host-dev`, and prints a hint when the node is visible but not readable.
+
+- **Linux (rootful Docker)**: plug in the board and run `inv flash`.
+  Docker's default device cgroup may deny `open()` on the node `ensure-tty.sh` creates (visible as `EPERM` on `/dev/ttyACM0`); if that happens, add `"runArgs": ["--privileged"]` to `.devcontainer/devcontainer.json` and reopen — the same fallback as on Windows.
+
+- **Linux (rootless Podman)**: Podman drops the host's supplementary groups, so `/dev/ttyACM0` (root:`dialout`) would be visible but unreadable.
+  A one-time host setup documented in `containers.conf(5)` (requires the `crun` runtime, Podman's default) restores them for all your Podman containers — add to `~/.config/containers/containers.conf` (Docker ignores this file):
+
+  ```toml
+  [containers]
+  annotations = ["run.oci.keep_original_groups=1"]
+  ```
+
+  then recreate the container once.
+
+- **Windows**: flashing from inside the container works via [usbipd-win](https://github.com/dorssel/usbipd-win), but the attach must go through a **regular WSL distro**
+  (e.g. [Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install-distros)) — attaching `--distribution docker-desktop` is broken by usbipd's own design.
+  The VHCI driver lives in the WSL2 kernel shared by all distros, so once attached, the device shows up in every distro — including Docker Desktop's, and therefore on the container's `/host-dev` as well
+  (this is also [Espressif's documented workflow](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/docker-container.html) for flashing over USB-CDC from a dev container).
+  From an elevated PowerShell:
+
+  ```powershell
+  winget install dorssel.usbipd-win                     # once
+  wsl --install Ubuntu                                  # once, if no regular WSL distro exists
+  usbipd list                                            # note the BUSID of the ESP32
+  usbipd bind --busid <BUSID>                            # once, elevated
+  usbipd attach --wsl --busid <BUSID> --auto-attach      # per session
+  ```
+
+  Attach the board **before** (re)opening the container, then run `inv flash` inside it.
+  If flashing fails with a permission error on `/dev/ttyACM0`, add `"runArgs": ["--privileged"]` to `.devcontainer/devcontainer.json` and reopen — Docker's device cgroup may otherwise deny the node that `ensure-tty.sh` creates (rootless Podman tolerates the flag as well).
+  While attached, the device is owned by WSL and invisible to Windows applications; `usbipd detach --busid <BUSID>` gives it back. A plain [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell as described above remains a working alternative for flashing.
+
+#### Notes
+
+- The container keeps its own Nix store: **Rebuild Container** re-downloads the toolchain, plain restarts keep everything.
+- On hosts with Nix you can keep using the native dev shell — both are driven by the same `flake.nix`.
+  Entering either environment regenerates `.pre-commit-config.yaml` (a store symlink) for its own Nix store, which breaks the pre-commit tools on the other side until their next `nix develop` — self-healing, nothing to do by hand.
 
 ### Commands
 

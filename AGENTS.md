@@ -291,9 +291,13 @@ via `write-mem 0x3F408128 0 0x1`, and resets with `--after watchdog-reset`.
 Both set `ESPTOOL_OPEN_PORT_ATTEMPTS=5` (Errno 71 retries). The port is found
 by scanning `/sys/bus/usb/devices` for VID `303a` (ROM `0002` + app `3001`);
 exactly one device required, `--port` overrides, none → fail-fast with
-first-flash BOOT+RESET hint, several → list + require `--port`. The port may
-re-enumerate between the two runs (reset while the stub was resident): run 2
-waits for the node and is skipped if the firmware (PID `3001`) came back.
+first-flash BOOT+RESET hint, several → list + require `--port`. When USB sysfs
+is missing entirely (some containers), a lone `/dev/ttyACM*` node is used as
+fallback. The port may re-enumerate between the two runs — closing run 1's
+port can glitch DTR/RTS and reset the chip even with the stub resident, so
+the node vanishes for ~1-2 s and may return under a new tty name: run 2 waits
+for the same (tty, PID) pair twice in a row (relocating the name if needed)
+and is skipped if the firmware (PID `3001`) came back.
 
 `inv monitor` resolves the port the same way (waits up to 8 s for
 re-enumeration after a flash) and streams via pyserial with reconnects. Do
