@@ -18,10 +18,10 @@
   // then fails on rootless engines (crun: chown /dev/pts/N: EPERM).
   // ensure-tty.sh symlinks the usual paths (/dev/ttyACM0, /dev/serial).
   "mounts": ["source=/dev,target=/host-dev,type=bind"],
-  // No engine-specific runArgs on purpose: the Dev Containers tooling probes
-  // the configured docker CLI (default `docker -v`) and, when that reports
-  // Podman on Linux, injects --userns=keep-id automatically; Docker needs
-  // nothing. Hosts where docker is Podman in disguise — NixOS symlink, or
+  // Engine notes: the Dev Containers tooling probes the configured docker
+  // CLI (default `docker -v`) and, when that reports Podman on Linux,
+  // injects --userns=keep-id automatically; Docker needs nothing extra.
+  // Hosts where docker is Podman in disguise — NixOS symlink, or
   // Podman without a docker shim — need the VS Code user setting
   // "dev.containers.dockerPath": "podman" — see README → Development
   // container. Serial-device group access on rootless Podman is a host-side
@@ -32,8 +32,24 @@
   // relative — robust against any client cwd and paths with spaces — and it
   // is backgrounded so postStart exits immediately.
   "postStartCommand": "nohup bash .devcontainer/ensure-tty.sh >/tmp/ensure-tty.log 2>&1 &",
-  // Warm the flake (builds/downloads the Xtensa toolchain on first create).
-  "postCreateCommand": "nix develop --command inv --list",
+  // Docker Desktop (Windows) denies open() on character devices the
+  // container mknods itself (device cgroup: EPERM on /dev/ttyACM0), so
+  // flashing needs --privileged. Ships on purpose as a default for every
+  // engine — full caps/devices on rootful Docker is a conscious trade-off
+  // for a firmware devcontainer, rootless Podman tolerates the flag
+  // (README → Development container → Flashing).
+  "runArgs": ["--privileged"],
+  // Warm the flake: `nix develop` itself builds/downloads the whole dev
+  // shell (Xtensa toolchain), the command inside is irrelevant — plain
+  // `true`, so a broken tasks.py can never fail container creation.
+  // Best-effort chown first: Docker Desktop (Windows) bind-mounts the
+  // workspace as root-owned while lifecycle commands run as `vscode`, and
+  // Nix's git fetcher (libgit2) then aborts with "repository path ... is
+  // not owned by current user" (error code 7) when resolving the flake.
+  // Guarded by the owner check so rootless Podman (workspace owned by the
+  // container root via keep-id, i.e. never uid 0 on disk) never re-owns
+  // host files into an unrelated subuid.
+  "postCreateCommand": "if [ \"$(stat -c %u .)\" = 0 ]; then sudo -n chown -R vscode:vscode . || true; fi; nix develop --command true",
   // Block until the warm finished; the spec default only waits for
   // updateContentCommand, which would let terminals run before the toolchain
   // exists.

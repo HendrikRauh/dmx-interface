@@ -1,3 +1,6 @@
+# Docker Desktop bind mounts expose every file as 777, so ruff's EXE002
+# (executable without shebang) fires there although the git mode is 100644.
+# ruff: noqa: EXE002
 # cspell:ignore: JTAG UART FTDI Espressif CDC
 
 import glob

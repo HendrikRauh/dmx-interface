@@ -271,14 +271,14 @@ let driver = Driver::new(usb, EP_OUT_BUFFER.init([0u8; 1024]), Config::default()
 
 ### esptool auto-reset: DTR/RTS are simulated in software
 
-esptool's `--before usb-reset` walk is `(DTR,RTS) = (0,0) → (1,0) → (0,1) → (0,0)`. The firmware mirrors it onto ROM strapping semantics:
+esptool's `--before usb-reset` walk is `(DTR,RTS) = (1,0) → (1,1) → (0,1)` — arm, a ~1–3 ms `(1,1)` blip, then reset; the `(0,1)` step boots whichever target the flag selects. The firmware mirrors it onto ROM strapping semantics:
 
 | DTR | RTS | Action |
 | ----- | ----- | -------- |
 | 1 | 0 | set `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` (simulates IO0 low) |
 | 0 | 1 | plain `software_reset()` — boot target decided by the flag (simulates EN low) |
 | 0 | 0 | clear the flag |
-| 1 | 1 | no-op |
+| 1 | 1 | clear the flag **after a ≥20 ms debounce** — a terminal holds `(1,1)` for the whole session (it pulses `(1,0)` first), while esptool's walk only blips `(1,1)` for ~1–3 ms; the debounce keeps that blip from disarming the flag mid-walk |
 
 The ROM bootloader does **not** clear `FORCE_DOWNLOAD_BOOT`; with
 `--after hard-reset` esptool's S2-specific reset then leaves the chip in the
@@ -420,3 +420,43 @@ fallback did not survive the flash reset chain either (observed).
 - **Spawn tokens are distinct opaque types**: `slot0(stack)` … `slot3(stack)`
   return different `impl` types — don't collect them in one array; spawn via
   the `spawn_slot!` macro inside `http::spawn_all`.
+
+### Dev container: Docker Desktop mounts the workspace as root
+
+On Windows/Docker Desktop the bind-mounted workspace shows up as `root:root`,
+while every lifecycle command and terminal runs as `vscode` (uid 1000). Nix
+then cannot resolve the flake — its git fetcher (libgit2) enforces owner
+validation and aborts before `postCreateCommand` reaches the toolchain:
+
+```text
+error: while fetching the input 'git+file:///workspaces/dmx-interface'
+error: opening Git repository "/workspaces/dmx-interface":
+repository path '/workspaces/dmx-interface' is not owned by current user
+(libgit2 error code = 7)
+```
+
+`postCreateCommand` therefore starts with an owner-guarded re-own,
+`if [ "$(stat -c %u .)" = 0 ]; then sudo -n chown -R vscode:vscode . || true; fi`,
+followed by a `nix develop --command true` flake warm-up. The `stat` guard
+fires only for the Docker Desktop case (workspace owned by uid 0 on disk);
+on every other engine the workspace is never uid 0 in the container, so
+host files are never re-owned — and even when it does fire, `sudo -n chown`
+is best-effort (Docker Desktop honours `chown` on its bind mounts — verified;
+where it is not permitted, the `|| true` swallows it). Don't
+"simplify" that guard away, and don't work around the check with
+`nix develop path:.`: that URL form bypasses libgit2, but copies the whole
+tree (including `target/` and `node_modules/`) into the Nix store on every
+single task run.
+
+The narrower alternative — `git config --global --add safe.directory <repo>`
+for the `vscode` user — _does_ silence libgit2 as well (libgit2 honours
+`safe.directory`, contrary to older advice), but it does not fix the git CLI,
+which rejects the same root-owned repo with `fatal: detected dubious ownership` (VS Code's source-control view included). One `chown` fixes both,
+and only new files created from the Windows side after startup are root-owned
+again (mode 777 on Docker Desktop, so still writable — rebuild if anything
+ever complains).
+
+Related: `.vscode/tasks.json` wraps the common `inv` commands as VS Code
+tasks (`Firmware/Build` is the default build task, Ctrl+Shift+B) so the
+container is usable without a terminal; the labels use `Group/Name` so
+task-button extensions group them.

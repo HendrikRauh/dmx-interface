@@ -176,13 +176,34 @@ macOS is unsupported: USB devices cannot reach Docker Desktop's VM there at all,
 2. The first build downloads the Xtensa toolchain during `postCreateCommand` (5–15 minutes — `esp-rs-nix` ships pre-built artifacts but has no binary cache).
 3. Work as described below: `inv build`, `inv check`, `inv format`, `inv web:dev` (Vite dev server — port 5173 is forwarded to your host automatically). Integrated terminals start in `nix develop` automatically.
 
+#### Windows (Docker Desktop)
+
+Everything lives in the container — no Nix and no toolchain on Windows itself.
+
+1. Install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 backend) and start it once so the engine is running.
+2. Install VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) ([GitHub Desktop](https://desktop.github.com/) is fine for cloning).
+3. Open the cloned repository in VS Code and run **Dev Containers: Reopen in Container** — the first start then downloads the toolchain as described above.
+
+You do not have to touch the terminal: the tasks in `.vscode/tasks.json` wrap the `inv` commands
+and are reachable via **Terminal → Run Task…**, with **Ctrl+Shift+B** bound to the firmware build
+(`Firmware/Build`); the labels (`Firmware/Flash`, `Firmware/Monitor`, `Web/Dev server`, …) group
+themselves in task-picker extensions.
+
+> [!NOTE]
+> Docker Desktop bind-mounts the workspace as `root`-owned, which Nix's flake fetcher refuses to
+> open. `postCreateCommand` therefore re-owns the folder to the container user first (a harmless
+> no-op on other engines). If a terminal reports `repository path … is not owned by current user`,
+> the container predates that fix — run **Dev Containers: Rebuild Container**.
+
+Flashing needs one extra step on Windows (USB pass-through via [usbipd-win](https://github.com/dorssel/usbipd-win)) — see [Flashing](#flashing) below.
+
 #### Flashing
 
 The container bind-mounts the host's `/dev` at `/host-dev` — a direct `/dev` bind would replace the container's own devpts and break terminals on rootless engines.
 `.devcontainer/ensure-tty.sh` runs in a loop after every start: it creates a private `mknod` node for the board (leaving the host's permissions untouched) or falls back to symlinking `/dev/ttyACM0` and `/dev/serial` to `/host-dev`, and prints a hint when the node is visible but not readable.
 
 - **Linux (rootful Docker)**: plug in the board and run `inv flash`.
-  Docker's default device cgroup may deny `open()` on the node `ensure-tty.sh` creates (visible as `EPERM` on `/dev/ttyACM0`); if that happens, add `"runArgs": ["--privileged"]` to `.devcontainer/devcontainer.json` and reopen — the same fallback as on Windows.
+  Docker's default device cgroup may deny `open()` on the node `ensure-tty.sh` creates (visible as `EPERM` on `/dev/ttyACM0`) — which is why `devcontainer.json` ships `"runArgs": ["--privileged"]` on every engine; drop the flag if you want a tighter sandbox and flashing still works.
 
 - **Linux (rootless Podman)**: Podman drops the host's supplementary groups, so `/dev/ttyACM0` (root:`dialout`) would be visible but unreadable.
   A one-time host setup documented in `containers.conf(5)` (requires the `crun` runtime, Podman's default) restores them for all your Podman containers — add to `~/.config/containers/containers.conf` (Docker ignores this file):
@@ -209,7 +230,7 @@ The container bind-mounts the host's `/dev` at `/host-dev` — a direct `/dev` b
   ```
 
   Attach the board **before** (re)opening the container, then run `inv flash` inside it.
-  If flashing fails with a permission error on `/dev/ttyACM0`, add `"runArgs": ["--privileged"]` to `.devcontainer/devcontainer.json` and reopen — Docker's device cgroup may otherwise deny the node that `ensure-tty.sh` creates (rootless Podman tolerates the flag as well).
+  The container ships `"runArgs": ["--privileged"]` by default (Docker's device cgroup may otherwise deny the node `ensure-tty.sh` creates; rootless Podman tolerates the flag as well) — if you still see a permission error on `/dev/ttyACM0`, **Rebuild Container** so the setting is re-applied.
   While attached, the device is owned by WSL and invisible to Windows applications; `usbipd detach --busid <BUSID>` gives it back. A plain [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell as described above remains a working alternative for flashing.
 
 #### Notes

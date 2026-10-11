@@ -67,7 +67,13 @@
             };
             check-case-conflicts.enable = true;
             check-symlinks.enable = true;
-            end-of-file-fixer.enable = true;
+            end-of-file-fixer = {
+              enable = true;
+              # The design favicon is a git symlink (mode 120000); Docker
+              # Desktop bind mounts surface it as a regular file, so the
+              # fixer would append a newline and corrupt the target path.
+              excludes = ["^assets/design/favicon\\.svg$"];
+            };
             fix-byte-order-marker.enable = true;
             mixed-line-endings = {
               enable = true;
@@ -76,10 +82,13 @@
             trim-trailing-whitespace.enable = true;
 
             # YAML, JSON & TOML
-            # devcontainer.json is JSONC (comments) — plain check-json would fail
+            # JSONC (comments) — plain check-json would fail
             check-json = {
               enable = true;
-              excludes = ["^\\.devcontainer/devcontainer\\.json$"];
+              excludes = [
+                "^\\.devcontainer/devcontainer\\.json$"
+                "^\\.vscode/tasks\\.json$"
+              ];
             };
             check-toml.enable = true;
             check-yaml.enable = true;

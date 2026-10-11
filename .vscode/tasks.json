@@ -1,0 +1,83 @@
+{
+  "version": "2.0.0",
+  // Every task goes through `nix develop --command ...` so it works the same
+  // inside the dev container and on a host with Nix installed (direnv not
+  // required). Windows users: run these inside the dev container.
+  // Labels use a `Group/Name` shape — task-button extensions group them by
+  // the part before the slash.
+  "tasks": [
+    {
+      "label": "Firmware/Build",
+      "type": "shell",
+      "command": "nix develop --command inv build",
+      "detail": "Build the firmware and bundle the website",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Check",
+      "type": "shell",
+      "command": "nix develop --command inv check",
+      "detail": "Strict clippy for the Xtensa target (the test gate)",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Flash",
+      "type": "shell",
+      "command": "nix develop --command inv flash",
+      "detail": "Build if needed and flash the board via USB CDC",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Monitor",
+      "type": "shell",
+      "command": "nix develop --command inv monitor",
+      "detail": "Stream the serial output of the board",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "close": true }
+    },
+    {
+      "label": "Web/Dev server",
+      "type": "shell",
+      "command": "nix develop --command inv web:dev",
+      "detail": "Vite dev server with mock API (http://localhost:5173)",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "close": true }
+    },
+    {
+      "label": "Web/Build site",
+      "type": "shell",
+      "command": "nix develop --command inv web:build",
+      "detail": "Vite build of the single-file UI into web/dist",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Tooling/Format",
+      "type": "shell",
+      "command": "nix develop --command inv format",
+      "detail": "Run all pre-commit hooks (lint, format, spell-check)",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Tooling/Docs",
+      "type": "shell",
+      "command": "nix develop --command inv docs",
+      "detail": "Generate the rustdoc documentation (fails on warnings)",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Tooling/Clean",
+      "type": "shell",
+      "command": "nix develop --command inv clean",
+      "detail": "cargo clean, optionally including node_modules",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    }
+  ]
+}

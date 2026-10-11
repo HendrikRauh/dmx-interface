@@ -9,6 +9,13 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  // Node ≥17 resolves "localhost" to ::1 first, so Vite's default bind
+  // ([::1]:5173) is unreachable via 127.0.0.1 — which is what Docker/Podman
+  // port publishing and the devcontainer's forwardPorts connect to. Listen on
+  // all addresses instead; harmless on a host, required inside a container.
+  server: {
+    host: true,
+  },
   plugins: [
     preact(),
     viteSingleFile(),
