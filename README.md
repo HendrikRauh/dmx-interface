@@ -162,27 +162,57 @@ Afterwards, you can simply navigate to the project folder and you will automatic
 Instead of installing Nix locally (e.g. on Windows), you can run the whole development environment in a [development container](https://containers.dev/).
 The `.devcontainer/` setup layers the official Nix feature on a plain Ubuntu base — all tools still come from `flake.nix` via `nix develop`, exactly like a native setup.
 
-Requirements: [Docker](https://docs.docker.com/get-started/) (on Windows: [Docker Desktop](https://docs.docker.com/desktop/)) and VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+Requirements: a container engine with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) in VS Code — on Windows that is [Podman](https://podman.io/) (see below), on Linux [Docker](https://docs.docker.com/get-started/) or Podman.
 
 The configuration is engine-neutral: `devcontainer.json` contains no container-engine flags.
-The Dev Containers tooling probes the configured Docker CLI (default `docker -v`) and, when that reports Podman, injects the workspace-ownership mapping (`--userns=keep-id`) on Linux automatically; Docker Desktop and rootful Docker need no setup at all.
-Rootless Docker on Linux is **not covered** — its UID mapping breaks the workspace ownership just like Podman without keep-id, and the tooling only injects that fix for Podman.
+The development container runs as `root` deliberately — on every supported engine the bind-mounted workspace belongs to container uid 0
+(Windows drvfs forces `uid=1000`, which rootless Podman maps to container root; Docker Desktop mounts as root), so the session user
+always owns the workspace and `npm`, `vite` and `git` work without engine-specific UID mappings.
 Hosts where `docker` is Podman in disguise need the VS Code user setting `"dev.containers.dockerPath": "podman"` (CLI users pass `--docker-path podman` instead): that is the case on NixOS (`/usr/bin/docker` is a Podman symlink reporting itself as "docker")
 and on hosts with only Podman installed (no docker shim at all). Docker users skip this.
 
-macOS is unsupported: USB devices cannot reach Docker Desktop's VM there at all, so the board never shows up on `/host-dev` — the usbipd/WSL mechanism has no macOS equivalent.
+macOS is unsupported: USB devices cannot reach the container VM there at all, so the board never shows up on `/host-dev` — the usbipd/WSL mechanism has no macOS equivalent.
 
 1. Open the repository in VS Code and run **Dev Containers: Reopen in Container** from the command palette.
 2. The first build downloads the Xtensa toolchain during `postCreateCommand` (5–15 minutes — `esp-rs-nix` ships pre-built artifacts but has no binary cache).
 3. Work as described below: `inv build`, `inv check`, `inv format`, `inv web:dev` (Vite dev server — port 5173 is forwarded to your host automatically). Integrated terminals start in `nix develop` automatically.
 
-#### Windows (Docker Desktop)
+Alternatively, drive the same setup from a terminal with the
+[devcontainer CLI](https://github.com/devcontainers/cli) (validated end-to-end on the
+Windows/Podman setup below — the `ghcr.io/devcontainers/cli` image cannot be pulled
+anonymously anymore, so install the CLI itself):
 
-Everything lives in the container — no Nix and no toolchain on Windows itself.
+```sh
+# inside the Podman machine (Windows: wsl -d podman-machine-default)
+curl -fsSL https://raw.githubusercontent.com/devcontainers/cli/main/scripts/install.sh | sh
+devcontainer up --workspace-folder /mnt/c/Users/<you>/<repo> --docker-path podman
+devcontainer exec --workspace-folder /mnt/c/Users/<you>/<repo> --docker-path podman \
+  -- nix develop --command inv build
+```
 
-1. Install [Docker Desktop](https://docs.docker.com/desktop/setup/install/windows-install/) (WSL 2 backend) and start it once so the engine is running.
-2. Install VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) ([GitHub Desktop](https://desktop.github.com/) is fine for cloning).
-3. Open the cloned repository in VS Code and run **Dev Containers: Reopen in Container** — the first start then downloads the toolchain as described above.
+The first `up` builds the image, runs the toolchain warm-up and can take ~10 minutes;
+subsequent runs reuse the container. `--docker-path podman` is the CLI equivalent of the
+VS Code `dockerPath` setting above.
+
+#### Windows (Podman)
+
+Everything lives in the container — no Nix, no toolchain and no container GUI on Windows itself.
+The engine is the [Podman](https://podman.io/) CLI (Apache-2.0, ~30 MB) with its rootless
+machine on the [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/) platform; this keeps the
+host stack small and fully open-source. VS Code needs the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+([GitHub Desktop](https://desktop.github.com/) is fine for cloning) and the user setting
+`"dev.containers.dockerPath": "podman"` (Settings → search "docker path").
+
+Two scripts cover the one-time host setup and the per-session board attach:
+
+1. Run `scripts\setup-windows.bat` **as administrator** once. It checks CPU virtualization
+   (enable AMD-V/SVM or VT-x in BIOS/UEFI if it complains), installs the WSL 2 platform
+   (`wsl --install --no-distribution` — no user distro needed), the Podman CLI, a rootless
+   `podman machine` and [usbipd-win](https://github.com/dorssel/usbipd-win), then starts the
+   machine. Re-running it is safe; a reboot may be requested after the WSL step.
+2. Open the cloned repository in VS Code, run **Dev Containers: Reopen in Container** — the
+   first start downloads the toolchain as described above. Every later start only needs
+   `podman machine start` (the setup script leaves it running).
 
 You do not have to touch the terminal: the tasks in `.vscode/tasks.json` wrap the `inv` commands
 and are reachable via **Terminal → Run Task…**, with **Ctrl+Shift+B** bound to the firmware build
@@ -190,10 +220,9 @@ and are reachable via **Terminal → Run Task…**, with **Ctrl+Shift+B** bound 
 themselves in task-picker extensions.
 
 > [!NOTE]
-> Docker Desktop bind-mounts the workspace as `root`-owned, which Nix's flake fetcher refuses to
-> open. `postCreateCommand` therefore re-owns the folder to the container user first (a harmless
-> no-op on other engines). If a terminal reports `repository path … is not owned by current user`,
-> the container predates that fix — run **Dev Containers: Rebuild Container**.
+> Terminals, extensions and lifecycle commands run as `root` inside the container (see above) — that is what makes the workspace writable on Windows engines.
+> `postCreateCommand` additionally registers a system-wide git `safe.directory` wildcard for engines where the mount stays user-owned (e.g. rootful Linux), so both the git CLI and Nix's flake fetcher accept the repo.
+> If git or Nix still reports `repository path … is not owned by current user` or `detected dubious ownership`, the container predates that fix — run **Dev Containers: Rebuild Container**.
 
 Flashing needs one extra step on Windows (USB pass-through via [usbipd-win](https://github.com/dorssel/usbipd-win)) — see [Flashing](#flashing) below.
 
@@ -215,23 +244,22 @@ The container bind-mounts the host's `/dev` at `/host-dev` — a direct `/dev` b
 
   then recreate the container once.
 
-- **Windows**: flashing from inside the container works via [usbipd-win](https://github.com/dorssel/usbipd-win), but the attach must go through a **regular WSL distro**
-  (e.g. [Ubuntu](https://learn.microsoft.com/en-us/windows/wsl/install-distros)) — attaching `--distribution docker-desktop` is broken by usbipd's own design.
-  The VHCI driver lives in the WSL2 kernel shared by all distros, so once attached, the device shows up in every distro — including Docker Desktop's, and therefore on the container's `/host-dev` as well
+- **Windows**: flashing from inside the container works via [usbipd-win](https://github.com/dorssel/usbipd-win).
+  USB/IP's VHCI driver lives in the WSL 2 kernel that Podman machine runs on, so once a device is
+  attached it shows up in the machine's `/dev` — and therefore on the container's `/host-dev`
   (this is also [Espressif's documented workflow](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/docker-container.html) for flashing over USB-CDC from a dev container).
-  From an elevated PowerShell:
-
-  ```powershell
-  winget install dorssel.usbipd-win                     # once
-  wsl --install Ubuntu                                  # once, if no regular WSL distro exists
-  usbipd list                                            # note the BUSID of the ESP32
-  usbipd bind --busid <BUSID>                            # once, elevated
-  usbipd attach --wsl --busid <BUSID> --auto-attach      # per session
-  ```
-
-  Attach the board **before** (re)opening the container, then run `inv flash` inside it.
-  The container ships `"runArgs": ["--privileged"]` by default (Docker's device cgroup may otherwise deny the node `ensure-tty.sh` creates; rootless Podman tolerates the flag as well) — if you still see a permission error on `/dev/ttyACM0`, **Rebuild Container** so the setting is re-applied.
-  While attached, the device is owned by WSL and invisible to Windows applications; `usbipd detach --busid <BUSID>` gives it back. A plain [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell as described above remains a working alternative for flashing.
+  Run `scripts\attach-board.bat` once after setup (non-elevated): it finds the board, shares it
+  with `usbipd bind` (one-time, UAC), installs a udev rule plus a tiny in-machine permission
+  keeper in the machine (udev alone is unreliable in the Podman machine image) so re-enumerated
+  `/dev/ttyACM*` nodes are world-readable (rootless Podman maps the container's `root`
+  to your Windows user), and drops a hidden Startup-folder autostart that keeps the device
+  attached — after that, plug the board in and forget about it: attach, node permissions and
+  the container's `/dev/ttyACM0` all heal on their own after every flash reset. The device is
+  owned by WSL while attached and invisible to Windows applications; to give it back, create
+  `%LOCALAPPDATA%\dmx-board-attach.disabled` (delete it to re-enable attaching) and run
+  `usbipd detach --busid <BUSID>`. A plain
+  [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell remains a working alternative
+  for flashing.
 
 #### Notes
 

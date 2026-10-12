@@ -29,9 +29,26 @@ while :; do
 		name=$(basename "$want_path")
 		want=$(stat -c '%t:%T' "$want_path" 2>/dev/null || true)
 		have=$(stat -L -c '%t:%T' "/dev/$name" 2>/dev/null || true)
+		want_mode=$(stat -c '%a' "$want_path" 2>/dev/null || true)
+		have_mode=$(stat -L -c '%a' "/dev/$name" 2>/dev/null || true)
 		kind=$(stat -c '%F' "$want_path" 2>/dev/null || true)
-		if [ -z "$want" ] || [ "$want" != "$have" ]; then
+		# podman --privileged bind-mounts the host's device nodes into
+		# /dev (mode and inode taken from the host at container start).
+		# After a hot-plug re-enumeration the host drops that inode —
+		# major:minor may stay identical while the bind points at a dead
+		# entry (nlink 0), so also compare the mode and the link count.
+		stale=""
+		[ -z "$want" ] && stale=1
+		[ "$want" != "$have" ] && stale=1
+		[ "$want_mode" != "$have_mode" ] && stale=1
+		[ "$(stat -c '%h' "/dev/$name" 2>/dev/null)" = "0" ] && stale=1
+		if [ -n "$stale" ]; then
 			# Missing, broken, or stale (a different device behind the name).
+			# A mountpoint cannot be rm'd — that would unlink the target
+			# and leave the dead bind behind — so unmount it first.
+			if mountpoint -q "/dev/$name"; then
+				umount "/dev/$name" 2>/dev/null || true
+			fi
 			sudo -n rm -f "/dev/$name" 2>/dev/null || rm -f "/dev/$name" 2>/dev/null || true
 			maj=${want%%:*}
 			min=${want##*:}

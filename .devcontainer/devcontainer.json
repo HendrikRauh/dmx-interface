@@ -2,14 +2,23 @@
   "name": "dmx-interface (Nix)",
   // Plain Ubuntu base + the official Nix feature; all tooling still comes
   // from flake.nix via `nix develop` (see AGENTS.md → "Dev shell").
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
   "features": {
     "ghcr.io/devcontainers/features/nix:1": {
       // Enables `nix` and `nix develop` for lifecycle commands and terminals.
       "extraNixConfig": "experimental-features = nix-command flakes"
     }
   },
-  "remoteUser": "vscode",
+  // Root, deliberately: a non-root user can never own the bind-mounted
+  // workspace on the supported engines (Windows drvfs forces uid=1000, which
+  // rootless Podman maps to container uid 0; Docker Desktop mounts as root),
+  // so npm/vite/git all fail for `vscode` — see AGENTS.md → "Dev container".
+  // Root is the owner on every engine, and the Dev Containers tooling skips
+  // its --userns=keep-id injection for root (which suits us: Docker rejects
+  // that flag, so it could not ship in an engine-neutral config anyway).
+  "remoteUser": "root",
   // Share the host's device nodes so `inv flash` sees the ESP32 as
   // /dev/ttyACM0 (hot-plug works; no --device, that breaks creation on
   // hosts without the board attached, e.g. Windows without usbipd).
@@ -18,14 +27,14 @@
   // then fails on rootless engines (crun: chown /dev/pts/N: EPERM).
   // ensure-tty.sh symlinks the usual paths (/dev/ttyACM0, /dev/serial).
   "mounts": ["source=/dev,target=/host-dev,type=bind"],
-  // Engine notes: the Dev Containers tooling probes the configured docker
-  // CLI (default `docker -v`) and, when that reports Podman on Linux,
-  // injects --userns=keep-id automatically; Docker needs nothing extra.
-  // Hosts where docker is Podman in disguise — NixOS symlink, or
-  // Podman without a docker shim — need the VS Code user setting
-  // "dev.containers.dockerPath": "podman" — see README → Development
-  // container. Serial-device group access on rootless Podman is a host-side
-  // containers.conf concern, likewise documented in the README.
+  // Engine notes: `remoteUser: root` keeps this config engine-neutral — no
+  // --userns=keep-id (Docker rejects it) and no engine-specific runArgs are
+  // needed for workspace ownership. Hosts where docker is Podman in disguise
+  // — NixOS symlink, or Podman without a docker shim — still need the VS Code
+  // user setting "dev.containers.dockerPath": "podman" so the tooling finds
+  // the right CLI — see README → Development container. Serial-device group
+  // access on rootless Podman is a host-side containers.conf concern,
+  // likewise documented in the README.
   //
   // The CDC device can enumerate after container start (hot-plug). Lifecycle
   // commands run from the workspace folder (per spec), so the script path is
@@ -42,14 +51,14 @@
   // Warm the flake: `nix develop` itself builds/downloads the whole dev
   // shell (Xtensa toolchain), the command inside is irrelevant — plain
   // `true`, so a broken tasks.py can never fail container creation.
-  // Best-effort chown first: Docker Desktop (Windows) bind-mounts the
-  // workspace as root-owned while lifecycle commands run as `vscode`, and
-  // Nix's git fetcher (libgit2) then aborts with "repository path ... is
-  // not owned by current user" (error code 7) when resolving the flake.
-  // Guarded by the owner check so rootless Podman (workspace owned by the
-  // container root via keep-id, i.e. never uid 0 on disk) never re-owns
-  // host files into an unrelated subuid.
-  "postCreateCommand": "if [ \"$(stat -c %u .)\" = 0 ]; then sudo -n chown -R vscode:vscode . || true; fi; nix develop --command true",
+  // Preceded by a system-wide git safe.directory wildcard: we run as root on
+  // engines where the workspace is *not* root-owned (rootful Linux Podman,
+  // Docker on Linux), and git's "dubious ownership" check would otherwise
+  // refuse the repo inside the container. Running as root on the ownership
+  // cases the wildcard covers is exactly the identity libgit2 accepts, so no
+  // chown is needed or wanted — re-owning host files was the old vscode-user
+  // workaround (see AGENTS.md → "Dev container").
+  "postCreateCommand": "git config --system --add safe.directory '*' || true; nix develop --command true",
   // Block until the warm finished; the spec default only waits for
   // updateContentCommand, which would let terminals run before the toolchain
   // exists.
@@ -65,7 +74,15 @@
         "oxc.oxc-vscode",
         "streetsidesoftware.code-spell-checker",
         "davidanson.vscode-markdownlint",
-        "pinage404.nix-extension-pack",
+        // Not pinage404.nix-extension-pack (as .vscode/extensions.json recommends
+        // for native setups): it also ships nix-env-selector, whose terminal
+        // patching ("open new user terminals inside nix-shell", default on)
+        // rewraps the nix-shell profile below and dies with exit 1, and
+        // mkhl.direnv, which needs a direnv binary the extension host does not
+        // have (direnv only exists inside `nix develop`). Both are redundant
+        // in the container — the terminal profile, ra-nix.sh and the task
+        // wrappers own the environment — so we keep only the Nix formatter.
+        "jnoortheen.nix-ide",
         "yoavbls.pretty-ts-errors",
         "ms-python.python",
         "charliermarsh.ruff"

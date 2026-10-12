@@ -279,6 +279,18 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     #      the RTC watchdog, which boots the application.
     # Run 2 is silent (banner/chip block are noise), run 1 keeps the progress
     # bar. ESPTOOL_OPEN_PORT_ATTEMPTS retries the port open (Errno 71 above).
+    # 150, not esptool's default: every retry only paces itself with a 0.1 s
+    # sleep, and the DTR/RTS walk re-enumerates the CDC device (chip reset →
+    # device drop → usbipd re-attach into the WSL machine). That gap measured
+    # in the several-seconds range here, so the old budget of 5 attempts
+    # (~5-15 s) lost the race and `inv flash` died with Errno 19 ENODEV or
+    # Errno 62 ETIME from pyserial's modem-line ioctl; at 60 attempts
+    # (~7-10 s of fast-failing opens) it still lost when usbipd's auto-attach
+    # plus the container's ensure-tty rebuild of /dev/ttyACM0 ran long — the
+    # open then fails with Errno 2 ENOENT while the node is missing. A
+    # genuinely absent board still fails fast (each open attempt errors
+    # immediately), so the higher count only buys patience for the
+    # re-enumeration window (~30 s).
     #
     # Between the runs the chip can re-enumerate: closing run 1's port can
     # glitch DTR/RTS and reset the chip even with the stub resident, so the
@@ -288,7 +300,7 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     #   - ROM bootloader / stub (0002) → run 2 as planned
     try:
         c.run(
-            f"ESPTOOL_BEFORE=usb-reset ESPTOOL_OPEN_PORT_ATTEMPTS=5 "
+            f"ESPTOOL_BEFORE=usb-reset ESPTOOL_OPEN_PORT_ATTEMPTS=150 "
             f"esptool --chip {chip} {port_arg} --baud 74880 "
             f"--after no-reset-stub write-flash 0x0000 {bin_path}",
             pty=True,
@@ -309,7 +321,7 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
 
     try:
         c.run(
-            f"ESPTOOL_OPEN_PORT_ATTEMPTS=5 esptool --silent --chip {chip} {port_arg} --baud 74880 "
+            f"ESPTOOL_OPEN_PORT_ATTEMPTS=150 esptool --silent --chip {chip} {port_arg} --baud 74880 "
             f"--before no-reset --after watchdog-reset write-mem 0x3F408128 0 0x1",
             pty=True,
         )
