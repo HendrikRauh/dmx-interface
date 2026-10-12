@@ -7,3 +7,9 @@ FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 # Operation not permitted". Pre-seeding yields the exact end state the feature
 # writes anyway; Docker builds (full caps) are unaffected either way.
 RUN mkdir -p /etc/nix && echo 'sandbox = false' > /etc/nix/nix.conf
+
+# Accept the bind-mounted workspace whatever its owner: the session runs as
+# root, but on engines where the mount stays user-owned (rootful Linux
+# Podman/Docker) git's "dubious ownership" check would refuse the repo.
+# Windows drvfs renders everything root-owned, so the wildcard is inert there.
+RUN git config --system --add safe.directory '*'

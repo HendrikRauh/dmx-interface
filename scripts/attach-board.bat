@@ -3,9 +3,8 @@ setlocal EnableExtensions
 rem One-time board setup for the dmx-interface devcontainer - no helper
 rem windows anymore:
 rem   1. usbipd bind (one-time, UAC) so the board may be shared with WSL.
-rem   2. udev rule in the podman machine so re-enumerated /dev/ttyACM* nodes
-rem      are created world-writable (rootless container root = uid 1000),
-rem      plus the in-machine keeper loop as fallback (udev is flaky here).
+rem   2. in-machine ttyACM keeper (chmod 666 every 2 s - rootless container
+rem      root = uid 1000 cannot read the default 660 node).
 rem   3. Startup-folder launcher (dmx-board-attach.vbs) that starts the
 rem      hidden attach watcher board-autostart.ps1 at every logon - usbipd
 rem      attach must run non-admin (usbipd issue #1008), so no elevated
@@ -37,17 +36,8 @@ if not errorlevel 1 (
   )
 )
 
-rem --- udev rule: world-writable ttyACM nodes in the podman machine ---
-echo Installing udev rule in the podman machine...
-wsl -d podman-machine-default -u root -- bash < "%~dp0machine-udev.sh"
-if errorlevel 1 (
-  echo [ERROR] Could not install the udev rule - is the podman machine
-  echo         created and started? ^(scripts\setup-windows.bat^)
-  pause
-  exit /b 1
-)
-
-rem --- in-machine ttyACM keeper: chmod 666 every 2 s (udev fallback) ---
+rem --- in-machine ttyACM keeper: chmod 666 every 2 s (safety net for the
+rem --- rootless container user; udev in the machine image is unreliable) ---
 echo Starting the in-machine ttyACM keeper...
 wsl -d podman-machine-default -u root -- bash < "%~dp0machine-tty-keeper.sh"
 if errorlevel 1 (

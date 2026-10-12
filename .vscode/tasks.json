@@ -1,10 +1,10 @@
 {
   "version": "2.0.0",
-  // Every task goes through `nix develop --command ...` so it works the same
-  // inside the dev container and on a host with Nix installed (direnv not
-  // required). Windows users: run these inside the dev container.
-  // Labels use a `Group/Name` shape — task-button extensions group them by
-  // the part before the slash.
+  // Thin `inv` wrappers so the firmware loop (build, check, flash, monitor)
+  // is reachable via Run Task without a terminal - Ctrl+Shift+B is the
+  // build. Everything else (web, format, docs, clean) is one `inv`
+  // keystroke away in a nix-shell terminal. Labels use a `Group/Name`
+  // shape - task-button extensions group them by the part before the slash.
   "tasks": [
     {
       "label": "Firmware/Build",
@@ -38,46 +38,6 @@
       "detail": "Stream the serial output of the board",
       "problemMatcher": [],
       "presentation": { "reveal": "always", "panel": "dedicated", "close": true }
-    },
-    {
-      "label": "Web/Dev server",
-      "type": "shell",
-      "command": "nix develop --command inv web:dev",
-      "detail": "Vite dev server with mock API (http://localhost:5173)",
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "close": true }
-    },
-    {
-      "label": "Web/Build site",
-      "type": "shell",
-      "command": "nix develop --command inv web:build",
-      "detail": "Vite build of the single-file UI into web/dist",
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
-    },
-    {
-      "label": "Tooling/Format",
-      "type": "shell",
-      "command": "nix develop --command inv format",
-      "detail": "Run all pre-commit hooks (lint, format, spell-check)",
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
-    },
-    {
-      "label": "Tooling/Docs",
-      "type": "shell",
-      "command": "nix develop --command inv docs",
-      "detail": "Generate the rustdoc documentation (fails on warnings)",
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
-    },
-    {
-      "label": "Tooling/Clean",
-      "type": "shell",
-      "command": "nix develop --command inv clean",
-      "detail": "cargo clean, optionally including node_modules",
-      "problemMatcher": [],
-      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
     }
   ]
 }
