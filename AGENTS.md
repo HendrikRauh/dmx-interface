@@ -24,8 +24,7 @@ nix develop -c inv build       # one-shot build
 
 All `inv` commands **must** run inside `nix develop` (or prefixed with
 `nix develop -c`), as they depend on `esptool`, `espflash`, `cargo`, and other
-flake-provided tools. On Windows the environment runs in a development
-container (Podman machine + usbipd board attach) — see `WINDOWS.md`.
+flake-provided tools.
 
 ## Tasks (invoke)
 
@@ -272,14 +271,14 @@ let driver = Driver::new(usb, EP_OUT_BUFFER.init([0u8; 1024]), Config::default()
 
 ### esptool auto-reset: DTR/RTS are simulated in software
 
-esptool's `--before usb-reset` walk is `(DTR,RTS) = (1,0) → (1,1) → (0,1)` — arm, a ~1–3 ms `(1,1)` blip, then reset; the `(0,1)` step boots whichever target the flag selects. The firmware mirrors it onto ROM strapping semantics:
+esptool's `--before usb-reset` walk is `(DTR,RTS) = (0,0) → (1,0) → (0,1) → (0,0)`. The firmware mirrors it onto ROM strapping semantics:
 
 | DTR | RTS | Action |
 | ----- | ----- | -------- |
 | 1 | 0 | set `RTC_CNTL_OPTION1.FORCE_DOWNLOAD_BOOT` (simulates IO0 low) |
 | 0 | 1 | plain `software_reset()` — boot target decided by the flag (simulates EN low) |
 | 0 | 0 | clear the flag |
-| 1 | 1 | clear the flag **after a ≥20 ms debounce** — a terminal holds `(1,1)` for the whole session (it pulses `(1,0)` first), while esptool's walk only blips `(1,1)` for ~1–3 ms; the debounce keeps that blip from disarming the flag mid-walk |
+| 1 | 1 | no-op |
 
 The ROM bootloader does **not** clear `FORCE_DOWNLOAD_BOOT`; with
 `--after hard-reset` esptool's S2-specific reset then leaves the chip in the
@@ -289,22 +288,12 @@ bootloader (USB PID 0x0002) and the next flash dies with
 accepts exactly one operation per invocation): run 1 flashes with
 `--after no-reset-stub`, run 2 reconnects (`--before no-reset`), clears bit 0
 via `write-mem 0x3F408128 0 0x1`, and resets with `--after watchdog-reset`.
-Both set `ESPTOOL_OPEN_PORT_ATTEMPTS=150` (Errno 71 retries **and** the CDC
-re-enumeration gap: the DTR/RTS walk reboots the chip, the device drops off
-the bus and usbipd needs seconds to re-attach it into WSL — esptool paces its
-attempts with only a 0.1 s sleep, so the old budget of 5 lost that race with
-Errno 19 ENODEV / Errno 62 ETIME, and even 60 lost when the re-attach plus
-the container's ensure-tty rebuild of `/dev/ttyACM0` ran long: the open then
-fails with Errno 2 ENOENT while the node is missing). The port is found
+Both set `ESPTOOL_OPEN_PORT_ATTEMPTS=5` (Errno 71 retries). The port is found
 by scanning `/sys/bus/usb/devices` for VID `303a` (ROM `0002` + app `3001`);
 exactly one device required, `--port` overrides, none → fail-fast with
-first-flash BOOT+RESET hint, several → list + require `--port`. When USB sysfs
-is missing entirely (some containers), a lone `/dev/ttyACM*` node is used as
-fallback. The port may re-enumerate between the two runs — closing run 1's
-port can glitch DTR/RTS and reset the chip even with the stub resident, so
-the node vanishes for ~1-2 s and may return under a new tty name: run 2 waits
-for the same (tty, PID) pair twice in a row (relocating the name if needed)
-and is skipped if the firmware (PID `3001`) came back.
+first-flash BOOT+RESET hint, several → list + require `--port`. The port may
+re-enumerate between the two runs (reset while the stub was resident): run 2
+waits for the node and is skipped if the firmware (PID `3001`) came back.
 
 `inv monitor` resolves the port the same way (waits up to 8 s for
 re-enumeration after a flash) and streams via pyserial with reconnects. Do
