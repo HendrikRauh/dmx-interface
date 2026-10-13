@@ -33,8 +33,9 @@ and the usbipd/WSL mechanism has no macOS equivalent.
    needs `podman machine start` (the setup script leaves it running).
 3. Run `scripts\attach-board.bat` once, **non-elevated**, with the board
    plugged in (see [Flashing (USB pass-through)](#flashing-usb-pass-through)): it shares the board with usbipd
-   (one-time UAC for `usbipd bind`), installs the in-machine permission keeper
-   and drops the hidden autostart that keeps the device attached.
+   (one-time UAC for `usbipd bind`), installs a udev rule in the machine
+   (mode `0666` on every ttyACM node) and drops the hidden autostart that
+   keeps the device attached and its permissions applied.
 
 ## Daily use
 
@@ -49,10 +50,10 @@ bound to the firmware build.
 
 The container bind-mounts the machine's `/dev` at `/host-dev` — a direct
 `/dev` bind would replace the container's own devpts and break terminals on
-rootless engines. `.devcontainer/ensure-tty.sh` runs in a loop after every
-start: it creates a private `mknod` node for the board (leaving the host's
-permissions untouched) or falls back to symlinking `/dev/ttyACM0` to
-`/host-dev`, so `inv flash` finds the device at its usual path.
+rootless engines. `tasks.py` prefers the live nodes under `/host-dev` (they
+track hotplug re-enumeration on their own) over `/dev/ttyACM*`, which are
+Podman's per-start device binds: after a flash reset those are stale inodes
+and opens fail with `ENODEV`/`EACCES`.
 
 USB/IP's VHCI driver lives in the WSL 2 kernel that the Podman machine runs
 on, so once a device is attached it shows up in the machine's `/dev` — and
@@ -62,19 +63,19 @@ therefore on the container's `/host-dev`.
 
 1. Finds the board (VID `303a`) and runs `usbipd bind` once if needed — the
    only step that needs elevation (accept the UAC prompt).
-2. Starts `scripts/machine-tty-keeper.sh` in the machine: an idempotent
-   spawner for a 2-second `chmod 666 /dev/ttyACM*` loop. Rootless Podman maps
-   the container's `root` to your Windows user, so the machine's
-   `660 root:dialout` node would otherwise stay unreadable inside the
-   container.
+2. Runs `scripts/machine-udev.sh` in the machine: installs a udev rule
+   (`KERNEL=="ttyACM*", MODE="0666"`) and (re)starts `systemd-udevd` if it
+   is not running. The machine's default `660 root:games` would otherwise
+   stay unreadable, because rootless Podman maps the container's `root` to
+   your Windows user.
 3. Writes `Startup\dmx-board-attach.vbs` and starts it right away — a hidden
    watcher (`scripts/board-autostart.ps1`) that keeps the board attached for
    as long as you are logged on.
 
-After that: plug the board in and forget about it. Attach, node permissions
-and the container's `/dev/ttyACM0` all heal on their own after every flash
-reset — `inv flash` waits up to 150 open attempts (≈15 s) for the device to
-re-enumerate.
+After that: plug the board in and forget about it. The watcher re-pokes the
+udev rule every ~5 s while a board is present, and `inv flash` retries
+esptool's port open (~18 s) — so attach, node permissions and every
+flash-reset re-enumeration heal on their own.
 
 A plain [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell
 remains a working alternative for flashing.
@@ -116,8 +117,8 @@ applications. To release it:
 ### Linux engines (other engines)
 
 - **Rootful Docker**: plug in the board and run `inv flash`. Docker's default
-  device cgroup may deny `open()` on the node `ensure-tty.sh` creates (visible
-  as `EPERM` on `/dev/ttyACM0`) — which is why `devcontainer.json` ships
+  device cgroup may deny `open()` on the `/host-dev` device nodes (visible
+  as `EPERM`) — which is why `devcontainer.json` ships
   `"runArgs": ["--privileged"]` on every engine; drop the flag if you want a
   tighter sandbox and flashing still works.
 
@@ -148,20 +149,28 @@ Mechanics worth knowing when something misbehaves:
 - **`usbipd attach` must run non-admin** as the same user that owns the WSL
   distros (usbipd issue #1008); only `usbipd bind` needs elevation (once,
   persistent).
-- **The permission keeper replaces udev**: the podman machine image's udev is
-  unreliable — `udevadm control --reload-rules` fails (varlink to systemd is
-  broken) and workers hung intermittently, applying a rule to some
-  re-enumerations and not others. The keeper loop is the real safety net: it
-  is spawned with `setsid` (a plain `nohup` background job died with its WSL
-  session on occasion) and revived by the watcher every ~15 s, which also
-  covers machine restarts. The scripts are fed to `wsl -- bash` on stdin or
-  called via the `/mnt/c` path — a PowerShell pipe would inject CRLF.
+- **udev applies the node permissions via synthetic pokes, not hotplug
+  events**: the rule lives at `/etc/udev/rules.d/99-ttyacm-mode.rules`
+  (survives machine restarts, recreated by `attach-board.bat` after a machine
+  reset). PID 1 in the machine is Podman's own init, not systemd, so
+  `systemd-udevd` is started detached by `machine-udev.sh` if it is not
+  running. In this WSL kernel udevd never receives _real_ hotplug uevents
+  over netlink (only its boot-time coldplug replay applies rules) — writing
+  `add` to the device's `uevent` file, however, reliably re-runs rule
+  matching within ~1 s. So there is no in-machine daemon: the watcher pokes
+  `machine-udev.sh` every ~5 s while a board is present (the script itself
+  only writes the rule, checks `pidof` and pokes nodes that still carry the
+  wrong mode), and `inv flash` retries esptool's port open while a freshly
+  re-enumerated `0660` node waits for its poke. The script deliberately
+  avoids `udevadm control` (its varlink socket never showed up reliably in
+  this image). Scripts are fed to `wsl -- bash` on stdin or called via the
+  `/mnt/c` path — a PowerShell pipe would inject CRLF.
 - **The autostart is windowless by construction**: Task Scheduler,
   `Start-Process` and even `schtasks /Create /SC ONLOGON` (access denied
   without admin) flash a console otherwise, so a Startup-folder VBS launches
   the watcher hidden. The watcher (re)finds the BUSID and runs plain
   `usbipd attach --wsl` — deliberately **not** `--auto-attach`, which blocks
-  in a forever session and would starve the keeper spawn; the watcher's own
+  in a forever session and would starve the udev poke; the watcher's own
   rescan (≤5 s, plus a 2 s retry after a failed attempt) is fast enough. A
   board that is absent at logon just attaches on first sight.
 - **The workspace runs as `root` deliberately**: on Windows the bind-mounted

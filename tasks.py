@@ -6,6 +6,7 @@ import glob
 import os
 import re
 import shutil
+import subprocess
 import sys
 import time
 import webbrowser
@@ -46,6 +47,62 @@ _ESPRESSIF_VID = "303a"
 _APP_PID = "3001"  # running firmware; 0002 = ROM bootloader
 
 
+def _node_path(name: str) -> str:
+    """Map a tty name (e.g. 'ttyACM0') to its device node path.
+
+    The classic /dev/ttyACM0 *name* is what pyserial lists, so esptool
+    resolves VID/PID from it and picks its USB-CDC reset walk — the
+    generic fallback dies mid stub upload. In the devcontainer that path
+    is either the live symlink planted by _ensure_live_node() or (on
+    bare hosts) the node itself; Podman's per-start device binds go stale
+    on every re-enumeration, so those fall through to the live /host-dev
+    bind (the machine's /dev directory, see devcontainer.json).
+    """
+    dev = f"/dev/{name}"
+    if os.path.islink(dev) or not os.path.isdir("/host-dev"):
+        return dev
+    host = f"/host-dev/{name}"
+    return host if os.path.exists(host) else dev
+
+
+def _ensure_live_node() -> None:
+    """In the devcontainer: replace stale /dev/ttyACM* binds with symlinks.
+
+    Podman binds a *snapshot* device node into /dev at container start;
+    after a hotplug re-enumeration (flash reset, detach/attach) that
+    inode is gone and opens fail with ENODEV/EACCES. One-shot per
+    invocation, no daemon: drop the bound nodes and point
+    /dev/ttyACM{0..3} at the live /host-dev paths, which track the
+    machine's /dev on their own. No-op outside the devcontainer layout.
+    """
+    if not os.path.isdir("/host-dev"):
+        return
+    for i in range(4):
+        dev, host = f"/dev/ttyACM{i}", f"/host-dev/ttyACM{i}"
+        if os.path.islink(dev):
+            if os.readlink(dev) == host:
+                continue
+            os.remove(dev)
+        elif os.path.exists(dev):
+            # A mountpoint cannot be rm'd (EBUSY on Podman's device bind
+            # mounts) - unmount first, then drop the stale node.
+            if (
+                subprocess.run(
+                    ["mountpoint", "-q", dev], capture_output=True, check=False
+                ).returncode
+                == 0
+            ):
+                subprocess.run(["umount", dev], capture_output=True, check=False)
+            try:
+                os.remove(dev)
+            except OSError:
+                pass
+        try:
+            os.symlink(host, dev)
+        except OSError:
+            pass  # odd engine without a usable /dev - the finder falls back
+
+
 def _sys_attr(path: str, name: str) -> str | None:
     """Read a single-line USB device attribute."""
     try:
@@ -78,7 +135,7 @@ def _espressif_ports() -> list[tuple[str, str, str]]:
                 continue
             names = [n for n in os.listdir(tty_dir) if n.startswith("tty")]
             if names:
-                tty = f"/dev/{names[0]}"
+                tty = _node_path(names[0])
                 break
         if not tty:
             continue
@@ -89,9 +146,15 @@ def _espressif_ports() -> list[tuple[str, str, str]]:
         # Container/VM hosts (e.g. Docker Desktop on Windows) may not expose
         # USB sysfs inside the container. A lone CDC node is then the best
         # guess; the PID stays unknown, which just keeps the cleanup path.
-        nodes = sorted(glob.glob("/dev/ttyACM*"))
-        if len(nodes) == 1:
-            found.append((nodes[0], "????", "serial fallback (no USB sysfs)"))
+        # Live /dev entries first (symlink farm from _ensure_live_node),
+        # then the /host-dev bind; skip dangling entries.
+        for prefix in ("/dev", "/host-dev"):
+            nodes = [
+                n for n in sorted(glob.glob(f"{prefix}/ttyACM*")) if os.path.exists(n)
+            ]
+            if len(nodes) == 1:
+                found.append((nodes[0], "????", "serial fallback (no USB sysfs)"))
+                break
     return found
 
 
@@ -228,6 +291,33 @@ def release(c):
     print(f"\n✓ All targets built → {dist_dir}/")
 
 
+def _run_esptool_patient(c, cmd: str, attempts: int = 6, delay: float = 3.0):
+    """Run one esptool invocation, retrying while the port is (re)appearing.
+
+    A flash reset re-enumerates the CDC device. The fresh node shows up
+    with the kernel's default mode (0660) and the machine-side udev poke
+    (board watcher, every ~5 s) needs a moment to apply 0666 — until
+    then open() fails with EACCES ("Permission denied"); the node being
+    briefly absent between drop and re-attach fails with ENODEV/ENOENT
+    ("No such device/file"). Both surface as esptool's "could not open
+    port", which is fatal for esptool itself — retry the whole
+    invocation on that marker; every other error still fails fast.
+    """
+    for attempt in range(1, attempts + 1):
+        try:
+            c.run(cmd, pty=True)
+            return
+        except UnexpectedExit as exc:
+            out = (getattr(getattr(exc, "result", None), "stdout", "") or "").lower()
+            if attempt == attempts or "could not open" not in out:
+                raise
+            print(
+                f"⚠ esptool could not open the port "
+                f"(attempt {attempt}/{attempts}) — waiting for the device…"
+            )
+            time.sleep(delay)
+
+
 @task
 def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     """
@@ -242,6 +332,7 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     # Fail fast when the board is absent or ambiguous — no point in building
     # or invoking esptool then. A blank chip does not enumerate before the
     # manual bootloader entry, so it shows up as "no device" below.
+    _ensure_live_node()
     port_path = _resolve_port(port, hint=_FIRST_FLASH_HINT)
 
     profile = "release" if release else "debug"
@@ -285,9 +376,9 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     # in the several-seconds range here, so the old budget of 5 attempts
     # (~5-15 s) lost the race and `inv flash` died with Errno 19 ENODEV or
     # Errno 62 ETIME from pyserial's modem-line ioctl; at 60 attempts
-    # (~7-10 s of fast-failing opens) it still lost when usbipd's auto-attach
-    # plus the container's ensure-tty rebuild of /dev/ttyACM0 ran long — the
-    # open then fails with Errno 2 ENOENT while the node is missing. A
+    # (~7-10 s of fast-failing opens) it still lost when usbipd's re-attach
+    # ran long — the open then fails with Errno 2 ENOENT while the node is
+    # missing. A
     # genuinely absent board still fails fast (each open attempt errors
     # immediately), so the higher count only buys patience for the
     # re-enumeration window (~30 s).
@@ -299,11 +390,11 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     #   - firmware (3001) → it booted the app, so the flag is clear — done
     #   - ROM bootloader / stub (0002) → run 2 as planned
     try:
-        c.run(
+        _run_esptool_patient(
+            c,
             f"ESPTOOL_BEFORE=usb-reset ESPTOOL_OPEN_PORT_ATTEMPTS=150 "
             f"esptool --chip {chip} {port_arg} --baud 74880 "
             f"--after no-reset-stub write-flash 0x0000 {bin_path}",
-            pty=True,
         )
     except UnexpectedExit as exc:
         out = getattr(getattr(exc, "result", None), "stdout", "") or ""
@@ -320,10 +411,10 @@ def flash(c, board=_DEFAULT_BOARD, port=None, release=False):
     port_arg = f"--port {port_path}"
 
     try:
-        c.run(
+        _run_esptool_patient(
+            c,
             f"ESPTOOL_OPEN_PORT_ATTEMPTS=150 esptool --silent --chip {chip} {port_arg} --baud 74880 "
             f"--before no-reset --after watchdog-reset write-mem 0x3F408128 0 0x1",
-            pty=True,
         )
     except UnexpectedExit:
         print(
@@ -389,6 +480,8 @@ def monitor(c, port=None):
     """
     del c  # no shell needed — the loop runs in-process
     import serial  # pyserial from the flake devShell; lazy import keeps other tasks independent
+
+    _ensure_live_node()
 
     color = sys.stdout.isatty() and not os.environ.get("NO_COLOR")
     tint_notes = sys.stderr.isatty() and not os.environ.get("NO_COLOR")

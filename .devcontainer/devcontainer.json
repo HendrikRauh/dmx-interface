@@ -15,15 +15,15 @@
   // it - see WINDOWS.md -> "How it works". The Dev Containers tooling also
   // skips its --userns=keep-id injection for root (Docker rejects the flag).
   "remoteUser": "root",
-  // Share the host's device nodes so `inv flash` sees the ESP32 as
-  // /dev/ttyACM0 (hot-plug works; no --device, that breaks creation when
-  // no board is attached). Mounted at /host-dev instead of /dev: a direct
-  // bind would replace the container's devpts and break pty exec on
-  // rootless engines. ensure-tty.sh symlinks the usual paths.
+  // Share the machine's device nodes: the bind at /host-dev exposes the
+  // live /dev of the podman machine, so `inv flash` talks to the ESP32
+  // through /host-dev/ttyACM0 (tasks.py prefers it; /dev/ttyACM* inside
+  // the container are Podman's per-start binds and go stale on every
+  // hotplug re-enumeration). /host-dev instead of /dev: a direct bind
+  // would replace the container's devpts and break pty exec on rootless
+  // engines. Node readability comes from the machine-side udev rule
+  // (scripts/machine-udev.sh).
   "mounts": ["source=/dev,target=/host-dev,type=bind"],
-  // The CDC device can enumerate after container start (hot-plug); the
-  // script is backgrounded so postStart exits immediately.
-  "postStartCommand": "nohup bash .devcontainer/ensure-tty.sh >/tmp/ensure-tty.log 2>&1 &",
   // Docker denies open() on character devices the container mknods itself
   // (device cgroup: EPERM), so flashing needs --privileged; shipped for
   // every engine on purpose (rootless Podman tolerates the flag).
@@ -31,7 +31,7 @@
   // Warm the flake: `nix develop` downloads the whole dev shell (Xtensa
   // toolchain); the command inside is irrelevant. The git safe.directory
   // wildcard is configured at image build time (Dockerfile).
-  "postCreateCommand": "nix develop --command true",
+  "postCreateCommand": ["nix develop --command true"],
   // Block until the warm finished - the spec default only waits for
   // updateContentCommand.
   "waitFor": "postCreateCommand",
