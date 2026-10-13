@@ -167,7 +167,20 @@ Mechanics worth knowing when something misbehaves:
   the window open) that re-attaches the board after every re-enumeration and
   after WSL restarts. It replaces the old hidden Startup-folder watcher; it
   must run non-elevated as the user that owns the WSL distros, and it does
-  not survive logoff — re-run the attach line per session.
+  not survive logoff — re-run the attach line per session. A board that was
+  physically replugged re-enumerates with a new instance: `usbipd list` may
+  show a new BUSID, and a one-time elevated `usbipd bind` may be needed
+  before attaching again.
+- **Create the container through the API socket, not direct podman**: the
+  machine runs systemd with socket activation — `podman system service`
+  starts on demand when a client connects to `/run/podman/podman.sock` and
+  stops ~5 s after the last request (not a crash loop). The service runs in
+  systemd's cgroup namespace; containers created by a plain `wsl -u root podman run` session use the cgroupfs manager instead, and a service-side
+  `exec`/`attach` into those fails with a bogus "container is not running".
+  VS Code and Windows `podman.exe` talk to the socket, so they are
+  consistent by construction; when driving the devcontainer CLI inside the
+  machine, export `CONTAINER_HOST=unix:///run/podman/podman.sock` so
+  container creation and lifecycle execs take the same path.
 - **The workspace runs as `root` deliberately**: on Windows the bind-mounted
   workspace is owned by container uid 0 on every engine (drvfs mounts `C:\`
   with forced `uid=1000;gid=1000`, which rootless Podman's default map
