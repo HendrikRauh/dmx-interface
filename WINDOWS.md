@@ -2,7 +2,7 @@
 
 Everything runs inside a [development container](https://containers.dev/) — no
 Nix, no toolchain and no container GUI on Windows itself. The engine stack is
-the [Podman](https://podman.io/) CLI (Apache-2.0, ~30 MB) with its rootless
+the [Podman](https://podman.io/) CLI (Apache-2.0, ~30 MB) with its rootful
 machine on [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/), plus
 [usbipd-win](https://github.com/dorssel/usbipd-win) for USB pass-through into
 the machine. This keeps the host stack small and fully open-source (no Docker
@@ -15,12 +15,21 @@ and the usbipd/WSL mechanism has no macOS equivalent.
 
 ## One-time setup
 
-1. Run `scripts\setup-windows.bat` **as administrator** once. It checks CPU
-   virtualization (enable AMD-V/SVM or VT-x in BIOS/UEFI if it complains),
-   installs the WSL 2 platform (`wsl --install --no-distribution` — no user
-   distro needed), the Podman CLI, a rootless `podman machine` and usbipd-win,
-   then starts the machine. Re-running it is safe; a reboot may be requested
-   after the WSL step.
+1. Install the prerequisites (all free, no account): enable CPU
+   virtualization (AMD-V/SVM or VT-x in BIOS/UEFI), then in an
+   **administrator** PowerShell run `wsl --install --no-distribution` (WSL 2
+   platform only — no user distro needed; a reboot may be requested), install
+   the [Podman CLI](https://podman.io/) and
+   [usbipd-win](https://github.com/dorssel/usbipd-win) (e.g. `winget install RedHat.Podman` and `winget install dorssel.usbipd-win`), then create and
+   start the machine — **rootful**, which is what makes the USB device nodes
+   readable from the container later:
+
+   ```powershell
+   podman machine init
+   podman machine set --rootful
+   podman machine start
+   ```
+
 2. Open the cloned repository in VS Code (with the
    [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers);
    [GitHub Desktop](https://desktop.github.com/) is fine for cloning), set the
@@ -31,11 +40,17 @@ and the usbipd/WSL mechanism has no macOS equivalent.
    Xtensa toolchain during `postCreateCommand` (5–15 minutes — `esp-rs-nix`
    ships pre-built artifacts but has no binary cache); every later start only
    needs `podman machine start` (the setup script leaves it running).
-3. Run `scripts\attach-board.bat` once, **non-elevated**, with the board
-   plugged in (see [Flashing (USB pass-through)](#flashing-usb-pass-through)): it shares the board with usbipd
-   (one-time UAC for `usbipd bind`), installs a udev rule in the machine
-   (mode `0666` on every ttyACM node) and drops the hidden autostart that
-   keeps the device attached and its permissions applied.
+
+3. Share the board with usbipd once (elevated — UAC prompt), then attach it
+   from your normal (non-elevated) shell with the board plugged in (see
+   [Flashing (USB pass-through)](#flashing-usb-pass-through)):
+
+   ```powershell
+   # once per board, administrator:
+   usbipd bind --busid <BUSID>
+   # every session, non-elevated (BUSID from `usbipd list`):
+   usbipd attach --auto-attach --wsl --busid <BUSID>
+   ```
 
 ## Daily use
 
@@ -59,23 +74,17 @@ USB/IP's VHCI driver lives in the WSL 2 kernel that the Podman machine runs
 on, so once a device is attached it shows up in the machine's `/dev` — and
 therefore on the container's `/host-dev`.
 
-`scripts\attach-board.bat` automates the board plumbing:
-
-1. Finds the board (VID `303a`) and runs `usbipd bind` once if needed — the
-   only step that needs elevation (accept the UAC prompt).
-2. Runs `scripts/machine-udev.sh` in the machine: installs a udev rule
-   (`KERNEL=="ttyACM*", MODE="0666"`) and (re)starts `systemd-udevd` if it
-   is not running. The machine's default `660 root:games` would otherwise
-   stay unreadable, because rootless Podman maps the container's `root` to
-   your Windows user.
-3. Writes `Startup\dmx-board-attach.vbs` and starts it right away — a hidden
-   watcher (`scripts/board-autostart.ps1`) that keeps the board attached for
-   as long as you are logged on.
-
-After that: plug the board in and forget about it. The watcher re-pokes the
-udev rule every ~5 s while a board is present, and `inv flash` retries
-esptool's port open (~18 s) — so attach, node permissions and every
-flash-reset re-enumeration heal on their own.
+The board plumbing is two `usbipd` commands (see setup step 3):
+`usbipd bind --busid <BUSID>` once per board (administrator, UAC), then
+`usbipd attach --auto-attach --wsl --busid <BUSID>` per session (non-elevated
+shell; keep that window open). The machine is rootful, so the container's
+`root` really is uid 0 and opens the kernel's `0660 root:dialout` ttyACM nodes
+directly via DAC override — no udev rule, no permission patching, no
+in-machine daemon. `--auto-attach` re-attaches the board after every
+flash-reset re-enumeration (the App↔ROM switch drops the attachment);
+`inv flash` retries esptool's port open (~18 s) to bridge the gap. After a
+WSL restart (or when the auto-attach window was closed) just run the attach
+line again.
 
 A plain [WSL](https://learn.microsoft.com/en-us/windows/wsl/) dev shell
 remains a working alternative for flashing.
@@ -83,12 +92,8 @@ remains a working alternative for flashing.
 ### Handing the device back to Windows
 
 The device is owned by WSL while attached and invisible to Windows
-applications. To release it:
-
-1. Create the marker file `%LOCALAPPDATA%\dmx-board-attach.disabled` (the
-   watcher idles while it exists; delete it again to re-enable attaching).
-2. Run `usbipd detach --busid <BUSID>` — detaching alone is futile, the
-   watcher would re-attach it within seconds.
+applications. To release it, stop the auto-attach window and run
+`usbipd detach --busid <BUSID>`.
 
 ## Notes
 
@@ -149,30 +154,20 @@ Mechanics worth knowing when something misbehaves:
 - **`usbipd attach` must run non-admin** as the same user that owns the WSL
   distros (usbipd issue #1008); only `usbipd bind` needs elevation (once,
   persistent).
-- **udev applies the node permissions via synthetic pokes, not hotplug
-  events**: the rule lives at `/etc/udev/rules.d/99-ttyacm-mode.rules`
-  (survives machine restarts, recreated by `attach-board.bat` after a machine
-  reset). PID 1 in the machine is Podman's own init, not systemd, so
-  `systemd-udevd` is started detached by `machine-udev.sh` if it is not
-  running. In this WSL kernel udevd never receives _real_ hotplug uevents
-  over netlink (only its boot-time coldplug replay applies rules) — writing
-  `add` to the device's `uevent` file, however, reliably re-runs rule
-  matching within ~1 s. So there is no in-machine daemon: the watcher pokes
-  `machine-udev.sh` every ~5 s while a board is present (the script itself
-  only writes the rule, checks `pidof` and pokes nodes that still carry the
-  wrong mode), and `inv flash` retries esptool's port open while a freshly
-  re-enumerated `0660` node waits for its poke. The script deliberately
-  avoids `udevadm control` (its varlink socket never showed up reliably in
-  this image). Scripts are fed to `wsl -- bash` on stdin or called via the
-  `/mnt/c` path — a PowerShell pipe would inject CRLF.
-- **The autostart is windowless by construction**: Task Scheduler,
-  `Start-Process` and even `schtasks /Create /SC ONLOGON` (access denied
-  without admin) flash a console otherwise, so a Startup-folder VBS launches
-  the watcher hidden. The watcher (re)finds the BUSID and runs plain
-  `usbipd attach --wsl` — deliberately **not** `--auto-attach`, which blocks
-  in a forever session and would starve the udev poke; the watcher's own
-  rescan (≤5 s, plus a 2 s retry after a failed attempt) is fast enough. A
-  board that is absent at logon just attaches on first sight.
+- **Node readability comes from the rootful machine, nothing else**: the
+  machine's ttyACM nodes keep the kernel default `0660 root:dialout`, and the
+  container runs as true uid 0, which opens them via DAC override. There is no
+  udev rule, no poke daemon and no permission patching anywhere — the earlier
+  rootless design (udev rule + synthetic `uevent` pokes + a Windows watcher)
+  existed only because rootless Podman maps container root to uid 1000, and
+  was removed together with the scripts that drove it. Hotplug re-enumeration
+  in this WSL kernel still delivers no real uevents to userland, which is now
+  irrelevant: the node appears with its final mode immediately.
+- **The auto-attach window is the only "daemon"**: `usbipd attach --auto-attach --wsl --busid <BUSID>` is a foreground usbipd feature (keep
+  the window open) that re-attaches the board after every re-enumeration and
+  after WSL restarts. It replaces the old hidden Startup-folder watcher; it
+  must run non-elevated as the user that owns the WSL distros, and it does
+  not survive logoff — re-run the attach line per session.
 - **The workspace runs as `root` deliberately**: on Windows the bind-mounted
   workspace is owned by container uid 0 on every engine (drvfs mounts `C:\`
   with forced `uid=1000;gid=1000`, which rootless Podman's default map
@@ -198,8 +193,8 @@ Mechanics worth knowing when something misbehaves:
 
 ### PowerShell 5.1 + `wsl.exe` argument pitfalls
 
-Hard-won while building the scripts above — Windows PowerShell 5.1 is the
-only PowerShell present on stock Windows:
+Hard-won while driving `wsl.exe` from automation — Windows PowerShell 5.1
+is the only PowerShell present on stock Windows:
 
 - An embedded `"` inside a wsl command string makes the invocation silently
   produce no output (PS 5.1 does not escape it for native exes) — build

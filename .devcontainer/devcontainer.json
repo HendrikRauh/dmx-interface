@@ -21,8 +21,8 @@
   // the container are Podman's per-start binds and go stale on every
   // hotplug re-enumeration). /host-dev instead of /dev: a direct bind
   // would replace the container's devpts and break pty exec on rootless
-  // engines. Node readability comes from the machine-side udev rule
-  // (scripts/machine-udev.sh).
+  // engines. Node readability comes from the rootful machine (container
+  // root bypasses the 0660 root:dialout node mode via DAC override).
   "mounts": ["source=/dev,target=/host-dev,type=bind"],
   // Docker denies open() on character devices the container mknods itself
   // (device cgroup: EPERM), so flashing needs --privileged; shipped for
@@ -30,8 +30,11 @@
   "runArgs": ["--privileged"],
   // Warm the flake: `nix develop` downloads the whole dev shell (Xtensa
   // toolchain); the command inside is irrelevant. The git safe.directory
-  // wildcard is configured at image build time (Dockerfile).
-  "postCreateCommand": ["nix develop --command true"],
+  // wildcard is configured at image build time (Dockerfile). A shell
+  // string, not a one-element array: the CLI runs arrays via exec argv,
+  // so ["nix develop --command true"] would look for a single binary
+  // with that literal name (crun: executable file not found).
+  "postCreateCommand": "nix develop --command true",
   // Block until the warm finished - the spec default only waits for
   // updateContentCommand.
   "waitFor": "postCreateCommand",

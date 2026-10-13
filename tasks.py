@@ -294,13 +294,10 @@ def release(c):
 def _run_esptool_patient(c, cmd: str, attempts: int = 6, delay: float = 3.0):
     """Run one esptool invocation, retrying while the port is (re)appearing.
 
-    A flash reset re-enumerates the CDC device. The fresh node shows up
-    with the kernel's default mode (0660) and the machine-side udev poke
-    (board watcher, every ~5 s) needs a moment to apply 0666 — until
-    then open() fails with EACCES ("Permission denied"); the node being
-    briefly absent between drop and re-attach fails with ENODEV/ENOENT
-    ("No such device/file"). Both surface as esptool's "could not open
-    port", which is fatal for esptool itself — retry the whole
+    A flash reset re-enumerates the CDC device: the old node vanishes and
+    the fresh one appears once usbipd's auto-attach has re-attached the
+    board. Until then open() fails with ENODEV/ENOENT ("No such
+    device/file") - which is fatal for esptool itself, so retry the whole
     invocation on that marker; every other error still fails fast.
     """
     for attempt in range(1, attempts + 1):
