@@ -1,14 +1,17 @@
 # Windows development
 
 Everything runs inside a [development container](https://containers.dev/) — no
-Nix, no toolchain and no container GUI on Windows itself. The engine stack is
-the [Podman](https://podman.io/) CLI (Apache-2.0, ~30 MB) with its rootful
-machine on [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/), plus
+Nix, no toolchain and no container GUI on Windows itself. The documented
+engine stack is the [Podman](https://podman.io/) CLI (Apache-2.0, ~30 MB)
+with its rootful machine on [WSL 2](https://learn.microsoft.com/en-us/windows/wsl/), plus
 [usbipd-win](https://github.com/dorssel/usbipd-win) for USB pass-through into
 the machine. This keeps the host stack small and fully open-source (no Docker
 Desktop), and it is the
 [Espressif-documented workflow](https://docs.espressif.com/projects/vscode-esp-idf-extension/en/latest/additionalfeatures/docker-container.html)
-for flashing over USB-CDC from a dev container.
+for flashing over USB-CDC from a dev container. Two further flows are
+documented below and validated for `inv flash`/`inv monitor`:
+[Docker in a WSL distro](#alternative-docker-in-a-wsl-distro) and
+[plain WSL without any container](#alternative-plain-wsl-no-container).
 
 macOS is unsupported: USB devices cannot reach the container VM there at all,
 and the usbipd/WSL mechanism has no macOS equivalent.
@@ -51,6 +54,75 @@ and the usbipd/WSL mechanism has no macOS equivalent.
    # every session, non-elevated (BUSID from `usbipd list`):
    usbipd attach --auto-attach --wsl --busid <BUSID>
    ```
+
+## Alternative: Docker in a WSL distro
+
+For hosts that already run Docker inside a WSL distro (e.g. Ubuntu with
+`docker.io`, socket-activated via systemd), the same container flow works
+without Podman — as a terminal flow instead of a dev container:
+
+1. Attach the board exactly as in the Podman setup (one elevated
+   `usbipd bind`, then `usbipd attach --auto-attach --wsl --busid <BUSID>`);
+   the device shows up as `/dev/ttyACM*` in the distro.
+
+2. Start a privileged container (the flag is load-bearing: without it esptool
+   dies mid-write with `Serial data stream stopped`):
+
+   ```sh
+   docker run -it --privileged \
+     -e NIX_CONFIG='experimental-features = nix-command flakes' \
+     -v "$PWD":/work -v /dev:/host-dev -w /work \
+     --entrypoint sh nixos/nix -lc \
+     'git config --global --add safe.directory /work; exec sh'
+   ```
+
+3. Inside the shell: `nix develop`, then `inv build`, `inv flash`,
+   `inv monitor`. The first `nix develop` downloads the toolchain
+   (~15–20 minutes); keep the container (or `docker commit` it) so the Nix
+   store survives recreations.
+
+Gotchas of this stack:
+
+- `nixos/nix`'s entrypoint is `nix` itself — always override it.
+- Flakes are off in the stock image — pass `NIX_CONFIG` (or bake a `nix.conf`
+  into an image).
+- `docker exec` fails on current dockerd builds with the containerd
+  snapshotter enabled (`openat etc/group: path escapes from parent`) — use
+  the interactive shell or `docker start` the container again instead.
+- The rest of this document (usbipd plumbing, auto-attach, `/host-dev`)
+  applies unchanged; `tasks.py` prefers the live `/host-dev` nodes.
+
+## Alternative: plain WSL (no container)
+
+Nix can also live directly in the WSL distro — no container engine at all:
+
+1. Install a distro, then Nix inside it (as root):
+
+   ```sh
+   wsl --install -d Ubuntu
+   wsl -d Ubuntu -u root
+   curl -L https://nixos.org/nix/install | sh -s -- --daemon --yes
+   echo 'experimental-features = nix-command flakes' >> /etc/nix/nix.conf
+   apt-get install -y git
+   git config --global --add safe.directory '*'
+   ```
+
+   The `safe.directory` line is required: WSL mounts `C:\` via drvfs as
+   `uid=1000;gid=1000`, and Nix's flake fetcher refuses a repository not
+   owned by the current user.
+
+2. Attach the board as above; the node is `/dev/ttyACM*` directly. Root opens
+   the `0660 root:dialout` node via DAC override; a non-root user needs
+   `usermod -aG dialout $USER` and a re-login.
+
+3. In the checkout (`/mnt/c/Users/<you>/<repo>`): `nix develop -c inv flash`,
+   `nix develop -c inv monitor`. The first run downloads the toolchain
+   (~15–20 minutes, cached in `/nix/store` afterwards).
+
+Keep the distro running while working: `usbipd attach --wsl` needs at least
+one running WSL distro, and Windows powers the last distro down when its
+final session closes — leave a console open, or re-run the attach line after
+waking it.
 
 ## Daily use
 

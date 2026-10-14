@@ -65,6 +65,14 @@ def _node_path(name: str) -> str:
     return host if os.path.exists(host) else dev
 
 
+def _run_optional(cmd: list[str]) -> int:
+    """Run a helper binary, tolerating its absence in minimal images."""
+    try:
+        return subprocess.run(cmd, capture_output=True, check=False).returncode
+    except OSError:
+        return -1
+
+
 def _ensure_live_node() -> None:
     """In the devcontainer: replace stale /dev/ttyACM* binds with symlinks.
 
@@ -86,13 +94,8 @@ def _ensure_live_node() -> None:
         elif os.path.exists(dev):
             # A mountpoint cannot be rm'd (EBUSY on Podman's device bind
             # mounts) - unmount first, then drop the stale node.
-            if (
-                subprocess.run(
-                    ["mountpoint", "-q", dev], capture_output=True, check=False
-                ).returncode
-                == 0
-            ):
-                subprocess.run(["umount", dev], capture_output=True, check=False)
+            if _run_optional(["mountpoint", "-q", dev]) == 0:
+                _run_optional(["umount", dev])
             try:
                 os.remove(dev)
             except OSError:
