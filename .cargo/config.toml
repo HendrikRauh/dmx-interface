@@ -7,6 +7,12 @@ rustflags = ["-C", "link-arg=-Wl,-Tlinkall.x", "-C", "link-arg=-nostartfiles"]
 
 [env]
 ESP_LOG = "info"
+# xtensa-lx-rt's build.rs falls back to Chip::Esp32 whenever RUSTDOCFLAGS is
+# set (its docs shortcut); the wrong chip's cfgs (XCHAL_HAVE_LOOPS=1) poison
+# the build-script OUT_DIR shared with `cargo build` and the next `inv build`
+# dies on `rsr a3, LBEG`. ESP_HAL_DOCTEST forces target-based chip selection
+# for every cargo invocation.
+ESP_HAL_DOCTEST = "1"
 
 [unstable]
 build-std = ["alloc", "core"]

@@ -16,8 +16,13 @@ build/
 result
 
 # Node
-web/node_modules/
+node_modules/
 web/dist/
+site/dist/
+.astro/
+
+# Generated site content (symlinked in at build time)
+site/public/api
 
 # Python
 __pycache__/

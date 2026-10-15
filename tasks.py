@@ -429,17 +429,35 @@ def monitor(c, port=None):
         raise Exit(code=0) from None
 
 
+def _remove_path(p):
+    """Remove a file, symlink, or directory — without following symlinks
+    (rmtree on a link would delete its target, e.g. the nix store)."""
+    if os.path.islink(p) or os.path.isfile(p):
+        os.remove(p)
+        print(f"✓ Removed {p}")
+    elif os.path.isdir(p):
+        shutil.rmtree(p)
+        print(f"✓ Removed {p}/")
+
+
 @task
 def clean(c, full=False):
     """Clean build artifacts. Use --full to also remove node_modules."""
     c.run("cargo clean", pty=True)
-    for d in ["web/dist", "dist"]:
-        if os.path.isdir(d):
-            shutil.rmtree(d)
-            print(f"✓ Removed {d}/")
-    if full and os.path.isdir(f"{_WEB_DIR}/node_modules"):
-        shutil.rmtree(f"{_WEB_DIR}/node_modules")
-        print(f"✓ Removed {_WEB_DIR}/node_modules/")
+    for p in [
+        "web/dist",
+        "dist",
+        _SITE_DIST,
+        os.path.join(_SITE_DIR, "public", "api"),
+        os.path.join(_SITE_DIR, ".astro"),
+    ]:
+        _remove_path(p)
+    if full:
+        for p in [
+            os.path.join(_WEB_DIR, "node_modules"),
+            os.path.join(_SITE_DIR, "node_modules"),
+        ]:
+            _remove_path(p)
 
 
 @task
@@ -484,16 +502,24 @@ def check(c, board=_DEFAULT_BOARD):
     c.run(f"cargo clippy --features {features} -- {_CLIPPY_ARGS}", pty=True)
 
 
-@task(help={"o": "Open documentation in the default browser after generation."})
-def docs(c, o=False):
-    """Generate rustdoc documentation and copy redirect index."""
+@task(
+    name="docs:rustdoc",
+    help={"o": "Open rustdoc in the default browser after generation."},
+)
+def docs_rustdoc(c, o=False):
+    """Generate rustdoc into target/<triple>/doc (pre-commit gate)."""
     target, _, features = _board_args(_DEFAULT_BOARD)
     doc_dir = f"target/{target}/doc"
-    print("-> Generating documentation")
+    print("-> Generating rustdoc")
+    # --extend-css appends assets/docs/rustdoc-catppuccin.css as theme.css
+    # (Catppuccin latte/mocha); it is unstable, hence -Z unstable-options.
+    theme_css = os.path.abspath("assets/docs/rustdoc-catppuccin.css")
     c.run(
         f"cargo doc --features {features} --no-deps --document-private-items",
         pty=True,
-        env={"RUSTDOCFLAGS": "-D warnings"},
+        env={
+            "RUSTDOCFLAGS": f"-D warnings -Z unstable-options --extend-css {theme_css}"
+        },
     )
 
     redirect_src = "assets/docs/redirect.html"
@@ -504,18 +530,110 @@ def docs(c, o=False):
 
     index_path = os.path.join(doc_dir, "dmx_interface/index.html")
     if os.path.exists(index_path):
-        print(f"\n✓ Documentation generated in {doc_dir}")
+        print(f"✓ Rustdoc generated in {doc_dir}")
         if o:
             webbrowser.open(f"file://{os.path.abspath(index_path)}")
         return
     raise Exit(code=1)
 
 
-@task
-def docspath(c):
-    """Print the documentation output path (for CI)."""
+_SITE_DIR = "site"
+_SITE_DIST = os.path.join(_SITE_DIR, "dist")
+
+
+def _replace_with_symlink(src, dest):
+    """Point dest at src, replacing whatever was there (file, dir, or symlink).
+
+    Never rmtree a live symlink — that would delete the target, not the link.
+    src is used verbatim: absolute paths resolve as-is, relative ones are
+    interpreted against the symlink's own directory."""
+    if os.path.islink(dest) or os.path.isfile(dest):
+        os.remove(dest)
+    elif os.path.isdir(dest):
+        shutil.rmtree(dest)
+    os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
+    os.symlink(src, dest)
+
+
+def _ensure_web_ui(c):
+    """Build web/dist when missing — cargo (doc) include_bytes!s it."""
+    if not os.path.exists(os.path.join(_WEB_DIR, "dist", "index.html")):
+        print("-> web/dist missing — building the web UI first")
+        web_build(c)
+
+
+def _sync_rustdoc_to_site():
+    """Symlink target/<triple>/doc → site/public/api (served at /api/)."""
     target, _, _ = _board_args(_DEFAULT_BOARD)
-    print(f"target/{target}/doc")
+    api_src = f"target/{target}/doc"
+    api_dst = os.path.join(_SITE_DIR, "public", "api")
+    # Relative so the link survives a repo move; resolved against the
+    # symlink's own directory (site/public/).
+    rel = os.path.relpath(api_src, os.path.dirname(api_dst))
+    _replace_with_symlink(rel, api_dst)
+    print(f"✓ Linked rustdoc → {api_dst}")
+
+
+@task(name="docs:dev", help={"port": "Dev server port (default 4321)."})
+def docs_dev(c, port=4321):
+    """Start the Astro dev server for the docs site (incl. rustdoc API at /api/)."""
+    _ensure_web_ui(c)
+    docs_rustdoc(c)
+    _sync_rustdoc_to_site()
+    # `astro dev` backgrounds only with --background or in agent shells;
+    # normally this task blocks here until Ctrl-C.
+    print(
+        f"-> Docs dev server on http://localhost:{port}{_site_base()}/ (Ctrl-C to stop)"
+    )
+    c.run(f"cd {_SITE_DIR} && npm run dev -- --port {port} --open", pty=True)
+
+
+def _site_base() -> str:
+    """Site base path: DOCS_BASE (per-branch deploys, set by deploy-docs.yml)
+    or the default parsed from site/astro.config.mjs."""
+    if env_base := os.environ.get("DOCS_BASE"):
+        return env_base
+    config = os.path.join(_SITE_DIR, "astro.config.mjs")
+    with open(config) as f:
+        m = re.search(
+            r'base\s*=\s*process\.env\.DOCS_BASE\s*\?\?\s*["\']([^"\']+)["\']',
+            f.read(),
+        )
+    if not m:
+        # A silent "" would make check-site-links treat base as "/" and let
+        # broken base-prefixed links pass the gate.
+        raise Exit(
+            f"cannot parse the default base from {config} — update the regex "
+            "in _site_base() to match astro.config.mjs"
+        )
+    return m.group(1)
+
+
+@task(name="docs:preview", help={"port": "Preview server port (default 4321)."})
+def docs_preview(c, port=4321):
+    """Serve the built docs site (site/dist) with the base path, open browser."""
+    url = f"http://localhost:{port}{_site_base()}/"
+    print(f"-> Serving {_SITE_DIST} at {url} (Ctrl-C to stop)")
+    c.run(f"cd {_SITE_DIR} && npm run preview -- --port {port} --open", pty=True)
+
+
+@task(help={"o": "Serve the built site locally (docs:preview) after generation."})
+def docs(c, o=False):
+    """Full docs build: rustdoc (→ site/public/api) + Astro site + link check."""
+    _ensure_web_ui(c)
+    docs_rustdoc(c)
+    _sync_rustdoc_to_site()
+
+    print("-> Building docs site (starlight-links-validator checks links)")
+    c.run(f"cd {_SITE_DIR} && npm run build", pty=True)
+
+    index_path = os.path.join(_SITE_DIST, "index.html")
+    if os.path.exists(index_path):
+        print(f"\n✓ Docs site built in {_SITE_DIST}")
+        if o:
+            docs_preview(c)
+        return
+    raise Exit(code=1)
 
 
 # ──────────────────────────────────────────────────────────────────────────────

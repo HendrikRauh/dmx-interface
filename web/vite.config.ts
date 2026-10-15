@@ -9,6 +9,14 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    fs: {
+      // The canonical design assets live in the repo-root assets/ directory
+      // and are imported from ../../assets — Vite's default workspace root is
+      // this package directory, which would 403 them in dev.
+      allow: [path.resolve(import.meta.dirname, "..")],
+    },
+  },
   plugins: [
     preact(),
     viteSingleFile(),
@@ -39,9 +47,9 @@ export default defineConfig({
         return {
           html,
           tags: [
-            generateFavicon("src/assets/favicons/mocha.svg"),
-            generateFavicon("src/assets/favicons/latte.svg", "light"),
-            generateFavicon("src/assets/favicons/mocha.svg", "dark"),
+            generateFavicon("../assets/design/favicon-mocha.svg"),
+            generateFavicon("../assets/design/favicon-latte.svg", "light"),
+            generateFavicon("../assets/design/favicon-mocha.svg", "dark"),
           ],
         };
       },

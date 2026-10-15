@@ -8,6 +8,10 @@
 
 #![no_std]
 #![no_main]
+// In this binary crate every module is private, so `missing_docs` only
+// gates crate-level items (the `//!` header above). Module and API doc
+// coverage is enforced separately by scripts/check-rust-docs.sh plus the
+// warning-denied rustdoc build (`inv docs:rustdoc`).
 #![deny(missing_docs)]
 #![allow(dead_code)]
 
@@ -16,7 +20,7 @@ extern crate alloc;
 // Module docs live as `//!` at the top of each module file. Do NOT also put
 // `///` docs on these declarations: rustdoc then resolves the module's
 // intra-doc links in this (parent) module's scope and every unqualified link
-// breaks — see AGENTS.md "Module docs: `//!` only".
+// breaks — see AGENTS.md "//!" only.
 mod boards;
 mod config;
 mod hardware;
