@@ -1,0 +1,244 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source of the Rust file `src/hardware/usb.rs`."><title>usb.rs - source</title><script>if(window.location.protocol!=="file:")document.head.insertAdjacentHTML("beforeend","SourceSerif4-Regular-6b053e98.ttf.woff2,FiraSans-Italic-81dc35de.woff2,FiraSans-Regular-0fe48ade.woff2,FiraSans-MediumItalic-ccf7e434.woff2,FiraSans-Medium-e1aa3f0a.woff2,SourceCodePro-Regular-8badfe75.ttf.woff2,SourceCodePro-Semibold-aa29a496.ttf.woff2".split(",").map(f=>`<link rel="preload" as="font" type="font/woff2"href="../../../static.files/${f}">`).join(""))</script><link rel="stylesheet" href="../../../static.files/normalize-9960930a.css"><link rel="stylesheet" href="../../../static.files/rustdoc-17e0aaed.css"><meta name="rustdoc-vars" data-root-path="../../../" data-static-root-path="../../../static.files/" data-current-crate="dmx_interface" data-themes="" data-resource-suffix="" data-rustdoc-version="1.96.0-nightly (208740b4f 2026-05-27) (1.96.0.0)" data-channel="nightly" data-search-js="search-b5634cc7.js" data-stringdex-js="stringdex-2da4960a.js" data-settings-js="settings-170eb4bf.js" ><script src="../../../static.files/storage-41dd4d93.js"></script><script defer src="../../../static.files/src-script-813739b1.js"></script><script defer src="../../../src-files.js"></script><script defer src="../../../static.files/main-5013f961.js"></script><noscript><link rel="stylesheet" href="../../../static.files/noscript-f7c3ffd8.css"></noscript><link rel="stylesheet" href="../../../theme.css"><link rel="alternate icon" type="image/png" href="../../../static.files/favicon-32x32-eab170b8.png"><link rel="icon" type="image/svg+xml" href="../../../static.files/favicon-044be391.svg"></head><body class="rustdoc src"><a class="skip-main-content" href="#main-content">Skip to main content</a><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="src-sidebar-title"><h2>Files</h2></div></nav><div class="sidebar-resizer" title="Drag to resize sidebar"></div><main><section id="main-content" class="content" tabindex="-1"><div class="main-heading"><h1><div class="sub-heading">dmx_interface/hardware/</div>usb.rs</h1><rustdoc-toolbar></rustdoc-toolbar></div><div class="example-wrap digits-3"><pre class="rust"><code><a href=#1 id=1 data-nosnippet>1</a><span class="doccomment">//! USB-CDC-ACM device with esptool auto-reset support.
+<a href=#2 id=2 data-nosnippet>2</a>//!
+<a href=#3 id=3 data-nosnippet>3</a>//! The Lolin S2 Mini has no USB-UART bridge, so esptool cannot toggle
+<a href=#4 id=4 data-nosnippet>4</a>//! GPIO0/EN via physical DTR/RTS pins. Instead, the firmware exposes the
+<a href=#5 id=5 data-nosnippet>5</a>//! native USB-OTG port as a CDC-ACM device and interprets the CDC
+<a href=#6 id=6 data-nosnippet>6</a>//! control-line state the way the classic devkit reset sequence does:
+<a href=#7 id=7 data-nosnippet>7</a>//!
+<a href=#8 id=8 data-nosnippet>8</a>//! | DTR | RTS | Meaning            | Action                          |
+<a href=#9 id=9 data-nosnippet>9</a>//! |-----|-----|--------------------|---------------------------------|
+<a href=#10 id=10 data-nosnippet>10</a>//! | 1   | 0   | IO0 low            | set `FORCE_DOWNLOAD_BOOT`       |
+<a href=#11 id=11 data-nosnippet>11</a>//! | 0   | 1   | EN low (reset)     | software reset                  |
+<a href=#12 id=12 data-nosnippet>12</a>//! | 0   | 0   | idle               | clear `FORCE_DOWNLOAD_BOOT`     |
+<a href=#13 id=13 data-nosnippet>13</a>//! | 1   | 1   | debounced clear    | clear `FORCE_DOWNLOAD_BOOT`     |
+<a href=#14 id=14 data-nosnippet>14</a>//!
+<a href=#15 id=15 data-nosnippet>15</a>//! esptool's `--before usb-reset` walk is `(1,0)` (arm) -&gt; a ~1-3 ms
+<a href=#16 id=16 data-nosnippet>16</a>//! `(1,1)` blip -&gt; `(0,1)` (reset): the `(0,1)` step boots whichever
+<a href=#17 id=17 data-nosnippet>17</a>//! target `FORCE_DOWNLOAD_BOOT` selects. The `(1,1)` step is the hard
+<a href=#18 id=18 data-nosnippet>18</a>//! case for this state machine, because a terminal program also ends up
+<a href=#19 id=19 data-nosnippet>19</a>//! in `(1,1)`: pyserial asserts DTR and RTS with **separate** ioctls on
+<a href=#20 id=20 data-nosnippet>20</a>//! open, so the firmware sees a `(1,0)` pulse before `(1,1)` — which
+<a href=#21 id=21 data-nosnippet>21</a>//! would leave the flag armed for the lifetime of the connection, and
+<a href=#22 id=22 data-nosnippet>22</a>//! any later reset (panic, `inv monitor`'s own open dance after a device
+<a href=#23 id=23 data-nosnippet>23</a>//! loss) would land in the bootloader instead of the app. So `(1,1)`
+<a href=#24 id=24 data-nosnippet>24</a>//! clears the flag, but only after it persists for [`OPEN_DEBOUNCE`]
+<a href=#25 id=25 data-nosnippet>25</a>//! (20 ms): long enough to outlive a terminal's session-long hold, far
+<a href=#26 id=26 data-nosnippet>26</a>//! longer than the walk's blip — which therefore never disarms the flag
+<a href=#27 id=27 data-nosnippet>27</a>//! mid-walk.
+<a href=#28 id=28 data-nosnippet>28</a>//!
+<a href=#29 id=29 data-nosnippet>29</a>//! The flag lives in the RTC domain and survives software resets. The ROM
+<a href=#30 id=30 data-nosnippet>30</a>//! bootloader does **not** clear it on entry — after a flash the chip would
+<a href=#31 id=31 data-nosnippet>31</a>//! stay stuck in the bootloader forever (until power-on). `inv flash`
+<a href=#32 id=32 data-nosnippet>32</a>//! therefore clears the flag itself after flashing (esptool `write-reg
+<a href=#33 id=33 data-nosnippet>33</a>//! 0x3F408128 0 0x1` through the stub) and then resets via the RTC watchdog,
+<a href=#34 id=34 data-nosnippet>34</a>//! which boots the application.
+<a href=#35 id=35 data-nosnippet>35</a>//!
+<a href=#36 id=36 data-nosnippet>36</a>//! The same task also drains the log ring from [`crate::logging`] over the
+<a href=#37 id=37 data-nosnippet>37</a>//! CDC data endpoint, so `inv monitor` shows the firmware log output.
+<a href=#38 id=38 data-nosnippet>38</a>
+<a href=#39 id=39 data-nosnippet>39</a></span><span class="kw">use </span>embassy_futures::{
+<a href=#40 id=40 data-nosnippet>40</a>    join::join,
+<a href=#41 id=41 data-nosnippet>41</a>    select::{Either, select},
+<a href=#42 id=42 data-nosnippet>42</a>};
+<a href=#43 id=43 data-nosnippet>43</a><span class="kw">use </span>embassy_time::{Duration, Instant, Timer};
+<a href=#44 id=44 data-nosnippet>44</a><span class="kw">use </span>embassy_usb::{
+<a href=#45 id=45 data-nosnippet>45</a>    Builder,
+<a href=#46 id=46 data-nosnippet>46</a>    class::cdc_acm::{CdcAcmClass, State},
+<a href=#47 id=47 data-nosnippet>47</a>};
+<a href=#48 id=48 data-nosnippet>48</a><span class="kw">use </span>esp_hal::{
+<a href=#49 id=49 data-nosnippet>49</a>    otg_fs::{
+<a href=#50 id=50 data-nosnippet>50</a>        Usb,
+<a href=#51 id=51 data-nosnippet>51</a>        asynch::{Config, Driver},
+<a href=#52 id=52 data-nosnippet>52</a>    },
+<a href=#53 id=53 data-nosnippet>53</a>    peripherals::{GPIO19, GPIO20, USB0},
+<a href=#54 id=54 data-nosnippet>54</a>};
+<a href=#55 id=55 data-nosnippet>55</a><span class="kw">use </span>static_cell::StaticCell;
+<a href=#56 id=56 data-nosnippet>56</a>
+<a href=#57 id=57 data-nosnippet>57</a><span class="kw">use </span><span class="kw">crate</span>::logging;
+<a href=#58 id=58 data-nosnippet>58</a>
+<a href=#59 id=59 data-nosnippet>59</a><span class="doccomment">/// Espressif USB vendor ID (same as the ROM bootloader).
+<a href=#60 id=60 data-nosnippet>60</a></span><span class="kw">const </span>USB_VID: u16 = <span class="number">0x303A</span>;
+<a href=#61 id=61 data-nosnippet>61</a>
+<a href=#62 id=62 data-nosnippet>62</a><span class="doccomment">/// Espressif generic CDC-ACM product ID.
+<a href=#63 id=63 data-nosnippet>63</a></span><span class="kw">const </span>USB_PID: u16 = <span class="number">0x3001</span>;
+<a href=#64 id=64 data-nosnippet>64</a>
+<a href=#65 id=65 data-nosnippet>65</a><span class="doccomment">/// Line-poll interval of the DTR/RTS state machine.
+<a href=#66 id=66 data-nosnippet>66</a></span><span class="kw">const </span>POLL_INTERVAL: Duration = Duration::from_millis(<span class="number">10</span>);
+<a href=#67 id=67 data-nosnippet>67</a>
+<a href=#68 id=68 data-nosnippet>68</a><span class="doccomment">/// How long `(1,1)` must persist before it disarms `FORCE_DOWNLOAD_BOOT`.
+<a href=#69 id=69 data-nosnippet>69</a>///
+<a href=#70 id=70 data-nosnippet>70</a>/// pyserial holds `(1,1)` for the whole session (clearing takes effect
+<a href=#71 id=71 data-nosnippet>71</a>/// after this window), while esptool's walk only blips it for ~1-3 ms —
+<a href=#72 id=72 data-nosnippet>72</a>/// shorter than the window, so a flash is never disarmed mid-walk.
+<a href=#73 id=73 data-nosnippet>73</a></span><span class="kw">const </span>OPEN_DEBOUNCE: Duration = Duration::from_millis(<span class="number">20</span>);
+<a href=#74 id=74 data-nosnippet>74</a>
+<a href=#75 id=75 data-nosnippet>75</a><span class="doccomment">/// Log chunk size handed to the CDC endpoint (matches `max_packet_size`).
+<a href=#76 id=76 data-nosnippet>76</a></span><span class="kw">const </span>LOG_CHUNK: usize = <span class="number">64</span>;
+<a href=#77 id=77 data-nosnippet>77</a>
+<a href=#78 id=78 data-nosnippet>78</a><span class="doccomment">/// The S2 peripheral types are invariant in their lifetime, which pins the
+<a href=#79 id=79 data-nosnippet>79</a>/// USB driver to `'static`; the embassy-usb buffers therefore must be
+<a href=#80 id=80 data-nosnippet>80</a>/// `'static` too. They are initialized exactly once at task start.
+<a href=#81 id=81 data-nosnippet>81</a></span><span class="kw">static </span>EP_OUT_BUFFER: StaticCell&lt;[u8; <span class="number">1024</span>]&gt; = StaticCell::new();
+<a href=#82 id=82 data-nosnippet>82</a><span class="doccomment">/// Bulk OUT endpoint buffer for the CDC data endpoint.
+<a href=#83 id=83 data-nosnippet>83</a></span><span class="kw">static </span>CONFIG_DESCRIPTOR: StaticCell&lt;[u8; <span class="number">256</span>]&gt; = StaticCell::new();
+<a href=#84 id=84 data-nosnippet>84</a><span class="doccomment">/// Buffer for the generated USB configuration descriptor.
+<a href=#85 id=85 data-nosnippet>85</a></span><span class="kw">static </span>BOS_DESCRIPTOR: StaticCell&lt;[u8; <span class="number">256</span>]&gt; = StaticCell::new();
+<a href=#86 id=86 data-nosnippet>86</a><span class="doccomment">/// Buffer for the generated USB BOS descriptor.
+<a href=#87 id=87 data-nosnippet>87</a></span><span class="kw">static </span>CONTROL_BUF: StaticCell&lt;[u8; <span class="number">64</span>]&gt; = StaticCell::new();
+<a href=#88 id=88 data-nosnippet>88</a><span class="doccomment">/// Scratch buffer for USB control transfers.
+<a href=#89 id=89 data-nosnippet>89</a></span><span class="kw">static </span>CDC_STATE: StaticCell&lt;State&lt;<span class="lifetime">'static</span>&gt;&gt; = StaticCell::new();
+<a href=#90 id=90 data-nosnippet>90</a>
+<a href=#91 id=91 data-nosnippet>91</a><span class="doccomment">/// Runs the USB-CDC-ACM device and the esptool reset protocol.
+<a href=#92 id=92 data-nosnippet>92</a>///
+<a href=#93 id=93 data-nosnippet>93</a>/// The DP/DM pins are fixed by the S2 hardware (GPIO20/GPIO19).
+<a href=#94 id=94 data-nosnippet>94</a></span><span class="attr">#[embassy_executor::task]
+<a href=#95 id=95 data-nosnippet>95</a></span><span class="kw">pub async fn </span>task(usb0: USB0&lt;<span class="lifetime">'static</span>&gt;, dp: GPIO20&lt;<span class="lifetime">'static</span>&gt;, dm: GPIO19&lt;<span class="lifetime">'static</span>&gt;) -&gt; ! {
+<a href=#96 id=96 data-nosnippet>96</a>    <span class="kw">let </span>usb = Usb::new(usb0, dp, dm);
+<a href=#97 id=97 data-nosnippet>97</a>
+<a href=#98 id=98 data-nosnippet>98</a>    <span class="kw">let </span>driver = Driver::new(usb, EP_OUT_BUFFER.init([<span class="number">0u8</span>; <span class="number">1024</span>]), Config::default());
+<a href=#99 id=99 data-nosnippet>99</a>
+<a href=#100 id=100 data-nosnippet>100</a>    <span class="kw">let </span><span class="kw-2">mut </span>config = embassy_usb::Config::new(USB_VID, USB_PID);
+<a href=#101 id=101 data-nosnippet>101</a>    config.manufacturer = <span class="prelude-val">Some</span>(<span class="string">"dmx-interface"</span>);
+<a href=#102 id=102 data-nosnippet>102</a>    config.product = <span class="prelude-val">Some</span>(<span class="string">"DMX-Interface USB-CDC"</span>);
+<a href=#103 id=103 data-nosnippet>103</a>    config.device_class = <span class="number">0xEF</span>;
+<a href=#104 id=104 data-nosnippet>104</a>    config.device_sub_class = <span class="number">0x02</span>;
+<a href=#105 id=105 data-nosnippet>105</a>    config.device_protocol = <span class="number">0x01</span>;
+<a href=#106 id=106 data-nosnippet>106</a>    config.composite_with_iads = <span class="bool-val">true</span>;
+<a href=#107 id=107 data-nosnippet>107</a>
+<a href=#108 id=108 data-nosnippet>108</a>    <span class="kw">let </span><span class="kw-2">mut </span>builder = Builder::new(
+<a href=#109 id=109 data-nosnippet>109</a>        driver,
+<a href=#110 id=110 data-nosnippet>110</a>        config,
+<a href=#111 id=111 data-nosnippet>111</a>        CONFIG_DESCRIPTOR.init([<span class="number">0u8</span>; <span class="number">256</span>]),
+<a href=#112 id=112 data-nosnippet>112</a>        BOS_DESCRIPTOR.init([<span class="number">0u8</span>; <span class="number">256</span>]),
+<a href=#113 id=113 data-nosnippet>113</a>        <span class="kw-2">&amp;mut </span>[],
+<a href=#114 id=114 data-nosnippet>114</a>        CONTROL_BUF.init([<span class="number">0u8</span>; <span class="number">64</span>]),
+<a href=#115 id=115 data-nosnippet>115</a>    );
+<a href=#116 id=116 data-nosnippet>116</a>    <span class="kw">let </span><span class="kw-2">mut </span>class = CdcAcmClass::new(<span class="kw-2">&amp;mut </span>builder, CDC_STATE.init(State::new()), <span class="number">64</span>);
+<a href=#117 id=117 data-nosnippet>117</a>    <span class="kw">let </span><span class="kw-2">mut </span>device = builder.build();
+<a href=#118 id=118 data-nosnippet>118</a>
+<a href=#119 id=119 data-nosnippet>119</a>    <span class="macro">log::info!</span>(<span class="string">"USB-CDC ready"</span>);
+<a href=#120 id=120 data-nosnippet>120</a>    join(device.run(), control_and_log(<span class="kw-2">&amp;mut </span>class)).<span class="kw">await</span>;
+<a href=#121 id=121 data-nosnippet>121</a>    <span class="macro">unreachable!</span>()
+<a href=#122 id=122 data-nosnippet>122</a>}
+<a href=#123 id=123 data-nosnippet>123</a>
+<a href=#124 id=124 data-nosnippet>124</a><span class="doccomment">/// Runs the DTR/RTS state machine and drains the log ring into the host.
+<a href=#125 id=125 data-nosnippet>125</a>///
+<a href=#126 id=126 data-nosnippet>126</a>/// Both roles live in one task because the line poll needs `&amp;class` while
+<a href=#127 id=127 data-nosnippet>127</a>/// the log flush needs `&amp;mut class` — a single `&amp;mut` serves both (`dtr()`
+<a href=#128 id=128 data-nosnippet>128</a>/// and `rts()` take `&amp;self`).
+<a href=#129 id=129 data-nosnippet>129</a>///
+<a href=#130 id=130 data-nosnippet>130</a>/// The future is a `select` of two branches:
+<a href=#131 id=131 data-nosnippet>131</a>///
+<a href=#132 id=132 data-nosnippet>132</a>/// * a deadline-based 10 ms timer that re-checks the control lines (the
+<a href=#133 id=133 data-nosnippet>133</a>///   deadline is only re-armed when the timer actually fired, so log traffic
+<a href=#134 id=134 data-nosnippet>134</a>///   can never starve the esptool reset walk), and
+<a href=#135 id=135 data-nosnippet>135</a>/// * a log flush that copies one chunk out of the ring and awaits
+<a href=#136 id=136 data-nosnippet>136</a>///   `write_packet`. Bytes are only committed after the driver accepted the
+<a href=#137 id=137 data-nosnippet>137</a>///   packet, so a cancelled flush (timer branch won) loses nothing and
+<a href=#138 id=138 data-nosnippet>138</a>///   duplicates nothing.
+<a href=#139 id=139 data-nosnippet>139</a>///
+<a href=#140 id=140 data-nosnippet>140</a>/// The flush is gated on DTR: the host's CDC driver (Linux cdc-acm, Windows
+<a href=#141 id=141 data-nosnippet>141</a>/// usbser) binds and submits receive URBs as soon as the device is
+<a href=#142 id=142 data-nosnippet>142</a>/// configured — long before anyone opens the tty. Draining into that sink
+<a href=#143 id=143 data-nosnippet>143</a>/// would swallow boot logs and the panic replay before `inv monitor` gets a
+<a href=#144 id=144 data-nosnippet>144</a>/// chance to read them (the tty layer discards buffered input on open). With
+<a href=#145 id=145 data-nosnippet>145</a>/// the gate, bytes stay in the ring until a host asserts DTR, which every
+<a href=#146 id=146 data-nosnippet>146</a>/// terminal program does on open.
+<a href=#147 id=147 data-nosnippet>147</a></span><span class="kw">async fn </span>control_and_log(class: <span class="kw-2">&amp;mut </span>CdcAcmClass&lt;<span class="lifetime">'static</span>, Driver&lt;<span class="lifetime">'static</span>&gt;&gt;) -&gt; ! {
+<a href=#148 id=148 data-nosnippet>148</a>    <span class="kw">let </span><span class="kw-2">mut </span>prev = (class.dtr(), class.rts());
+<a href=#149 id=149 data-nosnippet>149</a>    <span class="kw">let </span><span class="kw-2">mut </span>deadline = Instant::now().saturating_add(POLL_INTERVAL);
+<a href=#150 id=150 data-nosnippet>150</a>    <span class="kw">let </span><span class="kw-2">mut </span>open_since: <span class="prelude-ty">Option</span>&lt;Instant&gt; = <span class="prelude-val">None</span>;
+<a href=#151 id=151 data-nosnippet>151</a>    <span class="kw">let </span><span class="kw-2">mut </span>open_cleared = <span class="bool-val">false</span>;
+<a href=#152 id=152 data-nosnippet>152</a>    <span class="kw">loop </span>{
+<a href=#153 id=153 data-nosnippet>153</a>        <span class="kw">let </span>outcome = select(Timer::at(deadline), flush_logs(class)).<span class="kw">await</span>;
+<a href=#154 id=154 data-nosnippet>154</a>        <span class="kw">match </span>outcome {
+<a href=#155 id=155 data-nosnippet>155</a>            Either::First(()) =&gt; {
+<a href=#156 id=156 data-nosnippet>156</a>                deadline = Instant::now().saturating_add(POLL_INTERVAL);
+<a href=#157 id=157 data-nosnippet>157</a>                <span class="kw">let </span>now = (class.dtr(), class.rts());
+<a href=#158 id=158 data-nosnippet>158</a>                <span class="kw">if </span>now != prev {
+<a href=#159 id=159 data-nosnippet>159</a>                    prev = now;
+<a href=#160 id=160 data-nosnippet>160</a>                    open_since = <span class="prelude-val">None</span>;
+<a href=#161 id=161 data-nosnippet>161</a>                    open_cleared = <span class="bool-val">false</span>;
+<a href=#162 id=162 data-nosnippet>162</a>                    <span class="kw">match </span>now {
+<a href=#163 id=163 data-nosnippet>163</a>                        <span class="comment">// `(false,false)` idle: disarm immediately. `(true,true)`
+<a href=#164 id=164 data-nosnippet>164</a>                        // starts the debounce instead of clearing (see
+<a href=#165 id=165 data-nosnippet>165</a>                        // [`OPEN_DEBOUNCE`]) — a terminal holds it for the whole
+<a href=#166 id=166 data-nosnippet>166</a>                        // session, esptool's walk only blips it.
+<a href=#167 id=167 data-nosnippet>167</a>                        </span>(<span class="bool-val">false</span>, <span class="bool-val">false</span>) =&gt; set_force_download(<span class="bool-val">false</span>),
+<a href=#168 id=168 data-nosnippet>168</a>                        (<span class="bool-val">true</span>, <span class="bool-val">true</span>) =&gt; open_since = <span class="prelude-val">Some</span>(Instant::now()),
+<a href=#169 id=169 data-nosnippet>169</a>                        <span class="comment">// pyserial asserts DTR before RTS: arm on the `(1,0)`
+<a href=#170 id=170 data-nosnippet>170</a>                        // transient, then either the debounce (terminal) or the
+<a href=#171 id=171 data-nosnippet>171</a>                        // `(0,1)` reset (esptool) follows.
+<a href=#172 id=172 data-nosnippet>172</a>                        </span>(<span class="bool-val">true</span>, <span class="bool-val">false</span>) =&gt; set_force_download(<span class="bool-val">true</span>),
+<a href=#173 id=173 data-nosnippet>173</a>                        (<span class="bool-val">false</span>, <span class="bool-val">true</span>) =&gt; enter_bootloader(),
+<a href=#174 id=174 data-nosnippet>174</a>                    }
+<a href=#175 id=175 data-nosnippet>175</a>                }
+<a href=#176 id=176 data-nosnippet>176</a>                <span class="kw">if </span>prev == (<span class="bool-val">true</span>, <span class="bool-val">true</span>)
+<a href=#177 id=177 data-nosnippet>177</a>                    &amp;&amp; !open_cleared
+<a href=#178 id=178 data-nosnippet>178</a>                    &amp;&amp; open_since.is_some_and(|since| since.elapsed() &gt;= OPEN_DEBOUNCE)
+<a href=#179 id=179 data-nosnippet>179</a>                {
+<a href=#180 id=180 data-nosnippet>180</a>                    set_force_download(<span class="bool-val">false</span>);
+<a href=#181 id=181 data-nosnippet>181</a>                    open_cleared = <span class="bool-val">true</span>;
+<a href=#182 id=182 data-nosnippet>182</a>                }
+<a href=#183 id=183 data-nosnippet>183</a>            }
+<a href=#184 id=184 data-nosnippet>184</a>            Either::Second(()) =&gt; {}
+<a href=#185 id=185 data-nosnippet>185</a>        }
+<a href=#186 id=186 data-nosnippet>186</a>    }
+<a href=#187 id=187 data-nosnippet>187</a>}
+<a href=#188 id=188 data-nosnippet>188</a>
+<a href=#189 id=189 data-nosnippet>189</a><span class="doccomment">/// Copies pending log lines from the ring into the CDC endpoint until the
+<a href=#190 id=190 data-nosnippet>190</a>/// ring is empty or the endpoint errors out. See [`control_and_log`] for the
+<a href=#191 id=191 data-nosnippet>191</a>/// cancellation-safety argument and the DTR gate rationale.
+<a href=#192 id=192 data-nosnippet>192</a></span><span class="kw">async fn </span>flush_logs(class: <span class="kw-2">&amp;mut </span>CdcAcmClass&lt;<span class="lifetime">'static</span>, Driver&lt;<span class="lifetime">'static</span>&gt;&gt;) {
+<a href=#193 id=193 data-nosnippet>193</a>    <span class="kw">if </span>!class.dtr() {
+<a href=#194 id=194 data-nosnippet>194</a>        <span class="comment">// No terminal attached: keep the ring intact (drop-oldest still
+<a href=#195 id=195 data-nosnippet>195</a>        // bounds it) and idle for one poll interval.
+<a href=#196 id=196 data-nosnippet>196</a>        </span>Timer::after(POLL_INTERVAL).<span class="kw">await</span>;
+<a href=#197 id=197 data-nosnippet>197</a>        <span class="kw">return</span>;
+<a href=#198 id=198 data-nosnippet>198</a>    }
+<a href=#199 id=199 data-nosnippet>199</a>    <span class="kw">loop </span>{
+<a href=#200 id=200 data-nosnippet>200</a>        <span class="kw">let </span><span class="kw-2">mut </span>chunk = [<span class="number">0u8</span>; LOG_CHUNK];
+<a href=#201 id=201 data-nosnippet>201</a>        <span class="kw">let </span>n = logging::cdc_peek(<span class="kw-2">&amp;mut </span>chunk);
+<a href=#202 id=202 data-nosnippet>202</a>        <span class="kw">if </span>n == <span class="number">0 </span>{
+<a href=#203 id=203 data-nosnippet>203</a>            Timer::after(POLL_INTERVAL).<span class="kw">await</span>;
+<a href=#204 id=204 data-nosnippet>204</a>            <span class="kw">return</span>;
+<a href=#205 id=205 data-nosnippet>205</a>        }
+<a href=#206 id=206 data-nosnippet>206</a>        <span class="kw">let </span>(data, <span class="kw">_</span>) = chunk.split_at(n);
+<a href=#207 id=207 data-nosnippet>207</a>        <span class="kw">if </span>class.write_packet(data).<span class="kw">await</span>.is_err() {
+<a href=#208 id=208 data-nosnippet>208</a>            <span class="comment">// The endpoint is disabled (host has not configured us yet) —
+<a href=#209 id=209 data-nosnippet>209</a>            // returning immediately would let `select` complete over and
+<a href=#210 id=210 data-nosnippet>210</a>            // over without ever yielding, starving `device.run()` and
+<a href=#211 id=211 data-nosnippet>211</a>            // stalling enumeration. Wait instead of spinning.
+<a href=#212 id=212 data-nosnippet>212</a>            </span>Timer::after(POLL_INTERVAL).<span class="kw">await</span>;
+<a href=#213 id=213 data-nosnippet>213</a>            <span class="kw">return</span>;
+<a href=#214 id=214 data-nosnippet>214</a>        }
+<a href=#215 id=215 data-nosnippet>215</a>        logging::cdc_commit(n);
+<a href=#216 id=216 data-nosnippet>216</a>    }
+<a href=#217 id=217 data-nosnippet>217</a>}
+<a href=#218 id=218 data-nosnippet>218</a>
+<a href=#219 id=219 data-nosnippet>219</a><span class="doccomment">/// Set or clear the ROM `FORCE_DOWNLOAD_BOOT` flag in `RTC_CNTL_OPTION1`.
+<a href=#220 id=220 data-nosnippet>220</a>///
+<a href=#221 id=221 data-nosnippet>221</a>/// The register lives in the RTC domain and survives a software reset, so
+<a href=#222 id=222 data-nosnippet>222</a>/// the ROM bootloader sees it on the next boot.
+<a href=#223 id=223 data-nosnippet>223</a></span><span class="kw">fn </span>set_force_download(armed: bool) {
+<a href=#224 id=224 data-nosnippet>224</a>    <span class="comment">// SAFETY: RTC registers are always memory-mapped; `steal()` only bypasses
+<a href=#225 id=225 data-nosnippet>225</a>    // singleton ownership of the peripheral and `modify` leaves every other
+<a href=#226 id=226 data-nosnippet>226</a>    // bit of `RTC_CNTL_OPTION1` untouched.
+<a href=#227 id=227 data-nosnippet>227</a>    </span><span class="kw">let </span>rtc_cntl = <span class="kw">unsafe </span>{ esp32s2::RTC_CNTL::steal() };
+<a href=#228 id=228 data-nosnippet>228</a>    rtc_cntl
+<a href=#229 id=229 data-nosnippet>229</a>        .options1()
+<a href=#230 id=230 data-nosnippet>230</a>        .modify(|<span class="kw">_</span>, w| w.force_download_boot().bit(armed));
+<a href=#231 id=231 data-nosnippet>231</a>}
+<a href=#232 id=232 data-nosnippet>232</a>
+<a href=#233 id=233 data-nosnippet>233</a><span class="doccomment">/// Resets into the ROM USB-CDC download mode (bootloader).
+<a href=#234 id=234 data-nosnippet>234</a>///
+<a href=#235 id=235 data-nosnippet>235</a>/// `(0,1)` is a plain reset: the boot target is decided by the
+<a href=#236 id=236 data-nosnippet>236</a>/// `FORCE_DOWNLOAD_BOOT` flag, which the `(1,0)` state arms. esptool's
+<a href=#237 id=237 data-nosnippet>237</a>/// `--before usb-reset` walk therefore lands in the bootloader. The ROM
+<a href=#238 id=238 data-nosnippet>238</a>/// bootloader does not clear the flag itself — it is cleared by
+<a href=#239 id=239 data-nosnippet>239</a>/// `inv flash` after flashing (esptool `write-reg`), by `(0,0)`/`(1,1)`
+<a href=#240 id=240 data-nosnippet>240</a>/// line states, or by the terminal-open disarming above.
+<a href=#241 id=241 data-nosnippet>241</a></span><span class="kw">fn </span>enter_bootloader() -&gt; ! {
+<a href=#242 id=242 data-nosnippet>242</a>    esp_hal::system::software_reset()
+<a href=#243 id=243 data-nosnippet>243</a>}
+</code></pre></div></section></main></body></html>
