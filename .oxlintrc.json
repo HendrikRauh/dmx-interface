@@ -11,5 +11,8 @@
   "options": {
     "typeAware": true,
     "typeCheck": true
-  }
+  },
+  "ignorePatterns": [
+    "site/src/content.config.ts"
+  ]
 }

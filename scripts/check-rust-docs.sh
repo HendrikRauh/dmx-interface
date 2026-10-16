@@ -13,6 +13,17 @@ FILE_DOC=true
 
 errors=0
 
+# ── What is gated ──
+# The item pattern matches literal item declarations only:
+#   [pub(...)] [async] fn|struct|enum|trait|type|const|static|mod <name>
+# Doc look-back accepts /// lines and intervening #[...] attributes.
+# pub mod x; and bare mod x; are skipped on purpose (module docs live as
+# //! inside the file — see check_file_doc and AGENTS.md).
+# Blind spot: macro-generated items are invisible — the pattern sees only
+# the invocation (e.g. slot_task!), never the fns it emits. Those fns carry
+# real doc comments today, but any future doc-generating macro will evade
+# this script; the rustdoc build (inv docs:rustdoc) is the backstop.
+
 check_item_doc() {
 	local file="$1" lineno="$2" line="$3"
 

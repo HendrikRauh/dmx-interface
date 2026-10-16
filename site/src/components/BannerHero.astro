@@ -1,0 +1,88 @@
+---
+// Deep relative import: LinkButton lives behind Starlight's package
+// `exports` map, which has no subpath for it.
+import LinkButton from "../../node_modules/@astrojs/starlight/dist/user-components/LinkButton.astro";
+import bannerLatte from "../assets/banner-latte.svg";
+import bannerMocha from "../assets/banner-mocha.svg";
+
+const { data } = Astro.locals.starlightRoute.entry;
+const { tagline, actions = [] } = data.hero || {};
+---
+
+<div class="hero-banner-page">
+  <h1 id="_top" class="sr-only">{data.title}</h1>
+  <img
+    class="hero-logo light:sl-hidden"
+    src={bannerMocha.src}
+    alt={data.title}
+    width="1048"
+    height="157"
+  />
+  <img
+    class="hero-logo dark:sl-hidden"
+    src={bannerLatte.src}
+    alt={data.title}
+    width="1048"
+    height="157"
+  />
+  <div class="stack">
+    {tagline && <p class="tagline" set:html={tagline} />}
+    {
+      actions.length > 0 && (
+        <div class="actions">
+          {actions.map(({ attrs: { class: className, ...attrs } = {}, link: href, text, variant }) => (
+            <LinkButton {href} {variant} class:list={[className]} {...attrs}>
+              {text}
+            </LinkButton>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .hero-banner-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    text-align: center;
+    padding-block: clamp(1.5rem, calc(1rem + 5vmin), 4rem) 1rem;
+  }
+
+  .hero-logo {
+    width: min(100%, 28rem);
+    height: auto;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .tagline {
+    font-size: clamp(var(--sl-text-base), calc(0.0625rem + 2vw), var(--sl-text-xl));
+    color: var(--sl-color-gray-2);
+    max-width: 45ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    justify-content: center;
+  }
+
+  @media (min-width: 50rem) {
+    .hero-banner-page {
+      align-items: flex-start;
+      text-align: start;
+    }
+
+    .actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

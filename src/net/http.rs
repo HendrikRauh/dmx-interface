@@ -55,7 +55,8 @@ static FREDOKA_TTF: &[u8] = include_bytes!(concat!(
 ));
 
 macro_rules! slot_task {
-    ($task_name:ident, $rx_name:ident, $tx_name:ident) => {
+    ($(#[$meta:meta])* $task_name:ident, $rx_name:ident, $tx_name:ident) => {
+        $(#[$meta])*
         #[embassy_executor::task]
         pub async fn $task_name(stack: Stack<'static>) {
             static $rx_name: StaticCell<[u8; RX_SIZE]> = StaticCell::new();
@@ -70,10 +71,30 @@ macro_rules! slot_task {
     };
 }
 
-slot_task!(slot0, SLOT0_RX, SLOT0_TX);
-slot_task!(slot1, SLOT1_RX, SLOT1_TX);
-slot_task!(slot2, SLOT2_RX, SLOT2_TX);
-slot_task!(slot3, SLOT3_RX, SLOT3_TX);
+slot_task!(
+    /// HTTP connection slot 0: accept → route → recycle, permanently.
+    slot0,
+    SLOT0_RX,
+    SLOT0_TX
+);
+slot_task!(
+    /// HTTP connection slot 1: accept → route → recycle, permanently.
+    slot1,
+    SLOT1_RX,
+    SLOT1_TX
+);
+slot_task!(
+    /// HTTP connection slot 2: accept → route → recycle, permanently.
+    slot2,
+    SLOT2_RX,
+    SLOT2_TX
+);
+slot_task!(
+    /// HTTP connection slot 3: accept → route → recycle, permanently.
+    slot3,
+    SLOT3_RX,
+    SLOT3_TX
+);
 
 /// Spawn all HTTP slots against the given stack.
 ///
