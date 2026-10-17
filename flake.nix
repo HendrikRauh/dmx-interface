@@ -84,7 +84,13 @@
             };
             check-case-conflicts.enable = true;
             check-symlinks.enable = true;
-            end-of-file-fixer.enable = true;
+            end-of-file-fixer = {
+              enable = true;
+              # The design favicon is a git symlink (mode 120000); Docker
+              # Desktop bind mounts surface it as a regular file, so the
+              # fixer would append a newline and corrupt the target path.
+              excludes = ["^assets/design/favicon\\.svg$"];
+            };
             fix-byte-order-marker.enable = true;
             mixed-line-endings = {
               enable = true;
@@ -93,7 +99,14 @@
             trim-trailing-whitespace.enable = true;
 
             # YAML, JSON & TOML
-            check-json.enable = true;
+            # JSONC (comments) — plain check-json would fail
+            check-json = {
+              enable = true;
+              excludes = [
+                "^\\.devcontainer/devcontainer\\.json$"
+                "^\\.vscode/tasks\\.json$"
+              ];
+            };
             check-toml.enable = true;
             check-yaml.enable = true;
             yamllint = {
@@ -284,7 +297,10 @@
           shellHook =
             pre-commit-check.shellHook
             + ''
-              export PATH="$PWD/web/node_modules/.bin:$PWD/site/node_modules/.bin:$PATH"
+              # esp-rs ships rustup proxies (incl. rust-analyzer), which
+              # shadow pkgs.rust-analyzer and loop on their own fallback —
+              # put the real binary first.
+              export PATH="${pkgs.rust-analyzer}/bin:$PWD/web/node_modules/.bin:$PWD/site/node_modules/.bin:$PATH"
 
               (
                 set -euo pipefail

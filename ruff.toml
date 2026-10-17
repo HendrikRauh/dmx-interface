@@ -1,0 +1,10 @@
+# cspell:ignore noqa
+# Docker Desktop bind mounts surface every file as 777 (mode bits come from
+# the mount, not from git), which triggers EXE002 (executable without
+# shebang) on tasks.py inside the container — while a plain git checkout
+# (CI, native Linux) has it at 100644 where EXE002 never fires. A file-level
+# `# ruff: noqa: EXE002` would flip the failure to the other side (RUF100
+# "unused noqa" in CI), so the ignore lives here instead: per-file ignores
+# are inert where the rule never triggers.
+[lint.per-file-ignores]
+"tasks.py" = ["EXE002"]
