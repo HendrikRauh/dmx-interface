@@ -1,11 +1,17 @@
 //! DMX interface firmware for ESP32-S2 (Lolin S2 Mini).
 //!
-//! Current scope: status LED on GPIO7 (LEDC PWM, own embassy task), USB-CDC
-//! with esptool auto-reset, ring-buffer logging over the CDC port, and
-//! panic reports persisted across resets.
+//! Current scope: status LED on GPIO7 (LEDC PWM, own embassy task), user
+//! button on GPIO5 (power-up factory-reset hold plus click actions),
+//! USB-CDC with esptool auto-reset, ring-buffer logging over the CDC port,
+//! panic reports persisted across resets, and a `WiFi` network stack (AP
+//! with DHCP server or station mode, AP fallback).
 
 #![no_std]
 #![no_main]
+// In this binary crate every module is private, so `missing_docs` only
+// gates crate-level items (the `//!` header above). Module and API doc
+// coverage is enforced separately by scripts/check-rust-docs.sh plus the
+// warning-denied rustdoc build (`inv docs:rustdoc`).
 #![deny(missing_docs)]
 #![allow(dead_code)]
 
@@ -14,11 +20,12 @@ extern crate alloc;
 // Module docs live as `//!` at the top of each module file. Do NOT also put
 // `///` docs on these declarations: rustdoc then resolves the module's
 // intra-doc links in this (parent) module's scope and every unqualified link
-// breaks — see AGENTS.md "Module docs: `//!` only".
+// breaks — see AGENTS.md "//!" only.
 mod boards;
 mod config;
 mod hardware;
 mod logging;
+mod net;
 mod panic_report;
 mod storage;
 
@@ -47,10 +54,15 @@ async fn main(spawner: Spawner) -> ! {
 
     // ── Heap allocator ─────────────────────────────────────────────────────
     {
-        /// Heap size in bytes (32 KiB internal RAM — the panic-report replay
-        /// and NVS blob reads allocate, 8 KiB was too tight).
-        const HEAP_SIZE: usize = 32 * 1024;
-        /// Backing memory for the heap allocator.
+        /// Heap size in bytes (internal RAM — the `WiFi` driver and smoltcp
+        /// need ~100 KiB per esp-radio's examples, plus panic-report replay
+        /// and NVS reads).
+        const HEAP_SIZE: usize = 128 * 1024;
+        /// Backing memory for the heap allocator, placed in `.dram2_uninit`
+        /// (the 136 KiB region above the stack top that nothing else uses —
+        /// see esp-hal's `dram2.x`), keeping the main `dram_seg` free for
+        /// the `WiFi` driver's statics and the stack.
+        #[unsafe(link_section = ".dram2_uninit")]
         static mut HEAP_MEM: [u8; HEAP_SIZE] = [0u8; HEAP_SIZE];
         let heap_ptr = core::ptr::addr_of_mut!(HEAP_MEM).cast::<u8>();
         // SAFETY: `heap_ptr` points to the whole `HEAP_MEM` array, which is
@@ -81,8 +93,10 @@ async fn main(spawner: Spawner) -> ! {
     // ring when the first host connects.
     logging::init();
     storage::init(peripherals.FLASH);
-    // Load the persisted config and push it into every consumer (LED brightness).
-    storage::load().apply();
+    // Load the persisted config and push it into every consumer (LED
+    // brightness today, the network stack below).
+    let config = storage::load();
+    config.apply();
     panic_report::report_last_panic();
 
     // ── USB-CDC (esptool auto-reset + log drain) ───────────────────────────
@@ -97,6 +111,16 @@ async fn main(spawner: Spawner) -> ! {
     spawner.spawn(
         hardware::led::task(peripherals.LEDC, peripherals.GPIO7).expect("LED task spawn failed"),
     );
+
+    // ── User button (GPIO5): power-up factory reset, then click actions ────
+    // The hold check must finish before the network starts, so a triggered
+    // reset never brings the radio up just to reboot again.
+    let button = hardware::button::input(peripherals.GPIO5);
+    hardware::button::boot_factory_reset(&button).await;
+    spawner.spawn(hardware::button::task(button).expect("button task spawn failed"));
+
+    // ── WiFi (AP/STA bring-up + embassy-net stack) ─────────────────────────
+    spawner.spawn(net::task(peripherals.WIFI, config, spawner).expect("network task spawn failed"));
 
     log::info!("Init complete");
 

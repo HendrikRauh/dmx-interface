@@ -76,9 +76,13 @@ pub fn init(flash: FLASH<'static>) {
 ///
 /// Synchronous by contract: `f` must not `await`, otherwise the busy flag
 /// would stay set for the whole suspension. The operation runs inside a
-/// critical section — flash writes disable interrupts internally anyway,
-/// and it keeps the `RefCell` borrow scoped (`critical_section::Mutex`
-/// loans cannot escape the closure).
+/// critical section to scope the `RefCell` borrow (`critical_section::Mutex`
+/// loans cannot escape the closure). Interrupt masking over the long flash
+/// calls happens anyway: `esp-storage` takes its own interrupt lock around
+/// every ROM spiflash call (verified via `cargo tree` — feature
+/// `critical-section` is on); the outer section only additionally covers the
+/// bookkeeping gaps between calls. Whether a save disturbs a live AP link
+/// long enough to matter is a hardware check (see `TODO.md`).
 fn with_nvs<R>(f: impl FnOnce(&mut Storage) -> R) -> Option<R> {
     if busy_swap() {
         return None;
@@ -131,23 +135,50 @@ pub fn load() -> Config {
 }
 
 /// Save the device configuration to NVS (serialized via `postcard`).
-pub fn save(config: &Config) {
+///
+/// Returns `false` when serialization or the NVS write fails — callers
+/// must not report success (or apply the config) in that case.
+pub fn save(config: &Config) -> bool {
     match config.to_bytes() {
         Ok(bytes) => match with_nvs(|nvs| nvs.set(&NS_CONFIG, &KEY_CFG, bytes.as_slice())) {
-            Some(Ok(())) => log::info!("Config saved to NVS ({} bytes)", bytes.len()),
-            Some(Err(e)) => log::warn!("NVS write failed: {e:?}"),
-            None => log::warn!("NVS busy or unavailable, config not saved"),
+            Some(Ok(())) => {
+                log::info!("Config saved to NVS ({} bytes)", bytes.len());
+                true
+            }
+            Some(Err(e)) => {
+                log::warn!("NVS write failed: {e:?}");
+                false
+            }
+            None => {
+                log::warn!("NVS busy or unavailable, config not saved");
+                false
+            }
         },
-        Err(e) => log::warn!("Config serialization failed: {e:?}"),
+        Err(e) => {
+            log::warn!("Config serialization failed: {e:?}");
+            false
+        }
     }
 }
 
 /// Clear all config data from NVS (reverts to defaults on next load).
-pub fn clear() {
+///
+/// Returns `false` when storage is busy or the delete fails — callers
+/// must not reboot into a "factory reset" that did not happen.
+pub fn clear() -> bool {
     match with_nvs(|nvs| nvs.delete(&NS_CONFIG, &KEY_CFG)) {
-        Some(Ok(())) => log::info!("Config cleared from NVS"),
-        Some(Err(e)) => log::warn!("NVS clear failed: {e:?}"),
-        None => log::warn!("NVS busy or unavailable, nothing cleared"),
+        Some(Ok(())) => {
+            log::info!("Config cleared from NVS");
+            true
+        }
+        Some(Err(e)) => {
+            log::warn!("NVS clear failed: {e:?}");
+            false
+        }
+        None => {
+            log::warn!("NVS busy or unavailable, nothing cleared");
+            false
+        }
     }
 }
 

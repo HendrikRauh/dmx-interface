@@ -33,13 +33,13 @@ use esp_hal::{
     time::Rate,
 };
 
-/// Breathing period of [`LedStatus::Startup`] (1000 ms per `assets/led/boot.svg`).
+/// Breathing period of [`LedStatus::Startup`] (1000 ms per `assets/led/breathing_1000ms.svg`).
 const STARTUP_PERIOD_MS: u64 = 1000;
-/// Breathing period of [`LedStatus::Resetting`] (300 ms per `assets/led/reset.svg`).
+/// Breathing period of [`LedStatus::Resetting`] (300 ms per `assets/led/breathing_300ms.svg`).
 const RESETTING_PERIOD_MS: u64 = 300;
-/// Blink period of [`LedStatus::Warning`] (1000 ms per `assets/led/slow.svg`).
+/// Blink period of [`LedStatus::Warning`] (1000 ms per `assets/led/blinking_1000ms.svg`).
 const WARNING_PERIOD_MS: u64 = 1000;
-/// Blink period of [`LedStatus::Error`] (200 ms per `assets/led/fast.svg`).
+/// Blink period of [`LedStatus::Error`] (200 ms per `assets/led/blinking_200ms.svg`).
 const ERROR_PERIOD_MS: u64 = 200;
 
 /// Effect refresh interval.

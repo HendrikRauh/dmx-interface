@@ -1,0 +1,178 @@
+/* Fredoka everywhere — same face as the device UI (canonical file in
+   assets/fonts, symlinked into src/fonts and web/public/fonts). Relative
+   URLs: Vite fingerprints the fonts and applies the base path, so they
+   survive per-branch deploys. */
+
+/* Starlight's layer order statement (style/layers.css) does not survive
+   CSS minification in this bundle, and custom.css is emitted first — so
+   starlight.components would be created before starlight.reset and
+   `* { margin: 0 }` would beat every file-tree margin. Declare the order
+   here, before any layer is created. */
+@layer starlight.base, starlight.reset, starlight.core, starlight.content, starlight.components, starlight.utils;
+
+@font-face {
+  font-family: "Fredoka";
+  src: url("../fonts/Fredoka.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --sl-font: "Fredoka", system-ui, sans-serif;
+  --sl-font-headings: "Fredoka", system-ui, sans-serif;
+  --sl-font-system: "Fredoka", system-ui, sans-serif;
+}
+
+/* Fira Code for code (variable font, canonical copy in assets/fonts, symlinked
+   into site/src/fonts). Ligatures are the point of Fira Code. */
+@font-face {
+  font-family: "FiraCode";
+  src: url("../fonts/FiraCode.ttf") format("truetype");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --sl-font-mono: "FiraCode", ui-monospace, "Cascadia Code", monospace;
+}
+
+:where(code, pre, kbd, samp) {
+  font-variant-ligatures: contextual;
+  font-feature-settings:
+    "liga" 1,
+    "calt" 1;
+}
+
+/* File trees (```file-tree fences → src/plugins/file-tree.js).
+   Verbatim from Starlight's FileTree.astro — the component itself is MDX-only,
+   so its scoped styles are re-hosted here for the markup our plugin emits. */
+@layer starlight.components {
+  starlight-file-tree {
+    --x-space: 1.5rem;
+    --y-space: 0.125rem;
+    --y-pad: 0;
+
+    display: block;
+    border: 1px solid var(--sl-color-gray-5);
+    padding: 1rem;
+    background-color: var(--sl-color-gray-6);
+    font-size: var(--sl-text-xs);
+    font-family: var(--__sl-font-mono);
+    overflow-x: auto;
+  }
+
+  starlight-file-tree .directory > details {
+    border: 0;
+    padding: 0;
+    padding-inline-start: var(--x-space);
+    background: transparent;
+  }
+
+  starlight-file-tree .directory > details > summary {
+    margin-inline-start: calc(-1 * var(--x-space));
+    border: 0;
+    padding: var(--y-pad) 0.625rem;
+    font-weight: normal;
+    color: var(--sl-color-white);
+    max-width: 100%;
+  }
+
+  starlight-file-tree .directory > details > summary::marker,
+  starlight-file-tree .directory > details > summary::-webkit-details-marker {
+    color: var(--sl-color-gray-3);
+  }
+
+  starlight-file-tree .directory > details > summary:hover,
+  starlight-file-tree .directory > details > summary:hover .tree-icon {
+    cursor: pointer;
+    color: var(--sl-color-text-accent);
+    fill: currentColor;
+  }
+
+  starlight-file-tree .directory > details > summary:hover ~ ul {
+    border-color: var(--sl-color-gray-4);
+  }
+
+  starlight-file-tree .directory > details > summary:hover .highlight .tree-icon {
+    color: var(--sl-color-text-invert);
+    fill: currentColor;
+  }
+
+  starlight-file-tree ul {
+    margin-inline-start: 0.5rem;
+    border-inline-start: 1px solid var(--sl-color-gray-5);
+    padding: 0;
+    padding-inline-start: 0.125rem;
+    list-style: none;
+  }
+
+  starlight-file-tree > ul {
+    margin: 0;
+    border: 0;
+    padding: 0;
+  }
+
+  starlight-file-tree li {
+    margin: var(--y-space) 0;
+    padding: var(--y-pad) 0;
+  }
+
+  starlight-file-tree .file {
+    margin-inline-start: calc(var(--x-space) - 0.125rem);
+    color: var(--sl-color-white);
+  }
+
+  starlight-file-tree .tree-entry {
+    display: inline-flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: calc(100% - 1rem);
+  }
+
+  @media (min-width: 30em) {
+    starlight-file-tree .tree-entry {
+      flex-wrap: nowrap;
+    }
+  }
+
+  starlight-file-tree .tree-entry > :first-child {
+    flex-shrink: 0;
+  }
+
+  starlight-file-tree .empty {
+    color: var(--sl-color-gray-3);
+    padding-inline-start: 0.375rem;
+  }
+
+  starlight-file-tree .comment {
+    color: var(--sl-color-gray-3);
+    padding-inline-start: 1.625rem;
+    max-width: 24rem;
+    min-width: 12rem;
+  }
+
+  starlight-file-tree .highlight {
+    display: inline-block;
+    border-radius: 0.25rem;
+    padding-inline-end: 0.5rem;
+    color: var(--sl-color-text-invert);
+    background-color: var(--sl-color-text-accent);
+  }
+
+  starlight-file-tree svg {
+    display: inline;
+    fill: var(--sl-color-gray-3);
+    vertical-align: middle;
+    margin-inline: 0.25rem 0.375rem;
+    width: 0.875rem;
+    height: 0.875rem;
+    /* Prevent Firefox from cutting off edges of icons when pinch-zooming. */
+    overflow: visible;
+  }
+
+  starlight-file-tree .highlight svg.tree-icon {
+    fill: currentColor;
+  }
+}

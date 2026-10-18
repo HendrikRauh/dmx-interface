@@ -1,7 +1,7 @@
 import { render } from "preact";
 
-import bannerLight from "./assets/banner/latte.svg";
-import bannerDark from "./assets/banner/mocha.svg";
+import bannerLight from "../../assets/design/banner-latte.svg";
+import bannerDark from "../../assets/design/banner-mocha.svg";
 import { DmxForm } from "./components/dmx-form/DmxForm";
 
 import "./style.scss";

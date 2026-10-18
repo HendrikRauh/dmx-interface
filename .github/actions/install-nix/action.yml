@@ -8,6 +8,10 @@ runs:
       with:
         extra_nix_config: |
           experimental-features = nix-command flakes
+    - name: Restore Nix store cache
+      uses: DeterminateSystems/magic-nix-cache-action@v15
+      with:
+        use-flakehub: false
     - name: Pre-warm flake devShell
       run: |
         # Use the repository's `flake.nix` devShell to fetch dependencies.
