@@ -636,6 +636,12 @@ def docs(c, o=False):
     raise Exit(code=1)
 
 
+@task
+def generate_case(c):
+    """Generate 3D model of the case and export STL/STEP files."""
+    c.run("python assets/case/src/main_case.py", pty=True)
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Web frontend
 # ──────────────────────────────────────────────────────────────────────────────
