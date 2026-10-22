@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  // Thin `inv` wrappers so the firmware loop (build, check, flash, monitor)
+  // is reachable via Run Task without a terminal - Ctrl+Shift+B is the
+  // build. Everything else (web, format, docs, clean) is one `inv`
+  // keystroke away in a nix-shell terminal. Labels use a `Group/Name`
+  // shape - task-button extensions group them by the part before the slash.
+  "tasks": [
+    {
+      "label": "Firmware/Build",
+      "type": "shell",
+      "command": "nix develop --command inv build",
+      "detail": "Build the firmware and bundle the website",
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Check",
+      "type": "shell",
+      "command": "nix develop --command inv check",
+      "detail": "Strict clippy for the Xtensa target (the test gate)",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Flash",
+      "type": "shell",
+      "command": "nix develop --command inv flash",
+      "detail": "Build if needed and flash the board via USB CDC",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "Firmware/Monitor",
+      "type": "shell",
+      "command": "nix develop --command inv monitor",
+      "detail": "Stream the serial output of the board",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "close": true }
+    }
+  ]
+}
