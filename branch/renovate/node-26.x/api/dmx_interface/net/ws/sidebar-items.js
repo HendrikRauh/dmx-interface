@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["GUID","IDLE_TIMEOUT","MAX_PAYLOAD","MAX_REPLY","OPCODE_CLOSE","OPCODE_PING","OPCODE_PONG","OPCODE_TEXT"],"fn":["format_mac","handle_message","handshake","read_frame","send_reply","serve","write_frame"],"struct":["ConfigSetPayload","MessageHead","Reply","SystemInfo"]};
