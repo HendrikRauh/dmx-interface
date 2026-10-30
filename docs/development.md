@@ -50,8 +50,8 @@ Convco parses your commit message and blocks it if it does not follow the [conve
 
 ## Contributing
 
-We are happy to accept contributions! Feel free to open issues or pull requests. Please make sure your code passes the [pre-commit hooks](#pre-commit-hooks). We do not want to have fully vibe coded or untested code in the repo which does not mean you cannot use AI.
-Just please make sure you understand the code and don't just blindly accept suggestions. Thanks to all the contributors on this project even if they just did little things like fixing typos or improving the documentation. Every contribution is appreciated.
+We are happy to accept contributions! Feel free to open issues or pull requests. Please make sure your code passes the [pre-commit hooks](#pre-commit-hooks). Fully vibe coded or untested code does not help! You can use AI, but please make sure you fully comprehend the code.
+Thanks to all the contributors on this project even if they just did little things like fixing typos or improving the documentation. Every contribution is appreciated.
 
 <a href="https://github.com/HendrikRauh/dmx-interface/graphs/contributors">
     <img src="https://contrib.rocks/image?repo=HendrikRauh/dmx-interface" alt="Contributors listed with their avatars" />
