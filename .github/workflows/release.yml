@@ -30,7 +30,7 @@ jobs:
 
       - name: Generate Case Assets
         run: |
-          nix develop --command invoke generate-case
+          nix develop --command invoke case:generate
         shell: bash
 
       - name: Determine Pre-release Status

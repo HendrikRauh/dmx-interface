@@ -314,6 +314,7 @@
               python
               python.pkgs.invoke
               python.pkgs.pyserial
+              pkgs.meshoptimizer
               pkgs.svgo
               pkgs.renovate
               pkgs.uv

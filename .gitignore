@@ -23,6 +23,7 @@ site/dist/
 
 # Generated site content (symlinked in at build time)
 site/public/api
+site/public/case
 
 # Python
 __pycache__/
