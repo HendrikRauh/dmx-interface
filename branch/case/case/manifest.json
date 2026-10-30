@@ -1,0 +1,33 @@
+{
+  "preview_glb": "ChaosDMX_xlrScrewed_vent.glb",
+  "variants": [
+    {
+      "description": "screwed XLR (M3) \u00b7 vent",
+      "suffix": "xlrScrewed_vent",
+      "box": "ChaosDMX_bottom_xlrScrewed_vent.stl",
+      "lid": "ChaosDMX_top_xlrScrewed_vent.stl",
+      "step": "ChaosDMX_xlrScrewed_vent.step"
+    },
+    {
+      "description": "screwed XLR (M3) \u00b7 solid",
+      "suffix": "xlrScrewed_noVent",
+      "box": "ChaosDMX_bottom_xlrScrewed_noVent.stl",
+      "lid": "ChaosDMX_top_xlrScrewed_noVent.stl",
+      "step": "ChaosDMX_xlrScrewed_noVent.step"
+    },
+    {
+      "description": "glued XLR \u00b7 vent",
+      "suffix": "xlrGlued_vent",
+      "box": "ChaosDMX_bottom_xlrGlued_vent.stl",
+      "lid": "ChaosDMX_top_xlrGlued_vent.stl",
+      "step": "ChaosDMX_xlrGlued_vent.step"
+    },
+    {
+      "description": "glued XLR \u00b7 solid",
+      "suffix": "xlrGlued_noVent",
+      "box": "ChaosDMX_bottom_xlrGlued_noVent.stl",
+      "lid": "ChaosDMX_top_xlrGlued_noVent.stl",
+      "step": "ChaosDMX_xlrGlued_noVent.step"
+    }
+  ]
+}
