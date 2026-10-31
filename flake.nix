@@ -276,6 +276,8 @@
             ];
 
           env = {
+            NIX_NO_SELF_RPATH = "1";
+            NIX_LDFLAGS = "";
             RUSTUP_TOOLCHAIN = "${esp-rs}";
             LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
             GERMAN_DICT_PATH = "${germanDict}";
