@@ -1,5 +1,0 @@
-<map id="static_file_handler" name="static_file_handler">
-<area shape="rect" id="Node000001" title="HTTP handler for static files embedded in the firmware." alt="" coords="5,5,146,33"/>
-<area shape="rect" id="Node000002" href="$web__server_8c.html#a953decee81f83cf17c70bebbc753b03a" title="Retrieve static file data based on the requested path." alt="" coords="194,5,299,33"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="146,16,178,16,178,22,146,22"/>
-</map>
