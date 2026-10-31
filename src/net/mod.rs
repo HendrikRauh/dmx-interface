@@ -31,7 +31,6 @@ use esp_radio::wifi::{
     event::{EventInfo, MessageResult},
     sta::StationConfig,
 };
-use heapless::String;
 use static_cell::StaticCell;
 
 use crate::config::{Config, ConnectionType};
@@ -72,15 +71,6 @@ static STACK_STA: StaticCell<StackResources<SOCKETS>> = StaticCell::new();
 /// [`STACK_STA`] so a DHCP-timeout fallback can bring the AP up beside
 /// the idle station stack (both cells always cost ~2 KiB of `.bss`).
 static STACK_AP: StaticCell<StackResources<SOCKETS>> = StaticCell::new();
-
-/// Resolves the AP SSID: the configured one, or a MAC-derived default.
-fn ap_ssid(config: &Config) -> String<32> {
-    if config.ap_config.ssid.is_empty() {
-        efuse::default_ap_ssid()
-    } else {
-        config.ap_config.ssid.clone()
-    }
-}
 
 /// Builds the access-point configuration for `esp-radio`.
 ///
@@ -241,7 +231,7 @@ fn spawn_runner(runner: Runner<'static, Interface<'static>>, spawner: Spawner) {
 /// station mode it also re-associates after [`EventInfo::StationDisconnected`].
 #[embassy_executor::task]
 pub async fn task(wifi: WIFI<'static>, config: Config, spawner: Spawner) {
-    let ssid = ap_ssid(&config);
+    let ssid = config.ap_config.ssid.as_str();
     let password = config.ap_config.password.as_str();
     let wpa2 = password.len() >= 8;
     if !password.is_empty() && !wpa2 {
@@ -267,7 +257,7 @@ pub async fn task(wifi: WIFI<'static>, config: Config, spawner: Spawner) {
             "WiFi: starting AP '{ssid}' ({})",
             if wpa2 { "WPA2" } else { "open" }
         );
-        WifiConfig::AccessPoint(build_ap(ssid.as_str(), password, wpa2))
+        WifiConfig::AccessPoint(build_ap(ssid, password, wpa2))
     };
 
     let init = esp_radio::wifi::new(
@@ -291,11 +281,8 @@ pub async fn task(wifi: WIFI<'static>, config: Config, spawner: Spawner) {
     if !station_up {
         if want_sta {
             log::warn!("WiFi station unavailable — falling back to AP '{ssid}'");
-            let fallback = controller.set_config(&WifiConfig::AccessPoint(build_ap(
-                ssid.as_str(),
-                password,
-                wpa2,
-            )));
+            let fallback =
+                controller.set_config(&WifiConfig::AccessPoint(build_ap(ssid, password, wpa2)));
             if let Err(err) = fallback {
                 log::error!("WiFi AP fallback failed: {err:?} — network stack disabled");
                 loop {
@@ -303,7 +290,7 @@ pub async fn task(wifi: WIFI<'static>, config: Config, spawner: Spawner) {
                 }
             }
         }
-        start_ap(interfaces.access_point, ssid.as_str(), spawner).await;
+        start_ap(interfaces.access_point, ssid, spawner).await;
     }
 
     // Subscribe after the (mutable) setup above; the subscriber borrow also

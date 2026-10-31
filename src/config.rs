@@ -10,6 +10,8 @@ use core::fmt;
 use heapless::{String, Vec, index_map::FnvIndexMap};
 use serde::{Deserialize, Serialize};
 
+use crate::hardware::efuse;
+
 /// Maximum length for string configuration fields.
 const MAX_STR_LEN: usize = 32;
 
@@ -215,7 +217,10 @@ impl Default for DmxPortConfig {
 /// `WiFi` credentials for one interface (web: `WifiConfig`).
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WifiConfig {
-    /// Network name (empty AP SSID derives from the MAC address).
+    /// Network name.
+    ///
+    /// Empty only means "not configured" for station credentials; an AP
+    /// SSID must be non-empty ([`Config::merge_patch`] rejects an empty one).
     pub ssid: String<MAX_STR_LEN>,
     /// `WiFi` password.
     pub password: String<MAX_STR_LEN>,
@@ -319,7 +324,8 @@ pub struct Config {
     pub led_brightness: u8,
     /// `WiFi` station credentials.
     pub station_config: WifiConfig,
-    /// `WiFi` access-point credentials (empty SSID derives from the MAC).
+    /// `WiFi` access-point credentials. The SSID must not be empty; factory
+    /// defaults fill in the MAC-derived `ChaosDMX-XXXX` name.
     pub ap_config: WifiConfig,
     /// DMX ports by port index.
     #[serde(with = "index_map")]
@@ -330,13 +336,14 @@ pub struct Config {
 }
 
 impl Default for Config {
-    /// Factory defaults: AP mode, DMX0 output on universe 1, DMX1 input on
+    /// Factory defaults: AP mode with the MAC-derived `ChaosDMX-XXXX` SSID
+    /// and password `ChaosDMX`, DMX0 output on universe 1, DMX1 input on
     /// universe 2, dim LED, single click toggles the LED, triple click
     /// reboots.
     fn default() -> Self {
         let ap_config = WifiConfig {
+            ssid: efuse::default_ap_ssid(),
             password: String::try_from("ChaosDMX").expect("default password fits"),
-            ..WifiConfig::default()
         };
         let mut dmx_ports = FnvIndexMap::new();
         let _ = dmx_ports.insert(0, DmxPortConfig::default());
@@ -407,9 +414,10 @@ impl Config {
     /// present.
     ///
     /// Returns `false` when the patch is rejected — a map key outside
-    /// `0..MAX_*` or a map that is already full. Keys are validated before
-    /// anything is merged, so a rejected patch leaves the config untouched
-    /// (HTTP/WS answer 400 and must not persist).
+    /// `0..MAX_*`, a map that is already full, or an empty `ap_config.ssid`
+    /// (an AP without an SSID would be unreachable). The patch is validated
+    /// before anything is merged, so a rejected patch leaves the config
+    /// untouched (HTTP/WS answer 400 and must not persist).
     pub fn merge_patch(&mut self, patch: ConfigPatch) -> bool {
         if patch
             .dmx_ports
@@ -419,6 +427,9 @@ impl Config {
                 .button_actions
                 .keys()
                 .any(|&key| usize::from(key) >= MAX_BUTTON_ACTIONS)
+            || patch.ap_config.as_ref().is_some_and(|ap_config| {
+                ap_config.ssid.as_ref().is_some_and(|ssid| ssid.is_empty())
+            })
         {
             return false;
         }

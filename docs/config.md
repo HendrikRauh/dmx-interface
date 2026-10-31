@@ -19,7 +19,9 @@ configured once at boot, so those take effect on the next reboot.
 
 Out of the box the device comes up as its own access point with an SSID derived
 from the MAC address, so a freshly flashed board is always reachable without
-prior setup:
+prior setup. The derived name is written into the stored config when the factory
+defaults are created (it is not recomputed at boot), and the config API rejects
+an empty AP SSID — an AP without an SSID would be unreachable:
 
 | Setting | Value |
 | --- | --- |
