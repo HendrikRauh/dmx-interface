@@ -10,6 +10,7 @@ import starlightHeadingBadges from "starlight-heading-badges";
 import starlightImageZoom from "starlight-image-zoom";
 import starlightLinksValidator from "starlight-links-validator";
 
+import { caseDownloads } from "./src/plugins/case-downloads.js";
 import { fileTree } from "./src/plugins/file-tree.js";
 import { issueTable } from "./src/plugins/issue-table.js";
 import { mdLinkToRoute } from "./src/plugins/md-link-to-route.js";
@@ -98,6 +99,7 @@ export default defineConfig({
       // Hero shows the wordmark above the tagline (MDX-less Starlight
       // pages cannot inline the SVG in frontmatter).
       components: {
+        Head: "./src/components/DocHead.astro",
         Hero: "./src/components/BannerHero.astro",
       },
       customCss: ["./src/styles/custom.css"],
@@ -152,6 +154,13 @@ export default defineConfig({
         // ```issues fences → tables of open GitHub issues (roadmap,
         // troubleshooting); fetches at build time, warns inline when offline.
         issueTable(),
+        // ```case-downloads fences → the case print-file table (docs/case.md)
+        // from assets/case/output/manifest.json; `base` prefixes the raw-HTML
+        // links, which starlight-base-path does not touch.
+        caseDownloads({
+          base,
+          manifestPath: new URL("../assets/case/output/manifest.json", import.meta.url),
+        }),
         // Keeps root-relative links working under base: '/dmx-interface'.
         starlightBasePath(),
         catppuccin({

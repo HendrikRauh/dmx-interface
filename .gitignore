@@ -23,10 +23,15 @@ site/dist/
 
 # Generated site content (symlinked in at build time)
 site/public/api
+site/public/case
 
 # Python
 __pycache__/
 *.pyc
+venv/
+venv*/
+.env
+tempCodeRunnerFile.py
 
 # OS
 .DS_Store
@@ -47,3 +52,6 @@ dist/
 
 # Logs
 *.log
+
+# Misc
+assets/case/output/*

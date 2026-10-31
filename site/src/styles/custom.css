@@ -176,3 +176,50 @@
     fill: currentColor;
   }
 }
+
+/* Case page 3D preview (docs/case.md). model-viewer is display:inline
+   until the custom element upgrades — pin it to a block so the fallback
+   text and canvas never sit inside the surrounding text flow. */
+#case-viewer {
+  display: block;
+  width: 100%;
+  height: 28rem;
+  margin-block: 1.5rem;
+  background-color: transparent;
+  border-radius: 0.5rem;
+}
+
+/* model-viewer projects unslotted light-DOM children over the canvas via
+   its default slot — that's the fallback text for no-JS/no-custom-elements
+   contexts (e.g. GitHub rendering of docs/). Hide it once upgraded. */
+#case-viewer:defined > p {
+  display: none;
+}
+
+/* Part toggles injected after the viewer by DocHead.astro — only rendered
+   once the model's scene graph resolved, so nothing exists to style before. */
+#case-viewer + .case-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.25rem;
+  /* Reclaim part of the viewer's 1.5rem bottom margin. */
+  margin-block: -0.75rem 1.5rem;
+  font-size: var(--sl-text-xs);
+  color: var(--sl-color-gray-1);
+}
+
+#case-viewer + .case-toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  /* Starlight's content-gap rule adds margin-top to label + label; without
+     this the second and third toggle sit 16px lower. */
+  margin: 0;
+  cursor: pointer;
+}
+
+#case-viewer + .case-toggles input {
+  margin: 0;
+  accent-color: var(--sl-color-accent);
+}

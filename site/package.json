@@ -12,6 +12,7 @@
     "@astrojs/markdown-remark": "^7.3.2",
     "@astrojs/starlight": "^0.42.6",
     "@catppuccin/starlight": "^2.1.0",
+    "@google/model-viewer": "^4.4.0",
     "astro": "^7.3.8",
     "starlight-base-path": "^0.2.1",
     "starlight-github-alerts": "^0.5.0",
