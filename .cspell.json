@@ -111,6 +111,7 @@
     "kbaud",
     "latte",
     "LBEG",
+    "LDFLAGS",
     "ldproxy",
     "ledc",
     "LEDC",
