@@ -19,6 +19,9 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          # STEP/STL parts under assets/case are Git LFS; case:generate
+          # parses them and crashes on pointer files.
+          lfs: true
 
       - name: Install Nix and pre-warm flake devShell
         uses: ./.github/actions/install-nix
@@ -26,6 +29,11 @@ jobs:
       - name: Run release build from flake devShell
         run: |
           nix develop --command invoke release
+        shell: bash
+
+      - name: Generate Case Assets
+        run: |
+          nix develop --command invoke case:generate
         shell: bash
 
       - name: Determine Pre-release Status
@@ -48,3 +56,4 @@ jobs:
           generate_release_notes: true
           files: |
             dist/*.bin
+            assets/case/output/**/*
