@@ -1,5 +1,6 @@
 # cspell:ignore: JTAG UART FTDI Espressif CDC
 
+import json
 import os
 import re
 import shutil
@@ -449,6 +450,7 @@ def clean(c, full=False):
         "dist",
         _SITE_DIST,
         os.path.join(_SITE_DIR, "public", "api"),
+        os.path.join(_SITE_DIR, "public", "case"),
         os.path.join(_SITE_DIR, ".astro"),
     ]:
         _remove_path(p)
@@ -562,6 +564,36 @@ def _ensure_web_ui(c):
         web_build(c)
 
 
+def _missing_case_outputs():
+    """Files named by output/manifest.json that are absent (or no manifest).
+
+    The manifest is written by main_case.py and is the single source of truth
+    for every generated file, so new variants need no edit here."""
+    out_dir = os.path.join("assets", "case", "output")
+    try:
+        with open(os.path.join(out_dir, "manifest.json"), encoding="utf-8") as f:
+            manifest = json.load(f)
+    except (OSError, ValueError):
+        return ["manifest.json"]
+    variants = manifest.get("variants") or []
+    if not variants:
+        return ["manifest.json (no variants)"]
+    if not manifest.get("preview_glb"):
+        return ["manifest.json (no preview_glb)"]
+    names = [manifest.get("preview_glb")]
+    names += [entry.get(key) for entry in variants for key in ("lid", "box", "step")]
+    return [n for n in names if n and not os.path.exists(os.path.join(out_dir, n))]
+
+
+def _ensure_case_outputs(c):
+    """Generate assets/case/output/* when missing — the docs site embeds the
+    default-variant GLB (3D preview) and serves every variant as downloads."""
+    missing = _missing_case_outputs()
+    if missing:
+        print(f"-> case outputs missing ({', '.join(missing)}) — generating first")
+        generate_case(c)
+
+
 def _sync_rustdoc_to_site():
     """Symlink target/<triple>/doc → site/public/api (served at /api/)."""
     target, _, _ = _board_args(_DEFAULT_BOARD)
@@ -574,12 +606,25 @@ def _sync_rustdoc_to_site():
     print(f"✓ Linked rustdoc → {api_dst}")
 
 
+def _sync_case_files_to_site():
+    """Symlink assets/case/output → site/public/case (served at /case/)."""
+    src = os.path.join("assets", "case", "output")
+    dest = os.path.join(_SITE_DIR, "public", "case")
+    # Relative so the link survives a repo move; resolved against the
+    # symlink's own directory (site/public/).
+    rel = os.path.relpath(src, os.path.dirname(dest))
+    _replace_with_symlink(rel, dest)
+    print(f"✓ Linked case outputs → {dest}")
+
+
 @task(name="docs:dev", help={"port": "Dev server port (default 4321)."})
 def docs_dev(c, port=4321):
-    """Start the Astro dev server for the docs site (incl. rustdoc API at /api/)."""
+    """Start the Astro dev server for the docs site (incl. /api/ and /case/)."""
     _ensure_web_ui(c)
+    _ensure_case_outputs(c)
     docs_rustdoc(c)
     _sync_rustdoc_to_site()
+    _sync_case_files_to_site()
     # `astro dev` backgrounds only with --background or in agent shells;
     # normally this task blocks here until Ctrl-C.
     print(
@@ -619,10 +664,12 @@ def docs_preview(c, port=4321):
 
 @task(help={"o": "Serve the built site locally (docs:preview) after generation."})
 def docs(c, o=False):
-    """Full docs build: rustdoc (→ site/public/api) + Astro site + link check."""
+    """Full docs build: rustdoc (→ /api/) + case outputs (→ /case/) + site."""
     _ensure_web_ui(c)
+    _ensure_case_outputs(c)
     docs_rustdoc(c)
     _sync_rustdoc_to_site()
+    _sync_case_files_to_site()
 
     print("-> Building docs site (starlight-links-validator checks links)")
     c.run(f"cd {_SITE_DIR} && npm run build", pty=True)
@@ -634,6 +681,12 @@ def docs(c, o=False):
             docs_preview(c)
         return
     raise Exit(code=1)
+
+
+@task(name="case:generate")
+def generate_case(c):
+    """Generate 3D model of the case (STL/STEP print files + GLB preview)."""
+    c.run("python assets/case/src/main_case.py", pty=True)
 
 
 # ──────────────────────────────────────────────────────────────────────────────

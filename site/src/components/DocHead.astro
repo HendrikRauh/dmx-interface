@@ -1,0 +1,136 @@
+---
+// Loads <model-viewer> (self-hosted via npm) and wires the case GLB on the
+// case page only. Markdown <script> tags are not bundled by Astro, so the
+// module import has to live in a component; the element itself stays plain
+// raw HTML in docs/case.md (single-line open tag, CommonMark requirement).
+// The part toggles are built here too — raw HTML in Markdown cannot run JS,
+// and un-wired checkboxes would be dead controls, so the bar only appears
+// once the scene graph resolved.
+import StarlightHead from "@astrojs/starlight/components/Head.astro";
+
+const { id } = Astro.locals.starlightRoute.entry;
+---
+
+<StarlightHead />
+{
+  id === "case" && (
+    <script>
+      import "@google/model-viewer";
+
+      // Preview GLB is looked up in assets/case/output/manifest.json (both
+      // written by main_case.py) — the component never hardcodes a variant
+      // filename. The GLB itself is served from public/case/ via the base.
+      const manifest = Object.values(
+        import.meta.glob("../../../assets/case/output/manifest.json", {
+          eager: true,
+          import: "default",
+        }),
+      )[0] as { preview_glb?: string } | undefined;
+      const previewGlb = manifest?.preview_glb
+        ? `${import.meta.env.BASE_URL.replace(/\/$/, "")}/case/${manifest.preview_glb}`
+        : undefined;
+
+      /** The subset of three.js Object3D the toggles work with. */
+      interface PartObject {
+        name: string;
+        visible: boolean;
+        traverse(callback: (object: PartObject) => void): void;
+      }
+
+      /** model-viewer's internal ModelScene — a three.js Scene with the model. */
+      interface ViewerScene {
+        isScene?: boolean;
+        model?: PartObject | null;
+        queueRender?: () => void;
+      }
+
+      const viewer = document.getElementById("case-viewer");
+
+      /**
+       * The scene sits behind a symbol-keyed instance property — model-viewer
+       * exposes no API for node visibility. It is the only own symbol value
+       * that identifies as a three.js Scene (`isScene === true`).
+       */
+      function findViewerScene(element: Element): ViewerScene | null {
+        for (const key of Object.getOwnPropertySymbols(element)) {
+          const value = (element as unknown as Record<symbol, unknown>)[key];
+          if (
+            typeof value === "object" &&
+            value !== null &&
+            (value as ViewerScene).isScene === true
+          ) {
+            return value as ViewerScene;
+          }
+        }
+        return null;
+      }
+
+      function initPartToggles(): void {
+        if (!viewer) return;
+        const scene = findViewerScene(viewer);
+        const model = scene?.model;
+        if (!scene || !model) return;
+
+      const parts = [
+        { names: ["case_bottom"], label: "Bottom", checked: true },
+        { names: ["case_lid"], label: "Lid", checked: true },
+        {
+          names: ["xlr_fd", "xlr_md", "esp", "w5500"],
+          label: "Components",
+          checked: false,
+        },
+      ].map((part) => {
+        const objects: PartObject[] = [];
+        let missing = false;
+        for (const name of part.names) {
+          let count = 0;
+          model.traverse((object) => {
+            if (object.name === name) {
+              objects.push(object);
+              count += 1;
+            }
+          });
+          if (count === 0) missing = true;
+        }
+        return { ...part, objects, missing };
+      });
+
+      // Names come from the GLB (_label_glb_parts in main_case.py); if they
+      // ever drift, render no toggles rather than dead checkboxes.
+      if (parts.some((part) => part.missing)) return;
+
+      const bar = document.createElement("div");
+      bar.className = "case-toggles";
+      bar.setAttribute("role", "group");
+      bar.setAttribute("aria-label", "Toggle case parts");
+      for (const part of parts) {
+        const label = document.createElement("label");
+        const box = document.createElement("input");
+        box.type = "checkbox";
+        box.checked = part.checked;
+        // Apply the configured default up front (components start hidden).
+        for (const object of part.objects) object.visible = part.checked;
+        box.addEventListener("change", () => {
+          for (const object of part.objects) {
+            object.visible = box.checked;
+          }
+          scene.queueRender?.();
+        });
+        label.append(box, document.createTextNode(part.label));
+        bar.append(label);
+      }
+      viewer.insertAdjacentElement("afterend", bar);
+      scene.queueRender?.();
+    }
+
+      if (viewer && previewGlb) {
+        viewer.addEventListener("load", initPartToggles, { once: true });
+        viewer.setAttribute("src", previewGlb);
+      } else if (viewer) {
+        console.warn(
+          "[case] preview GLB missing — run `nix develop -c inv case:generate`",
+        );
+      }
+    </script>
+  )
+}
