@@ -10,11 +10,21 @@
 //! | 1   | 0   | IO0 low            | set `FORCE_DOWNLOAD_BOOT`       |
 //! | 0   | 1   | EN low (reset)     | software reset                  |
 //! | 0   | 0   | idle               | clear `FORCE_DOWNLOAD_BOOT`     |
-//! | 1   | 1   | transient          | no-op                           |
+//! | 1   | 1   | debounced clear    | clear `FORCE_DOWNLOAD_BOOT`     |
 //!
-//! esptool's `--before usb-reset` walk is `(0,0) -> (1,0) -> (0,1) ->
-//! (0,0)`: the `(1,0)` state arms `FORCE_DOWNLOAD_BOOT`, then `(0,1)`
-//! resets into the ROM bootloader.
+//! esptool's `--before usb-reset` walk is `(1,0)` (arm) -> a ~1-3 ms
+//! `(1,1)` blip -> `(0,1)` (reset): the `(0,1)` step boots whichever
+//! target `FORCE_DOWNLOAD_BOOT` selects. The `(1,1)` step is the hard
+//! case for this state machine, because a terminal program also ends up
+//! in `(1,1)`: pyserial asserts DTR and RTS with **separate** ioctls on
+//! open, so the firmware sees a `(1,0)` pulse before `(1,1)` — which
+//! would leave the flag armed for the lifetime of the connection, and
+//! any later reset (panic, `inv monitor`'s own open dance after a device
+//! loss) would land in the bootloader instead of the app. So `(1,1)`
+//! clears the flag, but only after it persists for [`OPEN_DEBOUNCE`]
+//! (20 ms): long enough to outlive a terminal's session-long hold, far
+//! longer than the walk's blip — which therefore never disarms the flag
+//! mid-walk.
 //!
 //! The flag lives in the RTC domain and survives software resets. The ROM
 //! bootloader does **not** clear it on entry — after a flash the chip would
@@ -54,6 +64,13 @@ const USB_PID: u16 = 0x3001;
 
 /// Line-poll interval of the DTR/RTS state machine.
 const POLL_INTERVAL: Duration = Duration::from_millis(10);
+
+/// How long `(1,1)` must persist before it disarms `FORCE_DOWNLOAD_BOOT`.
+///
+/// pyserial holds `(1,1)` for the whole session (clearing takes effect
+/// after this window), while esptool's walk only blips it for ~1-3 ms —
+/// shorter than the window, so a flash is never disarmed mid-walk.
+const OPEN_DEBOUNCE: Duration = Duration::from_millis(20);
 
 /// Log chunk size handed to the CDC endpoint (matches `max_packet_size`).
 const LOG_CHUNK: usize = 64;
@@ -120,28 +137,48 @@ pub async fn task(usb0: USB0<'static>, dp: GPIO20<'static>, dm: GPIO19<'static>)
 ///   packet, so a cancelled flush (timer branch won) loses nothing and
 ///   duplicates nothing.
 ///
-/// The flush has no connection gate: before the host has configured us the
-/// endpoint is disabled and the write errors out right away (the flush then
-/// waits a poll interval instead of spinning, so the timer branch keeps
-/// running), and an idle ring waits 10 ms between polls instead of spinning.
+/// The flush is gated on DTR: the host's CDC driver (Linux cdc-acm, Windows
+/// usbser) binds and submits receive URBs as soon as the device is
+/// configured — long before anyone opens the tty. Draining into that sink
+/// would swallow boot logs and the panic replay before `inv monitor` gets a
+/// chance to read them (the tty layer discards buffered input on open). With
+/// the gate, bytes stay in the ring until a host asserts DTR, which every
+/// terminal program does on open.
 async fn control_and_log(class: &mut CdcAcmClass<'static, Driver<'static>>) -> ! {
     let mut prev = (class.dtr(), class.rts());
     let mut deadline = Instant::now().saturating_add(POLL_INTERVAL);
+    let mut open_since: Option<Instant> = None;
+    let mut open_cleared = false;
     loop {
         let outcome = select(Timer::at(deadline), flush_logs(class)).await;
         match outcome {
             Either::First(()) => {
                 deadline = Instant::now().saturating_add(POLL_INTERVAL);
                 let now = (class.dtr(), class.rts());
-                if now == prev {
-                    continue;
+                if now != prev {
+                    prev = now;
+                    open_since = None;
+                    open_cleared = false;
+                    match now {
+                        // `(false,false)` idle: disarm immediately. `(true,true)`
+                        // starts the debounce instead of clearing (see
+                        // [`OPEN_DEBOUNCE`]) — a terminal holds it for the whole
+                        // session, esptool's walk only blips it.
+                        (false, false) => set_force_download(false),
+                        (true, true) => open_since = Some(Instant::now()),
+                        // pyserial asserts DTR before RTS: arm on the `(1,0)`
+                        // transient, then either the debounce (terminal) or the
+                        // `(0,1)` reset (esptool) follows.
+                        (true, false) => set_force_download(true),
+                        (false, true) => enter_bootloader(),
+                    }
                 }
-                prev = now;
-                match now {
-                    (false, false) => set_force_download(false),
-                    (true, false) => set_force_download(true),
-                    (false, true) => enter_bootloader(),
-                    (true, true) => {}
+                if prev == (true, true)
+                    && !open_cleared
+                    && open_since.is_some_and(|since| since.elapsed() >= OPEN_DEBOUNCE)
+                {
+                    set_force_download(false);
+                    open_cleared = true;
                 }
             }
             Either::Second(()) => {}
@@ -151,8 +188,14 @@ async fn control_and_log(class: &mut CdcAcmClass<'static, Driver<'static>>) -> !
 
 /// Copies pending log lines from the ring into the CDC endpoint until the
 /// ring is empty or the endpoint errors out. See [`control_and_log`] for the
-/// cancellation-safety argument.
+/// cancellation-safety argument and the DTR gate rationale.
 async fn flush_logs(class: &mut CdcAcmClass<'static, Driver<'static>>) {
+    if !class.dtr() {
+        // No terminal attached: keep the ring intact (drop-oldest still
+        // bounds it) and idle for one poll interval.
+        Timer::after(POLL_INTERVAL).await;
+        return;
+    }
     loop {
         let mut chunk = [0u8; LOG_CHUNK];
         let n = logging::cdc_peek(&mut chunk);
@@ -191,9 +234,10 @@ fn set_force_download(armed: bool) {
 ///
 /// `(0,1)` is a plain reset: the boot target is decided by the
 /// `FORCE_DOWNLOAD_BOOT` flag, which the `(1,0)` state arms. esptool's
-/// `--before usb-reset` walk therefore lands in the bootloader. The flag is
-/// only cleared again by `inv flash` after flashing (esptool `write-reg`)
-/// — the ROM bootloader does not clear it itself.
+/// `--before usb-reset` walk therefore lands in the bootloader. The ROM
+/// bootloader does not clear the flag itself — it is cleared by
+/// `inv flash` after flashing (esptool `write-reg`), by `(0,0)`/`(1,1)`
+/// line states, or by the terminal-open disarming above.
 fn enter_bootloader() -> ! {
     esp_hal::system::software_reset()
 }
