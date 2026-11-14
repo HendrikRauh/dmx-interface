@@ -1,0 +1,192 @@
+/* Catppuccin colors for the rustdoc API pages.
+ *
+ * Injected via `cargo doc --extend-css` (see tasks.py: docs_rustdoc), which
+ * appends this file as theme.css *after* rustdoc's own CSS — the variable
+ * blocks below therefore win at equal specificity.
+ *
+ *   light (and no data-theme) = Catppuccin Latte,  matching the site's
+ *   dark / ayu                 = Catppuccin Mocha  `catppuccin({ latte, mocha })`
+ *
+ * Palette: https://catppuccin.com/palette — accent stays teal like the site.
+ * Colors only; rustdoc keeps its bundled Fira fonts and icon filters.
+ */
+
+:root[data-theme="light"],
+:root:not([data-theme]) {
+  --main-background-color: #eff1f5;
+  --main-color: #4c4f69;
+  --settings-input-color: #179299;
+  --settings-input-border-color: #9ca0b0;
+  --settings-button-border-focus: #179299;
+  --sidebar-background-color: #e6e9ef;
+  --sidebar-background-color-hover: #ccd0da;
+  --sidebar-border-color: #bcc0cc;
+  --code-block-background-color: #e6e9ef;
+  --scrollbar-track-background-color: #ccd0da;
+  --scrollbar-thumb-background-color: rgba(108, 111, 133, 0.6);
+  --scrollbar-color: rgba(108, 111, 133, 0.6) #ccd0da;
+  --headings-border-bottom-color: #bcc0cc;
+  --border-color: #bcc0cc;
+  --button-background-color: #ccd0da;
+  --code-attribute-color: #6c6f85;
+  --toggles-color: #6c6f85;
+  --search-input-focused-border-color: #179299;
+  --copy-path-button-color: #6c6f85;
+  --code-example-button-color: #6c6f85;
+  --code-example-button-hover-color: #4c4f69;
+  --codeblock-error-hover-color: #d20f39;
+  --codeblock-error-color: rgba(210, 15, 57, 0.5);
+  --codeblock-ignore-hover-color: #df8e1d;
+  --codeblock-ignore-color: rgba(223, 142, 29, 0.6);
+  --warning-border-color: #fe640b;
+  --type-link-color: #209fb5;
+  --trait-link-color: #8839ef;
+  --assoc-item-link-color: #fe640b;
+  --function-link-color: #1e66f5;
+  --macro-link-color: #40a02b;
+  --keyword-link-color: #df8e1d;
+  --attribute-link-color: #df8e1d;
+  --mod-link-color: #df8e1d;
+  --link-color: #1e66f5;
+  --sidebar-link-color: #1e66f5;
+  --sidebar-current-link-background-color: #dce0e8;
+  --search-result-link-focus-background-color: #ccd0da;
+  --search-result-border-color: rgba(172, 176, 190, 0.6);
+  --search-color: #4c4f69;
+  --search-error-code-background-color: #ccd0da;
+  --search-results-alias-color: #4c4f69;
+  --search-results-grey-color: #6c6f85;
+  --search-tab-title-count-color: #6c6f85;
+  --search-tab-button-not-selected-border-top-color: #ccd0da;
+  --search-tab-button-not-selected-background: #ccd0da;
+  --search-tab-button-selected-border-top-color: #179299;
+  --search-tab-button-selected-background: #eff1f5;
+  --stab-background-color: rgba(223, 142, 29, 0.15);
+  --stab-code-color: #4c4f69;
+  --code-highlight-kw-color: #8839ef;
+  --code-highlight-kw-2-color: #209fb5;
+  --code-highlight-lifetime-color: #fe640b;
+  --code-highlight-prelude-color: #209fb5;
+  --code-highlight-prelude-val-color: #d20f39;
+  --code-highlight-number-color: #fe640b;
+  --code-highlight-string-color: #40a02b;
+  --code-highlight-literal-color: #d20f39;
+  --code-highlight-attribute-color: #df8e1d;
+  --code-highlight-self-color: #d20f39;
+  --code-highlight-macro-color: #179299;
+  --code-highlight-question-mark-color: #fe640b;
+  --code-highlight-comment-color: #8c8fa1;
+  --code-highlight-doc-comment-color: #6c6f85;
+  --src-line-numbers-span-color: #6c6f85;
+  --src-line-number-highlighted-background-color: #ccd0da;
+  --target-background-color: #ccd0da;
+  --target-border-color: #fe640b;
+  --kbd-color: #4c4f69;
+  --kbd-background: #eff1f5;
+  --kbd-box-shadow-color: #bcc0cc;
+  --crate-search-hover-border: #179299;
+  --src-sidebar-background-selected: #dce0e8;
+  --src-sidebar-background-hover: #ccd0da;
+  --table-alt-row-background-color: #e6e9ef;
+  --codeblock-link-background: #dce0e8;
+  --scrape-example-toggle-line-background: #bcc0cc;
+  --scrape-example-toggle-line-hover-background: #9ca0b0;
+  --scrape-example-code-line-highlight: #dce0e8;
+  --scrape-example-code-line-highlight-focus: #ccd0da;
+  --scrape-example-help-border-color: #6c6f85;
+  --scrape-example-help-color: #4c4f69;
+  --scrape-example-help-hover-border-color: #4c4f69;
+  --scrape-example-help-hover-color: #4c4f69;
+  --scrape-example-code-wrapper-background-start: #eff1f5;
+  --scrape-example-code-wrapper-background-end: rgba(239, 241, 245, 0);
+}
+
+:root[data-theme="dark"],
+:root[data-theme="ayu"] {
+  --main-background-color: #1e1e2e;
+  --main-color: #cdd6f4;
+  --settings-input-color: #94e2d5;
+  --settings-input-border-color: #6c7086;
+  --settings-button-border-focus: #94e2d5;
+  --sidebar-background-color: #181825;
+  --sidebar-background-color-hover: #313244;
+  --sidebar-border-color: #45475a;
+  --code-block-background-color: #11111b;
+  --scrollbar-track-background-color: #181825;
+  --scrollbar-thumb-background-color: rgba(102, 105, 124, 0.6);
+  --scrollbar-color: rgba(102, 105, 124, 0.6) #313244;
+  --headings-border-bottom-color: #45475a;
+  --border-color: #45475a;
+  --button-background-color: #313244;
+  --code-attribute-color: #6c7086;
+  --toggles-color: #6c7086;
+  --search-input-focused-border-color: #94e2d5;
+  --copy-path-button-color: #6c7086;
+  --code-example-button-color: #6c7086;
+  --code-example-button-hover-color: #a6adc8;
+  --codeblock-error-hover-color: #f38ba8;
+  --codeblock-error-color: rgba(243, 139, 168, 0.5);
+  --codeblock-ignore-hover-color: #f9e2af;
+  --codeblock-ignore-color: rgba(249, 226, 175, 0.6);
+  --warning-border-color: #fab387;
+  --type-link-color: #74c7ec;
+  --trait-link-color: #cba6f7;
+  --assoc-item-link-color: #fab387;
+  --function-link-color: #89b4fa;
+  --macro-link-color: #a6e3a1;
+  --keyword-link-color: #f9e2af;
+  --attribute-link-color: #f9e2af;
+  --mod-link-color: #f9e2af;
+  --link-color: #89b4fa;
+  --sidebar-link-color: #89b4fa;
+  --sidebar-current-link-background-color: #313244;
+  --search-result-link-focus-background-color: #313244;
+  --search-result-border-color: rgba(88, 91, 112, 0.6);
+  --search-color: #cdd6f4;
+  --search-error-code-background-color: #313244;
+  --search-results-alias-color: #cdd6f4;
+  --search-results-grey-color: #a6adc8;
+  --search-tab-title-count-color: #6c7086;
+  --search-tab-button-not-selected-border-top-color: #313244;
+  --search-tab-button-not-selected-background: #313244;
+  --search-tab-button-selected-border-top-color: #94e2d5;
+  --search-tab-button-selected-background: #1e1e2e;
+  --stab-background-color: rgba(249, 226, 175, 0.15);
+  --stab-code-color: #f9e2af;
+  --code-highlight-kw-color: #cba6f7;
+  --code-highlight-kw-2-color: #74c7ec;
+  --code-highlight-lifetime-color: #fab387;
+  --code-highlight-prelude-color: #74c7ec;
+  --code-highlight-prelude-val-color: #f38ba8;
+  --code-highlight-number-color: #fab387;
+  --code-highlight-string-color: #a6e3a1;
+  --code-highlight-literal-color: #f38ba8;
+  --code-highlight-attribute-color: #f9e2af;
+  --code-highlight-self-color: #f38ba8;
+  --code-highlight-macro-color: #94e2d5;
+  --code-highlight-question-mark-color: #fab387;
+  --code-highlight-comment-color: #6c7086;
+  --code-highlight-doc-comment-color: #a6adc8;
+  --src-line-numbers-span-color: #6c7086;
+  --src-line-number-highlighted-background-color: #313244;
+  --target-background-color: #313244;
+  --target-border-color: #fab387;
+  --kbd-color: #cdd6f4;
+  --kbd-background: #313244;
+  --kbd-box-shadow-color: #45475a;
+  --crate-search-hover-border: #94e2d5;
+  --src-sidebar-background-selected: #313244;
+  --src-sidebar-background-hover: #45475a;
+  --table-alt-row-background-color: #181825;
+  --codeblock-link-background: #11111b;
+  --scrape-example-toggle-line-background: #45475a;
+  --scrape-example-toggle-line-hover-background: #585b70;
+  --scrape-example-code-line-highlight: #313244;
+  --scrape-example-code-line-highlight-focus: #45475a;
+  --scrape-example-help-border-color: #6c7086;
+  --scrape-example-help-color: #a6adc8;
+  --scrape-example-help-hover-border-color: #a6adc8;
+  --scrape-example-help-hover-color: #cdd6f4;
+  --scrape-example-code-wrapper-background-start: #1e1e2e;
+  --scrape-example-code-wrapper-background-end: rgba(30, 30, 46, 0);
+}
