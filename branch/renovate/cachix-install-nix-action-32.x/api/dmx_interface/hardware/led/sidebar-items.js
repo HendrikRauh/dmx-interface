@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["DEFAULT_BRIGHTNESS","DUTY_MAX","ERROR_PERIOD_MS","PEAK_BRIGHTNESS","RESETTING_PERIOD_MS","STARTUP_PERIOD_MS","TICK","WARNING_PERIOD_MS"],"enum":["LedStatus"],"fn":["apply","blink","breathing","brightness_counts","current_status","set","set_brightness","task"],"static":["BRIGHTNESS","STATUS"]};

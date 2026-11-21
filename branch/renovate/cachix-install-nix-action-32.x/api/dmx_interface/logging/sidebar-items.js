@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"constant":["LINE_MAX","RING_SIZE"],"fn":["cdc_commit","cdc_peek","configured_level","drain_snapshot","init","level_marker","mark_snapshot_floor","push_line","push_raw","uptime_ms"],"static":["CDC_RING","LOGGER","READY"],"struct":["LogRing","Logger","State"]};
